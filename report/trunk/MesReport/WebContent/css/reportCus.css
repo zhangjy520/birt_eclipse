@@ -1,0 +1,10 @@
+ input{font-size:13px !important}
+ input[type="radio"] {display:none} 
+ select {height:30px !important} 
+ input[disabled] {display:none} 
+ label[title="Null Value"]{display:none} 
+ iframe {border:0px}
+ td {padding:4px;font-size:13px;text-align:right}
+ th {padding:2px}
+ span[class="requiredConCus"]:after {content:"*"; color:red;font-weight:bold;}
+ h2,h3{margin:0px;}

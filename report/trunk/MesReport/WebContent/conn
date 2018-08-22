@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataTools.ServerProfiles version="1.0">
+	<profile autoconnect="No" desc="" id="56f4b9d1-3b79-11e7-ace1-b8bc4740470f" name="dsfdsfds" providerID="org.eclipse.birt.report.data.oda.jdbc">
+	<baseproperties>
+		<property name="odaUser" value="mes"/>
+		<property name="metadataBidiFormatStr" value="ILYNN"/>
+		<property name="odaDriverClass" value="com.mysql.jdbc.Driver"/>
+		<property name="odaJndiName" value=""/>
+		<property name="odaPassword" value="mespwd"/>
+		<property name="disabledMetadataBidiFormatStr" value=""/>
+		<property name="contentBidiFormatStr" value="ILYNN"/>
+		<property name="odaURL" value="jdbc:mysql://10.168.1.55:3306/mes-report?useUnicode=true&amp;characterEncoding=utf-8"/>
+		<property name="disabledContentBidiFormatStr" value=""/>
+	</baseproperties>
+	<org.eclipse.datatools.connectivity.versionInfo>
+		<property name="technology.version.org.eclipse.birt.report.data.oda.jdbc" value="3.0.6"/>
+		<property name="technology.name.org.eclipse.birt.report.data.oda.jdbc" value="DTP Open Data Access"/>
+		<property name="server.version" value="5.7.16"/>
+		<property name="server.name" value="MySQL"/>
+	</org.eclipse.datatools.connectivity.versionInfo></profile>
+</DataTools.ServerProfiles>

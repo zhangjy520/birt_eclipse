@@ -1,0 +1,2135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="theme">mes.defaultTheme</property>
+    <property name="iconFile">/templates/crosstab.gif</property>
+    <property name="cheatSheet">org.eclipse.birt.report.designer.ui.cheatsheet.crosstab</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">mes.rptlibrary</property>
+            <property name="namespace">mes</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="userId" id="18" extends="mes.userId"/>
+        <scalar-parameter name="userName" id="19" extends="mes.userName"/>
+        <scalar-parameter name="roleid" id="20" extends="mes.roleid"/>
+        <scalar-parameter name="sqlText" id="21" extends="mes.sqlText"/>
+        <scalar-parameter name="isDebug" id="22" extends="mes.isDebug"/>
+        <scalar-parameter name="showData" id="23" extends="mes.showData"/>
+        <scalar-parameter name="month" id="212">
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">false</property>
+            <property name="dataSetName">月份</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["id"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["id"]</expression>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">201710</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="dsfdsfds" id="33">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://192.168.1.178:3306/mes-energy?useUnicode=true&amp;characterEncoding=utf-8</property>
+            <property name="odaUser">mes</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">bWVzcHdk</encrypted-property>
+            <property name="OdaConnProfileName">dsfdsfds</property>
+            <property name="OdaConnProfileStorePath">conn</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="空压气" id="34">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">energyType</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">energyType</text-property>
+                    <text-property name="heading">energyType</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">parentArea</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">parentArea</text-property>
+                    <text-property name="heading">parentArea</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">area</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">area</text-property>
+                    <text-property name="heading">area</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">useData</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">useData</text-property>
+                    <text-property name="heading">useData</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">meterNumber</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">meterNumber</text-property>
+                    <text-property name="heading">meterNumber</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">energyType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">parentArea</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">area</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">useData</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">meterNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+
+
+if (params["month"].value != null &amp;&amp; params["month"].value != ""){
+	macro = "10001=10001" ;
+	replaceStr = "month='" + params["month"].value + "'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);
+}
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">energyType</property>
+                    <property name="nativeName">energyType</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">parentArea</property>
+                    <property name="nativeName">parentArea</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">area</property>
+                    <property name="nativeName">area</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">useData</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">meterNumber</property>
+                    <property name="nativeName">meterNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select '空压气' AS energyType,
+CASE WHEN POSITION('_' IN REPLACE(area,'恒盛_',''))>0 THEN SUBSTRING_INDEX(REPLACE(area,'恒盛_',''),'_',1)
+ELSE REPLACE(area,'恒盛_','')
+END
+AS parentArea,
+CASE WHEN POSITION('_' IN REPLACE(area,'恒盛_',''))>0 THEN SUBSTR(REPLACE(area,'恒盛_',''),POSITION('_' IN REPLACE(area,'恒盛_',''))+1)
+ELSE ''
+END
+AS area,
+useData,meterNumber from energy_compressair_month where 10001=10001  ORDER BY meterNumber ASC]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>parentArea</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>parentArea</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>parentArea</design:label>
+            <design:formattingHints>
+              <design:displaySize>2</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>area</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>88</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>area</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>area</design:label>
+            <design:formattingHints>
+              <design:displaySize>88</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>useData</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>useData</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="水" id="101">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">energyType</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">energyType</text-property>
+                    <text-property name="heading">energyType</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">area1</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">area1</text-property>
+                    <text-property name="heading">area1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">meteringType</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">meteringType</text-property>
+                    <text-property name="heading">meteringType</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">useData</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">useData</text-property>
+                    <text-property name="heading">useData</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">energyType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">area1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">meteringType</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">useData</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+
+
+if (params["month"].value != null &amp;&amp; params["month"].value != ""){
+	macro = "10001=10001" ;
+	replaceStr = "month='" + params["month"].value + "'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);
+}
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">energyType</property>
+                    <property name="nativeName">energyType</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">area1</property>
+                    <property name="nativeName">area1</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">meteringType</property>
+                    <property name="nativeName">meteringType</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">useData</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select '水' as energyType,
+CASE WHEN POSITION('_' IN REPLACE(area,'恒盛_',''))=0 THEN REPLACE(area,'恒盛_','')
+ELSE SUBSTR(REPLACE(area,'恒盛_',''),1,POSITION('_' IN REPLACE(area,'恒盛_',''))-1) 
+END
+AS area1,
+meteringType,SUM(useData) AS useData
+from energy_water_month 
+WHERE 10001=10001 and parentArea IN ('恒盛_生产','恒盛_生活','恒盛_中水') 
+GROUP BY area1,meteringType
+UNION ALL
+select * FROM (
+select '水' as energyType,'深井水总量' as area1,meteringType,SUM(useData) AS useData from energy_water_month  
+WHERE 10001=10001 AND parentArea IS NULL
+)d WHERE useData IS NOT NULL]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>energyType</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>energyType</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>energyType</design:label>
+            <design:formattingHints>
+              <design:displaySize>1</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>area1</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>90</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>area1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>area1</design:label>
+            <design:formattingHints>
+              <design:displaySize>90</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>meteringType</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>meteringType</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>meteringType</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>useData</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>useData</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="蒸汽" id="146">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">energyType</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">energyType</text-property>
+                    <text-property name="heading">energyType</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">area</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">area</text-property>
+                    <text-property name="heading">area</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">meteringType</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">meteringType</text-property>
+                    <text-property name="heading">meteringType</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">useData</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">useData</text-property>
+                    <text-property name="heading">useData</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">energyType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">area</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">meteringType</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">useData</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+
+
+if (params["month"].value != null &amp;&amp; params["month"].value != ""){
+	macro = "10001=10001" ;
+	replaceStr = "month='" + params["month"].value + "'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);
+}
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">energyType</property>
+                    <property name="nativeName">energyType</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">area</property>
+                    <property name="nativeName">area</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">meteringType</property>
+                    <property name="nativeName">meteringType</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">useData</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT '蒸汽' as energyType,REPLACE(area,'恒盛_','') as area,meteringType,useData from energy_steam_month 
+WHERE 10001=10001 and parentArea='恒盛']]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>energyType</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>energyType</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>energyType</design:label>
+            <design:formattingHints>
+              <design:displaySize>2</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>area</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>30</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>area</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>area</design:label>
+            <design:formattingHints>
+              <design:displaySize>30</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>meteringType</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>meteringType</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>meteringType</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>useData</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>useData</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="电" id="179">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">energyType</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">energyType</text-property>
+                    <text-property name="heading">energyType</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">area</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">area</text-property>
+                    <text-property name="heading">area</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">meteringType</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">meteringType</text-property>
+                    <text-property name="heading">meteringType</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">useData</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">useData</text-property>
+                    <text-property name="heading">useData</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">energyType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">area</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">meteringType</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">useData</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+
+
+if (params["month"].value != null &amp;&amp; params["month"].value != ""){
+	macro = "10001=10001" ;
+	replaceStr = "month='" + params["month"].value + "'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);
+}
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">energyType</property>
+                    <property name="nativeName">energyType</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">area</property>
+                    <property name="nativeName">area</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">meteringType</property>
+                    <property name="nativeName">meteringType</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">useData</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT '电' as energyType,substring_index(substring_index(REPLACE(area,'恒盛_',''),'_',2),'_',1) AS area,meteringType,SUM(useData) AS useData
+from energy_electric_month WHERE 10001=10001 and parentArea='恒盛'  GROUP BY substring_index(substring_index(REPLACE(area,'恒盛_',''),'_',2),'_',1)
+]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>energyType</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>energyType</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>energyType</design:label>
+            <design:formattingHints>
+              <design:displaySize>1</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>area</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>30</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>area</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>area</design:label>
+            <design:formattingHints>
+              <design:displaySize>30</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>meteringType</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>meteringType</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>meteringType</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>useData</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>useData</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="月份" id="211">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">year</property>
+                    <text-property name="displayName">year</text-property>
+                    <text-property name="heading">year</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">month</property>
+                    <text-property name="displayName">month</text-property>
+                    <text-property name="heading">month</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">start</property>
+                    <text-property name="displayName">start</text-property>
+                    <text-property name="heading">start</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">end</property>
+                    <text-property name="displayName">end</text-property>
+                    <text-property name="heading">end</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                    <text-property name="displayName">status</text-property>
+                    <text-property name="heading">status</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">year</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">month</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">start</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">end</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">status</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">year</property>
+                    <property name="nativeName">year</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">month</property>
+                    <property name="nativeName">month</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">start</property>
+                    <property name="nativeName">start</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">end</property>
+                    <property name="nativeName">end</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">status</property>
+                    <property name="nativeName">status</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select * from energy_time where `status`=1 and `start`<=now() order by `end` desc]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>year</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>year</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>year</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>month</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>month</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>month</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>start</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>start</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>start</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>end</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>end</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>end</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>status</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>status</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>status</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="空压气" id="35">
+            <property name="dimensions">
+                <tabular-dimension name="Group1" id="36">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="37">
+                            <property name="levels">
+                                <tabular-level name="energyType" id="69">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">energyType</property>
+                                </tabular-level>
+                                <tabular-level name="parentArea" id="70">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">parentArea</property>
+                                </tabular-level>
+                                <tabular-level name="area" id="71">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">area</property>
+                                </tabular-level>
+                                <tabular-level name="meterNumber" id="100">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">meterNumber</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="40">
+                    <property name="measures">
+                        <tabular-measure name="useData" id="41">
+                            <expression name="measureExpression" type="javascript">dataSetRow["useData"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">空压气</property>
+        </tabular-cube>
+        <tabular-cube name="水" id="102">
+            <property name="dimensions">
+                <tabular-dimension name="Group2" id="103">
+                    <property name="isTimeType">false</property>
+                    <property name="defaultHierarchy">NewTabularHierarchy1</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy1" id="104">
+                            <property name="levels">
+                                <tabular-level name="energyType" id="107">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">energyType</property>
+                                </tabular-level>
+                                <tabular-level name="area1" id="108">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">area1</property>
+                                </tabular-level>
+                                <tabular-level name="meteringType" id="111">
+                                    <property name="dataType">integer</property>
+                                    <property name="columnName">meteringType</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field1" id="109">
+                    <property name="measures">
+                        <tabular-measure name="useData1" id="112">
+                            <expression name="measureExpression" type="javascript">dataSetRow["useData"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">水</property>
+        </tabular-cube>
+        <tabular-cube name="蒸汽" id="147">
+            <property name="dimensions">
+                <tabular-dimension name="Group4" id="148">
+                    <property name="defaultHierarchy">NewTabularHierarchy2</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy2" id="149">
+                            <property name="levels">
+                                <tabular-level name="energyType" id="150">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">energyType</property>
+                                </tabular-level>
+                                <tabular-level name="area" id="151">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">area</property>
+                                </tabular-level>
+                                <tabular-level name="meteringType" id="154">
+                                    <property name="dataType">integer</property>
+                                    <property name="columnName">meteringType</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field2" id="152">
+                    <property name="measures">
+                        <tabular-measure name="useData2" id="155">
+                            <expression name="measureExpression" type="javascript">dataSetRow["useData"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">蒸汽</property>
+        </tabular-cube>
+        <tabular-cube name="电" id="180">
+            <property name="dimensions">
+                <tabular-dimension name="Group3" id="181">
+                    <property name="defaultHierarchy">NewTabularHierarchy3</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy3" id="182">
+                            <property name="levels">
+                                <tabular-level name="energyType" id="183">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">energyType</property>
+                                </tabular-level>
+                                <tabular-level name="area" id="184">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">area</property>
+                                </tabular-level>
+                                <tabular-level name="meteringType" id="291">
+                                    <property name="dataType">integer</property>
+                                    <property name="columnName">meteringType</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field3" id="186">
+                    <property name="measures">
+                        <tabular-measure name="useData3" id="187">
+                            <expression name="measureExpression" type="javascript">dataSetRow["useData"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">电</property>
+        </tabular-cube>
+    </cubes>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">custom</property>
+            <property name="height">20cm</property>
+            <property name="width">20cm</property>
+            <page-header>
+                <grid id="239">
+                    <column id="240"/>
+                    <column id="241"/>
+                    <column id="242"/>
+                    <column id="243"/>
+                    <column id="244"/>
+                    <column id="245"/>
+                    <column id="246"/>
+                    <column id="247"/>
+                    <row id="248">
+                        <cell id="249">
+                            <property name="colSpan">8</property>
+                            <property name="rowSpan">1</property>
+                            <text-data id="266">
+                                <property name="fontSize">18px</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <expression name="valueExpr">BirtStr.left(params["month"].value,4)+"年"+BirtStr.right(params["month"].value,2)+"月水、电、气消耗月报表"</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                    <row id="257">
+                        <cell id="258">
+                            <property name="colSpan">3</property>
+                            <property name="rowSpan">1</property>
+                            <label id="267">
+                                <text-property name="text">石家庄常山纺织股份有限公司恒盛分公司</text-property>
+                            </label>
+                        </cell>
+                        <cell id="261"/>
+                        <cell id="262"/>
+                        <cell id="263"/>
+                        <cell id="264">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <label id="268">
+                                <text-property name="text">编号：CSGF-HS-D-DL-04</text-property>
+                            </label>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid id="213">
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">Column Binding</property>
+                            <expression name="expression" type="javascript">"制表时间："+Formatter.format(new Date(),'yyyy-MM-dd HH:mm:ss')</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <column id="214"/>
+                    <column id="215"/>
+                    <column id="216"/>
+                    <column id="217"/>
+                    <column id="218"/>
+                    <column id="219"/>
+                    <row id="220">
+                        <cell id="221">
+                            <label id="234">
+                                <property name="textAlign">right</property>
+                                <text-property name="text">动力主管：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="222"/>
+                        <cell id="223">
+                            <label id="235">
+                                <property name="textAlign">right</property>
+                                <text-property name="text">制表人：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="224">
+                            <text-data id="236">
+                                <expression name="valueExpr">params["userName"].value</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="225">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <data id="238">
+                                <property name="resultSetColumn">Column Binding</property>
+                            </data>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="24">
+            <property name="height">6.236111111111111in</property>
+            <column id="25"/>
+            <column id="26"/>
+            <row id="27">
+                <property name="height">6.236111111111111in</property>
+                <cell id="28">
+                    <extended-item extensionName="Crosstab" extensionVersion="3.7.0" id="72">
+                        <property name="cube">空压气</property>
+                        <property name="measures">
+                            <extended-item extensionName="MeasureView" id="90">
+                                <property name="measure">useData</property>
+                                <property name="detail">
+                                    <extended-item extensionName="AggregationCell" id="91">
+                                        <property name="aggregationOnRow">Group1/area</property>
+                                        <property name="verticalAlign">middle</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                        <property name="content">
+                                            <data id="92">
+                                                <property name="textAlign">right</property>
+                                                <property name="resultSetColumn">useData_Group1/area</property>
+                                            </data>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="aggregations">
+                                    <extended-item extensionName="AggregationCell" id="96">
+                                        <property name="aggregationOnRow">Group1/parentArea</property>
+                                        <property name="verticalAlign">middle</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                        <property name="content">
+                                            <data id="97">
+                                                <property name="textAlign">right</property>
+                                                <property name="resultSetColumn">useData_Group1/parentArea</property>
+                                            </data>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="header">
+                                    <extended-item extensionName="CrosstabCell" id="93">
+                                        <property name="content">
+                                            <label id="94">
+                                                <property name="textAlign">center</property>
+                                                <text-property name="text">用量(m³)</text-property>
+                                            </label>
+                                        </property>
+                                        <property name="verticalAlign">middle</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                    </extended-item>
+                                </property>
+                            </extended-item>
+                        </property>
+                        <property name="rows">
+                            <extended-item extensionName="CrosstabView" id="74">
+                                <property name="views">
+                                    <extended-item extensionName="DimensionView" id="75">
+                                        <property name="dimension">Group1</property>
+                                        <property name="levels">
+                                            <extended-item extensionName="LevelView" name="NewLevel View" id="76">
+                                                <property name="level">Group1/energyType</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="77">
+                                                        <property name="content">
+                                                            <data name="energyType" id="78">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">energyType</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                            <extended-item extensionName="LevelView" name="NewLevel View1" id="80">
+                                                <property name="level">Group1/parentArea</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="81">
+                                                        <property name="content">
+                                                            <data name="parentArea" id="83">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">parentArea</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                                <property name="aggregationHeader">
+                                                    <extended-item extensionName="CrosstabCell" id="95">
+                                                        <property name="content">
+                                                            <data name="parentArea_TOTAL" id="98">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">parentArea_TOTAL</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                            <extended-item extensionName="LevelView" name="NewLevel View2" id="85">
+                                                <property name="level">Group1/area</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="86">
+                                                        <property name="content">
+                                                            <data name="area" id="88">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">area</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="grandTotalLocation">after</property>
+                            </extended-item>
+                        </property>
+                        <property name="header">
+                            <extended-item extensionName="CrosstabCell" id="73">
+                                <property name="content">
+                                    <label id="79">
+                                        <text-property name="text"></text-property>
+                                    </label>
+                                </property>
+                                <property name="verticalAlign">middle</property>
+                            </extended-item>
+                            <extended-item extensionName="CrosstabCell" id="82">
+                                <property name="content">
+                                    <label id="84">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">使用部门</text-property>
+                                    </label>
+                                </property>
+                                <property name="verticalAlign">middle</property>
+                            </extended-item>
+                            <extended-item extensionName="CrosstabCell" id="87">
+                                <property name="content">
+                                    <label id="89">
+                                        <text-property name="text"></text-property>
+                                    </label>
+                                </property>
+                                <property name="verticalAlign">middle</property>
+                            </extended-item>
+                        </property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">energyType</property>
+                                <expression name="expression">dimension["Group1"]["energyType"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">parentArea</property>
+                                <expression name="expression">dimension["Group1"]["parentArea"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">area</property>
+                                <expression name="expression">dimension["Group1"]["area"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">useData_Group1/area</property>
+                                <expression name="expression">measure["useData"]</expression>
+                                <property name="dataType">float</property>
+                                <simple-property-list name="aggregateOn">
+                                    <value>Group1/area</value>
+                                </simple-property-list>
+                                <property name="aggregateFunction">SUM</property>
+                            </structure>
+                            <structure>
+                                <property name="name">useData_Group1/parentArea</property>
+                                <expression name="expression">measure["useData"]</expression>
+                                <property name="dataType">float</property>
+                                <simple-property-list name="aggregateOn">
+                                    <value>Group1/parentArea</value>
+                                </simple-property-list>
+                                <property name="aggregateFunction">SUM</property>
+                            </structure>
+                            <structure>
+                                <property name="name">parentArea_TOTAL</property>
+                                <expression name="expression" type="javascript">"小计"</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                    </extended-item>
+                    <extended-item extensionName="Crosstab" extensionVersion="3.7.0" id="270">
+                        <property name="cube">电</property>
+                        <property name="measures">
+                            <extended-item extensionName="MeasureView" id="308">
+                                <property name="measure">useData3</property>
+                                <property name="detail">
+                                    <extended-item extensionName="AggregationCell" id="309">
+                                        <property name="aggregationOnRow">Group3/meteringType</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                        <property name="content">
+                                            <data id="310">
+                                                <property name="textAlign">right</property>
+                                                <property name="resultSetColumn">useData3_Group3/meteringType</property>
+                                            </data>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="aggregations">
+                                    <extended-item extensionName="AggregationCell" id="363">
+                                        <property name="aggregationOnRow">Group3/energyType</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                        <property name="content">
+                                            <data id="364">
+                                                <property name="textAlign">right</property>
+                                                <property name="resultSetColumn">useData3_Group3/energyType</property>
+                                            </data>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="header">
+                                    <extended-item extensionName="CrosstabCell" id="311">
+                                        <property name="content">
+                                            <label id="312">
+                                                <property name="textAlign">center</property>
+                                                <text-property name="text">用量(kwh)</text-property>
+                                            </label>
+                                        </property>
+                                        <property name="height">0.2986111111111111in</property>
+                                    </extended-item>
+                                </property>
+                            </extended-item>
+                        </property>
+                        <property name="rows">
+                            <extended-item extensionName="CrosstabView" id="292">
+                                <property name="views">
+                                    <extended-item extensionName="DimensionView" id="293">
+                                        <property name="dimension">Group3</property>
+                                        <property name="levels">
+                                            <extended-item extensionName="LevelView" name="NewLevel View9" id="294">
+                                                <property name="level">Group3/energyType</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="295">
+                                                        <property name="content">
+                                                            <data name="energyType3" id="296">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">energyType</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                                <property name="aggregationHeader">
+                                                    <extended-item extensionName="CrosstabCell" id="362">
+                                                        <property name="content">
+                                                            <data name="energyType_TOTAL" id="365">
+                                                                <property name="resultSetColumn">energyType_TOTAL</property>
+                                                            </data>
+                                                        </property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                            <extended-item extensionName="LevelView" name="NewLevel View10" id="298">
+                                                <property name="level">Group3/area</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="299">
+                                                        <property name="content">
+                                                            <data name="area3" id="301">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">area</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                            <extended-item extensionName="LevelView" name="NewLevel View11" id="303">
+                                                <property name="level">Group3/meteringType</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="304">
+                                                        <property name="content">
+                                                            <data name="meteringType2" id="306">
+                                                                <property name="resultSetColumn">meteringType</property>
+                                                            </data>
+                                                        </property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="grandTotalLocation">after</property>
+                            </extended-item>
+                        </property>
+                        <property name="header">
+                            <extended-item extensionName="CrosstabCell" id="271">
+                                <property name="content">
+                                    <label id="297">
+                                        <text-property name="text"></text-property>
+                                    </label>
+                                </property>
+                            </extended-item>
+                            <extended-item extensionName="CrosstabCell" id="300">
+                                <property name="content">
+                                    <label id="302">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">使用部门</text-property>
+                                    </label>
+                                </property>
+                            </extended-item>
+                            <extended-item extensionName="CrosstabCell" id="305">
+                                <property name="content">
+                                    <label id="307">
+                                        <text-property name="text"></text-property>
+                                    </label>
+                                </property>
+                            </extended-item>
+                        </property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">energyType</property>
+                                <expression name="expression">dimension["Group3"]["energyType"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">area</property>
+                                <expression name="expression">dimension["Group3"]["area"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">meteringType</property>
+                                <expression name="expression" type="javascript">""</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">useData3_Group3/meteringType</property>
+                                <expression name="expression">measure["useData3"]</expression>
+                                <property name="dataType">float</property>
+                                <simple-property-list name="aggregateOn">
+                                    <value>Group3/meteringType</value>
+                                </simple-property-list>
+                                <property name="aggregateFunction">SUM</property>
+                            </structure>
+                            <structure>
+                                <property name="name">useData3_Group3/energyType</property>
+                                <expression name="expression">measure["useData3"]</expression>
+                                <property name="dataType">float</property>
+                                <simple-property-list name="aggregateOn">
+                                    <value>Group3/energyType</value>
+                                </simple-property-list>
+                                <property name="aggregateFunction">SUM</property>
+                            </structure>
+                            <structure>
+                                <property name="name">energyType_TOTAL</property>
+                                <expression name="expression" type="javascript">"总用量"</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                    </extended-item>
+                    <extended-item extensionName="Crosstab" extensionVersion="3.7.0" id="156">
+                        <property name="cube">蒸汽</property>
+                        <property name="measures">
+                            <extended-item extensionName="MeasureView" id="174">
+                                <property name="measure">useData2</property>
+                                <property name="detail">
+                                    <extended-item extensionName="AggregationCell" id="175">
+                                        <property name="aggregationOnRow">Group4/meteringType</property>
+                                        <property name="verticalAlign">middle</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                        <property name="content">
+                                            <data id="176">
+                                                <property name="textAlign">right</property>
+                                                <property name="resultSetColumn">useData2_Group4/meteringType</property>
+                                            </data>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="aggregations">
+                                    <extended-item extensionName="AggregationCell" id="367">
+                                        <property name="aggregationOnRow">Group4/energyType</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                        <property name="content">
+                                            <data id="368">
+                                                <property name="textAlign">right</property>
+                                                <property name="resultSetColumn">useData2_Group4/energyType</property>
+                                            </data>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="header">
+                                    <extended-item extensionName="CrosstabCell" id="177">
+                                        <property name="content">
+                                            <label id="178">
+                                                <property name="textAlign">center</property>
+                                                <text-property name="text">用量（吨）</text-property>
+                                            </label>
+                                        </property>
+                                        <property name="verticalAlign">middle</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                    </extended-item>
+                                </property>
+                            </extended-item>
+                        </property>
+                        <property name="rows">
+                            <extended-item extensionName="CrosstabView" id="158">
+                                <property name="views">
+                                    <extended-item extensionName="DimensionView" id="159">
+                                        <property name="dimension">Group4</property>
+                                        <property name="levels">
+                                            <extended-item extensionName="LevelView" name="NewLevel View6" id="160">
+                                                <property name="level">Group4/energyType</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="161">
+                                                        <property name="content">
+                                                            <data name="energyType2" id="162">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">energyType</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                                <property name="aggregationHeader">
+                                                    <extended-item extensionName="CrosstabCell" id="366">
+                                                        <property name="content">
+                                                            <data name="energyType_TOTAL1" id="369">
+                                                                <property name="resultSetColumn">energyType_TOTAL</property>
+                                                            </data>
+                                                        </property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                            <extended-item extensionName="LevelView" name="NewLevel View7" id="164">
+                                                <property name="level">Group4/area</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="165">
+                                                        <property name="content">
+                                                            <data name="area2" id="167">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">area</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                            <extended-item extensionName="LevelView" name="NewLevel View8" id="169">
+                                                <property name="level">Group4/meteringType</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="170">
+                                                        <property name="content">
+                                                            <data name="meteringType1" id="172">
+                                                                <property name="resultSetColumn">meteringType</property>
+                                                            </data>
+                                                        </property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="grandTotalLocation">after</property>
+                            </extended-item>
+                        </property>
+                        <property name="header">
+                            <extended-item extensionName="CrosstabCell" id="157">
+                                <property name="content">
+                                    <label id="163">
+                                        <text-property name="text"></text-property>
+                                    </label>
+                                </property>
+                            </extended-item>
+                            <extended-item extensionName="CrosstabCell" id="166">
+                                <property name="content">
+                                    <label id="168">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">使用部门</text-property>
+                                    </label>
+                                </property>
+                                <property name="verticalAlign">middle</property>
+                            </extended-item>
+                            <extended-item extensionName="CrosstabCell" id="171">
+                                <property name="content">
+                                    <label id="173">
+                                        <text-property name="text"></text-property>
+                                    </label>
+                                </property>
+                            </extended-item>
+                        </property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">energyType</property>
+                                <expression name="expression">dimension["Group4"]["energyType"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">area</property>
+                                <expression name="expression">dimension["Group4"]["area"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">meteringType</property>
+                                <expression name="expression" type="javascript">""</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">useData2_Group4/meteringType</property>
+                                <expression name="expression">measure["useData2"]</expression>
+                                <property name="dataType">float</property>
+                                <simple-property-list name="aggregateOn">
+                                    <value>Group4/meteringType</value>
+                                </simple-property-list>
+                                <property name="aggregateFunction">SUM</property>
+                            </structure>
+                            <structure>
+                                <property name="name">useData2_Group4/energyType</property>
+                                <expression name="expression">measure["useData2"]</expression>
+                                <property name="dataType">float</property>
+                                <simple-property-list name="aggregateOn">
+                                    <value>Group4/energyType</value>
+                                </simple-property-list>
+                                <property name="aggregateFunction">SUM</property>
+                            </structure>
+                            <structure>
+                                <property name="name">energyType_TOTAL</property>
+                                <expression name="expression" type="javascript">"总用量"</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                    </extended-item>
+                </cell>
+                <cell id="29">
+                    <extended-item extensionName="Crosstab" extensionVersion="3.7.0" id="113">
+                        <property name="cube">水</property>
+                        <property name="measures">
+                            <extended-item extensionName="MeasureView" id="137">
+                                <property name="measure">useData1</property>
+                                <property name="detail">
+                                    <extended-item extensionName="AggregationCell" id="138">
+                                        <property name="aggregationOnRow">Group2/meteringType</property>
+                                        <property name="verticalAlign">middle</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                        <property name="content">
+                                            <data id="139">
+                                                <property name="textAlign">right</property>
+                                                <property name="resultSetColumn">useData1_Group2/meteringType</property>
+                                            </data>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="aggregations">
+                                    <extended-item extensionName="AggregationCell" id="143">
+                                        <property name="aggregationOnRow">Group2/area1</property>
+                                        <property name="verticalAlign">middle</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                        <property name="content">
+                                            <data id="144">
+                                                <property name="textAlign">right</property>
+                                                <property name="resultSetColumn">useData1_Group2/area1</property>
+                                            </data>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="header">
+                                    <extended-item extensionName="CrosstabCell" id="140">
+                                        <property name="content">
+                                            <label id="141">
+                                                <property name="textAlign">center</property>
+                                                <text-property name="text">用量（吨）</text-property>
+                                            </label>
+                                        </property>
+                                        <property name="verticalAlign">middle</property>
+                                        <property name="height">0.2986111111111111in</property>
+                                    </extended-item>
+                                </property>
+                            </extended-item>
+                        </property>
+                        <property name="rows">
+                            <extended-item extensionName="CrosstabView" id="121">
+                                <property name="views">
+                                    <extended-item extensionName="DimensionView" id="122">
+                                        <property name="dimension">Group2</property>
+                                        <property name="levels">
+                                            <extended-item extensionName="LevelView" name="NewLevel View3" id="123">
+                                                <property name="level">Group2/energyType</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="124">
+                                                        <property name="content">
+                                                            <data name="energyType1" id="125">
+                                                                <property name="resultSetColumn">energyType</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                            <extended-item extensionName="LevelView" name="NewLevel View4" id="127">
+                                                <property name="level">Group2/area1</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="128">
+                                                        <property name="content">
+                                                            <data name="area1" id="130">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">area1</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                                <property name="aggregationHeader">
+                                                    <extended-item extensionName="CrosstabCell" id="142">
+                                                        <property name="content">
+                                                            <data name="area1_TOTAL" id="145">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">area1_TOTAL</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                            <extended-item extensionName="LevelView" name="NewLevel View5" id="132">
+                                                <property name="level">Group2/meteringType</property>
+                                                <property name="member">
+                                                    <extended-item extensionName="CrosstabCell" id="133">
+                                                        <property name="content">
+                                                            <data name="meteringType" id="135">
+                                                                <property name="textAlign">center</property>
+                                                                <property name="resultSetColumn">meteringType</property>
+                                                            </data>
+                                                        </property>
+                                                        <property name="verticalAlign">middle</property>
+                                                    </extended-item>
+                                                </property>
+                                            </extended-item>
+                                        </property>
+                                    </extended-item>
+                                </property>
+                                <property name="grandTotalLocation">after</property>
+                            </extended-item>
+                        </property>
+                        <property name="header">
+                            <extended-item extensionName="CrosstabCell" id="114">
+                                <property name="content">
+                                    <label id="126">
+                                        <text-property name="text"></text-property>
+                                    </label>
+                                </property>
+                                <property name="verticalAlign">middle</property>
+                            </extended-item>
+                            <extended-item extensionName="CrosstabCell" id="129">
+                                <property name="content">
+                                    <label id="131">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">使用部门</text-property>
+                                    </label>
+                                </property>
+                                <property name="verticalAlign">middle</property>
+                            </extended-item>
+                            <extended-item extensionName="CrosstabCell" id="134">
+                                <property name="content">
+                                    <label id="136">
+                                        <text-property name="text"></text-property>
+                                    </label>
+                                </property>
+                                <property name="verticalAlign">middle</property>
+                            </extended-item>
+                        </property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">energyType</property>
+                                <expression name="expression">dimension["Group2"]["energyType"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">area1</property>
+                                <expression name="expression" type="javascript">dimension["Group2"]["area1"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">meteringType</property>
+                                <expression name="expression" type="javascript">if(dimension["Group2"]["meteringType"]==1){&#13;
+	"总计量"&#13;
+}else if(dimension["Group2"]["meteringType"]==2){&#13;
+	"生产"&#13;
+}else if(dimension["Group2"]["meteringType"]==3){&#13;
+	"生活"&#13;
+}else if(dimension["Group2"]["meteringType"]==4){&#13;
+	"中水"&#13;
+}</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">useData1_Group2/meteringType</property>
+                                <expression name="expression">measure["useData1"]</expression>
+                                <property name="dataType">float</property>
+                                <simple-property-list name="aggregateOn">
+                                    <value>Group2/meteringType</value>
+                                </simple-property-list>
+                                <property name="aggregateFunction">SUM</property>
+                            </structure>
+                            <structure>
+                                <property name="name">useData1_Group2/area1</property>
+                                <expression name="expression">measure["useData1"]</expression>
+                                <property name="dataType">float</property>
+                                <simple-property-list name="aggregateOn">
+                                    <value>Group2/area1</value>
+                                </simple-property-list>
+                                <property name="aggregateFunction">SUM</property>
+                            </structure>
+                            <structure>
+                                <property name="name">area1_TOTAL</property>
+                                <expression name="expression" type="javascript">"小计"</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                    </extended-item>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

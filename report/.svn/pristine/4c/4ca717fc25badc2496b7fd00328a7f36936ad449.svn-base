@@ -1,0 +1,1461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="theme">mes.defaultTheme</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">144</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">mes.rptlibrary</property>
+            <property name="namespace">mes</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="userId" id="4" extends="mes.userId"/>
+        <scalar-parameter name="userName" id="5" extends="mes.userName"/>
+        <scalar-parameter name="roleid" id="6" extends="mes.roleid"/>
+        <scalar-parameter name="sqlText" id="7" extends="mes.sqlText"/>
+        <scalar-parameter name="isDebug" id="8" extends="mes.isDebug"/>
+        <scalar-parameter name="showData" id="9" extends="mes.showData"/>
+        <scalar-parameter name="year" id="13">
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">false</property>
+            <property name="dataSetName">年份</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["year"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["year"]</expression>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">2017</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="area" id="14">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">B1</value>
+            </simple-property-list>
+            <list-property name="selectionList">
+                <structure>
+                    <property name="value">恒盛</property>
+                    <property name="label">恒盛</property>
+                </structure>
+                <structure>
+                    <property name="value">B1</property>
+                    <property name="label">B1</property>
+                </structure>
+                <structure>
+                    <property name="value">F1</property>
+                    <property name="label">F1</property>
+                </structure>
+            </list-property>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="dsfdsfds" id="10">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://192.168.1.178:3306/mes-energy?useUnicode=true&amp;characterEncoding=utf-8</property>
+            <property name="odaUser">mes</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">bWVzcHdk</encrypted-property>
+            <property name="OdaConnProfileName">dsfdsfds</property>
+            <property name="OdaConnProfileStorePath">conn</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="11">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">energyName</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">energyName</text-property>
+                    <text-property name="heading">energyName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">energyType</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">energyType</text-property>
+                    <text-property name="heading">energyType</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">meteringUnits</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">meteringUnits</text-property>
+                    <text-property name="heading">meteringUnits</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">code</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">code</text-property>
+                    <text-property name="heading">code</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">beginYearInventory</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">beginYearInventory</text-property>
+                    <text-property name="heading">beginYearInventory</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitPrice</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">unitPrice</text-property>
+                    <text-property name="heading">unitPrice</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">physicalQuantityRatio</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">physicalQuantityRatio</text-property>
+                    <text-property name="heading">physicalQuantityRatio</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">endYearInventory</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">endYearInventory</text-property>
+                    <text-property name="heading">endYearInventory</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">referenceScalingFactor</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">referenceScalingFactor</text-property>
+                    <text-property name="heading">referenceScalingFactor</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">useScalingFactor</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">useScalingFactor</text-property>
+                    <text-property name="heading">useScalingFactor</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">useData</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">useData</text-property>
+                    <text-property name="heading">useData</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">physicalQuantity</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">physicalQuantity</text-property>
+                    <text-property name="heading">physicalQuantity</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">price</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">price</text-property>
+                    <text-property name="heading">price</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">gyscxf</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">gyscxf</text-property>
+                    <text-property name="heading">gyscxf</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">fgyscxf</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">fgyscxf</text-property>
+                    <text-property name="heading">fgyscxf</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">energyName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">energyType</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">meteringUnits</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">code</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">beginYearInventory</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">unitPrice</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">physicalQuantityRatio</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">endYearInventory</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">referenceScalingFactor</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">useScalingFactor</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">useData</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">physicalQuantity</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">price</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">gyscxf</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">fgyscxf</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+
+
+if (params["year"].value != null &amp;&amp; params["year"].value != ""){
+	macro = "10000=10000" ;
+	replaceStr = "month like '" + params["year"].value + "%'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);
+}
+
+if (params["area"].value != null &amp;&amp; params["area"].value != ""){
+	macro = "10001=10001" ;
+	replaceStr = "area like '%" + params["area"].value + "%'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);	
+}
+
+if (params["area"].value != null &amp;&amp; params["area"].value != ""&amp;&amp; params["area"].value=="恒盛"){
+	macro = "10002=10002" ;
+	replaceStr = "parentArea is null" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);	
+}
+
+if (params["area"].value != null &amp;&amp; params["area"].value != ""&amp;&amp; params["area"].value!="恒盛"){
+	macro = "10002=10002" ;
+	replaceStr = "parentArea='恒盛'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);	
+}
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">energyName</property>
+                    <property name="nativeName">energyName</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">energyType</property>
+                    <property name="nativeName">energyType</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">meteringUnits</property>
+                    <property name="nativeName">meteringUnits</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">code</property>
+                    <property name="nativeName">code</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">beginYearInventory</property>
+                    <property name="nativeName">beginYearInventory</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">unitPrice</property>
+                    <property name="nativeName">unitPrice</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">physicalQuantityRatio</property>
+                    <property name="nativeName">physicalQuantityRatio</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">endYearInventory</property>
+                    <property name="nativeName">endYearInventory</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">referenceScalingFactor</property>
+                    <property name="nativeName">referenceScalingFactor</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">useScalingFactor</property>
+                    <property name="nativeName">useScalingFactor</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">useData</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">physicalQuantity</property>
+                    <property name="nativeName">physicalQuantity</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">price</property>
+                    <property name="nativeName">price</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">gyscxf</property>
+                    <property name="nativeName">gyscxf</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">fgyscxf</property>
+                    <property name="nativeName">fgyscxf</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select a.*,b.useData, (useData*physicalQuantityRatio) as  physicalQuantity,useData*unitPrice/1000 AS price,
+(useData*physicalQuantityRatio)*0.5 as gyscxf,(useData*physicalQuantityRatio)-(useData*physicalQuantityRatio)*0.5 AS fgyscxf
+FROM energy_type_setting a LEFT JOIN 
+(select SUM(useData) AS useData,2 as energyType FROM energy_electric_month WHERE 10000=10000 AND 10001=10001 AND 10002=10002
+ UNION ALL
+ select SUM(useData) AS useData,3 as energyType FROM energy_steam_month WHERE 10000=10000 AND 10001=10001 AND 10002=10002
+) b
+ON a.energyType = b.energyType 
+where a.energyType is not null
+ORDER BY id ASC]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>energyName</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>30</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>energyName</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>energyName</design:label>
+            <design:formattingHints>
+              <design:displaySize>30</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>energyType</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>energyType</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>energyType</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>meteringUnits</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>30</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>meteringUnits</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>meteringUnits</design:label>
+            <design:formattingHints>
+              <design:displaySize>30</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>code</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>30</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>code</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>code</design:label>
+            <design:formattingHints>
+              <design:displaySize>30</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>beginYearInventory</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>beginYearInventory</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>beginYearInventory</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>unitPrice</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>unitPrice</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>unitPrice</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>physicalQuantityRatio</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>physicalQuantityRatio</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>physicalQuantityRatio</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>endYearInventory</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>endYearInventory</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>endYearInventory</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>referenceScalingFactor</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>30</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>referenceScalingFactor</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>referenceScalingFactor</design:label>
+            <design:formattingHints>
+              <design:displaySize>30</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useScalingFactor</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>useScalingFactor</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>useScalingFactor</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>12</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>useData</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>useData</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>physicalQuantity</design:name>
+              <design:position>13</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>physicalQuantity</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>physicalQuantity</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>price</design:name>
+              <design:position>14</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>price</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>price</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>gyscxf</design:name>
+              <design:position>15</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>gyscxf</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>gyscxf</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>fgyscxf</design:name>
+              <design:position>16</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>fgyscxf</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>fgyscxf</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="年份" id="12">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">year</property>
+                    <text-property name="displayName">year</text-property>
+                    <text-property name="heading">year</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">year</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">year</property>
+                    <property name="nativeName">year</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select year from (select * from energy_time order by year desc) s group by year]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>year</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>year</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>year</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">custom</property>
+            <property name="height">20cm</property>
+            <property name="width">40cm</property>
+            <property name="headerHeight">0.5in</property>
+            <page-header>
+                <grid id="217">
+                    <column id="218"/>
+                    <column id="219"/>
+                    <column id="220"/>
+                    <column id="221"/>
+                    <column id="222"/>
+                    <column id="223"/>
+                    <column id="224"/>
+                    <column id="225"/>
+                    <column id="226"/>
+                    <column id="227"/>
+                    <column id="228"/>
+                    <column id="229"/>
+                    <column id="230"/>
+                    <column id="231"/>
+                    <column id="232"/>
+                    <row id="233">
+                        <cell id="234">
+                            <property name="colSpan">15</property>
+                            <property name="rowSpan">1</property>
+                            <text-data id="321">
+                                <property name="fontSize">16px</property>
+                                <property name="textAlign">center</property>
+                                <expression name="valueExpr">"工业企业能源购进、消费与库存-"+params["area"].value</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                    <row id="297">
+                        <cell id="298">
+                            <property name="colSpan">6</property>
+                            <property name="rowSpan">1</property>
+                            <label id="317">
+                                <text-property name="text">企业详细名称：石家庄常山纺织股份有限公司恒盛分公司</text-property>
+                            </label>
+                        </cell>
+                        <cell id="304"/>
+                        <cell id="305">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <text-data id="320">
+                                <property name="textAlign">center</property>
+                                <expression name="valueExpr">params["year"].value+"年"</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="307"/>
+                        <cell id="308"/>
+                        <cell id="309"/>
+                        <cell id="310"/>
+                        <cell id="311">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <label id="316">
+                                <text-property name="text">有效期至：20  年  月底</text-property>
+                            </label>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid id="331">
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">Column Binding</property>
+                            <expression name="expression" type="javascript">Formatter.format(new Date(),'yyyy-MM-dd HH:mm:ss')</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <column id="332"/>
+                    <column id="333"/>
+                    <column id="334"/>
+                    <column id="335"/>
+                    <column id="336"/>
+                    <column id="337"/>
+                    <column id="338"/>
+                    <column id="339"/>
+                    <column id="340"/>
+                    <column id="341"/>
+                    <row id="353">
+                        <cell id="354">
+                            <property name="colSpan">10</property>
+                            <property name="rowSpan">1</property>
+                            <label id="385">
+                                <text-property name="text">本期：（37）综合能耗消费量__________吨标准煤;（38）工业总产值（当年价）__________千元;（x2）工业总产值（上年价）__________千元。</text-property>
+                            </label>
+                        </cell>
+                    </row>
+                    <row id="364">
+                        <cell id="365">
+                            <label id="375">
+                                <property name="textAlign">right</property>
+                                <text-property name="text">单位负责人：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="366"/>
+                        <cell id="367">
+                            <label id="376">
+                                <property name="textAlign">right</property>
+                                <text-property name="text">单位负责人：  </text-property>
+                            </label>
+                        </cell>
+                        <cell id="368"/>
+                        <cell id="369">
+                            <label id="377">
+                                <property name="textAlign">right</property>
+                                <text-property name="text">填表人：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="370">
+                            <text-data id="378">
+                                <expression name="valueExpr">params["userName"].value</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="371">
+                            <label id="379">
+                                <property name="textAlign">right</property>
+                                <text-property name="text">电话：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="372">
+                            <label id="380">
+                                <text-property name="text">89198051</text-property>
+                            </label>
+                        </cell>
+                        <cell id="373">
+                            <label id="381">
+                                <property name="textAlign">right</property>
+                                <text-property name="text">报出日期：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="374">
+                            <data id="383">
+                                <property name="resultSetColumn">Column Binding</property>
+                            </data>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="386">
+            <property name="dataSet">Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">id</property>
+                    <text-property name="displayName">id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">energyName</property>
+                    <text-property name="displayName">energyName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["energyName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">energyType</property>
+                    <text-property name="displayName">energyType</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["energyType"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">meteringUnits</property>
+                    <text-property name="displayName">meteringUnits</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["meteringUnits"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">code</property>
+                    <text-property name="displayName">code</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["code"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">beginYearInventory</property>
+                    <text-property name="displayName">beginYearInventory</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["beginYearInventory"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">unitPrice</property>
+                    <text-property name="displayName">unitPrice</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["unitPrice"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">physicalQuantityRatio</property>
+                    <text-property name="displayName">physicalQuantityRatio</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["physicalQuantityRatio"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">endYearInventory</property>
+                    <text-property name="displayName">endYearInventory</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["endYearInventory"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">referenceScalingFactor</property>
+                    <text-property name="displayName">referenceScalingFactor</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["referenceScalingFactor"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">useScalingFactor</property>
+                    <text-property name="displayName">useScalingFactor</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["useScalingFactor"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">useData</property>
+                    <text-property name="displayName">useData</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["useData"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">physicalQuantity</property>
+                    <text-property name="displayName">physicalQuantity</text-property>
+                    <expression name="expression" type="javascript">row["a1"]</expression>
+                    <property name="dataType">float</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">price</property>
+                    <text-property name="displayName">price</text-property>
+                    <expression name="expression" type="javascript">BirtMath.round(dataSetRow["price"],0)</expression>
+                    <property name="dataType">float</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">gyscxf</property>
+                    <text-property name="displayName">gyscxf</text-property>
+                    <expression name="expression" type="javascript">BirtMath.round(dataSetRow["gyscxf"],0)</expression>
+                    <property name="dataType">float</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">fgyscxf</property>
+                    <text-property name="displayName">fgyscxf</text-property>
+                    <expression name="expression" type="javascript">BirtMath.round(dataSetRow["fgyscxf"],0)</expression>
+                    <property name="dataType">float</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">BirtMath.round(row["gyscxf"]*row["useScalingFactor"],0)</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">a1</property>
+                    <text-property name="displayName">physicalQuantity</text-property>
+                    <expression name="expression" type="javascript">BirtMath.round(dataSetRow["physicalQuantity"],0)</expression>
+                    <property name="dataType">float</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_1</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">BirtMath.round(row["fgyscxf"]*row["useScalingFactor"],0)</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_2</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["Aggregation"]+row["Aggregation_1"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="99"/>
+            <column id="101"/>
+            <column id="102"/>
+            <column id="103"/>
+            <column id="109">
+                <property name="repeat">1</property>
+            </column>
+            <column id="110">
+                <property name="repeat">1</property>
+            </column>
+            <column id="111">
+                <property name="repeat">1</property>
+            </column>
+            <column id="166"/>
+            <column id="172"/>
+            <column id="178"/>
+            <column id="184"/>
+            <column id="190"/>
+            <column id="106"/>
+            <column id="108">
+                <property name="repeat">1</property>
+            </column>
+            <column id="107"/>
+            <header>
+                <row id="114">
+                    <cell id="115">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">3</property>
+                        <label id="19">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">能源名称</text-property>
+                        </label>
+                    </cell>
+                    <cell id="117">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">3</property>
+                        <label id="23">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">计量单位</text-property>
+                        </label>
+                    </cell>
+                    <cell id="118">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">3</property>
+                        <label id="25">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">代码</text-property>
+                        </label>
+                    </cell>
+                    <cell id="119">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">3</property>
+                        <label id="27">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">年初库存量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="125">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">3</property>
+                        <label id="39">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">能耗报表实际用量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="126">
+                        <property name="colSpan">2</property>
+                        <property name="rowSpan">1</property>
+                        <label id="160">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">1至本月购进量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="161">
+                        <property name="colSpan">5</property>
+                        <property name="rowSpan">1</property>
+                        <label id="196">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">1至本月消费量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="122">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">3</property>
+                        <label id="33">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">期末库存量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="124">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">3</property>
+                        <label id="37">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">采用折标系数</text-property>
+                        </label>
+                    </cell>
+                    <cell id="123">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">3</property>
+                        <label id="35">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">参考折标系数</text-property>
+                        </label>
+                    </cell>
+                </row>
+                <row id="130">
+                    <cell id="142">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">2</property>
+                        <label id="41">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">实物量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="143">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">2</property>
+                        <label id="43">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">金额(千元)</text-property>
+                        </label>
+                    </cell>
+                    <cell id="162">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">2</property>
+                        <label id="191">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">合计</text-property>
+                        </label>
+                    </cell>
+                    <cell id="168">
+                        <property name="colSpan">2</property>
+                        <property name="rowSpan">1</property>
+                        <label id="197">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">工业</text-property>
+                        </label>
+                    </cell>
+                    <cell id="180">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">2</property>
+                        <label id="194">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">非工业生产消费</text-property>
+                        </label>
+                    </cell>
+                    <cell id="186">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">2</property>
+                        <label id="195">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">合计中：运输工具消费</text-property>
+                        </label>
+                    </cell>
+                </row>
+                <row id="15">
+                    <cell id="169">
+                        <label id="192">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">生产消费</text-property>
+                        </label>
+                    </cell>
+                    <cell id="175">
+                        <label id="193">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">用于原材料</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="48">
+                    <cell id="51">
+                        <data id="52">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">energyName</property>
+                        </data>
+                    </cell>
+                    <cell id="55">
+                        <data id="56">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">meteringUnits</property>
+                        </data>
+                    </cell>
+                    <cell id="57">
+                        <data id="58">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">code</property>
+                        </data>
+                    </cell>
+                    <cell id="59">
+                        <data id="60">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">beginYearInventory</property>
+                        </data>
+                    </cell>
+                    <cell id="71">
+                        <data id="72">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">useData</property>
+                        </data>
+                    </cell>
+                    <cell id="73">
+                        <data id="74">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">a1</property>
+                        </data>
+                    </cell>
+                    <cell id="75">
+                        <data id="76">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">price</property>
+                        </data>
+                    </cell>
+                    <cell id="164">
+                        <data id="198">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">physicalQuantity</property>
+                        </data>
+                    </cell>
+                    <cell id="170">
+                        <data id="199">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">gyscxf</property>
+                        </data>
+                    </cell>
+                    <cell id="176"/>
+                    <cell id="182">
+                        <data id="200">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">fgyscxf</property>
+                        </data>
+                    </cell>
+                    <cell id="188"/>
+                    <cell id="65">
+                        <data id="66">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">endYearInventory</property>
+                        </data>
+                    </cell>
+                    <cell id="69">
+                        <data id="70">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">useScalingFactor</property>
+                        </data>
+                    </cell>
+                    <cell id="67">
+                        <data id="68">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">referenceScalingFactor</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="81">
+                    <property name="height">28px</property>
+                    <cell id="83">
+                        <label id="207">
+                            <property name="textAlign">right</property>
+                            <text-property name="text">能源合计</text-property>
+                        </label>
+                    </cell>
+                    <cell id="85">
+                        <label id="208">
+                            <property name="textAlign">right</property>
+                            <text-property name="text">吨标准煤</text-property>
+                        </label>
+                    </cell>
+                    <cell id="86">
+                        <label id="209">
+                            <property name="textAlign">right</property>
+                            <text-property name="text">30</text-property>
+                        </label>
+                    </cell>
+                    <cell id="87"/>
+                    <cell id="93"/>
+                    <cell id="94"/>
+                    <cell id="95"/>
+                    <cell id="165">
+                        <text-data id="215">
+                            <property name="textAlign">right</property>
+                            <expression name="valueExpr">row["Aggregation_1"]+row["Aggregation"]</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                    </cell>
+                    <cell id="171">
+                        <data id="212">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">Aggregation</property>
+                        </data>
+                    </cell>
+                    <cell id="177"/>
+                    <cell id="183">
+                        <data id="213">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">Aggregation_1</property>
+                        </data>
+                    </cell>
+                    <cell id="189"/>
+                    <cell id="90"/>
+                    <cell id="92"/>
+                    <cell id="91"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

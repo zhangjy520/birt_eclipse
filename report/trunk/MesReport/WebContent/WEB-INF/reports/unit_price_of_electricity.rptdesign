@@ -1,0 +1,2156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="theme">mes.defaultTheme</property>
+    <property name="iconFile">/templates/crosstab.gif</property>
+    <property name="cheatSheet">org.eclipse.birt.report.designer.ui.cheatsheet.crosstab</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">WebContent/mes.rptlibrary</property>
+            <property name="namespace">mes</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="userId" id="479" extends="mes.userId"/>
+        <scalar-parameter name="userName" id="480" extends="mes.userName"/>
+        <scalar-parameter name="roleid" id="481" extends="mes.roleid"/>
+        <scalar-parameter name="sqlText" id="482" extends="mes.sqlText"/>
+        <scalar-parameter name="isDebug" id="483" extends="mes.isDebug"/>
+        <scalar-parameter name="showData" id="484" extends="mes.showData"/>
+        <scalar-parameter name="month" id="485">
+            <property name="valueType">dynamic</property>
+            <property name="dataSetName">Data Set1</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["id"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["id"]</expression>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">201710</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="dsfdsfds" id="18">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://192.168.1.178:3306/mes-energy?useUnicode=true&amp;characterEncoding=utf-8</property>
+            <property name="odaUser">mes</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">bWVzcHdk</encrypted-property>
+            <property name="OdaConnProfileName">dsfdsfds</property>
+            <property name="OdaConnProfileStorePath">conn</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="19">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">area</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">area</text-property>
+                    <text-property name="heading">area</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transformer_capacity</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">transformer_capacity</text-property>
+                    <text-property name="heading">transformer_capacity</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">number</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">number</text-property>
+                    <text-property name="heading">number</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">total_capacity</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">total_capacity</text-property>
+                    <text-property name="heading">total_capacity</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">practical</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">practical</text-property>
+                    <text-property name="heading">practical</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">share_ratio</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">share_ratio</text-property>
+                    <text-property name="heading">share_ratio</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">deleteFlag</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">deleteFlag</text-property>
+                    <text-property name="heading">deleteFlag</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitPrice</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">unitPrice</text-property>
+                    <text-property name="heading">unitPrice</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">price</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">price</text-property>
+                    <text-property name="heading">price</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">area</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">transformer_capacity</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">number</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">total_capacity</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">practical</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">share_ratio</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">deleteFlag</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">unitPrice</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">price</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+
+
+if (params["month"].value != null &amp;&amp; params["month"].value != ""){
+	macro = "10000=10000" ;
+	replaceStr = "month = '" + params["month"].value + "'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);
+}
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">area</property>
+                    <property name="nativeName">area</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">transformer_capacity</property>
+                    <property name="nativeName">transformer_capacity</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">number</property>
+                    <property name="nativeName">number</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">total_capacity</property>
+                    <property name="nativeName">total_capacity</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">practical</property>
+                    <property name="nativeName">practical</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">share_ratio</property>
+                    <property name="nativeName">share_ratio</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">deleteFlag</property>
+                    <property name="nativeName">deleteFlag</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">unitPrice</property>
+                    <property name="nativeName">unitPrice</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">price</property>
+                    <property name="nativeName">price</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select *,
+(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0)
+AS unitPrice,
+practical*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) 
+AS price
+FROM energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set1" id="20">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">year</property>
+                    <text-property name="displayName">year</text-property>
+                    <text-property name="heading">year</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">month</property>
+                    <text-property name="displayName">month</text-property>
+                    <text-property name="heading">month</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">start</property>
+                    <text-property name="displayName">start</text-property>
+                    <text-property name="heading">start</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">end</property>
+                    <text-property name="displayName">end</text-property>
+                    <text-property name="heading">end</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                    <text-property name="displayName">status</text-property>
+                    <text-property name="heading">status</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">deleteFlag</property>
+                    <text-property name="displayName">deleteFlag</text-property>
+                    <text-property name="heading">deleteFlag</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">year</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">month</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">start</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">end</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">status</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">deleteFlag</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">year</property>
+                    <property name="nativeName">year</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">month</property>
+                    <property name="nativeName">month</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">start</property>
+                    <property name="nativeName">start</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">end</property>
+                    <property name="nativeName">end</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">status</property>
+                    <property name="nativeName">status</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">deleteFlag</property>
+                    <property name="nativeName">deleteFlag</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select * from energy_time where `status`=1 and `start`<=now() order by `end` desc]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>year</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>year</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>year</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>month</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>month</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>month</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>start</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>start</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>start</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>end</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>end</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>end</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>status</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>status</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>status</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>deleteFlag</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>deleteFlag</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>deleteFlag</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set2" id="486">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">area</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">area</text-property>
+                    <text-property name="heading">area</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">useData</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">useData</text-property>
+                    <text-property name="heading">useData</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">share_ratio</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">share_ratio</text-property>
+                    <text-property name="heading">share_ratio</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">price</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">price</text-property>
+                    <text-property name="heading">price</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">price1</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">price1</text-property>
+                    <text-property name="heading">price1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">dydfhs</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">dydfhs</text-property>
+                    <text-property name="heading">dydfhs</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">jbdf</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">jbdf</text-property>
+                    <text-property name="heading">jbdf</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">dygdjydl</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">dygdjydl</text-property>
+                    <text-property name="heading">dygdjydl</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">sl</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">sl</text-property>
+                    <text-property name="heading">sl</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">area</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">useData</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">share_ratio</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">price</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">price1</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">dydfhs</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">jbdf</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">dygdjydl</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">sl</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">area</property>
+                    <property name="nativeName">area</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">useData</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">share_ratio</property>
+                    <property name="nativeName">share_ratio</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">price</property>
+                    <property name="nativeName">price</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">price1</property>
+                    <property name="nativeName">price1</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">dydfhs</property>
+                    <property name="nativeName">dydfhs</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">jbdf</property>
+                    <property name="nativeName">jbdf</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">dygdjydl</property>
+                    <property name="nativeName">dygdjydl</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">sl</property>
+                    <property name="nativeName">sl</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[		select 
+		'恒盛' AS area,
+		SUM(useData) AS useData,
+		0 AS share_ratio,
+		(SELECT SUM(practical)*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000) AS price,
+		(SELECT SUM(practical)*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%动力站%' AND deleteFlag=0 AND 10000=10000) AS price1,
+		(SELECT electricity_fees from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dydfhs,
+		(SELECT basic_electricity_total_price from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS jbdf,
+		(SELECT electricity_consumption from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dygdjydl,
+		(SELECT tax_rate from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS sl
+		from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%恒盛%'
+		UNION ALL
+		select 
+		'B1' AS area,
+		(a.b1Data+b.dlData) AS useData,
+		(SELECT share_ratio from energy_practical_transformer WHERE area like '%B1%' AND deleteFlag=0 AND 10000=10000) AS share_ratio,
+		(SELECT practical*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%B1%' AND deleteFlag=0 AND 10000=10000) AS price,
+		(SELECT SUM(practical)*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%动力站%' AND deleteFlag=0 AND 10000=10000) AS price1,
+		(SELECT electricity_fees from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dydfhs,
+		(SELECT basic_electricity_total_price from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS jbdf,
+		(SELECT electricity_consumption from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dygdjydl,
+		(SELECT tax_rate from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS sl
+		from 
+		(select CASE WHEN lastData IS NOT NULL THEN SUM(lastData) ELSE SUM(useData) END AS b1Data from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%B1%' AND 10000=10000) a,
+		(select SUM(shareData) AS dlData from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%动力站%' AND 10000=10000) b
+		UNION ALL
+		SELECT 
+		'B2' AS area,
+		 a.b2Data+b.b1Data+c.dlData AS useData,
+		(SELECT share_ratio from energy_practical_transformer WHERE area like '%B2%' AND deleteFlag=0 AND 10000=10000) AS share_ratio,
+		(SELECT practical*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%B2%' AND deleteFlag=0 AND 10000=10000) AS price,
+		(SELECT SUM(practical)*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%动力站%' AND deleteFlag=0 AND 10000=10000) AS price1,
+		(SELECT electricity_fees from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dydfhs,
+		(SELECT basic_electricity_total_price from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS jbdf,
+		(SELECT electricity_consumption from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dygdjydl,
+		(SELECT tax_rate from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS sl
+		FROM
+		(select SUM(useData) AS b2Data from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%B2%' AND 10000=10000) a,
+		(select SUM(shareData) AS b1Data from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%B1%' AND 10000=10000) b,
+		(select SUM(lastData) AS dlData from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%动力站%' AND 10000=10000) c
+		UNION ALL
+		select 
+		'F1' AS area,
+		a.f1Data+b.dlData AS useData,
+		(SELECT share_ratio from energy_practical_transformer WHERE area like '%F1%' AND deleteFlag=0 AND 10000=10000) AS share_ratio,
+		(SELECT practical*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%F1%' AND deleteFlag=0 AND 10000=10000) AS price,
+		(SELECT SUM(practical)*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%动力站%' AND deleteFlag=0 AND 10000=10000) AS price1,
+		(SELECT electricity_fees from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dydfhs,
+		(SELECT basic_electricity_total_price from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS jbdf,
+		(SELECT electricity_consumption from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dygdjydl,
+		(SELECT tax_rate from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS sl
+		FROM
+		(select SUM(useData) AS f1Data from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%F1%' AND 10000=10000) a,
+		(select SUM(surplusData) AS dlData from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%动力站%' AND 10000=10000) b
+		UNION ALL
+		select 
+		'气流纺' AS area,
+		SUM(useData) AS useData,
+		(SELECT share_ratio from energy_practical_transformer WHERE area like '%气流纺%' AND deleteFlag=0 AND 10000=10000) AS share_ratio,
+		(SELECT practical*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%气流纺%' AND deleteFlag=0 AND 10000=10000) AS price,
+		(SELECT SUM(practical)*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%动力站%' AND deleteFlag=0 AND 10000=10000) AS price1,
+		(SELECT electricity_fees from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dydfhs,
+		(SELECT basic_electricity_total_price from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS jbdf,
+		(SELECT electricity_consumption from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dygdjydl,
+		(SELECT tax_rate from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS sl
+		from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%气流纺%' AND 10000=10000
+		UNION ALL
+		select 
+		'和谐家园' AS area,
+		SUM(useData) AS useData,
+		(SELECT share_ratio from energy_practical_transformer WHERE area like '%和谐家园%' AND deleteFlag=0 AND 10000=10000) AS share_ratio,
+		(SELECT practical*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%和谐家园%' AND deleteFlag=0 AND 10000=10000) AS price,
+		(SELECT SUM(practical)*(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from  energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0) FROM energy_practical_transformer WHERE area LIKE '%动力站%' AND deleteFlag=0 AND 10000=10000) AS price1,
+		(SELECT electricity_fees from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dydfhs,
+		(SELECT basic_electricity_total_price from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS jbdf,
+		(SELECT electricity_consumption from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS dygdjydl,
+		(SELECT tax_rate from energy_power_supply_bureau WHERE 10000=10000 and deleteFlag=0) AS sl
+		from energy_electric_month WHERE parentArea='恒盛' AND area LIKE '%和谐家园%' AND 10000=10000]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>area</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>4</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>area</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>area</design:label>
+            <design:formattingHints>
+              <design:displaySize>4</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>useData</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>useData</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>share_ratio</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>share_ratio</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>share_ratio</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>price</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>price</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>price</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>price1</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>price1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>price1</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>dydfhs</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>dydfhs</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>dydfhs</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>jbdf</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>jbdf</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>jbdf</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>dygdjydl</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>dygdjydl</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>dygdjydl</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>sl</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>sl</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>sl</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set3" id="1112">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transformer_capacity</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">transformer_capacity</text-property>
+                    <text-property name="heading">transformer_capacity</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">basic_electricity_unit_price</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">basic_electricity_unit_price</text-property>
+                    <text-property name="heading">basic_electricity_unit_price</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">basic_electricity_total_price</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">basic_electricity_total_price</text-property>
+                    <text-property name="heading">basic_electricity_total_price</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">month</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">month</text-property>
+                    <text-property name="heading">month</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">electricity_fees</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">electricity_fees</text-property>
+                    <text-property name="heading">electricity_fees</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">electricity_consumption</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">electricity_consumption</text-property>
+                    <text-property name="heading">electricity_consumption</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tax_rate</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">tax_rate</text-property>
+                    <text-property name="heading">tax_rate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">deleteFlag</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">deleteFlag</text-property>
+                    <text-property name="heading">deleteFlag</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitPrice</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">unitPrice</text-property>
+                    <text-property name="heading">unitPrice</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">practical</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">practical</text-property>
+                    <text-property name="heading">practical</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">transformer_capacity</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">basic_electricity_unit_price</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">basic_electricity_total_price</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">month</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">electricity_fees</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">electricity_consumption</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">tax_rate</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">deleteFlag</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">unitPrice</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">practical</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">transformer_capacity</property>
+                    <property name="nativeName">transformer_capacity</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">basic_electricity_unit_price</property>
+                    <property name="nativeName">basic_electricity_unit_price</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">basic_electricity_total_price</property>
+                    <property name="nativeName">basic_electricity_total_price</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">month</property>
+                    <property name="nativeName">month</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">electricity_fees</property>
+                    <property name="nativeName">electricity_fees</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">electricity_consumption</property>
+                    <property name="nativeName">electricity_consumption</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">tax_rate</property>
+                    <property name="nativeName">tax_rate</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">deleteFlag</property>
+                    <property name="nativeName">deleteFlag</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">unitPrice</property>
+                    <property name="nativeName">unitPrice</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">practical</property>
+                    <property name="nativeName">practical</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select *,(select ROUND(basic_electricity_total_price/(SELECT SUM(practical) from energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000),2) from energy_power_supply_bureau WHERE 10000=10000 AND deleteFlag=0)
+AS unitPrice,(SELECT SUM(practical) from energy_practical_transformer WHERE deleteFlag=0 AND 10000=10000) AS practical FROM energy_power_supply_bureau WHERE deleteFlag=0 AND 10000=10000]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>transformer_capacity</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>transformer_capacity</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>transformer_capacity</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>basic_electricity_unit_price</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>basic_electricity_unit_price</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>basic_electricity_unit_price</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>basic_electricity_total_price</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>basic_electricity_total_price</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>basic_electricity_total_price</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>month</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>month</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>month</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>electricity_fees</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>electricity_fees</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>electricity_fees</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>electricity_consumption</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>electricity_consumption</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>electricity_consumption</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tax_rate</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tax_rate</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tax_rate</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>deleteFlag</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>deleteFlag</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>deleteFlag</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>unitPrice</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>2</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>unitPrice</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>unitPrice</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="Data Cube" id="467">
+            <property name="dimensions">
+                <tabular-dimension name="Group" id="468">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="469">
+                            <property name="levels">
+                                <tabular-level name="area" id="470">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">area</property>
+                                </tabular-level>
+                                <tabular-level name="transformer_capacity" id="473">
+                                    <property name="dataType">float</property>
+                                    <property name="columnName">transformer_capacity</property>
+                                </tabular-level>
+                                <tabular-level name="number" id="474">
+                                    <property name="dataType">integer</property>
+                                    <property name="columnName">number</property>
+                                </tabular-level>
+                                <tabular-level name="total_capacity" id="475">
+                                    <property name="dataType">float</property>
+                                    <property name="columnName">total_capacity</property>
+                                </tabular-level>
+                                <tabular-level name="practical" id="476">
+                                    <property name="dataType">float</property>
+                                    <property name="columnName">practical</property>
+                                </tabular-level>
+                                <tabular-level name="unitPrice" id="477">
+                                    <property name="dataType">float</property>
+                                    <property name="columnName">unitPrice</property>
+                                </tabular-level>
+                                <tabular-level name="price" id="478">
+                                    <property name="dataType">float</property>
+                                    <property name="columnName">price</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="dataSet">Data Set</property>
+        </tabular-cube>
+    </cubes>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="headerHeight">0.5in</property>
+            <page-header>
+                <grid id="991">
+                    <property name="height">0.24305555555555555in</property>
+                    <column id="992"/>
+                    <column id="993"/>
+                    <column id="994"/>
+                    <column id="995"/>
+                    <column id="996"/>
+                    <column id="997"/>
+                    <column id="998"/>
+                    <column id="999"/>
+                    <column id="1000"/>
+                    <column id="1001"/>
+                    <row id="1002">
+                        <property name="height">0.24305555555555555in</property>
+                        <cell id="1003">
+                            <property name="colSpan">10</property>
+                            <property name="rowSpan">1</property>
+                            <text-data id="1039">
+                                <property name="fontSize">18px</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <expression name="valueExpr">BirtStr.left(params["month"].value,4)+"年"+BirtStr.right(params["month"].value,2)+"月电费单价"</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid id="973">
+                    <property name="width">7in</property>
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">Column Binding</property>
+                            <expression name="expression" type="javascript">Formatter.format(new Date(),'yyyy-MM-dd:HH:mm:ss')</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <column id="974">
+                        <property name="width">1in</property>
+                    </column>
+                    <column id="975">
+                        <property name="width">1in</property>
+                    </column>
+                    <column id="976">
+                        <property name="width">1in</property>
+                    </column>
+                    <column id="977">
+                        <property name="width">1in</property>
+                    </column>
+                    <column id="978">
+                        <property name="width">1in</property>
+                    </column>
+                    <column id="979">
+                        <property name="width">2in</property>
+                    </column>
+                    <row id="980">
+                        <cell id="981">
+                            <label id="987">
+                                <property name="fontSize">14px</property>
+                                <property name="textAlign">right</property>
+                                <text-property name="text">动力主管：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="982"/>
+                        <cell id="983">
+                            <label id="988">
+                                <property name="fontSize">14px</property>
+                                <property name="textAlign">right</property>
+                                <text-property name="text">制表人：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="984">
+                            <text-data id="1043">
+                                <property name="fontSize">14px</property>
+                                <expression name="valueExpr">params["userName"].value</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="985">
+                            <label id="989">
+                                <property name="fontSize">14px</property>
+                                <property name="textAlign">right</property>
+                                <text-property name="text">制表日期：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="986">
+                            <property name="verticalAlign">middle</property>
+                            <data id="990">
+                                <property name="fontSize">14px</property>
+                                <property name="textAlign">left</property>
+                                <property name="resultSetColumn">Column Binding</property>
+                            </data>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="7">
+            <property name="height">2.5694444444444446in</property>
+            <column id="8"/>
+            <row id="1174">
+                <property name="height">0.8958333333333334in</property>
+                <cell id="1175">
+                    <table id="1176">
+                        <property name="dataSet">Data Set3</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">id</property>
+                                <text-property name="displayName">id</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">transformer_capacity</property>
+                                <text-property name="displayName">transformer_capacity</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["transformer_capacity"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">basic_electricity_unit_price</property>
+                                <text-property name="displayName">basic_electricity_unit_price</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["basic_electricity_unit_price"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">basic_electricity_total_price</property>
+                                <text-property name="displayName">basic_electricity_total_price</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["basic_electricity_total_price"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">month</property>
+                                <text-property name="displayName">month</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["month"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">electricity_fees</property>
+                                <text-property name="displayName">electricity_fees</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["electricity_fees"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">electricity_consumption</property>
+                                <text-property name="displayName">electricity_consumption</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["electricity_consumption"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">tax_rate</property>
+                                <text-property name="displayName">tax_rate</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["tax_rate"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">deleteFlag</property>
+                                <text-property name="displayName">deleteFlag</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["deleteFlag"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">unitPrice</property>
+                                <text-property name="displayName">unitPrice</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["unitPrice"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">practical</property>
+                                <expression name="expression" type="javascript">dataSetRow["practical"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                        </list-property>
+                        <column id="1230"/>
+                        <column id="1231"/>
+                        <column id="1232"/>
+                        <column id="1233"/>
+                        <column id="1234"/>
+                        <column id="1235"/>
+                        <column id="1236"/>
+                        <column id="1237"/>
+                        <column id="1238"/>
+                        <column id="1239"/>
+                        <detail>
+                            <row id="1240">
+                                <property name="verticalAlign">middle</property>
+                                <cell id="1241">
+                                    <property name="colSpan">10</property>
+                                    <property name="rowSpan">1</property>
+                                    <text-data id="1251">
+                                        <expression name="valueExpr">"供电局收基本电费"+row["transformer_capacity"]+"KVA"+"*"+row["basic_electricity_unit_price"]+"元/KVA="+row["basic_electricity_total_price"]+"元"</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                            </row>
+                            <row id="1252">
+                                <property name="verticalAlign">middle</property>
+                                <cell id="1253">
+                                    <property name="colSpan">10</property>
+                                    <property name="rowSpan">1</property>
+                                    <text-data id="1263">
+                                        <property name="textAlign">left</property>
+                                        <expression name="valueExpr">"目前园区实用变压器计算基本电费"+row["basic_electricity_total_price"]+"元/"+row["practical"]+"KVA="+row["unitPrice"]+"元"</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                            </row>
+                            <row id="1264">
+                                <property name="verticalAlign">middle</property>
+                                <cell id="1265">
+                                    <property name="colSpan">10</property>
+                                    <property name="rowSpan">1</property>
+                                    <text-data id="1275">
+                                        <expression name="valueExpr">"当月电费(含税)"+row["electricity_fees"]+"元"</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                            </row>
+                            <row id="1276">
+                                <property name="verticalAlign">middle</property>
+                                <cell id="1277">
+                                    <property name="colSpan">10</property>
+                                    <property name="rowSpan">1</property>
+                                    <text-data id="1287">
+                                        <expression name="valueExpr">"不含基本费电费单价"+ BirtMath.round((row["electricity_fees"]-row["basic_electricity_total_price"])/row["electricity_consumption"],4)+"元/KWH"</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                            </row>
+                        </detail>
+                    </table>
+                </cell>
+            </row>
+            <row id="9">
+                <property name="height">0.9166666666666666in</property>
+                <cell id="10">
+                    <table id="1044">
+                        <property name="dataSet">Data Set</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">id</property>
+                                <text-property name="displayName">id</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">area</property>
+                                <text-property name="displayName">area</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["area"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">transformer_capacity</property>
+                                <text-property name="displayName">transformer_capacity</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["transformer_capacity"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">number</property>
+                                <text-property name="displayName">number</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["number"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">total_capacity</property>
+                                <text-property name="displayName">total_capacity</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["total_capacity"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">practical</property>
+                                <text-property name="displayName">practical</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["practical"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">share_ratio</property>
+                                <text-property name="displayName">share_ratio</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["share_ratio"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">deleteFlag</property>
+                                <text-property name="displayName">deleteFlag</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["deleteFlag"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">unitPrice</property>
+                                <text-property name="displayName">unitPrice</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["unitPrice"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">price</property>
+                                <text-property name="displayName">price</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["price"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["total_capacity"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_1</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["practical"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_2</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["price"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_3</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">LAST</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["unitPrice"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <column id="1099"/>
+                        <column id="1100"/>
+                        <column id="1101"/>
+                        <column id="1102"/>
+                        <column id="1103"/>
+                        <column id="1106"/>
+                        <column id="1107"/>
+                        <header>
+                            <row id="1045">
+                                <cell id="1048">
+                                    <label id="1049">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">部门</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1050">
+                                    <label id="1051">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">变压器容量(KVA)</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1052">
+                                    <label id="1053">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">台数</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1054">
+                                    <label id="1055">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">总容量</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1056">
+                                    <label id="1057">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">实用量</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1062">
+                                    <label id="1063">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">单价</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1064">
+                                    <label id="1065">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">金额</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="1066">
+                                <cell id="1069">
+                                    <data id="1070">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">area</property>
+                                    </data>
+                                </cell>
+                                <cell id="1071">
+                                    <data id="1072">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">transformer_capacity</property>
+                                    </data>
+                                </cell>
+                                <cell id="1073">
+                                    <data id="1074">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">number</property>
+                                    </data>
+                                </cell>
+                                <cell id="1075">
+                                    <data id="1076">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">total_capacity</property>
+                                    </data>
+                                </cell>
+                                <cell id="1077">
+                                    <data id="1078">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">practical</property>
+                                    </data>
+                                </cell>
+                                <cell id="1083">
+                                    <data id="1084">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">unitPrice</property>
+                                    </data>
+                                </cell>
+                                <cell id="1085">
+                                    <data id="1086">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">price</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="1087">
+                                <property name="height">28px</property>
+                                <cell id="1089"/>
+                                <cell id="1090"/>
+                                <cell id="1091"/>
+                                <cell id="1092">
+                                    <data id="1108">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation</property>
+                                    </data>
+                                </cell>
+                                <cell id="1093">
+                                    <data id="1109">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_1</property>
+                                    </data>
+                                </cell>
+                                <cell id="1096">
+                                    <data id="1111">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_3</property>
+                                    </data>
+                                </cell>
+                                <cell id="1097">
+                                    <data id="1110">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_2</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+            <row id="1172">
+                <property name="height">0.7569444444444444in</property>
+                <cell id="1173">
+                    <table id="507">
+                        <property name="dataSet">Data Set2</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">area</property>
+                                <text-property name="displayName">area</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["area"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">useData</property>
+                                <text-property name="displayName">useData</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["useData"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">share_ratio</property>
+                                <text-property name="displayName">share_ratio</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["share_ratio"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">price</property>
+                                <text-property name="displayName">price</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["price"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">price1</property>
+                                <text-property name="displayName">price1</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["price1"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">dydfhs</property>
+                                <text-property name="displayName">dydfhs</text-property>
+                                <expression name="expression" type="javascript">BirtMath.round((dataSetRow["price"]+dataSetRow["price1"]*dataSetRow["share_ratio"])/dataSetRow["useData"]+(dataSetRow["dydfhs"]-dataSetRow["jbdf"])/dataSetRow["dygdjydl"],4)</expression>
+                                <property name="dataType">float</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">jbdf</property>
+                                <text-property name="displayName">jbdf</text-property>
+                                <expression name="expression" type="javascript">BirtMath.round(((dataSetRow["price"]+dataSetRow["price1"]*dataSetRow["share_ratio"])/dataSetRow["useData"]+(dataSetRow["dydfhs"]-dataSetRow["jbdf"])/dataSetRow["dygdjydl"])/dataSetRow["sl"],4)</expression>
+                                <property name="dataType">float</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">dygdjydl</property>
+                                <text-property name="displayName">dygdjydl</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["dygdjydl"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">sl</property>
+                                <text-property name="displayName">sl</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["sl"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                        </list-property>
+                        <column id="556"/>
+                        <column id="557"/>
+                        <column id="561"/>
+                        <column id="562"/>
+                        <header>
+                            <row id="508">
+                                <cell id="509">
+                                    <label id="510">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">部门</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="511">
+                                    <label id="512">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">本月用电量(KWH)</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="519">
+                                    <label id="520">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">电费单价(含税)(元/KWH)</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="521">
+                                    <label id="522">
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">电费单价(不含税)(元/KWH)</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="527">
+                                <cell id="528">
+                                    <data id="529">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">area</property>
+                                    </data>
+                                </cell>
+                                <cell id="530">
+                                    <data id="531">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">useData</property>
+                                    </data>
+                                </cell>
+                                <cell id="538">
+                                    <data id="539">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">dydfhs</property>
+                                    </data>
+                                </cell>
+                                <cell id="540">
+                                    <data id="541">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">jbdf</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

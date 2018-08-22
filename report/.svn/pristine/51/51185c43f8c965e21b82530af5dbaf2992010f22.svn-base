@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
+    <property name="units">in</property>
+    <property name="theme">mes.defaultTheme</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">120</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">mes.rptlibrary</property>
+            <property name="namespace">mes</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="cat1" id="170">
+            <text-property name="helpText">大类</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="BuildDate1" id="133">
+            <text-property name="helpText">开始日期</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="BuildDate2" id="134">
+            <text-property name="helpText">结束日期</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="userId" id="135" extends="mes.userId"/>
+        <scalar-parameter name="userName" id="136" extends="mes.userName"/>
+        <scalar-parameter name="roleid" id="137" extends="mes.roleid"/>
+        <scalar-parameter name="sqlText" id="138" extends="mes.sqlText"/>
+        <scalar-parameter name="isDebug" id="139" extends="mes.isDebug"/>
+        <scalar-parameter name="showData" id="140" extends="mes.showData"/>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="dsfdsfds" id="4">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://192.168.2.241:3306/bmzt_test?useUnicode=true&amp;characterEncoding=utf-8</property>
+            <property name="odaUser">root</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">cm9vdA==</encrypted-property>
+            <property name="OdaConnProfileName">dsfdsfds</property>
+            <property name="OdaConnProfileStorePath">conn</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="5">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">cat2</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">cat2</text-property>
+                    <text-property name="heading">cat2</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">Customer</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Customer</text-property>
+                    <text-property name="heading">Customer</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">Amount</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">Amount</text-property>
+                    <text-property name="heading">Amount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">SaleMoney</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">SaleMoney</text-property>
+                    <text-property name="heading">SaleMoney</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">cat2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">Customer</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">Amount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">SaleMoney</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+if (params["showData"].value != null &amp;&amp; params["showData"].value != "1" &amp;&amp; params["showData"].value != "1.0"){
+	macro = "10000=10000" ;
+	replaceStr = "1=2" ;
+	this.queryText = this.queryText.replaceFirst(macro,replaceStr);
+}
+
+if (params["BuildDate1"].value != null &amp;&amp; params["BuildDate1"].value != ""){
+	macro = "10001=10001" ;
+	replaceStr = "BuildDate>='" + params["BuildDate1"].value + "'" ;
+	this.queryText = this.queryText.replaceFirst(macro,replaceStr);
+}
+
+if (params["BuildDate2"].value != null &amp;&amp; params["BuildDate2"].value != ""){
+	macro = "10002=10002" ;
+	replaceStr = "BuildDate<='" + params["BuildDate2"].value + "'" ;
+	this.queryText = this.queryText.replaceFirst(macro,replaceStr);
+}
+
+if (params["cat1"].value != null &amp;&amp; params["cat1"].value != ""){
+	macro = "10003=10003" ;
+	replaceStr = "LEFT(cat3,2)='" + params["cat1"].value + "'" ;
+	this.queryText = this.queryText.replaceFirst(macro,replaceStr);
+}
+
+
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">cat2</property>
+                    <property name="nativeName">cat2</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">Customer</property>
+                    <property name="nativeName">Customer</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">Amount</property>
+                    <property name="nativeName">Amount</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">SaleMoney</property>
+                    <property name="nativeName">SaleMoney</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT  LEFT(cat3,4) 'cat2',Customer,ROUND(SUM(Amount),2) 'Amount',ROUND(SUM(SaleMoney),2) 'SaleMoney'
+FROM tborder
+WHERE cat3 IS NOT NULL 
+and 10000=10000
+and 10001=10001
+and 10002=10002
+and 10003=10003
+GROUP BY  LEFT(cat3,4) ,Customer]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>cat1</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>cat1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>cat1</design:label>
+            <design:formattingHints>
+              <design:displaySize>2</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>Customer</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>Customer</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>Customer</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>Amount</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>2</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>Amount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>Amount</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>SaleMoney</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>2</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>SaleMoney</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>SaleMoney</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2"/>
+    </page-setup>
+    <body>
+        <table id="171">
+            <property name="dataSet">Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">cat2</property>
+                    <text-property name="displayName">cat2</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["cat2"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Customer</property>
+                    <text-property name="displayName">Customer</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["Customer"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Amount</property>
+                    <text-property name="displayName">Amount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["Amount"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">SaleMoney</property>
+                    <text-property name="displayName">SaleMoney</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["SaleMoney"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+            </list-property>
+            <column id="195"/>
+            <column id="196"/>
+            <column id="197"/>
+            <column id="198"/>
+            <header>
+                <row id="172">
+                    <cell id="173">
+                        <label id="174">
+                            <text-property name="text">中类</text-property>
+                        </label>
+                    </cell>
+                    <cell id="175">
+                        <label id="176">
+                            <text-property name="text">会员</text-property>
+                        </label>
+                    </cell>
+                    <cell id="177">
+                        <label id="178">
+                            <text-property name="text">数量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="179">
+                        <label id="180">
+                            <text-property name="text">金额</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="181">
+                    <cell id="182">
+                        <data id="183">
+                            <property name="resultSetColumn">cat2</property>
+                            <list-property name="action">
+                                <structure>
+                                    <property name="linkType">hyperlink</property>
+                                    <expression name="uri" type="javascript">"/MesReport/index.jsp?__report=demo_drilldown3.rptdesign&amp;showData=1&amp;cat2="+row["cat2"]</expression>
+                                    <property name="targetWindow">_parent</property>
+                                </structure>
+                            </list-property>
+                        </data>
+                    </cell>
+                    <cell id="184">
+                        <data id="185">
+                            <property name="resultSetColumn">Customer</property>
+                        </data>
+                    </cell>
+                    <cell id="186">
+                        <data id="187">
+                            <property name="resultSetColumn">Amount</property>
+                        </data>
+                    </cell>
+                    <cell id="188">
+                        <data id="189">
+                            <property name="resultSetColumn">SaleMoney</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="190">
+                    <cell id="191"/>
+                    <cell id="192"/>
+                    <cell id="193"/>
+                    <cell id="194"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

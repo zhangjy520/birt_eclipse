@@ -1,0 +1,2501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="theme">mes.defaultTheme</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">144</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">mes.rptlibrary</property>
+            <property name="namespace">mes</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="userId" id="4" extends="mes.userId"/>
+        <scalar-parameter name="userName" id="5" extends="mes.userName"/>
+        <scalar-parameter name="roleid" id="6" extends="mes.roleid"/>
+        <scalar-parameter name="sqlText" id="7" extends="mes.sqlText"/>
+        <scalar-parameter name="isDebug" id="8" extends="mes.isDebug"/>
+        <scalar-parameter name="showData" id="9" extends="mes.showData"/>
+        <scalar-parameter name="year" id="248">
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">false</property>
+            <property name="dataSetName">年份</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["year"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["year"]</expression>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">2017</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="dsfdsfds" id="10">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://192.168.1.178:3306/mes-energy?useUnicode=true&amp;characterEncoding=utf-8</property>
+            <property name="odaUser">mes</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">bWVzcHdk</encrypted-property>
+            <property name="OdaConnProfileName">dsfdsfds</property>
+            <property name="OdaConnProfileStorePath">conn</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="电力明细" id="11">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">month</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">start</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">start</text-property>
+                    <text-property name="heading">start</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">qc</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">qc</text-property>
+                    <text-property name="heading">qc</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">b1</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">b1</text-property>
+                    <text-property name="heading">b1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">f1</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">f1</text-property>
+                    <text-property name="heading">f1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">qt</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">qt</text-property>
+                    <text-property name="heading">qt</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">gysj</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">gysj</text-property>
+                    <text-property name="heading">gysj</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">fgysj</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">fgysj</text-property>
+                    <text-property name="heading">fgysj</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">month</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">start</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">qc</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">b1</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">f1</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">qt</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">gysj</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">fgysj</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+
+
+if (params["year"].value != null &amp;&amp; params["year"].value != ""){
+	macro = "10000=10000" ;
+	replaceStr = "year='" + params["year"].value + "'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);
+}
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">month</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">start</property>
+                    <property name="nativeName">start</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">qc</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">b1</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">f1</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">qt</property>
+                    <property name="nativeName">qt</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">gysj</property>
+                    <property name="nativeName">gysj</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">fgysj</property>
+                    <property name="nativeName">fgysj</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[ SELECT d.id AS `month`,d.`start`,a.useData AS qc ,b.useData AS b1,c.useData AS f1,(a.useData-b.useData-c.useData) AS qt,
+ a.useData*0.5 AS gysj,(a.useData-a.useData*0.5) AS fgysj 
+ FROM (select * from energy_time where 10000=10000 AND `start`<NOW() AND `status`=1 ORDER BY `end` asc) d
+ LEFT JOIN(SELECT `month`,SUM(useData) AS useData from energy_electric_month where parentArea IS NULL)a
+ ON d.id=a.`month`
+ LEFT JOIN(SELECT `month`,SUM(useData) AS useData from energy_electric_month where area LIKE '%B1%' and parentArea='恒盛')b 
+ ON a.`month`=b.`month`
+ LEFT JOIN(SELECT `month`,SUM(useData) AS useData from energy_electric_month where area LIKE '%F1%' and parentArea='恒盛')c 
+ ON b.`month`=c.`month`
+  ORDER BY d.`end` ASC]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>month</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>month</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>month</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>start</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>start</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>start</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>qc</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>qc</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>b1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>b1</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>f1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>f1</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>qt</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>qt</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>qt</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>gysj</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>gysj</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>gysj</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>fgysj</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>fgysj</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>fgysj</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="蒸汽明细" id="105">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">month</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">start</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">start</text-property>
+                    <text-property name="heading">start</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">qc</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">qc</text-property>
+                    <text-property name="heading">qc</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">b1</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">b1</text-property>
+                    <text-property name="heading">b1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">f1</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">f1</text-property>
+                    <text-property name="heading">f1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">qt</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">qt</text-property>
+                    <text-property name="heading">qt</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">gysj</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">gysj</text-property>
+                    <text-property name="heading">gysj</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">fgysj</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">fgysj</text-property>
+                    <text-property name="heading">fgysj</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">month</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">start</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">qc</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">b1</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">f1</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">qt</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">gysj</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">fgysj</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+
+
+if (params["year"].value != null &amp;&amp; params["year"].value != ""){
+	macro = "10000=10000" ;
+	replaceStr = "year='" + params["year"].value + "'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);
+}
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">month</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">start</property>
+                    <property name="nativeName">start</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">qc</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">b1</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">f1</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">qt</property>
+                    <property name="nativeName">qt</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">gysj</property>
+                    <property name="nativeName">gysj</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">fgysj</property>
+                    <property name="nativeName">fgysj</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[ SELECT d.id AS `month`,d.`start`,a.useData AS qc ,b.useData AS b1,c.useData AS f1,(a.useData-b.useData-c.useData) AS qt,
+ a.useData*0.5 AS gysj,(a.useData-a.useData*0.5) AS fgysj 
+ FROM (select * from energy_time where 10000=10000 AND `start`<NOW() AND `status`=1 ORDER BY `end` asc) d
+ LEFT JOIN(SELECT `month`,SUM(useData) AS useData from energy_steam_month where parentArea IS NULL)a
+ ON d.id=a.`month`
+ LEFT JOIN(SELECT `month`,SUM(useData) AS useData from energy_steam_month where area like '%B1%' AND parentArea='恒盛')b 
+ ON a.`month`=b.`month`
+ LEFT JOIN(SELECT `month`,SUM(useData) AS useData from energy_steam_month where area like '%F1%' AND parentArea='恒盛')c 
+ ON b.`month`=c.`month`
+  ORDER BY d.`end` ASC]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>month</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>month</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>month</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>start</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>start</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>start</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>qc</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>qc</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>b1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>b1</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>f1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>f1</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>qt</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>qt</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>qt</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>gysj</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>gysj</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>gysj</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>fgysj</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>fgysj</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>fgysj</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="地下水明细" id="187">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">month</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">start</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">start</text-property>
+                    <text-property name="heading">start</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">qc</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">qc</text-property>
+                    <text-property name="heading">qc</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">b1</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">b1</text-property>
+                    <text-property name="heading">b1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">f1</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">f1</text-property>
+                    <text-property name="heading">f1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">qt</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">qt</text-property>
+                    <text-property name="heading">qt</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">month</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">start</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">qc</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">b1</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">f1</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">qt</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+
+
+if (params["year"].value != null &amp;&amp; params["year"].value != ""){
+	macro = "10000=10000" ;
+	replaceStr = "year='" + params["year"].value + "'" ;
+	this.queryText = this.queryText.replace(macro,replaceStr);
+}
+
+if (params["isDebug"].value != null &amp;&amp;　params["isDebug"].value　== "1")
+{
+	params["sqlText"].value = params["sqlText"].value+this.getName()+":<br/>"+this.queryText ;
+}]]></method>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">month</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">start</property>
+                    <property name="nativeName">start</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">qc</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">b1</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">f1</property>
+                    <property name="nativeName">useData</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">qt</property>
+                    <property name="nativeName">qt</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT d.id AS `month`,d.`start`,a.useData AS qc ,b.useData AS b1,c.useData AS f1,(a.useData-b.useData-c.useData) AS qt
+ FROM (select * from energy_time where 10000=10000 AND `start`<NOW() AND `status`=1 ORDER BY `end` asc) d
+ LEFT JOIN(SELECT `month`,SUM(useData) AS useData from energy_water_month where parentArea IS NULL)a
+ ON d.id=a.`month`
+ LEFT JOIN(SELECT `month`,SUM(useData) AS useData from energy_water_month where area LIKE '%B1%' and parentArea IN ('恒盛_生产','恒盛_生活','恒盛_中水'))b 
+ ON a.`month`=b.`month`
+ LEFT JOIN(SELECT `month`,SUM(useData) AS useData from energy_water_month where area LIKE '%F1%' and parentArea IN ('恒盛_生产','恒盛_生活','恒盛_中水'))c 
+ ON b.`month`=c.`month`
+  ORDER BY d.`end` ASC]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>month</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>month</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>month</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>start</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>start</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>start</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>qc</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>qc</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>b1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>b1</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>useData</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>f1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>f1</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>qt</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>qt</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>qt</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="年份" id="247">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">year</property>
+                    <text-property name="displayName">year</text-property>
+                    <text-property name="heading">year</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">year</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">dsfdsfds</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">year</property>
+                    <property name="nativeName">year</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select year from (select * from energy_time order by year desc) s group by year]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>year</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>year</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>year</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">custom</property>
+            <property name="height">20cm</property>
+            <property name="width">45cm</property>
+            <page-header>
+                <grid id="269">
+                    <property name="height">0.3402777777777778in</property>
+                    <column id="270"/>
+                    <column id="271"/>
+                    <column id="272"/>
+                    <column id="273"/>
+                    <column id="274"/>
+                    <column id="275"/>
+                    <column id="276"/>
+                    <column id="277"/>
+                    <row id="278">
+                        <property name="height">0.22916666666666666in</property>
+                        <cell id="279">
+                            <property name="colSpan">8</property>
+                            <property name="rowSpan">1</property>
+                            <text-data id="296">
+                                <property name="fontSize">18px</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <expression name="valueExpr">params["year"].value+"年工业企业能源明细表"</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid id="249">
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">Column Binding</property>
+                            <expression name="expression" type="javascript">Formatter.format(new Date(),'yyyy-MM-dd HH:mm:ss')</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <column id="250"/>
+                    <column id="251"/>
+                    <column id="252"/>
+                    <column id="253"/>
+                    <column id="254"/>
+                    <column id="255"/>
+                    <row id="256">
+                        <cell id="257">
+                            <label id="263">
+                                <property name="fontSize">14px</property>
+                                <property name="textAlign">right</property>
+                                <text-property name="text">动力主管：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="258"/>
+                        <cell id="259">
+                            <label id="264">
+                                <property name="fontSize">14px</property>
+                                <property name="textAlign">right</property>
+                                <text-property name="text">制表人：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="260">
+                            <text-data id="266">
+                                <property name="fontSize">14px</property>
+                                <expression name="valueExpr">params["userName"].value</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="261">
+                            <label id="267">
+                                <property name="fontSize">14px</property>
+                                <property name="textAlign">right</property>
+                                <text-property name="text">制表时间：</text-property>
+                            </label>
+                        </cell>
+                        <cell id="262">
+                            <data id="268">
+                                <property name="fontSize">14px</property>
+                                <property name="resultSetColumn">Column Binding</property>
+                            </data>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="12">
+            <property name="height">1.8541666666666667in</property>
+            <property name="width">40cm</property>
+            <column id="13">
+                <property name="width">20cm</property>
+            </column>
+            <column id="14">
+                <property name="width">13cm</property>
+            </column>
+            <column id="15">
+                <property name="width">9cm</property>
+            </column>
+            <row id="16">
+                <property name="height">1.8541666666666667in</property>
+                <cell id="17">
+                    <table id="20">
+                        <property name="dataSet">电力明细</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">month</property>
+                                <text-property name="displayName">month</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["month"]+""</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">start</property>
+                                <text-property name="displayName">start</text-property>
+                                <expression name="expression" type="javascript">Formatter.format(dataSetRow["start"],'yyyy-MM-dd')</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">qc</property>
+                                <text-property name="displayName">qc</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["qc"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">b1</property>
+                                <text-property name="displayName">b1</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["b1"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">f1</property>
+                                <text-property name="displayName">f1</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["f1"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">qt</property>
+                                <text-property name="displayName">qt</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["qt"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">gysj</property>
+                                <text-property name="displayName">gysj</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["gysj"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">fgysj</property>
+                                <text-property name="displayName">fgysj</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["fgysj"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qc"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_1</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["b1"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_2</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["f1"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_3</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qt"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_4</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["gysj"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_5</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["fgysj"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_6</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qc"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_7</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["b1"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_8</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">BirtMath.round(row["f1"]/10000,4)</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_9</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qt"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_10</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["gysj"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_11</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["fgysj"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <column id="64"/>
+                        <column id="65"/>
+                        <column id="66"/>
+                        <column id="67"/>
+                        <column id="68"/>
+                        <column id="69"/>
+                        <column id="70"/>
+                        <column id="71"/>
+                        <header>
+                            <row id="72">
+                                <property name="height">30px</property>
+                                <cell id="73">
+                                    <property name="colSpan">8</property>
+                                    <property name="rowSpan">1</property>
+                                    <label id="81">
+                                        <property name="fontSize">16px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">电力明细--月报累计</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                            <row id="21">
+                                <property name="height">30px</property>
+                                <cell id="22">
+                                    <label id="23">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">月份</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="24">
+                                    <label id="25">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">日期</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="26">
+                                    <label id="27">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">全厂总用电量/kwh</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="28">
+                                    <label id="29">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">B1用电量/kwh</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="30">
+                                    <label id="31">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">F1用电量/kwh</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="32">
+                                    <label id="33">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">其它用电量/kwh</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="34">
+                                    <label id="35">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">工业实际用电量/kwh</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="36">
+                                    <label id="37">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">非工业实际用电量/kwh</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="38">
+                                <property name="height">30px</property>
+                                <cell id="39">
+                                    <data id="40">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">month</property>
+                                    </data>
+                                </cell>
+                                <cell id="41">
+                                    <data id="42">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">start</property>
+                                    </data>
+                                </cell>
+                                <cell id="43">
+                                    <data id="44">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">qc</property>
+                                    </data>
+                                </cell>
+                                <cell id="45">
+                                    <data id="46">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">b1</property>
+                                    </data>
+                                </cell>
+                                <cell id="47">
+                                    <data id="48">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">f1</property>
+                                    </data>
+                                </cell>
+                                <cell id="49">
+                                    <data id="50">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">qt</property>
+                                    </data>
+                                </cell>
+                                <cell id="51">
+                                    <data id="52">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">gysj</property>
+                                    </data>
+                                </cell>
+                                <cell id="53">
+                                    <data id="54">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">fgysj</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="55">
+                                <property name="height">30px</property>
+                                <cell id="56">
+                                    <property name="colSpan">2</property>
+                                    <property name="rowSpan">1</property>
+                                    <label id="91">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">小计</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="58">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="92">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation</property>
+                                    </data>
+                                </cell>
+                                <cell id="59">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="93">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_1</property>
+                                    </data>
+                                </cell>
+                                <cell id="60">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="94">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_2</property>
+                                    </data>
+                                </cell>
+                                <cell id="61">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="95">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_3</property>
+                                    </data>
+                                </cell>
+                                <cell id="62">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="96">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_4</property>
+                                    </data>
+                                </cell>
+                                <cell id="63">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="97">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_5</property>
+                                    </data>
+                                </cell>
+                            </row>
+                            <row id="82">
+                                <property name="height">30px</property>
+                                <cell id="83">
+                                    <property name="colSpan">2</property>
+                                    <property name="rowSpan">1</property>
+                                    <label id="98">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">股份报数</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="85">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="99">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_6</property>
+                                    </data>
+                                </cell>
+                                <cell id="86">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="100">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_7</property>
+                                    </data>
+                                </cell>
+                                <cell id="87">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="101">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_8</property>
+                                    </data>
+                                </cell>
+                                <cell id="88">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="102">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_9</property>
+                                    </data>
+                                </cell>
+                                <cell id="89">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="103">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_10</property>
+                                    </data>
+                                </cell>
+                                <cell id="90">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="104">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_11</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+                <cell id="18">
+                    <table id="106">
+                        <property name="dataSet">蒸汽明细</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">month</property>
+                                <text-property name="displayName">month</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["month"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">start</property>
+                                <text-property name="displayName">start</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["start"]</expression>
+                                <property name="dataType">date</property>
+                            </structure>
+                            <structure>
+                                <property name="name">qc</property>
+                                <text-property name="displayName">qc</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["qc"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">b1</property>
+                                <text-property name="displayName">b1</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["b1"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">f1</property>
+                                <text-property name="displayName">f1</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["f1"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">qt</property>
+                                <text-property name="displayName">qt</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["qt"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">gysj</property>
+                                <text-property name="displayName">gysj</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["gysj"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">fgysj</property>
+                                <text-property name="displayName">fgysj</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["fgysj"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qc"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_1</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["b1"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_2</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["f1"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_3</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qt"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_4</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["gysj"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_5</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["fgysj"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_6</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qc"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_7</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["b1"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_8</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["f1"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_9</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qt"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_10</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["gysj"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_11</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["fgysj"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <column id="152"/>
+                        <column id="153"/>
+                        <column id="154"/>
+                        <column id="155"/>
+                        <column id="156"/>
+                        <column id="157"/>
+                        <header>
+                            <row id="158">
+                                <property name="height">30px</property>
+                                <cell id="161">
+                                    <property name="colSpan">6</property>
+                                    <property name="rowSpan">1</property>
+                                    <label id="167">
+                                        <property name="fontSize">16px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">蒸汽明细--月报累计</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                            <row id="107">
+                                <property name="height">30px</property>
+                                <cell id="112">
+                                    <label id="113">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">总量/T</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="114">
+                                    <label id="115">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">B1用量/T</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="116">
+                                    <label id="117">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">F1用量/T</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="118">
+                                    <label id="119">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">其他用量/T</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="120">
+                                    <label id="121">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">工业实际用量/T</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="122">
+                                    <label id="123">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">非工业实际用量/T</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="124">
+                                <property name="height">30px</property>
+                                <cell id="129">
+                                    <data id="130">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">qc</property>
+                                    </data>
+                                </cell>
+                                <cell id="131">
+                                    <data id="132">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">b1</property>
+                                    </data>
+                                </cell>
+                                <cell id="133">
+                                    <data id="134">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">f1</property>
+                                    </data>
+                                </cell>
+                                <cell id="135">
+                                    <data id="136">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">qt</property>
+                                    </data>
+                                </cell>
+                                <cell id="137">
+                                    <data id="138">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">gysj</property>
+                                    </data>
+                                </cell>
+                                <cell id="139">
+                                    <data id="140">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">fgysj</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="141">
+                                <property name="height">30px</property>
+                                <cell id="144">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="175">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation</property>
+                                    </data>
+                                </cell>
+                                <cell id="145">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="176">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_1</property>
+                                    </data>
+                                </cell>
+                                <cell id="146">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="177">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_2</property>
+                                    </data>
+                                </cell>
+                                <cell id="147">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="178">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_3</property>
+                                    </data>
+                                </cell>
+                                <cell id="148">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="179">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_4</property>
+                                    </data>
+                                </cell>
+                                <cell id="149">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="180">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_5</property>
+                                    </data>
+                                </cell>
+                            </row>
+                            <row id="168">
+                                <property name="height">30px</property>
+                                <cell id="169">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="181">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_6</property>
+                                    </data>
+                                </cell>
+                                <cell id="170">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="182">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_7</property>
+                                    </data>
+                                </cell>
+                                <cell id="171">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="183">
+                                        <property name="fontSize">14px</property>
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_8</property>
+                                    </data>
+                                </cell>
+                                <cell id="172">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="184">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_9</property>
+                                    </data>
+                                </cell>
+                                <cell id="173">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="185">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_10</property>
+                                    </data>
+                                </cell>
+                                <cell id="174">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="186">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_11</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+                <cell id="19">
+                    <table id="188">
+                        <property name="dataSet">地下水明细</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">month</property>
+                                <text-property name="displayName">month</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["month"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">start</property>
+                                <text-property name="displayName">start</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["start"]</expression>
+                                <property name="dataType">date</property>
+                            </structure>
+                            <structure>
+                                <property name="name">qc</property>
+                                <text-property name="displayName">qc</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["qc"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">b1</property>
+                                <text-property name="displayName">b1</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["b1"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">f1</property>
+                                <text-property name="displayName">f1</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["f1"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">qt</property>
+                                <text-property name="displayName">qt</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["qt"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qc"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_1</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["b1"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_2</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["f1"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_3</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qt"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_4</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qc"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_5</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["b1"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_6</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["f1"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_7</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["qt"]/10000</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <column id="224"/>
+                        <column id="225"/>
+                        <column id="226"/>
+                        <column id="227"/>
+                        <header>
+                            <row id="228">
+                                <property name="height">30px</property>
+                                <cell id="229">
+                                    <property name="colSpan">4</property>
+                                    <property name="rowSpan">1</property>
+                                    <label id="233">
+                                        <property name="fontSize">16px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">地下水明细--月报累计</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                            <row id="189">
+                                <property name="height">30px</property>
+                                <cell id="194">
+                                    <label id="195">
+                                        <property name="fontSize">14px</property>
+                                        <property name="fontWeight">normal</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">总量/T</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="196">
+                                    <label id="197">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">恒盛实用量/T</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="198">
+                                    <label id="199">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">F1用量</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="200">
+                                    <label id="201">
+                                        <property name="fontSize">14px</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">其他用量/T</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="202">
+                                <property name="height">30px</property>
+                                <cell id="207">
+                                    <data id="208">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">qc</property>
+                                    </data>
+                                </cell>
+                                <cell id="209">
+                                    <data id="210">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">b1</property>
+                                    </data>
+                                </cell>
+                                <cell id="211">
+                                    <data id="212">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">f1</property>
+                                    </data>
+                                </cell>
+                                <cell id="213">
+                                    <data id="214">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">qt</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="215">
+                                <property name="height">30px</property>
+                                <cell id="218">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="239">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation</property>
+                                    </data>
+                                </cell>
+                                <cell id="219">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="240">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_1</property>
+                                    </data>
+                                </cell>
+                                <cell id="220">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="241">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_2</property>
+                                    </data>
+                                </cell>
+                                <cell id="221">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="242">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_3</property>
+                                    </data>
+                                </cell>
+                            </row>
+                            <row id="234">
+                                <property name="height">30px</property>
+                                <cell id="235">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="243">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_4</property>
+                                    </data>
+                                </cell>
+                                <cell id="236">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="244">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_5</property>
+                                    </data>
+                                </cell>
+                                <cell id="237">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="245">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_6</property>
+                                    </data>
+                                </cell>
+                                <cell id="238">
+                                    <property name="fontSize">14px</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <data id="246">
+                                        <structure name="numberFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">#0.0000</property>
+                                        </structure>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_7</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

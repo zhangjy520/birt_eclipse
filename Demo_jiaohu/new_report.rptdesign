@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">120</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">TTT.rptlibrary</property>
+            <property name="namespace">TTT</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="id" id="216">
+            <text-property name="promptText">qingshuruid</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="dataSetName">Data Set</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["id"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["id"]</expression>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="12"
+ extends="TTT.Data Source">
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://47.94.98.20:3308/weichatarticle</property>
+            <property name="odaUser">root</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">MTIz</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="13">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="alias">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">username</property>
+                    <property name="alias">username</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">username</text-property>
+                    <text-property name="heading">username</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">password</property>
+                    <property name="alias">password</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">password</text-property>
+                    <text-property name="heading">password</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">updatTime</property>
+                    <property name="alias">updatTime</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">updatTime</text-property>
+                    <text-property name="heading">updatTime</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">creatTime</property>
+                    <property name="alias">creatTime</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">creatTime</text-property>
+                    <text-property name="heading">creatTime</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">username</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">password</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">updatTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">creatTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">type</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">content</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">username</property>
+                    <property name="nativeName">username</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">password</property>
+                    <property name="nativeName">password</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">updatTime</property>
+                    <property name="nativeName">updatTime</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">creatTime</property>
+                    <property name="nativeName">creatTime</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">type</property>
+                    <property name="nativeName">type</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">content</property>
+                    <property name="nativeName">content</property>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select *
+from tb_account]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Ids" id="214">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT id FROM tb_account]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="infoById" id="215">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">username</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">username</text-property>
+                    <text-property name="heading">username</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">password</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">password</text-property>
+                    <text-property name="heading">password</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">updatTime</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">updatTime</text-property>
+                    <text-property name="heading">updatTime</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">creatTime</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">creatTime</text-property>
+                    <text-property name="heading">creatTime</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">type</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">type</text-property>
+                    <text-property name="heading">type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">content</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">content</text-property>
+                    <text-property name="heading">content</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">id</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">-1</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">1</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">username</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">password</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">updatTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">creatTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">type</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">content</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">username</property>
+                    <property name="nativeName">username</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">password</property>
+                    <property name="nativeName">password</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">updatTime</property>
+                    <property name="nativeName">updatTime</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">creatTime</property>
+                    <property name="nativeName">creatTime</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">type</property>
+                    <property name="nativeName">type</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">content</property>
+                    <property name="nativeName">content</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT * FROM tb_account WHERE id =?]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <DataSetParameters>
+    <parameter>
+      <design:ParameterDefinition>
+        <design:inOutMode>In</design:inOutMode>
+        <design:attributes>
+          <design:identifier>
+            <design:name></design:name>
+            <design:position>1</design:position>
+          </design:identifier>
+          <design:nativeDataTypeCode>-1</design:nativeDataTypeCode>
+          <design:precision>0</design:precision>
+          <design:scale>0</design:scale>
+          <design:nullability>Unknown</design:nullability>
+        </design:attributes>
+      </design:ParameterDefinition>
+    </parameter>
+  </DataSetParameters>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>username</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>500</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>username</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>username</design:label>
+            <design:formattingHints>
+              <design:displaySize>500</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>password</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>500</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>password</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>password</design:label>
+            <design:formattingHints>
+              <design:displaySize>500</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>updatTime</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>updatTime</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>updatTime</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>creatTime</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>creatTime</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>creatTime</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>type</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>5</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>type</design:label>
+            <design:formattingHints>
+              <design:displaySize>5</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>content</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>5</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>content</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>content</design:label>
+            <design:formattingHints>
+              <design:displaySize>5</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="Data Cube" id="173">
+            <property name="dimensions">
+                <tabular-dimension name="Group" id="174">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="175">
+                            <property name="levels">
+                                <tabular-level name="username" id="176">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">username</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+                <tabular-dimension name="Group1" id="177">
+                    <property name="defaultHierarchy">NewTabularHierarchy1</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy1" id="178">
+                            <property name="levels">
+                                <tabular-level name="password" id="179">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">password</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="182">
+                    <property name="measures">
+                        <tabular-measure name="content" id="183">
+                            <property name="function">sum</property>
+                            <property name="isCalculated">false</property>
+                            <expression name="measureExpression" type="javascript">dataSetRow["content"]</expression>
+                            <property name="dataType">float</property>
+                            <property name="isVisible">true</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">Data Set</property>
+        </tabular-cube>
+    </cubes>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="361">
+            <column id="362"/>
+            <row id="363">
+                <cell id="364"/>
+            </row>
+            <row id="365">
+                <cell id="366">
+                    <grid id="367">
+                        <column id="368">
+                            <property name="width">20%</property>
+                        </column>
+                        <column id="369">
+                            <property name="width">60%</property>
+                        </column>
+                        <column id="370"/>
+                        <row id="371">
+                            <cell id="372"/>
+                            <cell id="373">
+                                <table id="379">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">medium</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">medium</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">medium</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">medium</property>
+                                    <property name="dataSet">infoById</property>
+                                    <list-property name="paramBindings">
+                                        <structure>
+                                            <property name="paramName">id</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">params["id"].value</value>
+                                            </simple-property-list>
+                                        </structure>
+                                    </list-property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">id</property>
+                                            <text-property name="displayName">id</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                                            <property name="dataType">integer</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">username</property>
+                                            <text-property name="displayName">username</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["username"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">password</property>
+                                            <text-property name="displayName">password</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["password"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">updatTime</property>
+                                            <text-property name="displayName">updatTime</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["updatTime"]</expression>
+                                            <property name="dataType">date-time</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">creatTime</property>
+                                            <text-property name="displayName">creatTime</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["creatTime"]</expression>
+                                            <property name="dataType">date-time</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">type</property>
+                                            <text-property name="displayName">type</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["type"]</expression>
+                                            <property name="dataType">integer</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">content</property>
+                                            <text-property name="displayName">content</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["content"]</expression>
+                                            <property name="dataType">integer</property>
+                                        </structure>
+                                    </list-property>
+                                    <column id="398"/>
+                                    <column id="399"/>
+                                    <header>
+                                        <row id="380">
+                                            <property name="borderBottomStyle">solid</property>
+                                            <property name="borderBottomWidth">medium</property>
+                                            <property name="borderLeftStyle">solid</property>
+                                            <property name="borderLeftWidth">medium</property>
+                                            <property name="borderRightStyle">solid</property>
+                                            <property name="borderRightWidth">medium</property>
+                                            <property name="borderTopStyle">solid</property>
+                                            <property name="borderTopWidth">medium</property>
+                                            <cell id="381">
+                                                <property name="colSpan">2</property>
+                                                <property name="rowSpan">1</property>
+                                                <property name="borderBottomStyle">solid</property>
+                                                <property name="borderBottomWidth">medium</property>
+                                                <property name="borderLeftStyle">solid</property>
+                                                <property name="borderLeftWidth">medium</property>
+                                                <property name="borderRightStyle">solid</property>
+                                                <property name="borderRightWidth">medium</property>
+                                                <property name="borderTopStyle">solid</property>
+                                                <property name="borderTopWidth">medium</property>
+                                                <label id="400">
+                                                    <property name="borderBottomStyle">solid</property>
+                                                    <property name="borderBottomWidth">medium</property>
+                                                    <property name="borderLeftStyle">solid</property>
+                                                    <property name="borderLeftWidth">medium</property>
+                                                    <property name="borderRightStyle">solid</property>
+                                                    <property name="borderRightWidth">medium</property>
+                                                    <property name="borderTopStyle">solid</property>
+                                                    <property name="borderTopWidth">medium</property>
+                                                    <text-property name="text">居中要选两个</text-property>
+                                                </label>
+                                            </cell>
+                                        </row>
+                                    </header>
+                                    <detail>
+                                        <row id="383">
+                                            <property name="borderBottomStyle">solid</property>
+                                            <property name="borderBottomWidth">medium</property>
+                                            <property name="borderLeftStyle">solid</property>
+                                            <property name="borderLeftWidth">medium</property>
+                                            <property name="borderRightStyle">solid</property>
+                                            <property name="borderRightWidth">medium</property>
+                                            <property name="borderTopStyle">solid</property>
+                                            <property name="borderTopWidth">medium</property>
+                                            <cell id="384">
+                                                <property name="borderBottomStyle">solid</property>
+                                                <property name="borderBottomWidth">medium</property>
+                                                <property name="borderLeftStyle">solid</property>
+                                                <property name="borderLeftWidth">medium</property>
+                                                <property name="borderRightStyle">solid</property>
+                                                <property name="borderRightWidth">medium</property>
+                                                <property name="borderTopStyle">solid</property>
+                                                <property name="borderTopWidth">medium</property>
+                                                <label id="425">
+                                                    <text-property name="text">password</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="385">
+                                                <property name="borderBottomStyle">solid</property>
+                                                <property name="borderBottomWidth">medium</property>
+                                                <property name="borderLeftStyle">solid</property>
+                                                <property name="borderLeftWidth">medium</property>
+                                                <property name="borderRightStyle">solid</property>
+                                                <property name="borderRightWidth">medium</property>
+                                                <property name="borderTopStyle">solid</property>
+                                                <property name="borderTopWidth">medium</property>
+                                                <data id="418">
+                                                    <property name="resultSetColumn">username</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="386">
+                                            <property name="borderBottomStyle">solid</property>
+                                            <property name="borderBottomWidth">medium</property>
+                                            <property name="borderLeftStyle">solid</property>
+                                            <property name="borderLeftWidth">medium</property>
+                                            <property name="borderRightStyle">solid</property>
+                                            <property name="borderRightWidth">medium</property>
+                                            <property name="borderTopStyle">solid</property>
+                                            <property name="borderTopWidth">medium</property>
+                                            <cell id="387">
+                                                <label id="424">
+                                                    <text-property name="text">password</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="388">
+                                                <data id="419">
+                                                    <property name="resultSetColumn">password</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="389">
+                                            <cell id="390">
+                                                <label id="423">
+                                                    <text-property name="text">content</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="391">
+                                                <data id="420">
+                                                    <property name="resultSetColumn">content</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="392">
+                                            <cell id="393">
+                                                <label id="422">
+                                                    <text-property name="text">id</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="394">
+                                                <data id="421">
+                                                    <property name="resultSetColumn">id</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                    </detail>
+                                    <footer>
+                                        <row id="395">
+                                            <cell id="396"/>
+                                            <cell id="397"/>
+                                        </row>
+                                    </footer>
+                                </table>
+                            </cell>
+                            <cell id="374"/>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>
