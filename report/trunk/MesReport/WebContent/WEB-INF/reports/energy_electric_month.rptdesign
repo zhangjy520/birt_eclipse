@@ -1,44 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
-    <list-property name="propertyBindings">
-        <structure>
-            <property name="name">odaDriverClass</property>
-            <property name="id">10</property>
-        </structure>
-        <structure>
-            <property name="name">odaURL</property>
-            <property name="id">10</property>
-        </structure>
-        <structure>
-            <property name="name">odaUser</property>
-            <property name="id">10</property>
-        </structure>
-        <structure>
-            <property name="name">odaAutoCommit</property>
-            <property name="id">10</property>
-        </structure>
-        <structure>
-            <property name="name">odaIsolationMode</property>
-            <property name="id">10</property>
-        </structure>
-        <structure>
-            <property name="name">odaPassword</property>
-            <property name="id">10</property>
-        </structure>
-        <structure>
-            <property name="name">odaJndiName</property>
-            <property name="id">10</property>
-        </structure>
-        <structure>
-            <property name="name">OdaConnProfileName</property>
-            <property name="id">10</property>
-        </structure>
-        <structure>
-            <property name="name">OdaConnProfileStorePath</property>
-            <property name="id">10</property>
-        </structure>
-    </list-property>
     <property name="units">in</property>
     <property name="theme">mes.defaultTheme</property>
     <property name="iconFile">/templates/blank_report.gif</property>
@@ -122,9 +84,9 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://47.94.98.20:3308/report?useUnicode=true&amp;characterEncoding=utf-8</property>
-            <property name="odaUser">root</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">MTIz</encrypted-property>
+            <property name="odaURL">jdbc:mysql://192.168.1.178:3306/mes-energy?useUnicode=true&amp;characterEncoding=utf-8</property>
+            <property name="odaUser">mes</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">bWVzcHdk</encrypted-property>
             <property name="OdaConnProfileName">dsfdsfds</property>
             <property name="OdaConnProfileStorePath">conn</property>
         </oda-data-source>
@@ -4630,7 +4592,7 @@ OR area LIKE '%辅助_%'
                     <structure>
                         <property name="position">1</property>
                         <property name="name">id</property>
-                        <property name="dataType">string</property>
+                        <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">2</property>
@@ -4665,7 +4627,7 @@ OR area LIKE '%辅助_%'
                     <property name="position">1</property>
                     <property name="name">id</property>
                     <property name="nativeName">id</property>
-                    <property name="dataType">string</property>
+                    <property name="dataType">decimal</property>
                     <property name="nativeDataType">-5</property>
                 </structure>
                 <structure>

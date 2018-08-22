@@ -59,7 +59,7 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://10.168.1.55:3306/mes-report?useUnicode=true&amp;characterEncoding=utf-8</property>
+            <property name="odaURL">jdbc:mysql://192.168.1.178:3306/mes-energy?useUnicode=true&amp;characterEncoding=utf-8</property>
             <property name="odaUser">mes</property>
             <encrypted-property name="odaPassword" encryptionID="base64">bWVzcHdk</encrypted-property>
             <property name="OdaConnProfileName">dsfdsfds</property>
