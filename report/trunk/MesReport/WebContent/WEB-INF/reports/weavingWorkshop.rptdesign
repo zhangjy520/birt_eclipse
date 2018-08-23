@@ -1,0 +1,1074 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="theme">mes.defaultTheme</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">120</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">mes.rptlibrary</property>
+            <property name="namespace">mes</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="classGroup" id="62">
+            <text-property name="helpText">名称</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">false</property>
+            <property name="dataSetName">classGroupDropDownList</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["CODE"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["NAME"]</expression>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="beginDate" id="63">
+            <text-property name="helpText">beginDate</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endDate" id="64">
+            <text-property name="helpText">endDate</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="5">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://10.168.1.55:3306/mes-report?useUnicode=true&amp;characterEncoding=utf-8</property>
+            <property name="odaUser">mes</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">bWVzcHdk</encrypted-property>
+            <property name="OdaConnProfileName">dsfdsfds</property>
+            <property name="OdaConnProfileStorePath">conn</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="classGroupDropDownList" id="104">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">CODE</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">CODE</text-property>
+                    <text-property name="heading">CODE</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">NAME</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">NAME</text-property>
+                    <text-property name="heading">NAME</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">CODE</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">NAME</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">CODE</property>
+                    <property name="nativeName">CODE</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">NAME</property>
+                    <property name="nativeName">NAME</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT 
+  CODE,NAME
+FROM
+  `mes-external`.mdm_org 
+WHERE parent_org IN 
+  (SELECT 
+    id 
+  FROM
+    `mes-external`.mdm_org 
+  WHERE CODE IN ('C12', 'C13')) 
+  AND TYPE = 5  UNION (SELECT NULL AS CODE, '所有的' AS NAME FROM DUAL)
+  ORDER BY CODE]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="mainData" id="151">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">machine_code</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">machine_code</text-property>
+                    <text-property name="heading">machine_code</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">shaft_code</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">shaft_code</text-property>
+                    <text-property name="heading">shaft_code</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">variety</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">variety</text-property>
+                    <text-property name="heading">variety</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">material_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">material_name</text-property>
+                    <text-property name="heading">material_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">weaving_worker</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">weaving_worker</text-property>
+                    <text-property name="heading">weaving_worker</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">downer</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">downer</text-property>
+                    <text-property name="heading">downer</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalNum</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">totalNum</text-property>
+                    <text-property name="heading">totalNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">work_class</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">work_class</text-property>
+                    <text-property name="heading">work_class</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">work_team</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">work_team</text-property>
+                    <text-property name="heading">work_team</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">workshop_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">workshop_name</text-property>
+                    <text-property name="heading">workshop_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">create_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">create_date</text-property>
+                    <text-property name="heading">create_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">shangshaWeiNum</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">shangshaWeiNum</text-property>
+                    <text-property name="heading">shangshaWeiNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">output_weft_sum</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">output_weft_sum</text-property>
+                    <text-property name="heading">output_weft_sum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">output_meter_sum</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">output_meter_sum</text-property>
+                    <text-property name="heading">output_meter_sum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">shift_efficiency_avg</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">shift_efficiency_avg</text-property>
+                    <text-property name="heading">shift_efficiency_avg</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">machine_code</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">shaft_code</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">variety</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">material_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">weaving_worker</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">downer</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">totalNum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">work_class</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">work_team</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">workshop_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">create_date</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">shangshaWeiNum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">output_weft_sum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">output_meter_sum</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">shift_efficiency_avg</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.io);
+importPackage(Packages.java.util);
+importPackage(Packages.java.lang);
+
+var macro;
+var replaceStr;
+if (params["classGroup"].value != null &amp;&amp; params["classGroup"].value != ""){
+	macro = "1 = 1" ;
+	replaceStr = "weaving_record.`work_team` ='" +params["classGroup"].value+"'" ;
+	this.queryText = this.queryText.replaceFirst(macro,replaceStr);
+}
+
+if (params["beginDate"].value != null &amp;&amp; params["beginDate"].value != ""){
+	macro = "2 = 2" ;
+	replaceStr = "weaving_record.`create_date`>='" + params["beginDate"].value + "'" ;
+	this.queryText = this.queryText.replaceFirst(macro,replaceStr);
+	
+	macro = "4 = 4" ;
+	replaceStr = "upper.`create_date`>='" + params["beginDate"].value + "'" ;
+	this.queryText = this.queryText.replaceFirst(macro,replaceStr);
+}
+
+if (params["endDate"].value != null &amp;&amp; params["endDate"].value != ""){
+	macro = "3 = 3" ;
+	replaceStr = "weaving_record.`create_date`<='" + params["endDate"].value + "'" ;
+	this.queryText = this.queryText.replaceFirst(macro,replaceStr);
+	
+	macro = "5 = 5" ;
+	replaceStr = "upper.`create_date`>='" + params["beginDate"].value + "'" ;
+	this.queryText = this.queryText.replaceFirst(macro,replaceStr);
+}]]></method>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">machine_code</property>
+                    <property name="nativeName">machine_code</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">shaft_code</property>
+                    <property name="nativeName">shaft_code</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">variety</property>
+                    <property name="nativeName">variety</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">material_name</property>
+                    <property name="nativeName">material_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">weaving_worker</property>
+                    <property name="nativeName">weaving_worker</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">downer</property>
+                    <property name="nativeName">downer</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">totalNum</property>
+                    <property name="nativeName">totalNum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">work_class</property>
+                    <property name="nativeName">work_class</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">work_team</property>
+                    <property name="nativeName">work_team</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">workshop_name</property>
+                    <property name="nativeName">workshop_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">create_date</property>
+                    <property name="nativeName">create_date</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">shangshaWeiNum</property>
+                    <property name="nativeName">shangshaWeiNum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">output_weft_sum</property>
+                    <property name="nativeName">output_weft_sum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">output_meter_sum</property>
+                    <property name="nativeName">output_meter_sum</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">shift_efficiency_avg</property>
+                    <property name="nativeName">shift_efficiency_avg</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT DISTINCT 
+  weaving_record.`machine_code`,
+  weaving_record.`shaft_code`,
+  weaving_record.`variety`,
+  weaving_record.`material_name`,
+  (SELECT 
+    staff.name 
+  FROM
+    `mes-external`.`mdm_staff_info` staff 
+  WHERE staff.code = weaving_record.`weaving_worker`) weaving_worker,
+  (SELECT 
+    staff.name 
+  FROM
+    `mes-external`.`mdm_staff_info` staff 
+  WHERE staff.code = weaving_record.`downer`) downer,
+  SUM(weaving_record.`number`) totalNum,
+  weaving_record.`work_class`,
+  (SELECT 
+    org.`name` 
+  FROM
+    `mes-external`.`mdm_org` org 
+  WHERE org.code = weaving_record.`work_team`) work_team,
+  (SELECT 
+    org.`name` 
+  FROM
+    `mes-external`.`mdm_org` org 
+  WHERE org.code = weaving_record.`workshop`) workshop_name,
+  weaving_record.`create_date`,
+  upper_latitude.`shangshaWeiNum`, 
+  info.`output_weft_sum`,
+  info.`output_meter_sum`,
+  info.`shift_efficiency_avg` 
+FROM
+  `mes-job`.`job_weaving_record` weaving_record 
+  LEFT JOIN 
+    (SELECT DISTINCT 
+      SUM(upper.`number`) AS shangshaWeiNum,
+      upper.`machine_code` 
+    FROM
+      `mes-job`.`job_upper_latitude_record` UPPER
+    WHERE upper.del_flag = 0 
+      AND 4 = 4 
+      AND 5 = 5 
+    GROUP BY machine_code) upper_latitude 
+    ON weaving_record.`machine_code` = upper_latitude.machine_code 
+  LEFT JOIN 
+    (SELECT 
+      meter_number,
+      workshop_name,
+      SUM(output_weft) output_weft_sum,
+      SUM(output_meter) output_meter_sum,
+      AVG(shift_efficiency) shift_efficiency_avg 
+    FROM
+      `mes-wmchis`.`shift_info` 
+    WHERE shift_info.`del_flag` = 0 
+      AND 6 = 6 
+      AND 7 = 7 
+    GROUP BY meter_number) info 
+    ON weaving_record.`machine_code` = info.`meter_number` 
+WHERE weaving_record.`del_flag` = 0 
+  AND 1 = 1 
+  AND 2 = 2 
+  AND 3 = 3 
+GROUP BY weaving_record.`machine_code`,
+  weaving_record.`work_team` 
+ORDER BY weaving_record.`create_date` ]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>machine_code</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>machine_code</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>machine_code</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>shaft_code</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>shaft_code</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>shaft_code</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>variety</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>variety</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>variety</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>weaving_worker</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>weaving_worker</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>weaving_worker</design:label>
+            <design:formattingHints>
+              <design:displaySize>32</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>downer</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>downer</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>downer</design:label>
+            <design:formattingHints>
+              <design:displaySize>32</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>totalNum</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>42</design:precision>
+            <design:scale>2</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>totalNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>totalNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>44</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>work_class</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>work_class</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>work_class</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>work_team</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>work_team</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>work_team</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>number</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>2</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>shangshaWeiNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>shangshaWeiNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="253">
+            <property name="width">18in</property>
+            <property name="dataSet">mainData</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">machine_code</property>
+                    <text-property name="displayName">machine_code</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["machine_code"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">variety</property>
+                    <text-property name="displayName">variety</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["variety"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">weaving_worker</property>
+                    <text-property name="displayName">weaving_worker</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["weaving_worker"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">downer</property>
+                    <text-property name="displayName">downer</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["downer"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">totalNum</property>
+                    <text-property name="displayName">totalNum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["totalNum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">create_date</property>
+                    <text-property name="displayName">create_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["create_date"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">work_team</property>
+                    <text-property name="displayName">work_team</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["work_team"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">work_class</property>
+                    <text-property name="displayName">work_class</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["work_class"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shangshaWeiNum</property>
+                    <text-property name="displayName">shangshaWeiNum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shangshaWeiNum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">workshop_name</property>
+                    <text-property name="displayName">workshop_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["workshop_name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">output_meter_sum</property>
+                    <text-property name="displayName">output_meter_sum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["output_meter_sum"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">shift_efficiency_avg</property>
+                    <text-property name="displayName">shift_efficiency_avg</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shift_efficiency_avg"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">output_weft_sum</property>
+                    <text-property name="displayName">output_weft_sum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["output_weft_sum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">material_name</property>
+                    <text-property name="displayName">material_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["material_name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">20</property>
+            <column id="293">
+                <property name="width">7%</property>
+            </column>
+            <column id="294">
+                <property name="width">7%</property>
+            </column>
+            <column id="295">
+                <property name="width">7%</property>
+            </column>
+            <column id="338">
+                <property name="width">15%</property>
+            </column>
+            <column id="296">
+                <property name="width">5%</property>
+            </column>
+            <column id="297">
+                <property name="width">6%</property>
+            </column>
+            <column id="298">
+                <property name="width">7%</property>
+            </column>
+            <column id="299">
+                <property name="width">7%</property>
+            </column>
+            <column id="300">
+                <property name="width">8%</property>
+            </column>
+            <column id="332">
+                <property name="width">8%</property>
+            </column>
+            <column id="301">
+                <property name="width">5%</property>
+            </column>
+            <column id="302">
+                <property name="width">5%</property>
+            </column>
+            <column id="303"/>
+            <header>
+                <row id="254">
+                    <cell id="255">
+                        <label id="305">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">机台号</text-property>
+                        </label>
+                    </cell>
+                    <cell id="256">
+                        <label id="306">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">车间</text-property>
+                        </label>
+                    </cell>
+                    <cell id="257">
+                        <label id="307">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">在机品种</text-property>
+                        </label>
+                    </cell>
+                    <cell id="335">
+                        <label id="339">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">品名</text-property>
+                        </label>
+                    </cell>
+                    <cell id="258">
+                        <label id="308">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">挡车工</text-property>
+                        </label>
+                    </cell>
+                    <cell id="259">
+                        <label id="309">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">落布工</text-property>
+                        </label>
+                    </cell>
+                    <cell id="260">
+                        <label id="310">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">落布产量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="261">
+                        <label id="311">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">上纱纬数</text-property>
+                        </label>
+                    </cell>
+                    <cell id="262">
+                        <label id="312">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">当日产量(米)</text-property>
+                        </label>
+                    </cell>
+                    <cell id="329">
+                        <label id="333">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">当日产量(纬)</text-property>
+                        </label>
+                    </cell>
+                    <cell id="263">
+                        <label id="313">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">当班效率%</text-property>
+                        </label>
+                    </cell>
+                    <cell id="264">
+                        <label id="314">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">日期</text-property>
+                        </label>
+                    </cell>
+                    <cell id="265">
+                        <label id="315">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">班组</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="267">
+                    <cell id="268">
+                        <data id="317">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">machine_code</property>
+                        </data>
+                    </cell>
+                    <cell id="269">
+                        <data id="326">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">workshop_name</property>
+                        </data>
+                    </cell>
+                    <cell id="270">
+                        <data id="318">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">variety</property>
+                        </data>
+                    </cell>
+                    <cell id="336">
+                        <text id="341">
+                            <property name="textAlign">center</property>
+                            <property name="contentType">html</property>
+                            <text-property name="content"><![CDATA[<VALUE-OF>row["material_name"]</VALUE-OF>]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="271">
+                        <data id="319">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">weaving_worker</property>
+                        </data>
+                    </cell>
+                    <cell id="272">
+                        <data id="320">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">downer</property>
+                        </data>
+                    </cell>
+                    <cell id="273">
+                        <data id="321">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">totalNum</property>
+                        </data>
+                    </cell>
+                    <cell id="274">
+                        <data id="325">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">shangshaWeiNum</property>
+                        </data>
+                    </cell>
+                    <cell id="275">
+                        <data id="327">
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">#0.00</property>
+                            </structure>
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">output_meter_sum</property>
+                        </data>
+                    </cell>
+                    <cell id="330">
+                        <data id="334">
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                            </structure>
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">output_weft_sum</property>
+                        </data>
+                    </cell>
+                    <cell id="276">
+                        <data id="328">
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">#0.00</property>
+                            </structure>
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">shift_efficiency_avg</property>
+                        </data>
+                    </cell>
+                    <cell id="277">
+                        <data id="322">
+                            <structure name="dateTimeFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">y-MM-dd</property>
+                            </structure>
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">create_date</property>
+                        </data>
+                    </cell>
+                    <cell id="278">
+                        <data id="323">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">work_team</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="280">
+                    <cell id="281"/>
+                    <cell id="282"/>
+                    <cell id="283"/>
+                    <cell id="337"/>
+                    <cell id="284"/>
+                    <cell id="285"/>
+                    <cell id="286"/>
+                    <cell id="287"/>
+                    <cell id="288"/>
+                    <cell id="331"/>
+                    <cell id="289"/>
+                    <cell id="290"/>
+                    <cell id="291"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>
