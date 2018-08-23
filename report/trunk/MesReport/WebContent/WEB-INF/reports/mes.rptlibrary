@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
     <property name="units">in</property>
     <parameters>
         <scalar-parameter name="userId" id="20">
@@ -105,21 +105,32 @@
                 <style name="report" id="6">
                     <property name="fontFamily">"微软雅黑"</property>
                     <property name="fontSize">13px</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
                 </style>
                 <style name="table" id="7">
                     <property name="backgroundColor">#FDFDFD</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
                 </style>
                 <style name="table-header" id="8">
                     <property name="backgroundColor">#F9F9F9</property>
+                    <property name="fontSize">12pt</property>
+                    <property name="textAlign">center</property>
                     <property name="verticalAlign">middle</property>
                     <property name="height">40px</property>
                 </style>
-                <style name="table-footer" id="9"/>
+                <style name="table-footer" id="9">
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                </style>
                 <style name="table-detail" id="10">
                     <property name="paddingTop">0pt</property>
                     <property name="paddingLeft">0pt</property>
                     <property name="paddingBottom">0pt</property>
                     <property name="paddingRight">0pt</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
                     <property name="height">28px</property>
                 </style>
                 <style name="table-detail-cell" id="11">
@@ -139,6 +150,8 @@
                     <property name="paddingLeft">0pt</property>
                     <property name="paddingBottom">0pt</property>
                     <property name="paddingRight">0pt</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
                 </style>
                 <style name="table-header-cell" id="12">
                     <property name="borderBottomColor">#DDDDDD</property>
@@ -157,6 +170,8 @@
                     <property name="paddingLeft">0pt</property>
                     <property name="paddingBottom">0pt</property>
                     <property name="paddingRight">0pt</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
                 </style>
                 <style name="table-footer-cell" id="13">
                     <property name="borderBottomColor">#DDDDDD</property>
@@ -171,6 +186,8 @@
                     <property name="borderTopColor">#DDDDDD</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
                 </style>
                 <style name="label" id="14">
                     <property name="marginLeft">2pt</property>
@@ -179,7 +196,7 @@
                     <property name="paddingLeft">0pt</property>
                     <property name="paddingBottom">0pt</property>
                     <property name="paddingRight">0pt</property>
-                    <property name="textAlign">left</property>
+                    <property name="textAlign">center</property>
                     <property name="verticalAlign">middle</property>
                 </style>
                 <style name="data" id="16">
@@ -190,6 +207,8 @@
                     <property name="paddingLeft">0pt</property>
                     <property name="paddingBottom">0pt</property>
                     <property name="paddingRight">0pt</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
                 </style>
                 <style name="table-group-footer-1" id="17">
                     <property name="borderBottomColor">#DDDDDD</property>
@@ -204,6 +223,8 @@
                     <property name="borderTopColor">#DDDDDD</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
                 </style>
             </styles>
         </theme>

@@ -202,9 +202,9 @@ if (params["goodsName"].value != null &amp;&amp; params["goodsName"].value != "1
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://10.168.1.55:3306/mes-report?useUnicode=true&amp;characterEncoding=utf-8</property>
-            <property name="odaUser">mes</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">bWVzcHdk</encrypted-property>
+            <property name="odaURL">jdbc:mysql://192.168.2.241:3306/bmzt_test?useUnicode=true&amp;characterEncoding=utf-8</property>
+            <property name="odaUser">root</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">cm9vdA==</encrypted-property>
             <property name="OdaConnProfileName">dsfdsfds</property>
             <property name="OdaConnProfileStorePath">conn</property>
         </oda-data-source>
