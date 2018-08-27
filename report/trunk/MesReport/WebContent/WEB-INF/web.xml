@@ -44,7 +44,7 @@
   </context-param>
   <context-param>
     <param-name>BIRT_RESOURCE_PATH</param-name>
-    <param-value></param-value>
+    <param-value>${birt.viewer.working.path}/scriptlib</param-value>
   </context-param>
   <context-param>
     <param-name>BIRT_VIEWER_MAX_ROWS</param-name>
