@@ -179,6 +179,24 @@ WHERE parent_org IN
                     <text-property name="heading">material_name</text-property>
                 </structure>
                 <structure>
+                    <property name="columnName">totalNum</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">totalNum</text-property>
+                    <text-property name="heading">totalNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">number</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">number</text-property>
+                    <text-property name="heading">number</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">work_class</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">work_class</text-property>
+                    <text-property name="heading">work_class</text-property>
+                </structure>
+                <structure>
                     <property name="columnName">weaving_worker</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">weaving_worker</text-property>
@@ -189,18 +207,6 @@ WHERE parent_org IN
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">downer</text-property>
                     <text-property name="heading">downer</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">totalNum</property>
-                    <property name="analysis">measure</property>
-                    <text-property name="displayName">totalNum</text-property>
-                    <text-property name="heading">totalNum</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">work_class</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">work_class</text-property>
-                    <text-property name="heading">work_class</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">work_team</property>
@@ -270,56 +276,61 @@ WHERE parent_org IN
                     </structure>
                     <structure>
                         <property name="position">5</property>
-                        <property name="name">weaving_worker</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">6</property>
-                        <property name="name">downer</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">7</property>
                         <property name="name">totalNum</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">8</property>
+                        <property name="position">6</property>
+                        <property name="name">number</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
                         <property name="name">work_class</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
+                        <property name="position">8</property>
+                        <property name="name">weaving_worker</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
                         <property name="position">9</property>
-                        <property name="name">work_team</property>
+                        <property name="name">downer</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">10</property>
-                        <property name="name">workshop_name</property>
+                        <property name="name">work_team</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">11</property>
+                        <property name="name">workshop_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
                         <property name="name">create_date</property>
                         <property name="dataType">date-time</property>
                     </structure>
                     <structure>
-                        <property name="position">12</property>
+                        <property name="position">13</property>
                         <property name="name">shangshaWeiNum</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">13</property>
+                        <property name="position">14</property>
                         <property name="name">output_weft_sum</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">14</property>
+                        <property name="position">15</property>
                         <property name="name">output_meter_sum</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">15</property>
+                        <property name="position">16</property>
                         <property name="name">shift_efficiency_avg</property>
                         <property name="dataType">float</property>
                     </structure>
@@ -329,8 +340,7 @@ WHERE parent_org IN
 importPackage(Packages.java.util);
 importPackage(Packages.java.lang);
 
-importPackage(Packages.mes.common.util);
-
+importPackage(Packages.mes.common.util); 
 var macro;
 var replaceStr;
 var currentDate = new Date();
@@ -405,148 +415,173 @@ if (params["endDate"].value != null &amp;&amp; params["endDate"].value != ""){
                 </structure>
                 <structure>
                     <property name="position">5</property>
-                    <property name="name">weaving_worker</property>
-                    <property name="nativeName">weaving_worker</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
-                </structure>
-                <structure>
-                    <property name="position">6</property>
-                    <property name="name">downer</property>
-                    <property name="nativeName">downer</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
-                </structure>
-                <structure>
-                    <property name="position">7</property>
                     <property name="name">totalNum</property>
                     <property name="nativeName">totalNum</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">3</property>
                 </structure>
                 <structure>
-                    <property name="position">8</property>
+                    <property name="position">6</property>
+                    <property name="name">number</property>
+                    <property name="nativeName">number</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
                     <property name="name">work_class</property>
                     <property name="nativeName">work_class</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
+                    <property name="position">8</property>
+                    <property name="name">weaving_worker</property>
+                    <property name="nativeName">weaving_worker</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
                     <property name="position">9</property>
+                    <property name="name">downer</property>
+                    <property name="nativeName">downer</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
                     <property name="name">work_team</property>
                     <property name="nativeName">work_team</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">10</property>
+                    <property name="position">11</property>
                     <property name="name">workshop_name</property>
                     <property name="nativeName">workshop_name</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">11</property>
+                    <property name="position">12</property>
                     <property name="name">create_date</property>
                     <property name="nativeName">create_date</property>
                     <property name="dataType">date-time</property>
                     <property name="nativeDataType">93</property>
                 </structure>
                 <structure>
-                    <property name="position">12</property>
+                    <property name="position">13</property>
                     <property name="name">shangshaWeiNum</property>
                     <property name="nativeName">shangshaWeiNum</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">3</property>
                 </structure>
                 <structure>
-                    <property name="position">13</property>
+                    <property name="position">14</property>
                     <property name="name">output_weft_sum</property>
                     <property name="nativeName">output_weft_sum</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">3</property>
                 </structure>
                 <structure>
-                    <property name="position">14</property>
+                    <property name="position">15</property>
                     <property name="name">output_meter_sum</property>
                     <property name="nativeName">output_meter_sum</property>
                     <property name="dataType">float</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">15</property>
+                    <property name="position">16</property>
                     <property name="name">shift_efficiency_avg</property>
                     <property name="nativeName">shift_efficiency_avg</property>
                     <property name="dataType">float</property>
                     <property name="nativeDataType">8</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT DISTINCT 
-  weaving_record.`machine_code`,
-  weaving_record.`shaft_code`,
-  weaving_record.`variety`,
-  weaving_record.`material_name`,
-  (SELECT 
-    staff.name 
-  FROM
-    `mes-external`.`mdm_staff_info` staff 
-  WHERE staff.code = weaving_record.`weaving_worker`) weaving_worker,
-  (SELECT 
-    staff.name 
-  FROM
-    `mes-external`.`mdm_staff_info` staff 
-  WHERE staff.code = weaving_record.`downer`) downer,
-  SUM(weaving_record.`number`) totalNum,
-  weaving_record.`work_class`,
-  (SELECT 
-    org.`name` 
-  FROM
-    `mes-external`.`mdm_org` org 
-  WHERE org.code = weaving_record.`work_team`) work_team,
-  (SELECT 
-    org.`name` 
-  FROM
-    `mes-external`.`mdm_org` org 
-  WHERE org.code = weaving_record.`workshop`) workshop_name,
-  weaving_record.`create_date`,
-  upper_latitude.`shangshaWeiNum`, 
-  info.`output_weft_sum`,
-  info.`output_meter_sum`,
-  info.`shift_efficiency_avg` 
+            <xml-property name="queryText"><![CDATA[SELECT 
+  temp.machine_code,
+  temp.shaft_code,
+  temp.variety,
+  temp.material_name,
+  SUM(temp.number) totalNum,
+  temp.number,
+  temp.work_class,
+  GROUP_CONCAT(DISTINCT temp.weaving_worker) weaving_worker,
+  GROUP_CONCAT(DISTINCT temp.downer) downer,
+  temp.work_team,
+  temp.workshop_name,
+  temp.create_date,
+  temp.shangshaWeiNum,
+  temp.output_weft_sum,
+  temp.output_meter_sum,
+  temp.shift_efficiency_avg 
 FROM
-  `mes-job`.`job_weaving_record` weaving_record 
-  LEFT JOIN 
-    (SELECT DISTINCT 
-      SUM(upper.`number`) AS shangshaWeiNum,
-      upper.`machine_code` 
-    FROM
-      `mes-job`.`job_upper_latitude_record` UPPER
-    WHERE upper.del_flag = 0 
-      AND 4 = 4 
-      AND 5 = 5 
-    GROUP BY machine_code) upper_latitude 
-    ON weaving_record.`machine_code` = upper_latitude.machine_code 
-  LEFT JOIN 
+  (SELECT DISTINCT 
+    weaving_record.`machine_code`,
+    weaving_record.`shaft_code`,
+    weaving_record.`variety`,
+    weaving_record.`material_name`,
+    weaving_record.`number`,
+    weaving_record.`work_class`,
     (SELECT 
-      meter_number,
-      workshop_name,
-      SUM(output_weft) output_weft_sum,
-      SUM(output_meter) output_meter_sum,
-      AVG(shift_efficiency) shift_efficiency_avg 
+      staff.name 
     FROM
-      `mes-wmchis`.`shift_info` 
-    WHERE shift_info.`del_flag` = 0 
-      AND 6 = 6 
-      AND 7 = 7 
-    GROUP BY meter_number) info 
-    ON weaving_record.`machine_code` = info.`meter_number` 
-WHERE weaving_record.`del_flag` = 0 
-  AND 1 = 1 
-  AND 2 = 2 
-  AND 3 = 3 
-GROUP BY weaving_record.`machine_code`,
-  weaving_record.`work_team` 
-ORDER BY weaving_record.`create_date` ]]></xml-property>
+      `mes-external`.`mdm_staff_info` staff 
+    WHERE staff.code = weaving_record.`weaving_worker`) weaving_worker,
+    (SELECT 
+      staff.name 
+    FROM
+      `mes-external`.`mdm_staff_info` staff 
+    WHERE staff.code = weaving_record.`downer`) downer,
+    (SELECT 
+      org.`name` 
+    FROM
+      `mes-external`.`mdm_org` org 
+    WHERE org.code = weaving_record.`work_team`) work_team,
+    (SELECT 
+      org.`name` 
+    FROM
+      `mes-external`.`mdm_org` org 
+    WHERE org.code = weaving_record.`workshop`) workshop_name,
+    weaving_record.`create_date`,
+    upper_latitude.`shangshaWeiNum`,
+    info.`output_weft_sum`,
+    info.`output_meter_sum`,
+    info.`shift_efficiency_avg` 
+  FROM
+    `mes-job`.`job_weaving_record` weaving_record 
+    LEFT JOIN 
+      (SELECT DISTINCT 
+        SUM(upper.`number`) AS shangshaWeiNum,
+        upper.`machine_code` 
+      FROM
+        `mes-job`.`job_upper_latitude_record` UPPER
+      WHERE upper.del_flag = 0 
+        AND 4 = 4 
+        AND 5 = 5 
+      GROUP BY machine_code) upper_latitude 
+      ON weaving_record.`machine_code` = upper_latitude.machine_code 
+    LEFT JOIN 
+      (SELECT 
+        meter_number,
+        workshop_name,
+        SUM(output_weft) output_weft_sum,
+        SUM(output_meter) output_meter_sum,
+        AVG(shift_efficiency) shift_efficiency_avg 
+      FROM
+        `mes-wmchis`.`shift_info` 
+      WHERE shift_info.`del_flag` = 0 
+        AND 6 = 6 
+        AND 7 = 7 
+      GROUP BY meter_number) info 
+      ON weaving_record.`machine_code` = info.`meter_number` 
+  WHERE weaving_record.`del_flag` = 0 
+    AND 1 = 1 
+    AND 2 = 2 
+    AND 3 = 3) temp 
+GROUP BY temp.`machine_code`,
+  temp.`work_team` 
+ORDER BY temp.`create_date` ]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -857,6 +892,7 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
             <property name="pageBreakInterval">20</property>
             <column id="303">
                 <property name="repeat">1</property>
+                <property name="width">10%</property>
             </column>
             <column id="293">
                 <property name="width">7%</property>
@@ -866,9 +902,6 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
             </column>
             <column id="295">
                 <property name="width">7%</property>
-            </column>
-            <column id="338">
-                <property name="width">15%</property>
             </column>
             <column id="296">
                 <property name="width">5%</property>
@@ -889,9 +922,6 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
                 <property name="width">8%</property>
             </column>
             <column id="301">
-                <property name="width">5%</property>
-            </column>
-            <column id="302">
                 <property name="width">5%</property>
             </column>
             <header>
@@ -918,12 +948,6 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
                         <label id="307">
                             <property name="textAlign">center</property>
                             <text-property name="text">在机品种</text-property>
-                        </label>
-                    </cell>
-                    <cell id="335">
-                        <label id="339">
-                            <property name="textAlign">center</property>
-                            <text-property name="text">品名</text-property>
                         </label>
                     </cell>
                     <cell id="258">
@@ -968,12 +992,6 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
                             <text-property name="text">当班效率%</text-property>
                         </label>
                     </cell>
-                    <cell id="264">
-                        <label id="314">
-                            <property name="textAlign">center</property>
-                            <text-property name="text">日期</text-property>
-                        </label>
-                    </cell>
                 </row>
             </header>
             <group id="346">
@@ -985,6 +1003,11 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
                 <property name="hideDetail">false</property>
                 <header>
                     <row id="347">
+                        <method name="onPrepare"><![CDATA[count=0;]]></method>
+                        <method name="onCreate"><![CDATA[importPackage(Packages.mes.common.util);  
+
+
+System.out.print(GsonUtil.GsonString(this));]]></method>
                         <cell id="348">
                             <property name="drop">all</property>
                             <property name="borderBottomColor">#DDDDDD</property>
@@ -1021,7 +1044,6 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
                         </cell>
                         <cell id="350"/>
                         <cell id="351"/>
-                        <cell id="352"/>
                         <cell id="353"/>
                         <cell id="354"/>
                         <cell id="355"/>
@@ -1029,7 +1051,6 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
                         <cell id="357"/>
                         <cell id="358"/>
                         <cell id="359"/>
-                        <cell id="360"/>
                     </row>
                 </header>
             </group>
@@ -1060,13 +1081,6 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
                             <property name="textAlign">center</property>
                             <property name="resultSetColumn">variety</property>
                         </data>
-                    </cell>
-                    <cell id="336">
-                        <text id="341">
-                            <property name="textAlign">center</property>
-                            <property name="contentType">html</property>
-                            <text-property name="content"><![CDATA[<VALUE-OF>row["material_name"]</VALUE-OF>]]></text-property>
-                        </text>
                     </cell>
                     <cell id="271">
                         <data id="319">
@@ -1119,16 +1133,6 @@ ORDER BY weaving_record.`create_date` ]]></xml-property>
                             </structure>
                             <property name="textAlign">center</property>
                             <property name="resultSetColumn">shift_efficiency_avg</property>
-                        </data>
-                    </cell>
-                    <cell id="277">
-                        <data id="322">
-                            <structure name="dateTimeFormat">
-                                <property name="category">Custom</property>
-                                <property name="pattern">y-MM-dd</property>
-                            </structure>
-                            <property name="textAlign">center</property>
-                            <property name="resultSetColumn">create_date</property>
                         </data>
                     </cell>
                 </row>

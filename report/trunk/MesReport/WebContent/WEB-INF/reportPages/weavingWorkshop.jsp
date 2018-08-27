@@ -1,6 +1,5 @@
 <jsp:directive.include file="includes/top.jsp" />
 <%@page pageEncoding="UTF-8"%>
-没选日期的情况下，默认查询当前日期前三天的数据统计
 <birt:parameterPage
     id="parameterPage"
     name="form1"
@@ -23,6 +22,5 @@
  </table>
 </birt:parameterPage> 
 <script type="text/javascript"> 
-debugger;
 </script> 
 <jsp:directive.include file="includes/bottom.jsp" />
