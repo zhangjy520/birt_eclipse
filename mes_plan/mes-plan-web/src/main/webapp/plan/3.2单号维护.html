@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>单号维护</title>
+		<style type="text/css">
+			.main_content{
+				width:766px;
+			   margin:20px auto;
+			}
+			 
+			 
+			  #tab1 {border:1px solid #999999;border-collapse:collapse}
+		.td{border:1px solid #999999 ;padding:4px;min-width:80px}
+             	
+		</style>
+	</head>
+	<body>
+		<div class="main_content">
+			<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">单据明细</legend>
+			<div class="row">
+					<table  >
+						<tr>
+							<td style="width:30px;"></td>
+							<td>设备:</td>
+							<td><input type='text' value='验布机001'></input></td>
+							<td style="width:30px;"></td>
+							<td>日期:</td>
+							<td><input type='text' style="width:100px" value='2017-07-01'></input>至<input type='text' style="width:100px" value='2017-07-01'></input></td>
+							<td><input type='button' value='查询'></input></td>
+						</tr>
+					</table>
+			   </div>
+			<div>
+				<table id="tab1" style ="margin:0 auto;border-spacing:0px;width:766px">
+				<tr>
+					<th class='td'>日期</th>
+					<th class='td'>单号</th>
+					<th class='td'>换产品</th>
+					
+					<th class='td'>计划产出</th>
+					<th class='td'>实际产出</th>
+					<th class='td'>单据状态</th>
+					<th class='td'>设备排程</th>
+				</tr>
+				<tr>
+					 <td class='td' >2017-07-17</td>
+					 <td class='td' >2016-258-01-01 </td>
+					<td class='td' >否</td>
+					
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					<td class='td' >下发</td>
+					<td class='td' >可生产</td>
+				</tr>
+				<tr>
+					<td class='td' >2017-07-17</td>	
+					<td class='td' >2016-258-01-03 </td>
+					<td class='td' >否</td>
+					
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					<td class='td' >下发</td>
+					<td class='td' >可生产</td>
+				</tr>
+							 
+			</table>
+				<div style='text-align:right'>
+					<input style="height:30px; width:80px;margin:5px" type='button' value='新增'><input style="height:30px; width:80px;margin:5px" type='button' value='确认'>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

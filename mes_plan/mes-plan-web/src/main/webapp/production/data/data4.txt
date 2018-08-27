@@ -1,0 +1,52 @@
+{
+  "data": [
+    {
+       "id": "01",
+       "plan_state": "完成",
+       "task_control": "控制",
+       "work_id": "LXPCZ-2017-048",
+       "order_id": "112123",
+        "pro_name": "经轴",
+       "pro_id": "0001",
+       "gx_id":"0002",
+       "gx_name":"工序1",
+       "plan_num":"21",
+       "gz_zx":"中心",
+       "extn": "0001",
+       "zx_jt":"机台",
+       "zx_ry":"人员"
+    },
+     {
+       "id": "02",
+       "plan_state": "完成",
+       "task_control": "控制",
+       "work_id": "LXPCZ-2017-048",
+       "order_id": "112123",
+        "pro_name": "经轴",
+       "pro_id": "0001",
+       "gx_id":"0002",
+       "gx_name":"工序1",
+       "plan_num":"21",
+       "gz_zx":"中心",
+       "extn": "0001",
+       "zx_jt":"机台",
+       "zx_ry":"人员"
+    },
+     {
+       "id": "03",
+       "plan_state": "完成",
+       "task_control": "控制",
+       "work_id": "LXPCZ-2017-048",
+       "order_id": "112123",
+        "pro_name": "经轴",
+       "pro_id": "0001",
+       "gx_id":"0002",
+       "gx_name":"工序1",
+       "plan_num":"21",
+       "gz_zx":"中心",
+       "extn": "0001",
+       "zx_jt":"机台",
+       "zx_ry":"人员"
+    }
+  ]
+}

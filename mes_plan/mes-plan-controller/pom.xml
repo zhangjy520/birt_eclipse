@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.bmsmart.mes</groupId>
+        <artifactId>mesPlan</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>mes-plan-controller</artifactId>
+    <name>controller</name>
+    <description>业务控制层</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.bmsmart.mes</groupId>
+            <artifactId>mes-plan-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+               <scope>provided</scope> 
+        </dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			   <scope>provided</scope> 
+		</dependency>
+        <dependency>
+            <groupId>com.bmsmart.mes</groupId>
+            <artifactId>mes-plan-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>com.bmsmart.mes</groupId>
+            <artifactId>mes-plan-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+               <scope>provided</scope> 
+        </dependency>
+		<dependency>
+			<groupId>com.bmsmart.mes</groupId>
+			<artifactId>mes-base</artifactId>
+         </dependency>
+         <dependency>
+          <groupId>com.bmsmart.mes</groupId>
+         <artifactId>mes-export</artifactId>
+         </dependency>
+         
+    	<dependency>
+          <groupId>com.bmsmart.mes</groupId>
+         <artifactId>mes-plan-export</artifactId>
+         <version>0.0.1-SNAPSHOT</version>
+         </dependency>    
+         
+         <dependency>
+		  <groupId>com.bmsmart.mes.mesExternal</groupId>
+		  <artifactId>mesExternal-export</artifactId>
+		</dependency>
+		<dependency>
+		  <groupId>com.bmsmart.mes</groupId>
+		  <artifactId>mes-job-export</artifactId>
+		  <version>0.1.2</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>com.bmsmart.mes</groupId>
+		  <artifactId>mes-job-domain</artifactId>
+		  <version>0.1.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.bmsmart.mes.material</groupId>
+			<artifactId>material-export</artifactId>
+			<version>0.0.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.bmsmart.mes.material</groupId>
+			<artifactId> material-domain</artifactId>
+			<version>0.0.5</version>
+		</dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+  		<dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+            </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+  
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+       
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+       <dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			   <scope>provided</scope> 
+		</dependency>
+
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+               <scope>provided</scope> 
+        </dependency>
+
+        <!-- <dependency>
+            <groupId>com.bmsmart.mes</groupId>
+            <artifactId>mes-base</artifactId>
+               <scope>provided</scope> 
+        </dependency> -->
+<dependency>
+    <groupId>commons-httpclient</groupId>
+    <artifactId>commons-httpclient</artifactId>
+       <scope>provided</scope> 
+</dependency>
+<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+				<scope>provided</scope>
+		</dependency>
+		
+		<!-- jackson json -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+		</dependency>
+		
+		<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-config</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.jasig.cas.client</groupId>
+            <artifactId>cas-client-core</artifactId>
+        </dependency>
+        <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-pool2</artifactId>
+		</dependency>
+		<dependency>  
+            <groupId>redis.clients</groupId>  
+            <artifactId>jedis</artifactId>  
+        </dependency>  
+    </dependencies>
+</project>

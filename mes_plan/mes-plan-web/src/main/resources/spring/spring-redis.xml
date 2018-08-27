@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+	    http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+    <!-- redis工厂Bean -->
+<bean name="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">  
+        <property name="maxWaitMillis" value="-1" />  
+        <property name="maxTotal" value="8" />  
+        <property name="minIdle" value="0" />  
+        <property name="maxIdle" value="8" />  
+    </bean>  
+  <!--   <bean id="jedisCluster" class="com.bmsmart.mes.base.util.redis.JedisClusterFactory">  
+        <property name="connectionTimeout" value="3000" />  
+        <property name="soTimeout" value="3000" />  
+        <property name="maxRedirections" value="5" />  
+        <property name="genericObjectPoolConfig" ref="genericObjectPoolConfig" />  
+        <property name="jedisClusterNodes">  
+            <set>  
+                <value>127.0.0.1:6379</value>  
+                <value>192.168.36.54:6381</value>  
+                <value>192.168.36.54:6382</value>  
+                <value>192.168.36.54:6383</value>  
+                <value>192.168.36.189:6380</value>  
+                <value>192.168.36.189:6381</value>  
+                <value>192.168.36.189:6382</value>  
+                <value>192.168.36.189:6383</value>  
+            </set>  
+        </property>  
+    </bean>   -->
+</beans>

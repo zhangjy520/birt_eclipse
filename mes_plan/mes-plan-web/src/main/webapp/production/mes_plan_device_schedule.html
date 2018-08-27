@@ -1,0 +1,354 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <!--#include virtual="/mes-plan/include/echarts.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/mes_plan_month.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/> 
+ <style>
+	#tab1 th{background-color:#f5f5f5;text-align:center;vertical-align:middle;line-height:1}
+	#tab2 th{background-color:#f5f5f5;text-align:center;vertical-align:middle;line-height:1}
+	#device_div th{background-color:#f5f5f5;text-align:center;vertical-align:middle;line-height:1}
+	#device_div2 th{background-color:#f5f5f5;text-align:center;vertical-align:middle;line-height:1}
+	ul {list-style:none;margin:0px}
+	li {list-style:none;margin:0px}
+	.thcls {border-bottom:0px !important}
+</style>
+ <!-- 生产计划明细 -->
+<div class="warpper animated fadeInRight" style="overflow-x:hidden">     
+     <div class="container-fluid panel-custom panel panel-default" >
+        <div class="row">
+		       <div class="col-sm-12">
+		           <h4 class="page-header">车间排程</h4>
+		       </div>
+   	    </div> 
+   	 
+   	    <div class="panel-default" style="margin-top:-10px">
+		  <div class="panel-heading"><strong>车间排程</strong><a href="#" onclick="$('#detailTab').toggle(100,changeFolderFun);return false;"><span id="folderBtn" style="float:right" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></div>
+		  <div id="detailTab" style="margin-top:-6px">
+		  		<script id="detailTab.tmp" type="text/html" > 
+				<input type="hidden" id="id" value="{{id}}">
+				<input type="hidden" id="sheetStatus" value="{{sheetStatus}}">
+		    	<table id=''  class ="table table-bordered table-condensed detailTab">
+					<tr>
+					<th style="width:15%">
+						车间
+					</th>
+					<td style="width:35%;padding:5px">
+						<span> 
+						{{workshopId|getMdmName workshopList}}
+						</span>
+						<select id="workshopId" name=workshopId" style="width:120px;display:none"  onchange="chgWorkshopId($(this).val(),$('#workcenterId').val(),$('#scheduleDate').val());$(this).hide();$(this).prev().text($(this).find(':selected').text());$(this).prev().show()" onblur="$(this).hide();$(this).prev().show()">
+                 			<option value=""></option>
+                  		</select>
+						 {{if !rowCnt || rowCnt ==0}}
+							<a href="#" onclick="$(this).prev().prev().hide();$(this).prev().show()">选择</a>
+							{{/if}}
+					</td>
+					<th style="width:15%">
+						 工作中心
+					</th>
+					<td>
+						 <span id="workcenterSpan">{{workcenterId|getMdmName workcenterList}}</span>
+							<select id="workcenterId" name="workcenterId" style="width:120px;display:none"  onchange="loadDataNew(false,$('#workshopId').val(),$(this).val(),$('#scheduleDate').val());$(this).hide();$(this).prev().text($(this).find(':selected').text());$(this).prev().show()" onblur="$(this).hide();$(this).prev().show()">
+                 			<option value=""></option>
+                  			</select>
+
+							{{if !rowCnt || rowCnt ==0}}
+							<a href="#" onclick="$(this).prev().prev().hide();$(this).prev().show()">选择</a>
+							{{/if}}
+
+					</td>
+					</tr>
+					<tr>
+					<th>
+						 排程日期
+					</th>
+					<td>
+						<span id="scheduleDateSpan">{{scheduleDate}}</span>
+						<input id="scheduleDate" name='scheduleDate' style="display:none;width:120px;height:24px" value="{{scheduleDate}}" readonly class="Wdate" type="text" onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd',onpicked:function(){loadDataNew(false,$('#workshopId').val(),$('#workcenterId').val(),$(this).val())}})" onblur="$('#scheduleDate').hide();$('#scheduleDateSpan').show();" />
+
+						{{if !rowCnt || rowCnt ==0}}
+						<a id="scheduleDateA" onclick="$('#scheduleDate').show();$('#scheduleDateSpan').hide();$('#scheduleDate').focus();return;">选择</a>
+						{{/if}}
+					</td>
+					<th>
+						排程人
+					</th>
+					<td style="padding:5px">
+						<input type='hidden' id='scheduleUser'  name='scheduleUser' value='{{scheduleUser}}'/>
+						<input type='hidden' id='scheduleUserName'  name='scheduleUserName' value='{{scheduleUserName}}'/>
+						<span>{{scheduleUserName}}</span>
+					</td>
+					</tr>
+					</table>
+				</script>
+		  </div>
+		  <div id="qty_div">
+		  <script id="qty_div.tmp" type="text/html" > 
+			<!-- <table style ="margin-top:10px;border-spacing:0px;width:100%;text-align:center">
+				<tr>
+				<th colspan=2 style="text-align:center;font-size:12px">
+					前一工作日
+				</th>
+				<th colspan=2 style="text-align:center;font-size:12px">
+					排程日期
+				</th>
+				<th colspan=2 style="text-align:center;font-size:12px">
+					后一工作日
+				</th>
+				</tr>
+				<tr>
+				<td style="padding:10px;font-size:25px;color:#ccc" colspan=2>
+					{{scheduleDate|str2DateSub 1}}
+				</td>
+				<td style="font-size:30px;color:#249730" colspan=2>
+					{{scheduleDate}}
+				</td>
+				<td style="font-size:25px;color:orange" colspan=2>
+					{{scheduleDate|str2DateAdd 1}}
+				</td>
+				</tr>
+				
+				<tr>
+				<td colspan=2>
+				日均分配 600m
+				</td>
+				<td colspan=2>
+				日均完成率 1%
+				</td>
+				<td colspan=2>
+				计划进度 正常
+				</td>
+				</tr>
+				<tr>
+				<td colspan=2>
+				设备总/换产品<a target='_blank' href='2.3设备排程.html'>200/34台</a>
+				</td>
+				<td colspan=2>
+				已调度/换产品	<a  target='_blank' href='2.3设备排程.html'>170/20台</a>
+				</td>
+				<td colspan=2>
+				其它产品 <a  target='_blank' href='2.3设备排程.html'>70台</a>(105空闲)
+				</td>
+				</tr>
+				</table>-->
+				</script>
+			</div>
+		</div>
+		<table style="width:100%">
+		<tr>
+		<td style="width:49.5%;vertical-align:top">
+			<div class="panel-default" style="margin-top:10px">
+			  <div class="panel-heading" style="padding:0px 15px;text-align:right">
+			  <strong class='panelTitleFloat' style="padding-left:0px;">已排程单</strong> 
+			  <div class="btn-group" role="group">
+			    <button id="batchDownBtn1"  class="btn btn-primary" style="margin-left:5px" onclick="on_batchDown();return false;">批量下发</button>
+			    <button id="batchMaterialBtn2"  class="btn btn-primary" style="margin-left:5px;margin-right:1px" onclick="on_batchMaterial();return false;">批量领料</button>
+			  </div>
+			  <input type='text'  style="height:30px;width:100px;margin-right:10px" placeholder="请输入搜索" onchange='onFilter(this,"#tab1Body")'/>
+			  	<!-- <a id="newBtn" class="btn btn-success" target="_blank" href='/mes-plan/production/mes_plan_device_parallel_new.html?parId=557ac25afe444d5484c2dc9dd2cea7b7&erpBillNo=2016-258'><span class="glyphicon glyphicon-import"></span>新增</a>
+			  	<a id="batchBtn"  class="btn btn-success" target="_blank" href='/mes-plan/production/mes_plan_device_batch.html?parId=951342c97630439a83dbbd0e1871f9f4'><span class="glyphicon glyphicon-import"></span>批量新增</a>
+			  	<a id="QtyAnaBtn" class="btn btn-success" target="_blank" onclick="qtyAna();return false;" href='/mes-plan/production/mes_plan_device_batch.html'><span class="glyphicon glyphicon-import"></span>齐套分析</a> -->
+			  	<a href="#" onclick="$('#device_div').toggle(100,changeFolderFun2);return false;"><span id="folderBtn2" style="padding-top:10px;float:right" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+			  </div>
+			  <div id="device_div" style="margin-top:-1px"> 
+			  	<script id="device_div.tmp" type="text/html" > 
+			  <table id="tab" style="margin:0px" class="table table-bordered table-condensed">
+					<thead><tr>
+						<th style="text-align:center;width:26px">
+							<input name="checkflag" type="checkbox" onclick="return onSelectAll(this)">
+						</th>
+						<th>行号</th>
+						<th>设备/工作组</th>
+						<th>计划日期</th>
+						<th>排程日期</th>
+						<th>换产品</th>
+						<th>班组订单号</th>
+						<th>计划产出</th>
+						<th>已完工</th>
+						<th>操作</th>
+					</tr></thead>
+					<tbody  id="tab1Body">
+					{{each schedualDeviceList listValue}}
+					<tr>
+						<td><input name="checkflag" type="checkbox">  
+							<input name="deviceId" type="hidden" value="{{listValue.deviceId}}">
+							<input name="id" type="hidden" value="{{listValue.id}}">
+							<input name="isChgGoods" type="hidden" value="{{listValue.isChgGoods}}">
+							<input name="realBeginDate" type="hidden" value="{{listValue.realBeginDate}}">
+							<input name="realEndDate" type="hidden" value="{{listValue.realEndDate}}">
+						</td>
+						<td>{{$index + 1}}</td>
+						<td><ul>
+							<li>{{listValue.deviceId}}</li>
+							<li>{{listValue.deviceName}}</li> 
+							</ul>
+						</td>
+						<td>
+						<ul >
+							<li>{{listValue.planBeginDate}}</li>
+							<li>{{listValue.planEndDate}}</li>
+						</ul>
+						<td>
+						<ul >
+							<li>{{listValue.realBeginDate}}</li>
+							<li>{{listValue.realEndDate}}</li>
+						</ul>
+						</td>
+						<td> {{if listValue.isChgGoods ==0}} 否{{else}}是{{/if}}</td>
+						<td>
+							<ul>
+							<li>{{listValue.billNo}}</li>
+							<!--<li>调度:{{listValue.dispatchStatus|getDdwName dropdownDatas.dispatch_order_status}}</li>-->
+							<li>排程:{{listValue.scheduleStatus|getDdwName dropdownDatas.schedule_status}}</li>
+							<li>领料:{{(listValue.materialUseStatus||'0')|getDdwName dropdownDatas.material_use_status}}</li>
+							</ul>
+						</td>
+						<td>{{listValue.workCenterQty}}</td>
+						<td>{{listValue.finishQty}}</td>
+						<td>
+							<ul>
+								<!--<li><a target='_blank' href='3.4齐套分析.html'>齐套快照</a></li>-->
+								{{if listValue.scheduleStatus == '1'}}
+									<li><a href='#' onclick="on_check_one(this);return false;">下发</a></li>
+									{{if mesPlanSchedule}}<li><a href='#' onclick="on_cancel('{{mesPlanSchedule.id}}','{{listValue.id}}');return false;">取消排程</a></li>{{/if}}
+								{{else if listValue.scheduleStatus == '10'}}
+									{{if mesPlanSchedule}}<li><a href='#' onclick="on_cancelcheck_one('{{mesPlanSchedule.id}}','{{listValue.id}}');return false;">取消下发</a></li>{{/if}}
+								{{else if listValue.scheduleStatus == '1'}}
+									<li><a href='#' onclick="alert('预留功能');return false;">异常终止</a></li>
+								{{/if}}
+
+								{{if (listValue.materialUseStatus||'0') == '0'}}
+									<li><a href='#' onclick="on_saveMaterialUseOne(this);return false;">{{listValue.materialUseStatus}}生成领料</a></li>
+								{{/if}}
+							</ul>
+						</td>
+					</tr>
+					 
+					{{/each}}
+				</tbody>
+				</table>
+			</script>
+				</div>
+			</div>
+		</td>		
+		<td style="width:1%;vertical-align:top">
+		</td>
+		<td style="width:49.5%;vertical-align:top">
+			<div class="panel panel-default" style="margin-top:10px">
+		  <div class="panel-heading" style="padding:0px 15px;text-align:right">
+		  <strong  class='panelTitleFloat' style="padding-left:0px;">待排程单</strong> 
+		   <input type="radio" name="optionsRadios" id="unscheduleRadio1" value="option1"  onclick="return chg_unschedule();">延迟单据
+		   <input type="radio" name="optionsRadios" id="unscheduleRadio2" value="option2" checked onclick="return chg_unschedule();">全部单据
+			 <div class="btn-group" role="group">
+			    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      	请选择排序
+			      <span class="caret"></span>
+			    </button>
+			    <ul class="dropdown-menu">
+			      <li><a onclick="chg_unschedule('plan_begin_date'); return false;" href="#">计划开始时间</a></li>
+			      <li><a onclick="chg_unschedule('plan_end_date'); return false;" href="#">计划结束时间</a></li>
+			    </ul>
+			    <button id="confirmBtn"  class="btn btn-primary" style="margin-left:5px;margin-right:1px" onclick="on_save();return false;">批量排程</button>
+			  </div>
+			  <input type='text'  style="height:30px;width:100px;margin-right:10px" placeholder="请输入搜索" onchange='onFilter(this,"#tab2Body")'/>
+		  <a href="#" onclick="$('#device_div2').toggle(100,changeFolderFun3);return false;"><span id="folderBtn3" style="padding-top:10px;float:right" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+		  </div>
+         	<div id="device_div2"> 
+		  	<script id="device_div2.tmp" type="text/html" > 
+			  <table id="tab2" style="margin:0px" class="table table-bordered table-condensed">
+					 <thead><tr>
+						<th class='thcls' style="text-align:center;width:26px">
+							<input name="checkflag" type="checkbox" onclick="return onSelectAll(this)">
+						</th>
+						<th class='thcls'>行号</th>
+						<th class='thcls'>设备/工作组</th>
+						<th class='thcls'>计划日期</th>
+						<th class='thcls'>排程日期</th>
+						<th class='thcls'>换产品</th>
+						<th class='thcls'>班组订单号</th>
+						<th class='thcls'>计划产出</th>
+						<th class='thcls'>已完工</th>
+						<th class='thcls'>操作</th>
+					</tr></thead>
+					<tbody id="tab2Body">
+					{{each unschedualDeviceList listValue}}
+					<tr>
+						<td>
+							<input name="checkflag" type="checkbox"> 
+ 							<input name="id" type="hidden" value="{{listValue.id}}">
+							<input name="deviceId" type="hidden" value="{{listValue.deviceId}}">
+							<input name="isChgGoods" type="hidden" value="{{listValue.isChgGoods}}">
+						</td>
+						<td><span name="rowIndex">{{$index+1}}</span></td>
+						<td><ul>
+							<li>{{listValue.deviceId}}</li> 
+							<li>{{listValue.deviceName}}</li> 
+							 
+							</ul>
+						</td>
+						<td>
+						<ul >
+							<li>{{listValue.planBeginDate}}</li>
+							<li>{{listValue.planEndDate}}</li>
+						</ul>
+						<td>
+						<ul>
+							<li><span>{{listValue.realBeginDate==null?listValue.planBeginDate:listValue.realBeginDate}}</span>
+								<input style="display:none;margin-bottom:2px;width:100px" type='text' class="Wdate" name="realBeginDate" value='{{listValue.realBeginDate==null?listValue.planBeginDate:listValue.realBeginDate}}' onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd'})" onchange="validateBeginDate(this)">
+								<a onclick="$(this).prev().css('display','');$(this).prev().prev().css('display','none');">修改</a>
+							</li>
+							<li><span>{{listValue.realEndDate==null?listValue.planEndDate:listValue.realEndDate}}</span>
+								<input style="display:none;width:100px" type='text' class="Wdate" name="realEndDate" value='{{listValue.realEndDate==null?listValue.planEndDate:listValue.realEndDate}}' onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd'})" onchange="validateEndDate(this)">
+								<a onclick="$(this).prev().css('display','');$(this).prev().prev().css('display','none');">修改</a>
+							</li>
+						</ul>
+						</td>
+						<td>{{if listValue.isChgGoods ==0}} 否{{else}}是{{/if}}</td>
+						<td><ul>
+							<li>{{listValue.billNo}}</li>
+							<!--<li>调度:{{listValue.dispatchStatus|getDdwName dropdownDatas.dispatch_order_status}}</li>-->
+							<li>排程:{{(listValue.scheduleStatus||'0')|getDdwName dropdownDatas.schedule_status}}</li>
+							<li>领料:{{(listValue.materialUseStatus||'0')|getDdwName dropdownDatas.material_use_status}}</li>
+
+							</ul>
+						</td>
+						<td>{{listValue.workCenterQty}}</td>
+						<td>{{listValue.finishQty}}</td>
+						<td>
+							<ul>
+								<!--<li><a target='_blank' href='3.4齐套分析.html'>齐套快照</a></li>-->
+								<li><a href='#' onclick="on_save_one(this);return false;">排程</a></li>
+							</ul>
+						</td>
+					</tr>
+					{{/each}}
+					</tbody>
+				</table>
+			</script>
+			</div>
+			
+		  </div>
+		</td>
+		</tr>
+		</table>
+		
+		
+	 <div style="text-align:center;padding:5px">
+				<!-- <a id="confirmBtn" class="btn btn-success" href='#' onclick="on_save();return false;"><span class="glyphicon glyphicon-import"></span>批量排程</a> -->
+				<!-- <a id="genMatBtn" class="btn btn-success" href='#' onclick="on_saveMaterialUse();return false;"><span class="glyphicon glyphicon-import"></span>生成领料汇总</a> -->
+				<a id="rtnBtn" class="btn btn-primary" href='/mes-plan/production/mes_plan_device_schedule_list.html'><span class="glyphicon glyphicon-arrow-left"></span>返回</a>
+			</div>
+	 	
+		  
+		<!-- <div class="panel panel-default" style="border:0px ;padding-top:10px;clear:both">
+		  <div class="panel-heading"><strong>日志</strong> </div>
+         	
+		  </div> -->
+   	    
+	</div>
+ </div>
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_device_schedule.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/jquery/jquery.cookie.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/My97DatePicker/WdatePicker.js"></script> 
+</body>
+</html>

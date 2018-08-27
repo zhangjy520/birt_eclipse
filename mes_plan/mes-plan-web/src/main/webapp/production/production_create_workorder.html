@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>生产派工单界面</title>
+		<style type="text/css">
+		     
+			 .tab {
+			 	border:1px solid #999999;
+			 	border-collapse:collapse;
+			    margin:0 auto;
+			    border-spacing:0px;
+			    width:770px
+			 }
+             .tab tr  td,th{
+             	border:1px solid #999999 ;
+             	padding:4px;
+             	min-width:80px;
+             	text-align: center;
+             	height:34px;
+             	}
+             	.title{
+             		width:140px;
+             		margin:0 auto;
+             		font-size: 28px;
+             		padding-top:10px
+             	}
+             	.date{
+             		float:right;
+             		font-size:14px;
+             	}
+             	.third{
+             		float:left;
+             		height:70px;
+             		line-height: 70px;
+             	}
+		</style>
+	</head>
+	<body>
+		<table id="tab1" class="tab">
+			<tbody>
+			<tr style="height:160px;">
+				<td colspan="8">
+					<div class="title">
+					  车间派工单
+				   </div>
+				  	<div style="padding:10px;">
+				  		<span style="margin-left:110px;">整经</span>
+				  		<span class="date">日期:<label id="date">2017-07-14</label></span>
+				  	</div>
+				  	<div style="padding:15px;">
+				  		<div class="third" style="width:50%;">
+				  			<span>生产设备:</span>
+				  			<span>纺织机</span>
+				  		</div>
+				  		<div class="third" style="margin-left: 110px;">
+				  			     工单号:
+				  		</div>
+				  		<div style="float:left;padding:10px;">
+				  		     <img src="/mes-plan/static/production/images/u2402.png" alt="" width="150px" height="70px;"/>
+				  		</div>
+				  	</div>
+				</td>
+			</tr>
+			
+			<!--分割线-->
+			<tr>
+              <th colspan="2">生产订单号</th>
+              <th colspan="2">产品名称</th>
+              <th>规格型号</th>
+              <th>生产数量</th>
+              <th>单位</th>
+              <th>生产班组</th>
+           </tr>	
+           <tr>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+           </tr>
+           <!--分割线-->
+           <tr>
+           	<th>工序号</th>
+           	<th>工序名称</th>
+           	<th>操作者</th>
+           	<th>原纱</th>
+           	<th>规格</th>
+           	<th>标识</th>
+           	<th>厂家</th>
+           	<th>数量</th>
+           </tr>
+           <tr>
+           	<td>01</td>
+           	<td>拆包</td>
+           	<td>张三</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           <tr>
+           	<td>02</td>
+           	<td>上筒</td>
+           	<td>王五</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           <tr>
+           	<td>03</td>
+           	<td>整经</td>
+           	<td>李四</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           </tbody>
+           <tfoot>
+           	<tr style="height:100px;"><td colspan="8"></td></tr>
+           </tfoot>
+		</table>
+		
+		<div style="height:30px;"></div>
+		
+		
+		
+		<table id="tab2" class="tab">
+			<tbody>
+			<tr style="height:160px;">
+				<td colspan="8">
+					<div class="title">
+					  车间派工单
+				   </div>
+				  	<div style="padding:10px;">
+				  		<span style="margin-left:110px;">浆纱</span>
+				  		<span class="date">日期:<label id="date">2017-07-14</label></span>
+				  	</div>
+				  	<div style="padding:15px;">
+				  		<div class="third" style="width:50%;">
+				  			<span>生产设备:</span>
+				  			<span>纺织机</span>
+				  		</div>
+				  		<div class="third" style="margin-left: 110px;">
+				  			     工单号:
+				  		</div>
+				  		<div style="float:left;padding:10px;">
+				  		     <img src="/mes-plan/static/production/images/u2402.png" alt="" width="150px" height="70px;"/>
+				  		</div>
+				  	</div>
+				</td>
+			</tr>
+			
+			<!--分割线-->
+			<tr>
+              <th colspan="2">生产订单号</th>
+              <th colspan="2">产品名称</th>
+              <th>规格型号</th>
+              <th>生产数量</th>
+              <th>单位</th>
+              <th>生产班组</th>
+           </tr>	
+           <tr>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+           </tr>
+           <!--分割线-->
+           <tr>
+           	<th>工序号</th>
+           	<th>工序名称</th>
+           	<th>操作者</th>
+           	<th>原纱</th>
+           	<th>规格</th>
+           	<th>标识</th>
+           	<th>厂家</th>
+           	<th>数量</th>
+           </tr>
+           <tr>
+           	<td>01</td>
+           	<td>拆包</td>
+           	<td>张三</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           <tr>
+           	<td>02</td>
+           	<td>上筒</td>
+           	<td>王五</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           <tr>
+           	<td>03</td>
+           	<td>整经</td>
+           	<td>李四</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           </tbody>
+           <tfoot>
+           	<tr style="height:100px;"><td colspan="8"></td></tr>
+           </tfoot>
+		</table>
+		
+		<div style="height:30px;"></div>
+		
+		<table id="tab3" class="tab">
+			<tbody>
+			<tr style="height:160px;">
+				<td colspan="8">
+					<div class="title">
+					  车间派工单
+				   </div>
+				  	<div style="padding:10px;">
+				  		<span style="margin-left:110px;">织布</span>
+				  		<span class="date">日期:<label id="date">2017-07-14</label></span>
+				  	</div>
+				  	<div style="padding:15px;">
+				  		<div class="third" style="width:50%;">
+				  			<span>生产设备:</span>
+				  			<span>纺织机</span>
+				  		</div>
+				  		<div class="third" style="margin-left: 110px;">
+				  			     工单号:
+				  		</div>
+				  		<div style="float:left;padding:10px;">
+				  		     <img src="/mes-plan/static/production/images/u2402.png" alt="" width="150px" height="70px;"/>
+				  		</div>
+				  	</div>
+				</td>
+			</tr>
+			
+			<!--分割线-->
+			<tr>
+              <th colspan="2">生产订单号</th>
+              <th colspan="2">产品名称</th>
+              <th>规格型号</th>
+              <th>生产数量</th>
+              <th>单位</th>
+              <th>生产班组</th>
+           </tr>	
+           <tr>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+           </tr>
+           <!--分割线-->
+           <tr>
+           	<th>工序号</th>
+           	<th>工序名称</th>
+           	<th>操作者</th>
+           	<th>原纱</th>
+           	<th>规格</th>
+           	<th>标识</th>
+           	<th>厂家</th>
+           	<th>数量</th>
+           </tr>
+           <tr>
+           	<td>01</td>
+           	<td>拆包</td>
+           	<td>张三</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           <tr>
+           	<td>02</td>
+           	<td>上筒</td>
+           	<td>王五</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           <tr>
+           	<td>03</td>
+           	<td>整经</td>
+           	<td>李四</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           </tbody>
+           <tfoot>
+           	<tr style="height:100px;"><td colspan="8"></td></tr>
+           </tfoot>
+		</table>
+		
+		<div style="height:30px;"></div>
+		
+		<table  class="tab">
+			<tbody>
+			<tr style="height:160px;">
+				<td colspan="8">
+					<div class="title">
+					  车间派工单
+				   </div>
+				  	<div style="padding:10px;">
+				  		<span style="margin-left:110px;">整理</span>
+				  		<span class="date">日期:<label id="date">2017-07-14</label></span>
+				  	</div>
+				  	<div style="padding:15px;">
+				  		<div class="third" style="width:50%;">
+				  			<span>生产设备:</span>
+				  			<span>纺织机</span>
+				  		</div>
+				  		<div class="third" style="margin-left: 110px;">
+				  			     工单号:
+				  		</div>
+				  		<div style="float:left;padding:10px;">
+				  		     <img src="/mes-plan/static/production/images/u2402.png" alt="" width="150px" height="70px;"/>
+				  		</div>
+				  	</div>
+				</td>
+			</tr>
+			
+			<!--分割线-->
+			<tr>
+              <th colspan="2">生产订单号</th>
+              <th colspan="2">产品名称</th>
+              <th>规格型号</th>
+              <th>生产数量</th>
+              <th>单位</th>
+              <th>生产班组</th>
+           </tr>	
+           <tr>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+           </tr>
+           <!--分割线-->
+           <tr>
+           	<th>工序号</th>
+           	<th>工序名称</th>
+           	<th>操作者</th>
+           	<th>原纱</th>
+           	<th>规格</th>
+           	<th>标识</th>
+           	<th>厂家</th>
+           	<th>数量</th>
+           </tr>
+           <tr>
+           	<td>01</td>
+           	<td>拆包</td>
+           	<td>张三</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           <tr>
+           	<td>02</td>
+           	<td>上筒</td>
+           	<td>王五</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           <tr>
+           	<td>03</td>
+           	<td>整经</td>
+           	<td>李四</td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>
+           </tbody>
+           <tfoot>
+           	<tr style="height:100px;"><td colspan="8"></td></tr>
+           </tfoot>
+		</table>
+		
+	</body>
+</html>

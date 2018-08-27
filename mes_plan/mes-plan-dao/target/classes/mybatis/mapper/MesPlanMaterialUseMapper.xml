@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanMaterialUseDao">
+    
+	<sql id="mesPlanMaterialUseColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.schedule_date AS "scheduleDate",
+		a.goods_id AS "goodsId",
+		a.qty AS "qty",
+		a.use_qty AS "useQty",
+		a.remarks AS "remarks",
+		a.create_time AS "createTime",
+		a.create_user AS "createUser",
+		a.update_time AS "updateTime",
+		a.update_user AS "updateUser",
+		a.workshop_id AS "workshopId",
+		a.erp_bill_no as "erpBillNo",
+		a.bill_no as "billNo",
+		a.batch_no as "batchNo",
+		a.batch_prop1 as "batchProp1",
+		a.batch_prop2 as "batchProp2",
+		a.supplier as "supplier",
+		a.unit as "unit"
+	</sql>
+	<sql id="mesPlanMaterialUseJoins">
+	LEFT JOIN  mes_plan_bom b ON a.erp_bill_no= b.erp_bill_no AND a.goods_id = b.raw_goods_id 
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanMaterialUse">
+		SELECT 
+			<include refid="mesPlanMaterialUseColumns"/>
+			,b.raw_goods_Name as "goodsName"
+			,b.unit_code as "unitCode"
+		FROM mes_plan_material_use a
+			<include refid="mesPlanMaterialUseJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanMaterialUse">
+		SELECT 
+			<include refid="mesPlanMaterialUseColumns"/>
+			,b.raw_goods_Name as "goodsName"
+			,b.unit_code as "unitCode"
+		FROM mes_plan_material_use a
+			<include refid="mesPlanMaterialUseJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="scheduleDate != null">
+				AND a.schedule_date = #{scheduleDate}
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goods_id = #{goodsId}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_id = #{workshopId}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+		</where>
+			order by a.schedule_date,a.workshop_id,a.goods_id
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanMaterialUse">
+		SELECT 
+			<include refid="mesPlanMaterialUseColumns"/>
+		FROM mes_plan_material_use a
+		<include refid="mesPlanMaterialUseJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_material_use(
+			id,
+			sheet_id,
+			schedule_date,
+			goods_id,
+			qty,
+			use_qty,
+			remarks,
+			create_time,
+			create_user,
+			update_time,
+			update_user,
+			workshop_id,
+			erp_bill_no,
+			bill_no,
+			batch_no,
+			batch_prop1,
+			batch_prop2,
+			supplier,
+			unit
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{scheduleDate},
+			#{goodsId},
+			#{qty},
+			#{useQty},
+			#{remarks},
+			now(),
+			#{currentUser},
+			now(),
+			#{currentUser},
+			#{workshopId},
+			#{erpBillNo},
+			#{billNo},
+			#{batchNo},
+			#{batchProp1},
+			#{batchProp2},
+			#{supplier},
+			#{unit}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_material_use SET 	
+			sheet_id = #{sheetId},
+			schedule_date = #{scheduleDate},
+			goods_id = #{goodsId},
+			qty = #{qty},
+			use_qty = #{useQty},
+			remarks = #{remarks},
+			update_time = now(),
+			update_user = #{currentUser},
+			workshop_id = #{workshopId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateUseQtyByUk">
+		UPDATE mes_plan_material_use 
+		SET 	
+			qty = IFNULL(qty,0) + #{qty}
+		WHERE 
+			schedule_date = #{scheduleDate}
+			and goods_id = #{goodsId}
+			and erp_bill_no = #{erpBillNo}
+			<!-- and bill_no = #{billNo} -->
+			and batch_no = #{batchNo}
+	</update>
+	
+	
+	<update id="delete">
+		DELETE FROM mes_plan_material_use
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_material_use
+		WHERE id = #{id}
+	</update>
+	<select id="findByMap" resultType="MesPlanMaterialUse">
+		SELECT 
+			<include refid="mesPlanMaterialUseColumns"/>
+		FROM  mes_plan_material_use a
+		<include refid="mesPlanMaterialUseJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="scheduleDate != null and scheduleDate != ''">
+				AND a.schedule_date = #{scheduleDate}
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goods_id = #{goodsId}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_id = #{workshopId}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

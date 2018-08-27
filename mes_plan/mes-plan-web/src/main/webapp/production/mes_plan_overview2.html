@@ -1,0 +1,315 @@
+<html>
+<meta charset="utf-8"/>
+<head>
+<!-- bootstrap css -->
+<style type="text/css">
+	    button{
+	    	margin-top:-5px;
+	    }
+	    label{
+	    	width:70px;
+	    	text-align:right;
+	    }
+	    .form-control{
+	    	width:200px !important;
+	    	margin-bottom:5px;
+	    }
+	    /* reset */
+	    :focus {
+	        outline: 0;
+	    }
+	
+	    input, textarea, select {
+	        -webkit-appearance: none;
+	    }
+	
+	    body {
+	        font-family: Tahoma, Helvetica, Arial, sans-serif;
+	        font-size: 12px;
+	    }
+	
+	    ol, ul {
+	        list-style: none;
+	    }
+	    .clearfix:before, .clearfix:after {
+	        content: "\0020";
+	        display: block;
+	        height: 0;
+	        overflow: hidden;
+	    }
+	
+	    .clearfix:after {
+	        clear: both;
+	    }
+	
+	    .clearfix {
+	        zoom: 1;
+	    }
+	    /* view-menu */
+	
+	    #ul_services {
+	        width: 700px;
+	        margin: 0px auto;
+	        /*margin: 8px 0px;*/
+	        font-size: 12px;
+	        border-top: 1px solid #cccccc;
+	        border-left: 1px solid #cccccc;
+	        border-bottom: 1px solid #cccccc;
+	    }
+	
+	    #ul_services h5{
+	        margin: 0;
+	        padding: 0;
+	        border: 0;
+	        outline: 0;
+	        font-weight: inherit;
+	        font-style: inherit;
+	        font-size: 100%;
+	        font-family: inherit;
+	        vertical-align: baseline;
+	        height: 26px;
+	        background-color:#f5f5f5;
+	    }
+	    #ul_services ul, #ul_services li {
+	        margin: 0;
+	        padding: 0;
+	    }
+	    #ul_services :focus {
+	        outline: 0;
+	    }
+	    #ul_services input {
+	        -moz-appearance: none;
+	        -webkit-appearance: none;
+	    }
+	
+	    #ul_services ul {
+	        list-style: none;
+	        position: relative;
+	    }
+	    #ul_services h5 span {
+	        display: block;
+	        float: left;
+	        border-right: 1px solid #cccccc;
+	        padding: 5px 0px;
+	        text-align: center;
+	    }
+	    #ul_services li {
+	        line-height: 2em;
+	    }
+	    #ul_services h5 span:last-child {
+	        border-right: none;
+	    }
+	    .w_90 {
+	        width: 90px;
+	    }
+	    .w_70 {
+	        width: 70px;
+	    }
+	    .w_180 {
+	        width: 110px;
+	    }
+	    .w_150 {
+	        width: 70px;
+	    }
+	    .w_100 {
+	        width: 106px;
+	    }
+	    .w_120 {
+	        width: 138px;
+	    }
+	    
+	    
+	    .level_1 > li, .level_2 > li {
+	        clear: both;
+	        border-top: 1px solid #cccccc;
+	    }
+	    .level_3 >ul>li{
+	        padding: 5px !important;
+	        border-top: 1px solid #cccccc;
+	        border-right: 1px solid #cccccc;
+	    }
+	
+	    .level_3 >ul :first-child {
+	        padding: 5px !important;
+	        border-top: none !important;
+	
+	    }
+	    .level_1 > li > span, .level_2 > li > span, .item_ui {
+	        padding: 5px 5px!important;
+	        display: block;
+	        float: left;
+	        text-overflow:ellipsis;
+			overflow:hidden;
+			white-space:nowrap;
+	    }
+	
+ 
+	    .item_ui_level3{
+	        display: block;
+	        float: left;
+	    }
+	    .level_1 > li:after {
+	        position: absolute;
+	        content: " ";
+	        width: 1px;
+	        height: 100%;
+	        left:90px;
+	        top: 0;
+	        background: #cccccc;
+	    }
+		
+		 .level_2 > li:after {
+	        position: absolute;
+	        content: " ";
+	        width: 1px;
+	        height: 100%;
+	        left:115px;
+	        top: 0;
+	        background: #cccccc;
+	    }
+		
+	    .level_1 > li > span {
+	        border-left: none;
+	    }
+	    .level_2, .level_3 {
+	        float: left;
+	        border-left: 1px solid #cccccc;
+	    }
+	    .level_2 > li:first-child {
+	        border-top: none;
+	    }
+	    .item_ui {
+	        float: left;
+	        border-right: 1px solid #cccccc;
+	        margin-right: -1px!important;;
+	    }
+	    .level_2 .item_ui:last-child {
+	        float: left;
+	        border-right: none;
+	        border-left: 1px solid #cccccc;
+	        margin-right: 0;
+	    }
+	    .item_ui li {
+	        display: block;
+	        margin-right: 10px;
+	    }
+	    .item_ui li label {
+	        padding-left: 2px;
+	    }
+        </style>
+		
+		 
+</head>
+<body>
+<div id="ul_services" >
+			<h5>
+		        <span style="width: 180px">车间计划 </span>
+		        <span style="width: 199.5px">班组计划</span>
+		        <span style="width: 317.5px ;border-right: 1px solid #cccccc">人员计划</span>
+		    </h5>
+		    <h5 style="clear:both;border-top:1px solid #ccc">
+		        <span style="width: 90px">释放明细</span>
+		        <span style="width: 89px">数量</span>
+		        <span style="width: 115px">车间排程</span>
+				<span style="width: 83.5px">排程数量</span>
+		        <span style="width: 138px">值班长排程</span>
+				<span style="width: 88px">排程数量</span>
+		        <span style="width: 89.5px ;border-right: 1px solid #cccccc">完工数量</span>
+		    </h5>
+		    <div id='detailTab'>
+		    <script id="detailTab.tmp" type="text/html" > 
+		    <ul class="level_1 clearfix">
+				{{each dispatchList listValue i}}
+					<li class="clearfix">
+		            <span class="w_90">{{listValue.billNo}}</span>
+		            <span class="w_70">{{listValue.dispatchQty}}{{mesPlanMonth.qtyUnit}}</span>
+		            	<ul class="level_2">
+						{{set isfind = false}}
+						{{each detList listValue2 i2}}
+						{{if listValue2.srcBillNo == listValue.billNo}}
+							<!--{{isfind = true}}-->
+							<li>
+		                    	<span class="w_180">{{listValue2.billNo}}</span>
+								<span class="w_150">{{listValue2.workCenterQty}}{{mesPlanMonth.qtyUnit}}</span>
+		                    	<div class="level_3">
+										<ul class="item_ui_level3 w_120" >
+											{{set isfind2 = false}}
+											{{each shiftDetList listValue3 i3}}	
+											{{if listValue3.srcBillNo == listValue2.billNo}}	
+												<!--{{isfind2 = true}}-->
+		                            				<li>{{listValue3.shiftDate}}({{listValue3.shiftId|getMdmName shiftList}})</li>
+		                        	 		{{/if}}	
+											{{/each}}
+											{{if (! isfind2)}}
+												<li>&nbsp;</li>
+											{{/if}}	
+										</ul>
+										<ul class="item_ui_level3 w_90" >
+											{{set isfind2 = false}}
+											{{each shiftDetList listValue3 i3}}	
+											{{if listValue3.srcBillNo == listValue2.billNo}}	
+												<!--{{isfind2 = true}}-->
+		                            				<li>{{listValue3.shiftQty}}{{mesPlanMonth.qtyUnit}}</li>
+													 
+		                        	 		{{/if}}	
+											{{/each}}
+											{{if (! isfind2)}}
+												<li>&nbsp;</li>
+											{{/if}}	
+										</ul>
+										<ul class="item_ui_level3 w_90" >
+											{{set isfind2 = false}}
+											{{each shiftDetList listValue3 i3}}	
+											{{if listValue3.srcBillNo == listValue2.billNo}}	
+												<!--{{isfind2 = true}}-->
+		                            				<li>{{listValue3.finishQty}}{{mesPlanMonth.qtyUnit}}</li>
+													 
+		                        	 		{{/if}}	
+											{{/each}}
+											{{if (! isfind2)}}
+												<li>&nbsp;</li>
+											{{/if}}	
+										</ul>
+		                   		</div>
+		               		 </li>
+						{{/if}}
+						{{/each}}
+							{{if (! isfind)}}
+								<li>
+		                    	<span class="w_180">&nbsp;</span>
+								<span class="w_150">&nbsp;</span>
+		                    	<div class="level_3">
+		                        	<ul class="item_ui_level3 w_120" >
+		                            <li>&nbsp;</li>
+		                        	</ul>
+		                        	<ul class="item_ui_level3 w_90" >
+		                            <li>&nbsp;</li>
+		                        	</ul>
+									<ul class="item_ui_level3 w_90" >
+		                            <li>&nbsp;</li>
+		                        	</ul>
+		                   		</div>
+		               		 	</li>
+							{{/if}}
+		           		</ul>
+		        	</li>
+				{{/each}}
+		    </ul></script>
+		    </div>
+		</div>
+		<!-- jqquery  js -->
+	<script type="text/javascript" src="/mes-plan/static/jquery/jquery-1.11.1.min.js"></script>
+	<!-- <script type="text/javascript" src="/mes-plan/static/jquery/jquery-3.2.1.min.js"></script> -->
+	<!-- bmsmart js -->
+	<script type="text/javascript" src="/mes-plan/static/bmsmart/mes-base.js"></script>
+	<script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+	<script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_overview2.js"></script>
+	<!-- layer js -->
+	<script type="text/javascript" src="/mes-plan/static/layer/layer.js"></script>
+</body>
+</html>
+
+
+
+
+ 

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanScheduleDao">
+    
+	<sql id="mesPlanScheduleColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.workshop_id AS "workshopId",
+		a.workcenter_id AS "workcenterId",
+		a.remarks AS "remarks",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.schedule_date AS "scheduleDate",
+		a.schedule_user AS "scheduleUser",
+		a.schedule_user_name AS "scheduleUserName",
+		a.create_user_name AS "createUserName",
+		a.update_user_name AS "updateUserName",
+		a.sheet_Status	as "sheetStatus"
+	</sql>
+	<sql id="mesPlanScheduleJoins">
+	</sql>
+	
+	<select id="get" resultType="MesPlanSchedule">
+		SELECT 
+			<include refid="mesPlanScheduleColumns"/>
+		FROM mes_plan_schedule a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getByUk" resultType="MesPlanSchedule">
+		SELECT 
+			<include refid="mesPlanScheduleColumns"/>
+		FROM mes_plan_schedule a
+		<where>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_id = #{workshopId}
+			</if>
+			<if test="workcenterId != null and workcenterId != ''">
+				AND a.workcenter_id = #{workcenterId}
+			</if>
+			<if test="scheduleDate != null">
+				AND a.schedule_date = #{scheduleDate}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findList" resultType="MesPlanSchedule">
+		SELECT 
+			<include refid="mesPlanScheduleColumns"/>
+		FROM mes_plan_schedule a
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_id = #{workshopId}
+			</if>
+			<if test="workcenterId != null and workcenterId != ''">
+				AND a.workcenter_id = #{workcenterId}
+			</if>
+			<if test="scheduleDate != null">
+				AND a.schedule_date = #{scheduleDate}
+			</if>
+			<if test="scheduleUser != null and scheduleUser != ''">
+				AND a.schedule_user = #{scheduleUser}
+			</if>
+			<if test="sheetStatus != null and sheetStatus != ''">
+				AND a.sheet_status = #{sheetStatus}
+			</if>	
+		</where>
+			order by a.update_time desc
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanSchedule">
+		SELECT 
+			<include refid="mesPlanScheduleColumns"/>
+		FROM mes_plan_schedule a
+		<include refid="mesPlanScheduleJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_schedule(
+			id,
+			sheet_id,
+			workshop_id,
+			workcenter_id,
+			remarks,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			schedule_date,
+			schedule_user,
+			schedule_user_name,
+			sheet_status,
+			create_user_name,
+			update_user_name
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{workshopId},
+			#{workcenterId},
+			#{remarks},
+			#{currentUser},
+			now(),
+			#{currentUser},
+			now(),
+			#{scheduleDate},
+			#{scheduleUser},
+			#{scheduleUserName},
+			#{sheetStatus},
+			#{currentUserName},
+			#{currentUserName}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_schedule SET 	
+			sheet_id = #{sheetId},
+			workshop_id = #{workshopId},
+			workcenter_id = #{workcenterId},
+			remarks = #{remarks},
+			update_user = #{currentUser},
+			update_time = now(),
+			schedule_date = #{scheduleDate},
+			schedule_user = #{scheduleUser},
+			schedule_user_name = #{scheduleUserName},
+			sheet_status = #{sheetStatus},
+			update_user_name = #{currentUserName}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_schedule
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_schedule
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanSchedule">
+		SELECT 
+			<include refid="mesPlanScheduleColumns"/>
+		FROM  mes_plan_schedule a
+		<include refid="mesPlanScheduleJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_id = #{workshopId}
+			</if>
+			<if test="workcenterId != null and workcenterId != ''">
+				AND a.workcenter_id = #{workcenterId}
+			</if>
+			<if test="scheduleDate != null and scheduleDate != ''">
+				AND a.schedule_date = #{scheduleDate}
+			</if>
+			<if test="scheduleUser != null and scheduleUser != ''">
+				AND a.schedule_user = #{scheduleUser}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

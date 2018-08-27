@@ -1,0 +1,396 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<style type="text/css">
+.comment_bubble {
+    width: 140px;
+    height: 100px;
+    background: #d8ddeb;
+    position: relative;
+	margin: 0 auto;
+}
+  
+.comment_bubble:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid white;
+    border-bottom: 50px solid transparent;
+}  
+
+.comment_bubble:after {
+    content: "";
+    width: 0;
+    height: 0;
+	left:100%;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid #d8ddeb;
+    border-bottom: 50px solid transparent;
+	z-index:10;
+}  
+ 
+ 
+ .comment_bubble_last {
+    width: 165px;
+    height: 100px;
+    background: #d8ddeb;
+    position: relative;
+	margin: 0 auto;
+}
+  
+ 
+
+.comment_bubble_last:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid white;
+    border-bottom: 50px solid transparent;
+}  
+
+
+.comment_bubble_first {
+    width: 140px;
+    height: 100px;
+    background: #b1d2b4;
+    position: relative;
+	margin: 0 auto;
+}
+  
+.comment_bubble_first:after {
+    content: "";
+    width: 0;
+    height: 0;
+	left:100%;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid #b1d2b4;
+    border-bottom: 50px solid transparent;
+	z-index:10;
+}  
+.lable1 {text-align:center}
+
+.lable2 {margin-top:5px;margin-left:50px;float:left}
+
+#tab1 {border:1px solid #999999;border-collapse:collapse}
+.td{border:1px solid #999999 ;padding:4px;min-width:80px}
+</style>
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style type="text/css">
+
+		  .progress{
+			  height: 25px;
+			  background: #262626;
+			  padding: 5px;
+			  overflow: visible;
+			  border-radius: 20px;
+			  border-top: 1px solid #000;
+			  border-bottom: 1px solid #7992a8;
+			  margin-top: 45px;
+		  }
+		  .progress .progress-bar{
+			  border-radius: 20px;
+			  position: relative;
+			  animation: animate-positive 2s;
+		  }
+		  .progress .progress-value{
+			  display: block;
+			  padding: 3px 7px;
+			  font-size: 13px;
+			  color: #fff;
+			  border-radius: 4px;
+			  background: #191919;
+			  border: 1px solid #000;
+			  position: absolute;
+			  top: -40px;
+			  right: -10px;
+		  }
+		  .progress .progress-value:after{
+			  content: "";
+			  border-top: 10px solid #191919;
+			  border-left: 10px solid transparent;
+			  border-right: 10px solid transparent;
+			  position: absolute;
+			  bottom: -6px;
+			  left: 26%;
+		  }
+		  /*.progress-bar.active{
+			  animation: reverse progress-bar-stripes 0.40s linear infinite, animate-positive 2s;
+		  }*/
+		  @-webkit-keyframes animate-positive{
+			  0% { width: 0; }
+		  }
+		  @keyframes animate-positive{
+			  0% { width: 0; }
+		  }
+</style>
+
+
+
+<style>
+	.time_line_box{
+        position: relative;
+        height: 60px;
+        overflow: hidden;
+		width: 766px;
+		margin: 0 auto;
+    }
+    .time_line{
+        position: absolute;
+		z-index: 1;
+		left: 0;
+		top: 49px;
+		height: 3px;
+		background: #dfdfdf;
+		-webkit-transition: -webkit-transform 0.4s;
+		-moz-transition: -moz-transform 0.4s;
+		transition: transform 0.4s;
+		}
+    .order_item{
+        position: absolute;
+		bottom: 0;
+		z-index: 2;
+		text-align: center;
+		font-size: 13px;
+		padding-bottom: 15px;
+		color: #825FFB;
+		}
+    .order_item:after{
+        content: '';
+		position: absolute;
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%);
+		bottom: -6px;
+		height: 16px;
+		width: 16px;
+		border-radius: 50%;
+		border: 2px solid #dfdfdf;
+		background-color: #f8f8f8;
+		}
+    .selected:after{
+        background-color: #249730;
+		border-color: #249730;
+		}
+    .filling_line{
+        position: absolute;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background-color: #249730;
+		transform-origin: left center;
+		transition-property: transform;
+		transition-duration: 0.3s;
+		transition-timing-function: initial;
+		transition-delay: initial;
+		}
+    .time_tip{
+        width: 100%;
+        height: 100px;
+        line-height: 70px;
+        text-align: center;
+        color: #151BFD;
+        border-bottom: 1px solid #ddd;
+    }
+	a:hover{text-decoration:none}
+	ol{list-style-type:none}
+</style>
+</head>
+<body >
+<legend style="width: 770px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">生产计划</legend>
+<table id="tab1"  style ="margin:0 auto;border-spacing:0px;width:770px">
+<tr>
+<td class="td" style="width:20px">编号</td><td class="td">2016-258 </td><td class="td">合同号</td><td class="td">LXPCZ-2016-076 </td><td class="td">日期</td><td class="td">2016.7.7</td>
+</tr>
+<tr>
+<td class="td">品种</td><td class="td" colspan=3>CVC32*32 130*70 63"2/1碳黑网1.0*1.0</td><td class="td">数量条款</td><td class="td">3万米</td>
+</tr>
+
+<tr>
+<td class="td">交款日期</td><td class="td">7月28日交清</td><td class="td">成品类别</td><td class="td">服装</td><td class="td">客户编码</td><td class="td">湖州蓝翔</td>
+</tr>
+<tr>
+<td class="td" rowspan=2>唛头/标识</td><td colspan=5>品名：2/1斜纹</td>
+</tr>
+
+<tr>
+<td colspan=5>CVC63" 32*32 130*70   1.0*1.0碳黑网</td>
+</tr>
+
+<tr>
+<td class="td">包装条款</td><td class="td" colspan=5>内销包，内包为塑料袋，版样、产品成包单（一式两份）和产品说明书由客户提供。定码占90%，不定码占10%。</td>
+</tr>
+<tr>
+<td class="td">质量要求</td><td class="td" colspan=5>静电丝间距1.0*1.0cm/根，经纬向导电丝用201-236CVC碳黑材料，经向百米耗用：16.428公斤，经向导电丝百米耗用：0.404公斤，53根经纱+1根导电丝，导电丝用149根；纬纱百米耗用8.679公斤，导电丝百米耗用0.435公斤,26根纬纱+1根导电丝。经纬交织。</td>
+</tr>
+
+<tr>
+<td class="td">是否新品</td>
+<td class="td">是</td>
+<td class="td" colspan=6> 
+</tr>
+
+<tr>
+<td class="td">生产副经理</td>
+<td class="td"colspan=2></td>
+<td class="td">营销部部长</td>
+<td class="td" colspan=2></td>
+</tr>
+<tr>
+<td class="td">总调度</td>
+<td class="td"colspan=2></td>
+<td class="td">经办人</td>
+<td class="td" colspan=2></td>
+</tr>
+</table>
+
+<br>
+
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">订单状态</legend>
+<div class="time_line_box">
+	<div class="time_line" style="width:100%;">
+		<ol>
+			<li>
+				<a class="order_item selected" style="left:10%;">计划</a>
+			</li>
+			<li>
+				<a class="order_item selected" style="left:25%;">下达</a>
+			</li>
+			<li>
+				<a class="order_item selected" style="left:45%;">开始</a>
+			</li>
+			<li>
+				<a class="order_item" style="left:65%;">完工</a>
+			</li>
+			<li>
+				<a class="order_item" style="left:85%;">结束</a>
+			</li>
+		</ol>
+		<span class="filling_line" style="transform: scaleX(0.63);"></span>
+	</div>
+</div>
+<div class="container" style="width: 766px">
+	
+	<table style="width:100%">
+	<tr>
+		<td style="width:10%;padding-top:20px"><strong>计划进度</strong></td>
+		<td style="width:90%"><div class="progress">
+				<div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 85%;">
+				</div>
+		</div> </td>
+	</tr>
+	<tr>
+	<td style="width:10%;padding-top:20px"><strong>完工进度</strong></td>
+		<td style="width:90%"><div class="progress">
+				<div class="progress-bar progress-bar-danger progress-bar-striped active" style="width: 65%;">
+				</div>
+		</div> </td>
+	</tr>
+	<tr>
+		<td colspan=2 style="text-align:right"><a target="_blank"href="1.1table.html">查看明细</a>  <a target ="_blank" href="2生产计划释放.html">任务调度/释放</a></td>
+	</tr>	
+	</table>
+</div>
+ <br>
+
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">成品/半成品工序</legend>
+<table style ="margin:0 auto;border-spacing:10px;width:776px">
+<tr>
+<td>
+	<div class='comment_bubble_first' >
+		  <span class='lable2'>换轴工</span>
+		  <span class='lable2'>验布工</span>
+	</div>
+</td>
+<td>
+	<div class='comment_bubble'>
+		 <span class='lable2'>帮运工</span>
+		 <span class='lable2'>质检</span>
+		 <span class='lable2'>分段工</span>
+	</div>
+</td>
+<td>
+	<div class='comment_bubble'>
+		 <span class='lable2'>拼件工</span>
+	</div>
+</td>
+<td>
+	<div class='comment_bubble'>
+		<span class='lable2'>质检工</span>
+	</div>
+</td>
+
+<td>
+	<div class='comment_bubble_last'>
+		<span class='lable2'>打包工</span>
+	</div>
+</td>
+
+</tr>
+<tr>
+<td class="lable1">
+	 验布
+</td>
+<td class="lable1">
+	 分等分段
+</td>
+<td class="lable1">
+	 拼件
+</td>
+<td class="lable1">
+	 成品检测
+</td>
+<td class="lable1">
+	打包 
+</td>
+</tr>
+
+
+<tr>
+<td class="lable1" colspan=5 style="text-align:right;padding-top:5px;padding-right:20px">
+	 <a>切换到设备</a>
+</td>
+</tr>
+
+</table>
+<br>
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">原料/半成品比例</legend>
+<table style ="margin:0 auto;border-spacing:10px">
+<tr>
+<td>
+	<img style="width:254px" src="img/1.png"></img>
+</td>
+<td>
+	<img style="width:254px" src="img/1.png"></img>
+</td>
+<td>
+	<img style="width:254px" src="img/1.png"></img>
+</td>
+</tr>
+<tr>
+<td class="lable1">
+	 按成本
+</td>
+<td class="lable1">
+	 按重量
+</td>
+<td class="lable1">
+	 按体积
+</td>
+
+<tr>
+		<td colspan=3 style="text-align:right"><a>库存查询</a></td>
+ 
+</tr>
+</table>
+</body>
+</html>

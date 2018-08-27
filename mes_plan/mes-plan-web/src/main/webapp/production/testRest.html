@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript" src="/mes-plan/static/jquery/jquery.js"></script>
+<script>
+	function sendRequest(){
+		 $.ajax({ 
+	            type:"POST", 
+	            url:"http://127.0.0.1:8080/mes-plan/test1/1/5/a.do", 
+	            dataType:"json",      
+	            contentType:"application/json",               
+	            data:'{billno:"11"}', 
+	            success:function(data){ 
+	                          alert(JSON.stringify(data));             
+	            } 
+	         }); 
+	}
+</script>
+<body>
+<input type='button' onclick="sendRequest();" value="发请求"></input>
+</body>
+</html>

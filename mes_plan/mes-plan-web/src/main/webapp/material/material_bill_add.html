@@ -1,0 +1,85 @@
+<!--#include virtual="/mes-plan/include/header.html" -->
+    <style>
+        .control-label{
+            font-size:12px;
+            padding-right:0px;
+        }
+        .col-xs-8,.col-xs-10{
+              padding:0px;  
+        }
+        .line{
+            border:1px solid #dcd9d9;
+            height:1px;
+            width:100%;
+        }
+    </style>
+    <!--添加选择框-->
+      <div class="export container-fluid"  style="width:700px;height:180px;padding:15px;">      
+                  <form class="form-horizontal" role="form" >
+                      <div class="row">
+                          <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">字段名：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                          </div>
+                            <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">字段标签：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">字段类型：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                          </div>
+                            <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">字段长度：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                           <div class="form-group col-xs-6  text-center">
+                              <span>主键：  <input type="checkbox"></span>&nbsp;&nbsp;
+                              <span>可空： <input type="checkbox"></span>&nbsp;&nbsp;&nbsp;
+                              <span>可空： <input type="checkbox"></span>
+                          </div>
+                            <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">调用数据源：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+      </div>
+     <div class="line"></div>
+    <!--按钮组-->
+      <div class="btn_group">
+          <div class="row" style="padding:10px;">
+              <div class="col-sm-12">
+                  <div style="float:right;">
+                      <a class="btn btn-primary btn-sm" onclick="fun_add_list()" class="glyphicon glyphicon-plus">&nbsp;添加</a>&nbsp;&nbsp;
+                      <a class="btn btn-default btn-sm" class="glyphicon glyphicon-plus" onclick="parent.layer.closeAll()">&nbsp;取消</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <script type="text/javascript">
+           function fun_add_list(){
+        	   layer.alert("添加成功!",function(){
+        		 //当你在iframe页面关闭自身时
+        		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        		   parent.layer.close(index);//然后关闭
+        	   });
+        		
+           }
+      </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.bmsmart.mes.mesDemo.dao.MesPlanDao">
+
+    <sql id="Column_List">
+    	id,
+         billno
+    </sql>
+
+    <select id="selectList" resultType="com.bmsmart.mes.mesDemo.domain.vo.response.MesPlanVo">
+        SELECT
+        <include refid="Column_List"></include>
+        FROM mes_plan_month
+        WHERE 1=1
+        <if test="billno != null and billno != ''">
+        and billno = #{billno,jdbcType=VARCHAR}
+        </if>
+    </select>
+    
+  <delete id="delete" parameterType="map" >
+    delete from DEMO_TEST info
+    where Id = #{id,jdbcType=INTEGER}
+      and username = #{username,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bmsmart.mes.mesDemo.domain.po.DemoTest" >
+    insert into DEMO_TEST  (id,name
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+</mapper>

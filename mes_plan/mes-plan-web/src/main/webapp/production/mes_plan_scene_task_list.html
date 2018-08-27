@@ -1,0 +1,268 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <style type="text/css">
+			.form-group1{margin-bottom:5px};
+ 
+			#popUpTab {width:100%}
+			#popUpTab th{width:18%;text-align:right;padding-right:10px}
+			#popUpTab td{width:32%;padding:3px 2px}
+ </style>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/> 
+<div class=" main_content warpper animated fadeInRight" style="overflow-x:hidden">
+<div class="container-fluid panel-custom panel panel-default">
+    <!-- 生产计划管理 -->
+    <div class="row">
+        <!-- 标题栏  -->
+        <div class="col-sm-12">
+            <h4 class="page-header">现场调度任务查询</h4>
+        </div>
+    </div>
+    
+    <!-- 快捷查询条件 -->
+    <form id ="from_condition" class="form-horizontal" >
+    	<input type='hidden' id='relPlan' name='relPlan' value='1'>
+     <!-- 搜索 -->
+     <table id="condition_tab"  class='conditionTab'>
+     <tr>
+     <th>单据编号</th><td><input name='sheetId' type="text" class="form-control"/></td>
+     <th>订单编号</th><td><input name='planSheetId' type="text" class="form-control"/></td>
+     <th>状态</th><td><select id='taskStatus' name="taskStatus" class="form-control">
+          <option value=""></option>
+          </select></td> 
+     </tr>
+     <tr>
+     	<th>车间</th><td>
+     	<select id='workshopId' name="workshopId" class="form-control">
+                   		<option value=""></option>
+                   </select>
+         	</td>
+     	<th>工作中心</th><td> 
+     		 <select id='workcenterId' name="workcenterId" class="form-control">
+                   		<option value=""></option>
+                   </select>  
+          </td>
+		<th>设备编号</th>
+     	<td>
+     	<input id="deviceId" name="deviceId" class="form-control" type='text'>
+        </td>	
+     </tr>
+     <tr>
+		<th>班别</th><td> 
+         	<SELECT id='shiftStyle' NAME='shiftStyle' class="form-control">
+     			 <option value=""></option>
+			</SELECT> </td> 
+         <th>班次</th><td> 
+         	<SELECT id='shiftId' NAME='shiftId' class="form-control">
+     			 <option value=""></option>
+			</SELECT> </td> 
+		 <th>工序</th><td> 
+     		<SELECT id='ptechnicId' NAME='ptechnicId' class="form-control">
+     			 <option value=""></option>
+			</SELECT>
+          </td>
+     </tr>
+     
+     <tr>
+     	<th>任务开始时间(>=)</th><td> 
+     		<input class="Wdate form-control" id='planBeginDate1' name='planBeginDate1' style="height:34px" type="text" onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+          </td>
+         <th>任务开始时间(<=)</th><td> 
+         	<input class="Wdate form-control" id='planBeginDate2' name='planBeginDate2' style="height:34px" type="text" onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+			</td>    
+		<th></th><td></td>     	     
+     </tr>
+     
+     </table>
+        <div style="padding:5px 0px;text-align:right" >
+            <button class="btn btn-primary" onclick="searchOrder(true,1,PAGESIZE);return false;"><span class="glyphicon glyphicon-search"></span>查询</button>
+            <button class="btn" type="reset" ><span class="glyphicon glyphicon-erase"></span>清空</button>
+        </div>
+    </form>
+    
+    
+    <div class="panel-default">
+		  <div class="panel-heading" style="padding:0px ;text-align:right">
+		  	<strong class='panelTitleFloat'>临时任务列表</strong>
+		  		<a class="btn btn-primary" href='/mes-plan/production/mes_plan_scene_task_batch.html'><span class="glyphicon glyphicon-plus"></span>批量新增</a>
+                <!-- <a class="btn btn-primary" href='#' onclick="on_edit_sheet(this,'','')"><span class="glyphicon glyphicon-plus"></span>临时任务新增</a> -->
+                <a class="btn btn-primary" href='#' onclick="onCheckBatch()"><span class="glyphicon glyphicon-import"></span>临时任务下发</a>
+                <a class="btn btn-primary" href='#' onclick="onCancelBatch()"><span class="glyphicon glyphicon-wrench"></span>临时任务下发撤回</a>
+          </div>
+          <div id="detailTab">
+		  <script id="detailTab.tmp" type="text/html" >
+            <table id="tab_det" style="margin-top:-1px;"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+						<th class='thcls' style="width:18px"><input type='checkbox' name='checkflag'  onclick="return onSelectAll(this)"/></th>
+						<th class='thcls'>单据编号</th>
+						<th class='thcls'>车间</th>
+						<th class='thcls'>工作中心</th>
+						<th class='thcls'>工序</th>
+						<th class='thcls'>订单编号</th>
+						<th class='thcls'>状态</th>
+                        <th class='thcls'>计划日期</th>
+						<th class='thcls'>最后操作时间</th>
+						<th class='thcls'>操作</th>
+                    </tr>
+                </thead>
+                <tbody id='tab_det_body'>
+						{{each list listValue}}
+				<tr>
+					<td> <input type='checkbox' name='checkflag'/></td>
+                 	<td> 
+						<input type='hidden' name='id' value='{{listValue.id}}'/>
+						<input type='hidden' name='taskStatus' value='{{listValue.taskStatus}}'/>
+						{{listValue.sheetId}}
+					</td>
+					<td> {{listValue.workshopId|getMdmName dropdownDatas.workshopList}} </td>
+                 	<td>  
+							{{listValue.workcenterId|getMdmName dropdownDatas.workcenterList}} 
+					</td>
+					<td>{{listValue.ptechnicId|getDdwName dropdownDatas.technicList}}</td>
+
+					<td> {{listValue.planSheetId}}</td>
+                 	<td> {{(listValue.taskStatus||0)|getDdwName dropdownDatas.taskStatusList}} </td>
+                 	<td> {{listValue.planBeginDate}} </td>
+					<td> {{listValue.updateTime}} </td>
+					<td> 
+					 
+						{{if (listValue.taskStatus||0) == '0'}}
+							<a href='/mes-plan/production/mes_plan_scene_task_batch.html?sheetId={{listValue.sheetId}}'>编辑</a>	
+							<a href='#' onclick="on_del_sheet(this,'{{listValue.id}}','{{listValue.sheetId}}')">删除</a>
+						{{else}}
+							<a href='/mes-plan/production/mes_plan_scene_task_batch.html?sheetId={{listValue.sheetId}}'>查看</a>	
+						{{/if}}
+						 
+					</td>
+                 </tr>
+						{{/each}}
+
+                 
+                </tbody>
+            </table>
+
+			</script>
+		</div>
+    
+     </div>
+   <script id="popup.tmp" type="text/html" >
+	
+	<form id ="popUpForm" class="form-inline" style="padding:10px">
+		<input type="hidden" id="id" name="id" value="{{id}}"/>
+		<input type="hidden" id="sheetId" name="sheetId" value="{{sheetId}}"/>
+		<input type="hidden" id="taskStatus" name="taskStatus" value="{{taskStatus}}"/>
+		<table id='popUpTab' style="width:100%">
+				<tr>
+					<th>计划开始时间</th>
+					<td>
+						<div class="form-group">
+						   <input class="Wdate form-control" id='planBeginDate' name='planBeginDate' style="height:34px" onchange='dateChanged(this);' type="text" value='{{planBeginDate}}' onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/> 
+					  	</div>
+					</td>
+					<th>计划结束时间</th>
+					<td>
+						<div class="form-group">
+						    <input class="Wdate form-control" id='planBeginDate' name='planEndDate' style="height:34px" onchange='dateChanged(this);' type="text" value='{{planEndDate}}' onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+					  	</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th>部门</th>
+					<td><div class="form-group">
+						<select id='workshopId' name="workshopId" class="form-control" style="width:184px" onchange='workshopChg(this)'>
+                   		<option value=""></option>
+						{{each dropdownDatas.workshopList as listValue}}
+    						<option value={{listValue.id}} {{if listValue.id == $data.workshopId}} selected {{/if}}>{{listValue.text}}</option>
+						{{/each}}
+                   		</select>
+						</div>
+					</td>
+					<th>状态</th>
+					<td>
+						 <div class="form-group">{{(taskStatus||0)|getDdwName dropdownDatas.taskStatusList}}</div>
+					</td>
+				</tr>
+				<tr>
+					<th>发起人</th>
+					<td><div class="form-group">
+<input id="taskStarter" name="taskStarter" class="form-control" type='hidden' value='{{taskStarter}}'> 
+						<div class="input-group">
+				<input id="taskStarterName" name="taskStarterName" class="form-control" type='text' readonly value='{{taskStarter|getMdmName taskUserList}}'> 
+                 <span class="input-group-btn">
+		        <button class="btn btn-default" type="button" onclick="onClickUser3(true,1,PAGESIZE)"><span  class=" glyphicon glyphicon-zoom-in"></span></button>
+		      	</span>
+		   	</div></div>
+					</td>
+					<th>执行人</th>
+					<td><div class="form-group">
+						<input id="taskUser" name="taskUser" class="form-control" type='hidden' value='{{taskUser}}'> 
+						<div class="input-group">
+							<input id="taskUserName" name="taskUserName" class="form-control" type='text' readonly value='{{taskUser|getMdmName taskUserList}}'> 
+                 			<span class="input-group-btn">
+		        			<button class="btn btn-default" type="button" onclick="onClickUser4(true,1,PAGESIZE)"><span  class=" glyphicon glyphicon-zoom-in"></span></button>
+		      				</span>
+		   				</div></div>
+					</td>
+				</tr>
+
+				<tr>
+					<th>有无关联订单</th>
+					<td><div class="form-group">
+						<input type="radio" name="relPlan"  style="height:34px"{{if ($data.relPlan||0) == 0}} checked{{/if}} value="0" onchange="onRelPlanChanged(this)">无
+						<input type="radio" name="relPlan"  style="height:34px"{{if $data.relPlan == 1}} checked{{/if}} value="1" onchange="onRelPlanChanged(this)">有
+						</div>
+					</td>
+					<th>订单编号</th>
+					<td><div class="form-group">
+						 <input class="form-control" type='text' style="width:184px;" id='planSheetId' name='planSheetId' value='{{planSheetId}}'/>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th> 紧急程度</th>
+					<td><div class="form-group">
+						<select id='taskType' name="taskType" style="width:184px" class="form-control">
+							{{each dropdownDatas.taskTypeList as listValue}}
+    						<option value={{listValue.id}} {{if listValue.id == $data.taskType}} selected {{/if}}>{{listValue.text}}</option>
+							{{/each}}
+                  		</select>
+						</div>
+					</td>
+					<th></th>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<th>任务说明</th>
+					<td colSpan=3><div class="form-group">
+						 <textarea id='taskDesc' name='taskDesc' style='height:70px;width:489px' cols='35' maxlength=200 placeholder='限200汉字'></textarea>
+					</div>
+					</td>
+				</tr>
+				<tr>
+					<th>完工说明</th>
+					<td colSpan=3>
+						<textarea  style='height:60px;width:489px' cols='35' readonly>{{taskFinishDesc}}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>附件</th>
+					<td colSpan=3>
+					</td>
+				</tr>
+		</table>
+	</form></script>
+    </div>
+    </div>
+ </body>
+
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_scene_task_list.js"></script>
+  <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/select2/select2.min.css">
+ <script type="text/javascript" src="/mes-plan/static/select2/select2.full.min.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/My97DatePicker/WdatePicker.js"></script> 
+ 
+</html>

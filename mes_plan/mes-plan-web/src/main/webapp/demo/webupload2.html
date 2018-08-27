@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      testwebupload
+        </title>
+
+    
+    
+<script type="text/javascript" src="/tpd/jslib/jquery/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/tpd/jslib/webuploader/webuploader.min.js"></script>
+<script type="text/javascript" src="/tpd/demo/upload.js"></script>
+<script type="text/javascript" src="/tpd/jslib/webuploader/bootstrap.js"></script>
+<script type="text/javascript" src="/tpd/jslib/webuploader/global.js"></script>
+    
+   
+    <link rel="stylesheet" type="text/css" href="/tpd/jslib/webuploader/webuploader.css">
+<script type="text/javascript" src="/tpd/jslib/webuploader/upload.css"></script>
+    
+</head>
+
+<body>
+    <div class="file-panel"><span class="cancel">删除</span><span class="rotateRight">向右旋转</span><span class="rotateLeft">向左旋转</span></div></li></ul></div>    
+
+    
+
+    <div class="page-container">
+        <h1 id="demo">Demo</h1>
+
+<p>您可以尝试文件拖拽，使用QQ截屏工具，然后激活窗口后粘贴，或者点击添加图片按钮，来体验此demo.</p>
+
+<div id="uploader" class="wu-example">
+    <div class="queueList filled">
+        <div id="dndArea" class="placeholder element-invisible">
+            <div class="webuploader-container" id="filePicker"><div class="webuploader-pick">点击选择图片</div><div style="position: absolute; top: 0px; left: 75.8167px; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;" id="rt_rt_1acggoiig2go1mcmimsjaf8191"><input accept="image/*" multiple="multiple" class="webuploader-element-invisible" name="file" type="file"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255) none repeat scroll 0% 0%;"></label></div></div>
+            <p>或将照片拖到这里，单次最多可选300张</p>
+        </div>
+    <ul style="display: block;" class="filelist"><li id="WU_FILE_1"><p class="title">logo.png</p><p class="imgWrap"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCABuAG4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDxmiiigAooooAKKK6Pwj4OvPFN5hAY7VD+8lI4+grOrVhSg5zdkhpNuyMWw0681S5FvZW7zyH+FBnFd3pPwg1W6VZL+dLYHqoGSK9S0Pw7pvh+zW3soFXA+ZyPmY+pNaua+TxWe1ZO1BWXfqdccOvtHnUHwb0pFxNeSufUcUT/AAb0t1/c3kqH1PNei5ozXm/2pjL352aeyh2PF9W+EGq2qtJYTpcgdFxgmuFv9Ou9MuTb3sDwyr/C4xX1FmsrXfDmm+IbNre+gVifuyAYZT6g16WFz2rF2rq679TOWHT+E+aaK6Lxd4PvfC16VkBktnP7uUDj6Gudr6ylVhVgpwd0zkaadmFFFFaCCigAk4AyfapJbeaAKZY2TeMruGM0XC5c0PSZ9b1eCwgUlpG5PoPWvonRNIttD0yKxtUCrGME45Y+prz/AOEGiolpcaxIgLufLiJ7Dv8AyFem5r4vOsW6tb2K2j+Z6GHp2jzPqNubqG0gee4kWONBlmY4AryzxP8AFqYyPa6GgUA4+0MOfwFZ/wATvFst/ftpFrIRbQH95tP3mrz6u7LMohyKrXV29kZVqzvyxNW78T63eyF59TnZj6Nt/lRaeKNcspA8GpTqR6tu/nWVRX0PsaVuXlVvQ5eZ9z1Hwx8WpvMS11yMMp4+0KOfxH+Fep211Dd26TwSLJG4yrKcg18t16D8MfF8thqCaPdyFrWc4jLH7jf4V89meUQ5HVoKzW6OqjWd+WR6xrWkWut6bLZXUYZXUgE9VPYivnbXdIm0TVp7GYHMbfKfUdq+lgcjrXm3xV8OSX7Wl9aRb5STG4UduTmuHJcW6NX2Un7r/M1xFO8bo8iq9pGjXmtXi21pGWJ6t2Ue9Radp8+p30dpbrl5Dj6e9e1eH9EtdBsFggQbyMyP3Y19LjcYsPGy+Jng4zFqhGy3Zn6B4E0vSY1knQXNx3ZxwD7CuL+JUobxEtugCrDGAoHbIBr1guAMmvHfHs8M/iqaSGRZFwoJU5wQBXmZfOdXEuU3fQ87AVJ1cRzTd9D17wLbra+ErFVGN0Yc/UitXVrz7DpN1df88oy35VneEZA/hawYf88V/lUvieNp/DOoRJyzwMB+VfO1FzYp83WX6n26VqenY+d7mZri5kmdizOxJJqOlYYcj0NJX6GlZHjhRRRTAKfBM1vOkyHDIwYUyjrSauB9L6PdG70i1nJ5eME1adEkADqGA9RWX4bQxeHrJG6iIVqZr81qq1SVu57cVdI8l+HGkLHbPqci/M52pnsP8mu73Vk6FbCx0W1twMFEAPuaXWr/APs/Sbi5zyqHb9e1e/Xk69Zvuz82r1HXrt93ocn448XukjaXp8m3HEsg/kK8+JLEkkknuafNK00zyucs7EkmmV9Lh6EaMFGJ9Ph6EaMFFHtvwx1IXvhdYS2Xt22sPQdv5V18iiSNkYZDDBrxD4eeIv7F1wQzPi2uflf0B7GvbgwYAg5B718bmmHdHEt9Hqj38NJTpryPnzxVo0mia9cWrKQm7ch9Qax6958XeE7fxNY7RiO6j5jk/oa8U1bRr7Rbtre9gZCDgNjhvoa+ly7HQxNNRb95bnBXounK/Qo0UUV6hzBWv4W0eTW9et7VFJXcGc+i96raTo19rV2ttZwM5J5bHC/U17Z4R8KW/hqx2gB7qT/WSf0FeXmOOhhqbin7z2/zOmhRdSV+h0MMawwpEoACKAKxPFXiaLw3bQSycmVyuPwrbLBQSTgDvXiHxD8QDWtdMUTZgtvkXHQnua+Xy7CfWa9pbLc9CvP2cNNz0hWG0belYXjRm/4R2bHqM/nVzR7wXmk28+c70BNN1y1+3aRcQDklCR9RXo01yVlfoz8zpP2ddc3Rnj1FK6GORkYYKnBpK+rPswBKkEHBHQ16v4C8cx3UEelalIFnQYjkY8OPQ15RQrFWDKSCOhFcmLwkMVT5JfJmtKrKlK6PpgNkZFVb/TbLU4TFeW8cyn+8OR+NeWeGviVdaeiWupqbiFeBJ/EP8a9C03xZo2qIDBeoGP8ACxwa+Pr4HEYaV7fNHsU61OqjIuvhhoM7lo/NgHopz/Oi1+GGgwOGk82cDsxx/KutFxEwysqH6MKGuIlGWlQfVhUfXcVbl52P2FLeyIrDTbLTIRFZ28cKj+6OT+NWi2BkmsTUvFujaWhM96hYfwKcmvPPEvxKu9RR7XTVNvC3Bkz8x/wq6GBxGJle3zYqlanSRu+PPHUdtDJpemyBpnG2SReij0FeUEliSTknkmlZmdizEknqT3pK+wwmEhhafJH5s8erVlUldneeBdVD2j2Dt80Z3L7iuu3V49p99Lp15Hcwn5kPT1HpXp+marBqdos8LZ4+Ze4NedjsO4z51sz5PM8M6dT2i2f5nK+LvDjRTNqFomY35kUfwn1rka9jYhlKsMg9RXOar4Ps71jJbN9nkPJwMqfwrbDY1RXLU+83weZqMVCt955/RXRSeCdTVsIYnHruxUlt4Hvnb/SJo4h7fNXc8TRtfmPUeOwyV+dHNxRPNII41LMxwAK2JPCurwRrIIC2Rn5TyK7TSvD9jpQDRpvl7u3WtbdXDVx75vcWh5dbN3zfulp5nmCjXbQbUN1GB2BIqpNqWoS5Sa7mbHBDMa7rxPrsenWrQREG4kGB/sivOySxJJyTya68PL2q55RSPVweJq14c0lZdAJLHJOTRRRXWdYUUUUAFXdM1W50u4EsDcfxKehqlRSlFSVmTKEZx5ZK6PSNL8SWWpIBvEUvdGOPyrWEgIyDXkKsVOVJB9RWja69qNoMJcMQOzc15lTAa3gzwq+UXd6T+TPTd9G+uCTxlfKMNGjH1pkvjDUHGECJ9BWH1GqcayrEXtp953zzJGu52CgdycVzms+LobZWhsiJJem7stcjc6pe3Z/fXDkemcVUrqpYGMXebuehh8pjF81V38iSe4luZmlmcu7HJJqOiivRSse0kkrIKKKKBhRRRQB//9k="></p><p class="progress"><span></span></p><div class="file-panel"><span class="cancel">删除</span><span class="rotateRight">向右旋转</span><span class="rotateLeft">向左旋转</span></div></li></ul></div>
+    <div class="statusBar" style="">
+        <div style="display: none;" class="progress">
+            <span class="text">0%</span>
+            <span style="width: 0%;" class="percentage"></span>
+        </div><div class="info">选中1张图片，共5.18K。</div>
+        <div class="btns">
+            <div class="webuploader-container" id="filePicker2"><div class="webuploader-pick">继续添加</div><div style="position: absolute; top: 0px; left: 10px; width: 94px; height: 42px; overflow: hidden; bottom: auto; right: auto;" id="rt_rt_1acggoiil1ftv13j8jdq1gnp1tcg6"><input accept="image/*" multiple="multiple" class="webuploader-element-invisible" name="file" type="file"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255) none repeat scroll 0% 0%;"></label></div></div><div class="uploadBtn state-ready">开始上传</div>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+
+    <script type="text/javascript">
+    // 添加全局站点信息
+    var BASE_URL = '/tpd';
+    </script>
+</body></html>

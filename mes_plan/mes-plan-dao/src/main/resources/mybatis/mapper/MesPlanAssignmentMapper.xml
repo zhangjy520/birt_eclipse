@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanAssignmentDao">
+    
+	<sql id="mesPlanAssignmentColumns">
+		a.erp_bill_no AS "erpBillNo",
+		a.assignment_bill_no AS "assignmentBillNo",
+		a.order_index AS "orderIndex",
+		a.task_bill_no AS "taskBillNo",
+		a.deliver_terms AS "deliverTerms",
+		a.package_terms AS "packageTerms",
+		a.mark AS "mark",
+		a.quality_require AS "qualityRequire",
+		a.id AS "id",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks"
+	</sql>
+	<sql id="mesPlanAssignmentJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanAssignment">
+		SELECT 
+			<include refid="mesPlanAssignmentColumns"/>
+		FROM mes_plan_assignment a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getByErpBillNo" resultType="MesPlanAssignment">
+		SELECT 
+			<include refid="mesPlanAssignmentColumns"/>
+		FROM mes_plan_assignment a
+		WHERE a.erp_bill_no = #{erpBillNo}
+	</select>
+	
+	
+	<select id="findList" resultType="MesPlanAssignment">
+		SELECT 
+			<include refid="mesPlanAssignmentColumns"/>
+		FROM mes_plan_assignment a
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="taskBillNo != null and taskBillNo != ''">
+				AND a.task_bill_no = #{taskBillNo}
+			</if>
+		</where>
+			
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanAssignment">
+		SELECT 
+			<include refid="mesPlanAssignmentColumns"/>
+		FROM mes_plan_assignment a
+		<include refid="mesPlanAssignmentJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="taskBillNo != null and taskBillNo != ''">
+				AND a.task_bill_no = #{taskBillNo}
+			</if>
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_assignment(
+			erp_bill_no,
+			assignment_bill_no,
+			order_index,
+			task_bill_no,
+			deliver_terms,
+			package_terms,
+			mark,
+			quality_require,
+			id,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks
+		) VALUES (
+			#{erpBillNo},
+			#{assignmentBillNo},
+			#{orderIndex},
+			#{taskBillNo},
+			#{deliverTerms},
+			#{packageTerms},
+			#{mark},
+			#{qualityRequire},
+			#{id},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_assignment SET 	
+			erp_bill_no = #{erpBillNo},
+			assignment_bill_no = #{assignmentBillNo},
+			order_index = #{orderIndex},
+			task_bill_no = #{taskBillNo},
+			deliver_terms = #{deliverTerms},
+			package_terms = #{packageTerms},
+			mark = #{mark},
+			quality_require = #{qualityRequire},
+			update_user = #{currentUser},
+			update_time = now(),
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_assignment
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_assignment
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanAssignment">
+		SELECT 
+			<include refid="mesPlanAssignmentColumns"/>
+		FROM  mes_plan_assignment a
+		<include refid="mesPlanAssignmentJoins"/>
+		<where>
+			
+		</where>
+		
+	</select>
+</mapper>

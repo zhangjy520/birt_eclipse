@@ -1,0 +1,2 @@
+{ seriesdata: [ {name:'上轴',value:'100'}, {name:'织布',value:'601'}, {name:'整经',value:'111'}, {name:'落筒',value:'211'} ],
+legendata:['上轴','织布','整经','落筒']}

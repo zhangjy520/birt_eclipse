@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>查看明细</title>
+		<style type="text/css">
+			 @media only screen and (max-width: 1024px) {
+			 	.main_content{
+			 		width:770px;
+			 		margin:0 auto;
+		        }
+		    }
+		     #tab1 {
+			 	border:1px solid #999999;
+			 	border-collapse:collapse;
+			    margin:0 auto;
+			    border-spacing:0px;
+			 }
+             #tab1  tr  td{
+             	border:1px solid #999999 ;
+             	padding:4px;
+             	min-width:100px;
+             	text-align: center;
+             	height:35px;
+             	}
+		</style>
+	</head>
+	<body>
+		<div class="main_content">
+			<table id="tab1">
+				<tr>
+					<td colspan="2">营销调度</td>
+					<td colspan="2">车间调度</td>
+					<td colspan="2">值班长排班</td>
+					<td>已完工数量</td>
+				</tr>
+				<tr>
+					<td>释放明细</td>
+					<td>数量</td>
+					<td>并行加工单</td>
+					<td>并行加工单</td>
+					<td>生产排程</td>
+					<td>生产排程数量</td>
+					<td>已完工数量</td>
+				</tr>
+				<tr>
+					<td rowspan="6">2016-258-01</td>
+					<td rowspan="6">1200m</td>
+					<td rowspan="3">2016-258-01-01</td>
+					<td rowspan="3">600m</td>
+					<td>2016-05-09早班</td>
+					<td>200m</td>
+					<td>200m</td>
+				</tr>
+				<tr>
+					<td>2016-05-09中班</td>
+					<td>200m</td>
+					<td>200m</td>
+				</tr>
+				<tr>
+					<td>2016-05-09晚班</td>
+					<td>200m</td>
+					<td>200m</td>
+				</tr>
+				<tr>
+					 <td rowspan="3">2016-258-01-02</td>
+					 <td rowspan="3">600m</td>
+					 <td>2016-05-10早班</td>
+					 <td>200m</td>
+					 <td>200m</td>
+				</tr>
+				<tr>
+					<td>2016-05-09中班</td>
+					<td>200m</td>
+					<td>200m</td>
+				</tr>
+				<tr>
+					<td>2016-05-09晚班</td>
+					<td>200m</td>
+					<td>200m</td>
+				</tr>
+				<tr>
+					<td rowspan="2">2016-258-02</td>
+					<td rowspan="2">2000m <a href="">释放</a></td>
+					<td>2016-258-02-01</td>
+					<td>600m</td>
+					<td> <a href="">未排程</a></td>
+					<td>未排程</td>
+					<td>未排程</td>
+				</tr>
+				<tr>
+					<td>2016-258-02-01</td>
+					<td>600m</td>
+					<td><a href="">未排程</a></td>
+					<td>未排程</td>
+					<td>未排程</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

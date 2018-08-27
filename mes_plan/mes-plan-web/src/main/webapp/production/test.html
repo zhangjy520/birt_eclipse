@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+<style type="text/css">
+.clearfix:before, .clearfix:after {
+	        content: "\0020";
+	        display: block;
+	        height: 0;
+	        overflow: hidden;
+	    }
+	
+	    .clearfix:after {
+	        clear: both;
+	    }
+	
+	    .clearfix {
+	        zoom: 1;
+	    }
+	    
+ul,li,dl,ol{list-style:none;}
+.list_lh{overflow:hidden;}
+.list_lh li{ padding:10px;}
+.list_lh li.lieven{ background:#F0F2F3;}
+ 
+</style>
+<body>
+
+<table style="width:100%">
+<tr>
+	<td style="width:49.5%;vertical-align:top">
+		<div id="a" style="border:1px solid blue;min-height:120px" class="clearfix" ondrop="drop(event)" ondragover="allowDrop(event)">
+			<div id="aaa" draggable="true" ondragstart="drag(event)" style="margin-left:5px;float:left;width:100px;height:120px;border:1px solid red ">
+				aaa
+				<span name='testSpan'></span>
+			</div>
+			<div id="bbb" draggable="true" ondragstart="drag(event)" style="margin-left:5px;float:left;width:100px;height:120px;border:1px solid red ">
+				bbb
+				<span name='testSpan'></span>
+			</div>
+			<!--  <div id="jjj" style="margin-left:5px;float:left;width:100px;height:120px;border:1px solid red ">
+				不能拖动jjj
+			</div> -->
+		</div>
+	</td>
+	<td style="width:1%">
+		
+	</td>
+	<td style="width:49.5%;vertical-align:top;">
+		<div id="b" style="border:1px solid blue;min-height:120px" class="clearfix" ondrop="dropb(event)" ondragover="allowDrop(event)">
+			<div class="list_lh" id="ccc" draggable="true" ondragstart="drag(event)"  style="margin-left:5px;float:left;width:220px;border:1px solid red ">
+				<ul style="list-style:none;">
+					<li style="margin:-25px"><span name='goodsId'>产品:87732(换产品)</span></li>
+					<li style="margin:-25px"><span name='planBeginDate'>计划2017-01-01至2017-01-30</span></li>
+					<li style="margin:-25px"><span name='planEndDate'>排程2017-01-01至2017-01-30</span></li>
+					<li style="margin:-25px"><span name='planEndDate'>计划产出:1000m</span></li>
+					<li style="margin:-25px"><span name='planEndDate'>已完工:0m</span></li>
+					<li style="margin:-25px"><span name='testSpan'>已完工:0m</span></li>
+				</ul>
+				<div style="width:100%;height:35px;text-align:center;background-color:#ddd">机台:100</div>
+			</div>
+			<div id="ddd" draggable="true" ondragstart="drag(event)"  style="margin-left:5px;float:left;width:200px;border:1px solid red ">
+				<ul style="margin:0px;list-style:none;">
+					<li><span style="margin:-25px;background:#F0F2F3;" name='goodsId'>产品:87732(换产品)</span></li>
+					<li><span style="margin:-25px" name='planBeginDate'>计划2017-01-01至2017-01-30</span></li>
+					<li><span style="margin:-25px" name='planEndDate'>排程2017-01-01至2017-01-30</span></li>
+					<li><span style="margin:-25px" name='planEndDate'>计划产出:1000m</span></li>
+					<li><span style="margin:-25px" name='planEndDate'>已完工:0m</span></li>
+					 <li><span style="margin:-25px" name='testSpan'>已完工:0m</span></li>
+				</ul>
+				<div style="width:100%;text-align:center;background-color:#ddd">机台:100</div>
+			</div>
+			<div id="eee" draggable="true" ondragstart="drag(event)"  style="margin-left:5px;float:left;width:100px;height:120px;border:1px solid red ">
+				eee
+				<span name='testSpan'></span>
+			</div>
+			<div id="fff" draggable="true" ondragstart="drag(event)"   style="margin-left:5px;float:left;width:100px;height:120px;border:1px solid red ">
+				fff
+				<span name='testSpan'></span>
+			</div>
+			<div id="ggg" draggable="true" ondragstart="drag(event)"  style="margin-left:5px;float:left;width:100px;height:120px;border:1px solid red ">
+				ggg
+				<span name='testSpan'></span>
+			</div>
+			<div id="hhh" draggable="true" ondragstart="drag(event)"   style="margin-left:5px;float:left;width:100px;height:120px;border:1px solid red ">
+				hhh
+				<span name='testSpan'></span>
+			</div>
+		<!-- 	<div id="iii" style="margin-left:5px;float:left;width:100px;height:120px;border:1px solid red ">
+				不能拖动iii
+			</div> -->
+		</div>
+	</td>
+</tr>
+
+</table>
+
+</body>
+
+ <script type="text/javascript" src="/mes-plan/static/jquery/jquery.js"> </script>
+<!-- bootstrap css -->
+<link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrap-theme.min.css">
+
+ <script type="text/javascript" >
+function allowDrop(ev)
+{
+ev.preventDefault();
+}
+
+function drag(ev)
+{
+ev.dataTransfer.setData("Text",ev.target.id);
+}
+
+function drop(ev)
+{
+	if (ev.target.id == "a") {
+		ev.preventDefault();
+		var data=ev.dataTransfer.getData("Text");
+		ev.target.appendChild(document.getElementById(data));
+		$(ev.target).find("[name='testSpan']").text('add');
+	}
+}
+
+
+function dropb(ev)
+{
+	if (ev.target.id == "b") {
+		ev.preventDefault();
+		var data=ev.dataTransfer.getData("Text");
+		ev.target.appendChild(document.getElementById(data));
+		$(ev.target).attr("id")
+		$(ev.target).find("[id='"+data+"']").find("[name='testSpan']").text('del');
+	}
+}
+
+$(document).ready(function() {
+	   $('.list_lh li:even').addClass('lieven');
+	 
+});
+</script>
+</html>

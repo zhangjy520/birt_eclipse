@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanMaterialUseHeadDao">
+    
+	<sql id="mesPlanMaterialUseHeadColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.status AS "status",
+		a.title AS "title",
+		a.use_desc AS "useDesc",
+		a.use_type AS "useType",
+		a.use_prior AS "usePrior",
+		a.remarks AS "remarks",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.use_date AS "useDate",
+		a.use_user AS "useUser",
+		a.workshop_id as "workshopId"
+	</sql>
+	<sql id="mesPlanMaterialUseHeadJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanMaterialUseHead">
+		SELECT 
+			<include refid="mesPlanMaterialUseHeadColumns"/>
+		FROM mes_plan_material_use_head a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanMaterialUseHead">
+		SELECT 
+			<include refid="mesPlanMaterialUseHeadColumns"/>
+		FROM mes_plan_material_use_head a
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_Id = #{workshopId}
+			</if>
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="useDesc != null and useDesc != ''">
+				AND a.use_desc = #{useDesc}
+			</if>
+			<if test="useType != null and useType != ''">
+				AND a.use_type = #{useType}
+			</if>
+			<if test="usePrior != null and usePrior != ''">
+				AND a.use_prior = #{usePrior}
+			</if>
+			<if test="useDate != null">
+				AND a.use_date = #{useDate}
+			</if>
+			<if test="useDate1 != null">
+				AND a.use_date &gt;= #{useDate1}
+			</if>
+			<if test="useDate2 != null">
+				AND a.use_date &lt;= #{useDate2}
+			</if>
+			<if test="useUser != null and useUser != ''">
+				AND a.use_user = #{useUser}
+			</if>
+		</where>
+			
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanMaterialUseHead">
+		SELECT 
+			<include refid="mesPlanMaterialUseHeadColumns"/>
+		FROM mes_plan_material_use_head a
+		<include refid="mesPlanMaterialUseHeadJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_material_use_head(
+			id,
+			sheet_id,
+			status,
+			title,
+			use_desc,
+			use_type,
+			use_prior,
+			remarks,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			use_date,
+			use_user,
+			workshop_id
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{status},
+			#{title},
+			#{useDesc},
+			#{useType},
+			#{usePrior},
+			#{remarks},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{useDate},
+			#{useUser},
+			#{workshopId}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_material_use_head SET 	
+			sheet_id = #{sheetId},
+			status = #{status},
+			title = #{title},
+			use_desc = #{useDesc},
+			use_type = #{useType},
+			use_prior = #{usePrior},
+			remarks = #{remarks},
+			update_user = #{currentUser},
+			update_time = now(),
+			use_date = #{useDate},
+			use_user = #{useUser},
+			workshop_id = #{workshopId}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<update id="updateSheetStatus">
+		UPDATE mes_plan_material_use_head SET 	
+			status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<update id="delete">
+		DELETE FROM mes_plan_material_use_head
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_material_use_head
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanMaterialUseHead">
+		SELECT 
+			<include refid="mesPlanMaterialUseHeadColumns"/>
+		FROM  mes_plan_material_use_head a
+		<include refid="mesPlanMaterialUseHeadJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="useDesc != null and useDesc != ''">
+				AND a.use_desc = #{useDesc}
+			</if>
+			<if test="useType != null and useType != ''">
+				AND a.use_type = #{useType}
+			</if>
+			<if test="usePrior != null and usePrior != ''">
+				AND a.use_prior = #{usePrior}
+			</if>
+			<if test="useDate != null and useDate != ''">
+				AND a.use_date = #{useDate}
+			</if>
+			<if test="useUser != null and useUser != ''">
+				AND a.use_user = #{useUser}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

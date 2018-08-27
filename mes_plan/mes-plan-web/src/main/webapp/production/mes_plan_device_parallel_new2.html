@@ -1,0 +1,133 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <!--#include virtual="/mes-plan/include/echarts.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/mes_plan_month.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+ <style>
+	a:hover {text-decoration:none}
+ </style>
+ <!-- 生产计划明细 -->
+<div class="warpper animated fadeInRight" style="overflow-x:hidden">     
+     <div class="container-fluid panel-custom panel panel-default" >
+       <!--  <div class="row">
+		       <div class="col-sm-12">
+		           <h4 class="page-header">生产计划车间调度指定设备</h4>
+		       </div>
+   	    </div> 
+   -->
+    	<form id="dispatchForm">
+    	<input type="hidden" id="id" name="id" value=""/>
+    	<input type="hidden" id="erpBillNo" name="erpBillNo" value=""/>
+    	
+    	<input type="radio" name="isChgGoods"  style="display:none" value="0" checked/>
+		<input type="radio" name="isChgGoods" style="display:none" value="1"/>
+		<input type='hidden' name="deviceChangeGoodsId" id="deviceChangeGoodsId" style="display:none" />
+					
+		<table style ="margin:0 auto;border-spacing:10px;width:100%">
+		
+		<!-- <tr>
+			<td></td>
+			<td style="font-size:18px"><label>
+					onchange="alert($(this).prop('checked')+'1')"
+				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked >
+				   	自动计算调度数量
+				  </label>
+			</td>
+			<td></td>
+			<td style="font-size:18px" >
+				  <label>
+				    <input type="radio" name="optionsRadios" id="optionsRadios2" value="0">
+				   	手工输入调度数量
+				  </label>
+			</td>
+		</tr> -->
+			
+			<tr>
+			<td style="font-size:20px"  >
+				计划时间
+			</td>
+			<td style="padding:5px">
+				<div class="form-group">
+				 	<input id="planBeginDate" name="planBeginDate" style="height:35px;" type='date' value='2017-07-17' class="form-control" onchange="setDeviceTotal2('#capacityInput',this,'#planEndDate')"></input>
+				</div>
+			</td>
+			<td style="font-size:20px"  >
+				至
+			</td>
+			
+			<td style="padding:5px">
+				<div class="form-group">
+				<input id="planEndDate" name="planEndDate" style="height:35px;" type='date' value='2017-07-22' class="form-control"  onchange="setDeviceTotal2('#capacityInput','#planBeginDate',this)"></input> 
+				</div>
+			</td>
+			
+			</tr>
+			
+			<tr>
+			<td style="font-size:20px">
+				 工作中心
+			</td>
+			<td style="padding:5px">
+				<lable id="workcenterIdSpan" name="workcenterIdSpan" >津田驹340 1</lable>
+				 <input type='hidden' id="workcenterId"  name ="workcenterId"/>
+                  
+			</td>
+			<td style="font-size:20px">
+				设备产能
+			</td>
+			<td style="padding-top:10px;" >
+				<div class="form-group">
+				 <input id="capacityInput" name="capacityInput" onfocus="$(this).select()" onchange="$('#capacitySpan').text(this.value);setDeviceTotal2(this,'#planBeginDate','#planEndDate')" onblur="$(this).css('display','none');$('#capacitySpan').css('display','inline-block');" placeholder="请输入产能" style="height:35px;width:100px;display:none" type='text' value=''></input> 
+				<span id="capacitySpan"></span>
+				 <!--  <a onclick="$('#capacityInput').css('display','inline-block');$('#capacitySpan').css('display','none');$('#capacityInput').focus();return;">修改</a> -->
+				 </div>
+			</td>
+			
+			</tr>
+			
+			<tr>
+			<td style="font-size:20px">
+				设备
+			</td>
+			<td style="padding:5px">
+				 <select id="deviceId" name='deviceId' class="form-control" onchange="$('#deviceName').val(getName($(this).find('option:selected').text()))">
+                  <option value=""></option>
+                </select>
+                <input id='deviceName' name='deviceName' type=hidden value=''/>
+			</td>
+			<!-- <td  colspan=2>
+				  <a target='_blank' href='2.3设备排程.html'>计划时间段内28-30台直接可用</a>
+			</td> -->
+			</tr>
+			
+			
+			<tr>
+			<td style="font-size:20px">
+			详细说明
+			</td>
+			<td style="padding:5px;" colspan=3>
+				 <input  id="deviceRequire" name="deviceRequire" class="form-control" style="width:95%;height:35px;" type='text' placeholder="请输入其换产品要求"></input>
+			</td>
+			</tr>
+			 
+			<tr>
+			<td style="font-size:20px;text-align:right" colspan=4>
+				车间调度数量<input id="workCenterQty" name="workCenterQty" type="text" style="display:none;width:100px" value="0" onfocus="$(this).select()" onblur="$(this).css('display','none');$('#workCenterSpan').css('display','inline-block');" onchange="$('#workCenterSpan').text(this.value);"/><a title="点击修改" href="#" ><span id="workCenterSpan" style="font-size:30px;color:#249730" onclick="$(this).css('display','none');$('#workCenterQty').css('display','inline-block');$('#workCenterQty').focus();return false;" >0</span></a><lable id='qtyUnit'></lable>
+			</td>
+			 </tr>
+			</table>
+			</form>
+			
+	<!-- <div style="width: 100%;padding-top:5px;text-align:center">
+		<button class="btn btn-success" onclick="plan_dispatch_save();"><span class="glyphicon glyphicon-search"></span>确认</button>
+		<button class="btn btn-success" onclick="plan_dispatch_close();"><span class="glyphicon glyphicon-off"></span>关闭</button>
+	</div>	 -->
+</div>
+ </div>
+ 
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_device_parallel_new2.js"></script>
+  <script type="text/javascript" src="/mes-plan/static/jquery/jquery.cookie.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/jquery/jquery.formautofill.min.js"> </script>
+</body>
+</html>

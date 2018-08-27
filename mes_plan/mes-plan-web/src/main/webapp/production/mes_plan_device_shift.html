@@ -1,0 +1,466 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <!--#include virtual="/mes-plan/include/echarts.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/mes_plan_month.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/> 
+ <style>
+
+.thcls1{background-color:#f5f5f5;text-align:center;vertical-align:middle;line-height:1;border-bottom:0px !important}
+ ul {list-style:none;}
+ </style>
+ 
+ <!-- 生产计划明细 -->
+<div class="warpper animated fadeInRight" style="overflow-x:hidden">     
+     <div class="container-fluid panel-custom panel panel-default" >
+        <div class="row">
+		       <div class="col-sm-12">
+		           <h4 class="page-header">人员计划</h4>
+		       </div>
+   	    </div> 
+   	 
+   	    <div class="panel-default" style="margin-top:-10px">
+		  <div class="panel-heading"><strong>值班长排班</strong><a href="#" onclick="$('#detailTab').toggle(100,changeFolderFun);return false;"><span id="folderBtn" style="float:right" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></div>
+		  <div id="detailTab" style="margin-top:-6px">
+		
+		  		<script id="detailTab.tmp" type="text/html"> 
+				<input type="hidden" id="id" value="{{id}}">
+				<input type="hidden" id="sheetId" value="{{sheetId}}">
+				<input type="hidden" id="shiftUser" value="{{shiftUser||1}}">
+				<input type="hidden" id="sheetStatus" value="{{sheetStatus||0}}">
+
+		    	<table id=''  class ="table table-bordered table-condensed detailTab">
+					<tr>
+					<th style="width:15%">
+						车间
+					</th>
+					<td style="width:35%">
+						{{if !id}}
+							<a href="#"   onclick="$(this).hide();$(this).next().show()" > 
+								{{workshopId|getDdwName dropdownDatas.workshop}}
+							</a>
+							<select id="workshopId" name="workshopId" style="width:150px;display:none"  onchange="changeWorkshop(this);loadDataNew(false,$(this).val(),$('#shiftId').val(),$('#shiftDate').val(),$('#shiftStyle').val(),$('#workcenterId').val());$(this).hide();$(this).prev().text($(this).find(':selected').text());$(this).prev().show()" onblur="$(this).hide();$(this).prev().show()">
+                  			</select>
+							
+						{{else}}
+							<span href="#"> 
+								{{workshopId|getDdwName dropdownDatas.workshop}}
+							</span>
+							<input type='hidden' id='workshopId'  name="workshopId" value='{{workshopId}}'/>
+						{{/if}} 
+
+					</td>
+					<th style="width:15%">
+						 工作中心
+					</th>
+					<td style="width:35%">
+						{{if !id}}
+							<a href="#" id='workcenterIdA'  onclick="$(this).hide();$(this).next().show()" > 
+								{{workcenterId|getDdwName dropdownDatas.workcenterList}}
+							</a>
+							<select id="workcenterId" name="workcenterId" style="width:150px;display:none"  onchange="loadDataNew(false,$('#workshopId').val(),$('#shiftId').val(),$('#shiftDate').val(),$('#shiftStyle').val(),$(this).val());$(this).hide();$(this).prev().text($(this).find(':selected').text());$(this).prev().show()" onblur="$(this).hide();$(this).prev().show()">
+                  			</select>
+							
+						{{else}}
+							<span href="#"> 
+								{{workcenterId|getDdwName dropdownDatas.workcenterList}}
+							</span>
+							<input type='hidden' id='workcenterId'  name="workcenterId" value='{{workcenterId}}'/>
+						{{/if}} 
+					</td>
+					
+					</tr>
+					<tr>
+					<th>
+						 班次
+					</th>
+					<td>
+ 						{{if !id}}
+							<a href="#"   onclick="$(this).hide();$(this).next().show()" > 
+								{{shiftId|getDdwName dropdownDatas.shiftList}}
+							</a>
+							<select id="shiftId" name="shiftId" style="width:150px;display:none"  onchange="loadDataNew(false,$('#workshopId').val(),$(this).val(),$('#shiftDate').val(),$('#shiftStyle').val(),$('#workcenterId').val());$(this).hide();$(this).prev().text($(this).find(':selected').text());$(this).prev().show()" onblur="$(this).hide();$(this).prev().show()">
+                  			</select>
+							
+						{{else}}
+							<span href="#"> 
+								{{shiftId|getDdwName dropdownDatas.shiftList}}
+							</span>
+							<input type='hidden' id='shiftId'  name="shiftId" value='{{shiftId}}'/>
+						{{/if}}
+					</td>
+					<th>
+						 班别
+					</th>
+					<td>
+						{{if !id}}
+							<a href="#" id='shiftStyleA' onclick="$(this).hide();$(this).next().show()" > 
+								{{shiftStyle|getDdwName dropdownDatas.shiftStyle}}
+							</a>
+							<select id="shiftStyle" name=shiftStyle" style="width:150px;display:none"  onchange="loadDataNew(false,$('#workshopId').val(),$('#shiftId').val(),$('#shiftDate').val(),$(this).val(),$('#workcenterId').val());$(this).hide();$(this).prev().text($(this).find(':selected').text());$(this).prev().show()" onblur="$(this).hide();$(this).prev().show()">
+                 			 	<option value="" {{if !shiftStyle || '' == shiftStyle }} selected {{/if}}>请选择</option>
+                  			</select>
+						{{else}}
+							<span id="shiftStyleSpan" href="#"> 
+								{{shiftStyle|getDdwName dropdownDatas.shiftStyle}}
+							</span>
+							<input type='hidden' id='shiftStyle'  name="shiftStyle" value='{{shiftStyle}}'/>
+						{{/if}}
+
+					</td>
+					</tr>
+					<tr>
+					<th>
+						 排班日期
+					</th>
+					<td>
+						
+						<span id="shiftDateSpan">{{shiftDate}}</span>
+						{{if !id}}
+						<input id="shiftDate" name='shiftDate' style="display:none;width:120px;height:24px" type="text" class="Wdate" readonly value="{{shiftDate}}" onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd',onpicked:function(){loadDataNew(false,$('#workshopId').val(),$('#shiftId').val(),$(this).val(),$('#shiftStyle').val(),$('#workcenterId').val());$(this).prev().text($(this).val());$(this).prev().show();$(this).hide();}})">
+						<a id="shiftDateA" onclick="$('#shiftDate').css('display','inline-block');$('#shiftDateSpan').css('display','none');$('#shiftDate').focus();return;">选择</a>
+						{{else}}
+							<input type='hidden' id='shiftDate' value='{{shiftDate}}'/>
+						{{/if}}
+					</td>
+					<th>
+						排班人
+					</th>
+					<td>
+						<input type='hidden' id='shiftUser'  name='shiftUser' value='{{shiftUser}}'/>
+						<input type='hidden' id='shiftUserName'  name='shiftUserName' value='{{shiftUserName}}'/>
+						<span>{{shiftUserName}}</span>
+					</td>
+					</tr>
+					</table>
+				</script>
+				
+				
+		  </div>
+		  
+</div>
+
+	 <div class="panel-default">
+		  <div class="panel-heading" style="padding:0px 15px;margin-top:10px ;text-align:right">
+		  <strong class='panelTitleFloat' style="padding-left:0px;">人员到岗信息(含常日班)</strong>
+		  <a href="#" onclick="$('#worker_div').toggle(100,changeFolderFun2);return false;"><span id="folderBtn2" style="float:right;padding-top:8px" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+		  <div class="btn-group" role="group">
+		  		<!-- <button id="addWokderBtn"  class="btn btn-default" style="margin:0px 5px" onclick="onShiftStyleInfo('{{sheetId}}',$('#workshopId').val(),$('#shiftDate').val(),$('#shiftId').val(),$(this).val());return false;">加载人员</button> -->
+			   <!--  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      	人员调整
+			      <span class="caret"></span>
+			    </button>
+			    <ul class="dropdown-menu">
+			      <li><a onclick="; return false;" href="#">添加人员</a></li>
+			      <li><a onclick="; return false;" href="#">人员设备对应关系</a></li>
+			    </ul> -->
+			     <button id="confirmBtn"  class="btn btn-primary" style="margin-left:5px;margin-right:10px" onclick="on_default_shift();return false;">一键排程</button>
+			  </div>
+		  
+		  </div>
+		  
+			<div id="worker_div" style="margin-top:-6px">
+			<script id="worker_div.tmp" type="text/html" > 
+			<table class="table table-bordered table-condensed">
+			<thead>
+				<tr>
+					{{each  mesPlanShiftWorkerList  listWroker2 i}}
+						{{if !listWroker2.shiftStyle || !listWroker2.shiftStyle.endsWith("04")}}
+							{{if i==0 || listWroker2.worktypeId != mesPlanShiftWorkerList[i-1].worktypeId}}
+								<th style="padding:5px" class="thcls1">{{listWroker2.worktypeId|getDdwName dropdownDatas.worktypeList}}</th>
+							{{/if}}
+						{{/if}}
+					{{/each}}
+				</tr>
+			</thead>
+			<tbody id="worker_body">
+				<tr>
+				{{each  mesPlanShiftWorkerList listWroker i}}
+						{{if !listWroker.shiftStyle || !listWroker.shiftStyle.endsWith("04")}}
+
+						{{if i!=0	}} {{/if}}
+						{{if i==0 || listWroker.worktypeId != mesPlanShiftWorkerList[i-1].worktypeId}}
+							<td style='vertical-align:top;max-width:240px'>	
+						{{/if}}
+					
+						<span name='workerInfo'>
+						<input name='id' type='hidden' value='{{listWroker.id}}'>
+						<input name='sheetId' type='hidden' value='{{listWroker.sheetId}}'>
+						<input name='worktypeId' type='hidden' value='{{listWroker.worktypeId}}'>
+						<input name='userId' type='hidden' value='{{listWroker.userId}}'>
+						<input name='userName' type='hidden' value='{{listWroker.userName}}'>
+						<!--<img style="width:80px;margin-left:5px;margin-bottom:3px" src ="/mes-plan/static/production/images/{{listWroker.userName}}.jpg"  onerror="this.src='/mes-plan/static/production/images/123.png'">-->
+						<span style="white-space:nowrap;font-size:14px;text-align:center">{{listWroker.userName}}<input name="workStatus" {{if listWroker.workStatus=='1'}}checked{{/if}} type="checkbox"/></span>
+						</span>
+
+						{{if i==mesPlanShiftWorkerList.length-1 || listWroker.worktypeId != mesPlanShiftWorkerList[i+1].worktypeId}}
+							</td>
+						{{/if}}
+						{{/if}}
+				{{/each}}
+
+			</tr>
+			</tbody>
+			</table>
+
+			<table class="table table-bordered table-condensed">
+			<thead>
+				<tr>
+					{{each  mesPlanShiftWorkerList  listWroker2 i}}
+						{{if listWroker2.shiftStyle && listWroker2.shiftStyle.endsWith("04")}}
+						{{if i==0 || listWroker2.worktypeId != mesPlanShiftWorkerList[i-1].worktypeId}}
+							<th style="padding:5px" class="thcls1">{{listWroker2.worktypeId|getDdwName dropdownDatas.worktypeList}}</th>
+						{{/if}}
+						{{/if}}
+					{{/each}}
+				</tr>
+			</thead>
+			<tbody id="worker_body2">
+				<tr>
+				{{each  mesPlanShiftWorkerList listWroker i}}
+						{{if listWroker.shiftStyle && listWroker.shiftStyle.endsWith("04")}}
+						{{if i==0 || listWroker.worktypeId != mesPlanShiftWorkerList[i-1].worktypeId}}
+							<td style='vertical-align:top;max-width:240px'>	
+						{{/if}}
+					
+						<span name='workerInfo'>
+						<input name='id' type='hidden' value='{{listWroker.id}}'>
+						<input name='sheetId' type='hidden' value='{{listWroker.sheetId}}'>
+						<input name='worktypeId' type='hidden' value='{{listWroker.worktypeId}}'>
+						<input name='userId' type='hidden' value='{{listWroker.userId}}'>
+						<input name='userName' type='hidden' value='{{listWroker.userName}}'>
+						<!--<img style="width:80px;margin-left:5px;margin-bottom:3px" src ="/mes-plan/static/production/images/{{listWroker.userName}}.jpg"  onerror="this.src='/mes-plan/static/production/images/123.png'">-->
+						<span style="white-space:nowrap;font-size:14px;text-align:center">{{listWroker.userName}}<input name="workStatus" {{if listWroker.workStatus=='1'}}checked{{/if}} type="checkbox"/></span>
+						</span>
+
+						{{if i==mesPlanShiftWorkerList.length-1 || listWroker.worktypeId != mesPlanShiftWorkerList[i+1].worktypeId}}
+							</td>
+						{{/if}}
+						{{/if}}
+				{{/each}}
+
+			</tr>
+			</tbody>
+			</table>
+			</script>
+			</div>
+		</div>
+		
+		<div class="panel-default" style="margin-top:10px;clear: both;">
+		  <div class="panel-heading" style="padding:0px 15px;text-align:right">
+		  	<strong class='panelTitleFloat' style="padding-left:0px">排班单</strong> 
+		   <!-- <input type="radio" name="optionsRadios" id="unscheduleRadio1" value="option1"  onclick="return chg_unschedule();">只显示延迟单据
+		   <input type="radio" name="optionsRadios" id="unscheduleRadio2" value="option2" checked onclick="return chg_unschedule();">显示全部单据 -->
+			 <div class="btn-group" role="group">
+			   
+			    <button id='filterBtn' type="button" style="margin:0px 5px" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      	过滤(全部)
+			      <span class="caret"></span>
+			    </button>
+			    
+			    <ul class="dropdown-menu">
+			      <li><a onclick="onShow(101);return false;" href="#">显示全部</a></li> 
+			      <li><a onclick="onShow(0);return false; " href="#">只显示未下发</a></li>
+			      <li><a onclick="onShow(10);return false; " href="#">只显示已下发</a></li>
+			      <li><a onclick="onShow(99);return false; " href="#">只显示已终止</a></li>
+			      <li><a onclick="onShow(100);return false;" href="#">只显示已完工</a></li>  
+			      <li><a onclick="onShow2(false);return false;" href="#">人员不完整</a></li> 
+			      <li><a onclick="onShow2(true);return false;" href="#">人员完整</a></li> 
+			    </ul>
+			  </div>
+			   <button id="batCheckBtn" type="button" style="margin-right:5px;" class="btn btn-primary" aria-expanded="false" onclick="onCheckBatch()">
+			      	下发到车间
+			    </button>
+			    
+			    <button id="batCheckBtn" type="button" style="margin-right:5px;" class="btn btn-primary" aria-expanded="false" onclick="onCancelBatch()">
+			      	撤回下发
+			    </button>
+			    
+			    <button id="batFinishBtn" type="button" style="margin-right:5px;" class="btn btn-primary" aria-expanded="false" onclick="onFinishBatch()">
+			      	批量完工
+			    </button>
+			    <input type='text'  style="height:30px;width:140px" placeholder="请输入搜索" onchange='onFilterUser(this)'/>
+		  	<!-- <a id="newBtn" class="btn btn-success" target="_blank" href='/mes-plan/production/mes_plan_device_parallel_new.html?parId=557ac25afe444d5484c2dc9dd2cea7b7&erpBillNo=2016-258'><span class="glyphicon glyphicon-import"></span>新增</a>
+		  	<a id="batchBtn"  class="btn btn-success" target="_blank" href='/mes-plan/production/mes_plan_device_batch.html?parId=951342c97630439a83dbbd0e1871f9f4'><span class="glyphicon glyphicon-import"></span>批量新增</a>
+		  	<a id="QtyAnaBtn" class="btn btn-success" target="_blank" onclick="qtyAna();return false;" href='/mes-plan/production/mes_plan_device_batch.html'><span class="glyphicon glyphicon-import"></span>齐套分析</a> -->
+		  	<!-- <a href="#" onclick="$('#device_div').toggle(100,changeFolderFun2);return false;"><span id="folderBtn2" style="padding-top:10px;float:right" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a> -->
+		  </div>
+		  <div id="device_div"> 
+		  	<script id="device_div.tmp" type="text/html" > 
+			  <table id="tab" style="margin-top:-1px" class="table table-bordered table-condensed">
+				<thead id="tabth">
+					<tr>
+						<th style="text-align:center;width:26px" class='thcls'>
+							<input name="checkflag" type="checkbox" onclick="return onSelectAll(this)">
+						</th>
+						<th class='thcls'>行号</th>
+						<th class='thcls'>班组计划单号</th>
+						<th class='thcls'>班组计划</th>
+						<th class='thcls'>班次计划</th>
+						<th class='thcls'>班次报工</th>
+						<th class='thcls'>工序</th>
+						<th class='thcls'>操作</th>
+					</tr>
+				</thead>
+                <tbody id="tabBody">
+					{{each schedualDeviceList listValue}}
+					<tr>
+						<td><input name="checkflag" type="checkbox">  
+							<input type="hidden" name="id" value="{{listValue.id}}">
+							<input type="hidden" name="erpBillNo" value="{{listValue.erpBillNo}}">
+							<input type="hidden" name="billNo" value="{{listValue.billNo}}">
+							<input type="hidden" name="deviceId" value="{{listValue.deviceId}}">
+						</td>
+						<td>{{$index+1}}</td>
+						<td>
+							<ul>
+								<li>车间单号: {{listValue.billNo}}</li>
+								<li>设备/工作组: {{listValue.deviceId}}</li>
+								<li>设备/工作组: {{listValue.deviceName}}</li>
+								<!--<li>已排程{{listValue.scheduleStatus}}</li>-->
+							</ul>
+						</td>
+						
+						<td>
+						<ul >
+							<li>日期: {{listValue.realBeginDate}}{{if listValue.realBeginDate != listValue.realEndDate}}至{{listValue.realEndDate}} {{/if}}</li>
+							<li>半成品: {{listValue.mesPlanMonth.goodsName}}{{if listValue.isChgGoods == '1'}}(换产品){{/if}}</li>
+							<li>数量: {{listValue.workCenterQty}}{{listValue.mesPlanMonth.qtyUnit}}{{if listValue.realBeginDate != listValue.realEndDate}}({{listValue.workCenterQty|avgQty listValue.realBeginDate,listValue.realEndDate}}{{listValue.mesPlanMonth.qtyUnit}}/天){{/if}}</li>
+						</ul>
+						</td>
+						
+						<td>
+							<ul>
+								{{each  listValue.mesPlanShiftDetList listValue2}}
+										 {{if mesPlanShiftHead.shiftId == listValue2.shiftId}} 
+											<div style='float:left;padding-top:10px;padding-right:5px'>当前班次</div>
+											<div style='float:left;'>
+											<li>
+											单号: {{listValue2.billNo}}
+											</li>
+
+											<li>
+											<input type='hidden' name='detId' value='{{listValue2.id}}' >
+											<input id='shiftStatus' name='shiftStatus' type='hidden' value='{{listValue2.shiftStatus}}'>
+											{{if mesPlanShiftHead.workshopId != $imports.workshop3}}
+												{{listValue2.shiftId|getDdwName dropdownDatas.shiftList}}:<a onclick="$(this).hide();$(this).next().show();$(this).next().select();$(this).next().focus();">{{listValue2.shiftQty}}</a><input name="shiftQty" style="width:40px;display:none" type="text" value="{{listValue2.shiftQty}}" onchange="$(this).hide();$(this).prev().text($(this).val()) ;$(this).prev().show();setchanged2(this);"  onblur="$(this).hide();$(this).prev().show();">{{listValue.mesPlanMonth.qtyUnit}}
+											{{else}}
+												{{listValue2.shiftId|getDdwName dropdownDatas.shiftList}}:{{listValue.workCenterQty}}{{listValue.mesPlanMonth.qtyUnit}} 
+											{{/if}}
+											{{(listValue2.shiftStatus||'0')|getDdwName dropdownDatas.shiftStatus}}
+											</li>
+											</div>
+										 {{/if}}
+									
+								{{/each}}	
+								<div style="clear:both">
+								<li>本天班次
+								{{each  listValue.mesPlanShiftDetList listValue2}}
+									
+										{{if mesPlanShiftHead.shiftId != listValue2.shiftId}} 
+											{{if mesPlanShiftHead.workshopId != $imports.workshop3}}
+												{{listValue2.shiftId|getDdwName dropdownDatas.shiftList}}: {{listValue2.shiftQty}}{{listValue.mesPlanMonth.qtyUnit}}  
+											{{/if}}
+										 {{/if}}
+								{{/each}}
+								</div>
+								</li>
+							</ul>
+						</td>
+						<td>
+							<ul>
+								{{each  listValue.mesPlanShiftDetList listValue2}}
+									<li>
+										{{listValue2.shiftId|getDdwName dropdownDatas.shiftList}}: <a style='color:#6d6e70' title='完工说明:{{listValue2.remarks}}'> {{listValue2.finishQty}}</a>{{listValue.mesPlanMonth.qtyUnit}}
+									</li>
+								{{/each}}
+							</ul>
+						</td>
+
+						 
+						<td>
+							<table style="width:100%;min-width:300px">
+								<thead>
+								<tr>
+										<th style="text-align: left;min-width:50px">
+												子工序
+										</th>
+										<th style="text-align: left;min-width:50px">
+												工种
+										</th>
+										<th style="text-align: left;min-width:200px">
+												员工
+										</th>
+										
+										<th>
+												<a href="#" onclick="return setTechnicStatus(this);"><span name="tabFolderBtn" style="float:right" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+										</th>
+								</tr>
+								</thead>
+               				 	<tbody name="subTabBody">
+									{{each  listValue.mesPlanShiftUserList listValue4}}
+										<tr>
+												<td>
+														<input type="hidden" name="technicId" value={{listValue4.technicId}}>
+														<input type="hidden" name="technicName" value={{listValue4.technicName}}>
+														<input type="hidden" name="id" value={{listValue4.id}}>
+														<input type="hidden" name="sheetId" value={{listValue4.sheetId}}>
+														<input type="hidden" name="srcBillNo" value={{listValue4.srcBillNo}}>
+														<input type="hidden" name="worktypeId" value={{listValue4.worktypeId}}>
+														<input type="hidden" name="deviceSubId" value={{listValue4.deviceSubId}}>
+														<input type="hidden" name="ptechnicId" value={{listValue4.ptechnicId}}>
+														{{listValue4.technicName||listValue4.technicId}}
+												</td>
+												<td>
+													 {{listValue4.worktypeId|getDdwName dropdownDatas.worktypeList}}
+												</td>
+												<td>
+													<a herf="#" NAME="technicUserA"  style="display:none" onclick="$(this).hide();$(this).parent().find('.select2').show();">
+														{{if listValue4.technicUser == 'a'}} 张三 {{/if}}
+													</a>
+				
+													  <SELECT NAME='technicUser' class="select2" multiple onchange="setchanged(this);" style="width:180px;height:20px">
+                  										<OPTION VALUE=""> </OPTION>
+														{{each  mesPlanShiftWorkerList listValue5}}
+															<OPTION VALUE="{{listValue5.userId}}" {{if listValue4.technicUser==listValue5.userId || listValue4.technicUser.startsWith(listValue5.userId+',')|| listValue4.technicUser.endsWith(','+listValue5.userId) || listValue4.technicUser.indexOf(','+listValue5.userId+',')>0 }} selected {{/if}} >{{listValue5.userName}}</OPTION>
+														{{/each}}
+                  									</SELECT><a name='tempBtn' style='margin-left:5px;display:none' class="btn" title='更新模板' onclick='on_add_shift_worker(this);'><span class="glyphicon glyphicon-log-in"></span></a>
+												</td>
+												<td></td>
+										</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</td>
+						<td>
+							 <button name="saveBtn" class="btn" disabled="disabled"  onclick="return false;"><span class="glyphicon glyphicon-ok"></span></button>
+						</td>
+					</tr>
+					{{/each}}
+				  </tbody>
+				</table>
+			</script>
+			</div>
+			 
+				
+		 
+			<div style="text-align:center;padding:5px">
+				<a id="saveBtn" class="btn btn-primary" href='#' onclick="on_save();return false;"><span class="glyphicon glyphicon-save"></span>保存</a>
+				<!-- <a id="checkBtn" class="btn btn-success" href='#' onclick="on_check();return false;"><span class="glyphicon glyphicon-import"></span>下发</a> -->
+				<a id="rtnBtn" class="btn btn-primary" href='/mes-plan/production/mes_plan_device_shift_list.html'><span class="glyphicon glyphicon-arrow-left"></span>返回</a>
+			</div>
+		</div>
+		
+	<!-- 	<div class="panel panel-default" style="border:0px ;padding-top:10px;clear:both">
+		  <div class="panel-heading"><strong>日志</strong> </div>
+         	
+		  </div> -->
+   	    
+	</div>
+ </div>
+ </body>
+<link rel="stylesheet" type="text/css" href="/mes-plan/static/select2/select2.min.css">
+ <script type="text/javascript" src="/mes-plan/static/select2/select2.full.min.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_device_shift.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/My97DatePicker/WdatePicker.js"></script> 
+
+</html>

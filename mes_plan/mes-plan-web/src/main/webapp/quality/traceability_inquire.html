@@ -1,0 +1,374 @@
+<!--#include virtual="/mes-plan/include/header.html" -->
+<div class="container-fluid panel-custom panel panel-default animated fadeInRight" style="padding:25px;">
+  <div class="container-fluid">
+  <!-- 质量追溯查询 -->
+  <div class="container-fluid panel-custom panel panel-default">
+     <form class="form-horizontal">
+         <div class="row">
+               
+		         <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">物料编号：</label>
+	                 <div class="col-md-8">
+	                   <input type="text"  class="form-control" />
+	                 </div>
+		        </div>
+		       
+		        <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">批次号：</label>
+	                 <div class="col-md-8">
+	                   <input type="text"  class="form-control" />
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">物料类型：</label>
+	                 <div class="col-md-8">
+	                   <select id="task"  class="form-control">
+						          <option  value="">原料</option>
+						          <option  value="">辅料</option>
+						          <option  value="">半成品</option>
+						          <option  value="">成品</option>
+       						</select>
+	                 </div>
+		        </div>
+	     </div>
+	     <div class="row">
+		         <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">厂家：</label>
+	                 <div class="col-md-8">
+	                   <input type="text"  class="form-control">
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">生产任务编号：</label>
+	                 <div class="col-md-8">
+	                   <input type="text"  class="form-control">
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">生产设备编号：</label>
+	                 <div class="col-md-8">
+	                   <input type="text"  class="form-control">
+	                 </div>
+		        </div>
+	     </div>
+	      <div class="row">
+		         <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">班次：</label>
+	                 <div class="col-md-8">
+	                   <input type="text"  class="form-control" >
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">班组：</label>
+	                 <div class="col-md-8">
+	                   <input type="text"  class="form-control" />
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">工作中心：</label>
+	                 <div class="col-md-8">
+	                    <select id="task"  class="form-control">
+						          <option  value=""></option>
+						          <option  value=""></option>
+						          <option  value=""></option>
+						          <option  value=""></option>
+       						</select>
+	                 </div>
+		        </div>
+	     </div>
+	     <div class="row">
+		         <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">车间：</label>
+	                 <div class="col-md-8">
+	                   <input type="text"  class="form-control" />
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">到货完成时间：</label>
+	                 <div class="col-md-8">
+	                   <div class="input-group col-sm-12 ">
+				                   <input id="Start" type="text" class="form-control"/>
+				                   <span class="input-group-addon">到</span>
+				                   <input id="End" type="text" class="form-control"/>
+				                 </div>
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-4 form-group-sm">
+	                 <label class="control-label col-md-4">客户：</label>
+	                 <div class="col-md-8">
+	                   <input type="text"  class="form-control" />
+	                 </div>
+		        </div>
+	     </div>
+	     <div class="row">
+		        <div class="col-sm-12 text-center">
+            <button class="btn btn-primary" onclick="fun_submit()" ><span class="glyphicon glyphicon-search"></span>查询</button>
+        </div>
+	     </div>
+	   </form>
+	   </div>
+<!-- 进料 -->	
+<div class="container-fluid panel-custom panel panel-default">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-header">进料</h4>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-sm-12">
+            <table id="table1" class="table table-striped table-hover table-condensed table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>物料编码</th>
+                        <th>批次号</th>
+                        <th>物料名称</th>
+                        <th>标识</th>
+                        <th>到货时间</th>
+                        <th>厂商</th>
+                        <th>数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+	                  <td>11111</td>
+	                  <td>1001</td>
+	                  <td>原纱</td>
+	                  <td>XXX</td>
+	                  <td>20170519 10:30:00</td>
+	                  <td>XXX</td>
+	                  <td></td>
+	                  <td>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>采购信息</button>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>质检信息</button>
+	                  </td>
+                 </tr>  
+               
+                </tbody>
+            </table>
+    </div>
+    </div>
+    <div class="row">
+     <div class="col-sm-12" style="padding-top:15px;">
+            <table id="table2" class="table table-striped table-hover table-condensed table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>检验任务序号</th>
+                        <th>质量控制点</th>
+                        <th>检验类型</th>
+                        <th>检验结果</th>
+                        <th>建议</th>
+                        <th>不合格品处理</th>
+                        <th>检验时间</th>
+                        <th>检验人</th>
+                        <th>明细</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+	                  <td>1001</td>
+	                  <td>原纱检验</td>
+	                  <td>进料检验</td>
+	                  <td>合格</td>
+	                  <td></td>
+	                  <td></td>
+	                  <td>20170519 14:30:00</td>
+	                  <td>张三</td>
+	                  <td>
+	                  <button class="btn btn-primary btn-xs"><span class="fa fa-search"></span>查询</button>
+	                  </td>
+                 </tr>  
+               
+                </tbody>
+            </table>
+    </div>
+    </div>
+</div>  
+<!-- 整经 -->	
+<div class="container-fluid panel-custom panel panel-default">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-header">整经</h4>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-sm-12">
+            <table id="table1" class="table table-striped table-hover table-condensed table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>物料编码</th>
+                        <th>批次号</th>
+                        <th>物料名称</th>
+                        <th>生产产品名称</th>
+                        <th>生产开始时间</th>
+                        <th>生产结束时间</th>
+                        <th>生产设备编号</th>
+                        <th>生产数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+	                  <td>11111</td>
+	                  <td>1001</td>
+	                  <td>经轴</td>
+	                  <td>XXXX</td>
+	                  <td>20170519 10:30:00</td>
+	                  <td></td>
+	                  <td>XXX</td>
+	                  <td></td>
+	                  <td>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>设备运行信息</button>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>质检信息</button>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>异常信息</button>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>投料信息</button>
+	                 </td>
+                 </tr>  
+               
+                </tbody>
+            </table>
+    </div>
+    </div>
+    <div class="row">
+     <div class="col-sm-12" style="padding-top:15px;">
+            <table id="table2" class="table table-striped table-hover table-condensed table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>检验任务序号</th>
+                        <th>质量控制点</th>
+                        <th>检验类型</th>
+                        <th>检验结果</th>
+                        <th>建议</th>
+                        <th>不合格品处理</th>
+                        <th>检验时间</th>
+                        <th>检验人</th>
+                        <th>明细</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+	                  <td>1002</td>
+	                  <td>原纱检验</td>
+	                  <td>过程检验</td>
+	                  <td>不合格</td>
+	                  <td>退货</td>
+	                  <td>退货</td>
+	                  <td>20170522 10:30:00</td>
+	                  <td>张三</td>
+	                  <td>
+	                  <button class="btn btn-primary btn-xs"><span class="fa fa-search"></span>查询</button>
+	                  </td>
+                 </tr>  
+               
+                </tbody>
+            </table>
+    </div>
+    </div>
+</div>  
+<!-- 浆纱 -->	
+<div class="container-fluid panel-custom panel panel-default">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-header">浆纱</h4>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-sm-12">
+            <table id="table1" class="table table-striped table-hover table-condensed table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>物料编码</th>
+                        <th>批次号</th>
+                        <th>物料名称</th>
+                        <th>生产产品名称</th>
+                        <th>生产开始时间</th>
+                        <th>生产结束时间</th>
+                        <th>生产设备编号</th>
+                        <th>生产数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+	                  <td>11111</td>
+	                  <td>1001</td>
+	                  <td>浆轴</td>
+	                  <td>XXXX</td>
+	                  <td>20170519 10:30:00</td>
+	                  <td></td>
+	                  <td>XXX</td>
+	                  <td></td>
+	                  <td>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>设备运行信息</button>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>质检信息</button>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>异常信息</button>
+	                  <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span>投料信息</button>
+	                 </td>
+                 </tr>  
+               
+                </tbody>
+            </table>
+    </div>
+    </div>
+    <div class="row">
+     <div class="col-sm-12" style="padding-top:15px;">
+            <table id="table2" class="table table-striped table-hover table-condensed table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>检验任务序号</th>
+                        <th>质量控制点</th>
+                        <th>检验类型</th>
+                        <th>检验结果</th>
+                        <th>建议</th>
+                        <th>不合格品处理</th>
+                        <th>检验时间</th>
+                        <th>检验人</th>
+                        <th>明细</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+	                  <td>1002</td>
+	                  <td>浆料检验</td>
+	                  <td>过程检验</td>
+	                  <td>合格</td>
+	                  <td></td>
+	                  <td></td>
+	                  <td>20170522 10:30:00</td>
+	                  <td>张三</td>
+	                  <td>
+	                  <button class="btn btn-primary btn-xs"><span class="fa fa-search"></span>查询</button>
+	                  </td>
+                 </tr>  
+               
+                </tbody>
+            </table>
+    </div>
+    </div>
+</div> 
+
+ <div class="row">
+      <div class="col-sm-12 text-center">
+      <button class="btn btn-primary btn-xs" onclick="Next()"><span class="glyphicon glyphicon-chevron-down"></span>下一页</button>
+      </div>
+      </div>
+</div>
+
+	   
+</div>
+<script type="text/javascript">
+ $(function(){
+	   $('#Start').datetimepicker({
+		   format: "Y-m-d",
+			   lang:'ch'
+	   });
+	   $('#End').datetimepicker({format: "Y-m-d",
+		   lang:'ch'});
+ });
+ 
+ function Next(){
+		window.location.href ="traceability_inquire2.html" ;
+	}
+</script>
+</body>
+</html>

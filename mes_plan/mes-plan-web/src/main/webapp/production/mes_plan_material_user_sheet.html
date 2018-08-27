@@ -1,0 +1,303 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <!--#include virtual="/mes-plan/include/echarts.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/mes_plan_month.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/datapicker/datepicker3.css"/>
+ <style>
+	a:hover {text-decoration:none}
+	#detailTab th{background-color:#f5f5f5;text-align:left;vertical-align:middle;line-height:1}
+	#detailTab2 th{border-bottom:0px;background-color:#f5f5f5 !important}
+ </style>
+ <!-- 生产计划明细 -->
+<div class="warpper animated fadeInRight" style="overflow-x:hidden">     
+     <div class="container-fluid panel-custom panel panel-default" >
+        <div class="row">
+		       <div class="col-sm-12">
+		           <h4 class="page-header">领用单</h4>
+		       </div>
+   	    </div> 
+    	<div id = "detailTab" style="margin-top:-5px" >
+    	<script id="detailTab.tmp" type="text/html" > 
+		<form id="useForm">
+    	<input type="hidden" id="id" name="id" value="{{id}}"/>
+    	<input type="hidden" id="sheetId" name="sheetId" value="{{sheetId}}"/>
+    	<input type="hidden" id="status" name="status" value="{{status}}"/>
+		{{if status == '10'}} 
+			<table class='table table-bordered table-condensed'>
+		{{else}}
+		 	<table style="width:100%"  class='table table-bordered table-condensed'>
+		{{/if}}
+			<tr>
+			<th>
+				单号
+			</th>
+			<td style="padding:5px;width:35%">
+				 <span>{{id}}</span>
+			</td>
+			<th>
+				状态
+			</th>
+			
+			<td style="padding:5px;width:35%">
+				 <span>
+					{{if (status||'0') == '0'}}
+						登记 
+					{{else if status == '10'}}
+						确认
+					{{else}}
+						status
+					{{/if}}
+				</span>
+			</td>
+			</tr>
+			<tr>
+				<th>
+					车间
+				</th>
+				<td style="padding:5px">
+				
+					{{if (!status || status == '0') && mesPlanMaterialUseDetList.length ==0 }}
+					<div class="form-group">
+					 <select id="workshopId" name="workshopId" class="form-control">
+	                  <option value=""></option>
+	                  <option value="1" {{if workshopId == "1"}} selected{{/if}}>织一</option>
+	                  <option value="2" {{if workshopId == "2"}} selected{{/if}}>织二</option>
+	                  </select>
+  					</div> 
+					{{else}}
+						{{if workshopId == "1"}}
+							织一
+						{{else if workshopId == "2"}}
+							织二
+						{{/if}}
+						<input type="hidden" id="workshopId" name="workshopId" value="{{workshopId}}">
+					{{/if}}
+	                 <!--  <lable>织一</lable> <span class='glyphicon glyphicon-edit'> </span> -->
+				</td>
+				<th>
+					领用人
+				</th>
+				<td style="padding:5px;">
+					{{useUser}}
+				</td>
+				
+				</td>
+			</tr>
+			
+			<tr>
+				<th>
+					领料日期
+				</th>
+				<td style="padding:5px;">
+					{{if !status || status == '0'}}
+						<div class="form-group">
+							<div class="input-group date" id="useDate">
+                        		<input type="text"  name="useDate"  value='{{useDate}}' class="form-control">
+                        		<span class="input-group-addon">
+                            		<i class="glyphicon glyphicon-th"></i>
+                        		</span>
+                   			</div>
+						</div>
+					{{else}}
+						<span type='text' style="width:100%;height:35px"  >
+							{{useDate}}
+						</span>
+ 						<input id='useDate' name="useDate" type='hidden' value='{{useDate}}'/>
+					{{/if}}
+				</td>
+				<th>
+					类型
+				</th>
+				<td style="padding:5px">
+					{{if !status || status == '0'}}
+					<div class="form-group">
+					  <select id="useType" name="useType" class="form-control">
+	                  	<option value=""></option>
+	                  	<option value="1" {{if useType == "1"}}selected {{/if}}>普通领用</option>
+	                  	<option value="2" {{if useType == "2"}}selected {{/if}}>紧急领用</option>
+	                  </select>
+ 					</div>
+					{{else}}
+						<span>
+							{{if useType == "1"}}
+							普通领用
+							{{else if useType == "2"}}
+							紧急领用
+							{{/if}}
+							<input type="hidden" id="useType" value="{{useType}}">
+						</span>
+					{{/if}}
+	            
+			</tr>
+
+			<tr>
+				<th>
+					标题
+				</th>
+				<td colspan=3 style="padding:5px">
+						{{if !status || status == '0'}}
+							<div class="form-group">
+							 <input id="title" name='title' type='text' style="width:90%;height:35px;display:none" maxlength="100" value='{{title}}' onchange="debugger;$(this).next().text($(this).val());$(this).hide();$(this).next().show();" onblur="$(this).hide();$(this).next().show();"/>
+							 <span>{{title}}</span>
+							<a href="#" onclick="$(this).prev().hide();$(this).prev().prev().show()">修改</a>
+							</div>
+						{{else}}
+							 <span type='text' style="width:100%;height:35px"  >
+								{{title}}
+							</span>
+						{{/if}}
+				</td>
+			</tr>
+			
+			<tr>
+				<th>
+					描述
+				</th>
+				<td colspan=3 style="padding:5px">
+					{{if !status || status == '0'}}
+						<div class="form-group">
+				 			<textarea id="useDesc" maxlength="100" name="useDesc" style="height:60px;width:90%;display:none" onchange="debugger;$(this).next().text($(this).val());$(this).hide();$(this).next().show();" onblur="$(this).hide();$(this).next().show();">{{useDesc}}</textarea>
+							<span type='text' style="width:100%;height:35px"  >
+								{{useDesc}}
+							</span>
+							<a href="#" onclick="$(this).prev().hide();$(this).prev().prev().show()">修改</a>
+				 		</div>
+					{{else}}
+						<span type='text' style="width:100%;height:35px"  >
+								{{useDesc}}
+						</span>
+					{{/if}}
+
+				</td>
+			</tr>
+			
+			</table>
+		</form>
+	</script>
+	</div>		
+</div>
+	 <div class="panel-default" style="margin-top:10px">
+		  <div class="panel-heading" style="padding:0px"><strong>原材料领用明细</strong> 
+		  <a id="newBtn" class="btn btn-success" href='#' onclick="addRow();return false;"><span class="glyphicon glyphicon-import"></span>新增</a>
+		  </div>
+		   <div id="detailTab2" style="margin-top:-5px">
+		    <script id="detailTab2.tmp" type="text/html">
+			<table  id="detailTable" class="table  table-hover table-condensed table-bordered" >
+			<thead>
+				<tr>
+					<th style="width:35px">
+						<input type = 'checkbox'>
+					</th>
+					<th>
+						领料日期
+					</th>
+					<th>
+						原料
+					</th>
+
+					<th>
+						最大领用数量
+					</th>
+					<th>
+						本次领用数量
+					</th>
+					<th>
+						操作
+					</th>
+				</tr>
+			</thead>
+				 <tbody id="detailTableBody">
+					{{each mesPlanMaterialUseDetList as listValue}}
+						<tr>
+							<td style="text-align:center">
+								<input type='hidden' name='id' value='{{listValue.id}}'/>
+								<input type='hidden' name='sheetId' value='{{listValue.sheetId}}'/>
+								<input type = 'checkbox'>
+							</td>
+							<td>
+								{{if (status||'0')=='0'}}
+								<input name="scheduleDate" type='date' style="display:none" onchange="return setChangedUse(this,$(this).val(),$(this).parent().parent().find('[name=goodsId]').val(),$('#workshopId').val());" onblur="$(this).hide();$(this).next().show();" value="{{listValue.scheduleDate}}"/>
+								<a href='#' onclick="$(this).hide();$(this).prev().show();$(this).prev().focus();$(this).prev().select();return false;">{{listValue.scheduleDate}}</a>
+								{{else}}
+									<input name='scheduleDate' type='hidden' value='{{listValue.scheduleDate}}'/>
+									<span>{{listValue.scheduleDate}}</span>
+								{{/if}}
+							</td>
+					 
+							<td>
+								{{if (status||'0')=='0'}}
+									<input name="goodsId" type='text' style="display:none" onchange="return setChangedUse(this,$(this).parent().parent().find('[name=scheduleDate]').val(),$(this).val(),$('#workshopId').val());" onblur="$(this).hide();$(this).next().show();" value="{{listValue.goodsId}}"/>
+									<a href='#' onclick="$(this).hide();$(this).prev().show();$(this).prev().focus();$(this).prev().select();return false;">{{listValue.goodsId}}</a>
+								{{else}}
+									<input name='goodsId' type='hidden' value='{{listValue.goodsId}}'/>
+									<span>{{listValue.goodsId}}</span>
+								{{/if}}
+			
+							</td>
+							<td>
+								<span name='leftQty'>{{listValue.leftQty}}</span>
+							</td>
+							<td>
+								{{if (status||'0')=='0'}}
+									<input name="useQty" type='text' style="display:none" onchange="return setChangeQty(this);" onblur="$(this).hide();$(this).next().show();"  value="{{listValue.useQty}}"/>
+									<a href='#' onclick="$(this).hide();$(this).prev().show();$(this).prev().focus();$(this).prev().select();return false;">{{listValue.useQty}}</a>
+								{{else}}
+									<input name='useQty' type='hidden' value='{{useQty}}'/>
+									<span>{{listValue.useQty}}</span>
+								{{/if}}
+							</td> 
+							<td>
+								{{if (status||'0')=='0'}}
+								<a href='#' onclick="debugger;delRow(this);return false; ">删除</a>
+								{{/if}}
+								<button name="saveBtn" class="btn" disabled="disabled"  style="visibility:hidden" onclick="return setChangedCommon(this);"><span class="glyphicon glyphicon-ok"></span></button>
+							</td> 
+						</tr>
+					{{/each}}
+				 <tbody>
+			</table>
+			 </script>
+		   </div>
+	</div>
+	<div style="width: 100%;padding-top:5px;text-align:center">
+		<button id ="saveBtn" class="btn btn-success" onclick="on_save();"><span class="glyphicon glyphicon-search"></span>保存</button>
+		<button id ="checkBtn" class="btn btn-success" onclick="on_check();"><span class="glyphicon glyphicon-search"></span>下发</button>
+		<button class="btn btn-success" onclick="on_close();"><span class="glyphicon glyphicon-arrow-left"></span>返回</button>
+	</div>	  
+ </div>
+ 
+<script id="srciptRow.tmp" type="text/html">
+		<tr>
+							<td style="text-align:center">
+								<input type = 'checkbox'>
+							</td>
+							<td>
+								<input name="scheduleDate" type='date' style="display:none" onchange="return setChangedUse(this,$(this).val(),$(this).parent().parent().find('[name=goodsId]').val(),$('#workshopId').val());" onblur="$(this).hide();$(this).next().show();" value="{{scheduleDate}}"/>
+								<a href='#' onclick="$(this).hide();$(this).prev().show();$(this).prev().focus();$(this).prev().select();return false;">{{scheduleDate||'请选择'}}</a>
+							</td>
+					 
+							<td>
+								<input name="goodsId" type='text' style="display:none" onchange="return setChangedUse(this,$(this).parent().parent().find('[name=scheduleDate]').val(),$(this).val(),$('#workshopId').val());" onblur="$(this).hide();$(this).next().show();" value="{{goodsId}}"/>
+								<a href='#' onclick="$(this).hide();$(this).prev().show();$(this).prev().focus();$(this).prev().select();return false;">{{goodsId||'请选择'}}</a>
+							</td>
+							<td>
+								<span name='leftQty'>{{leftQty}}</span>
+							</td>
+							<td>
+								<input name="useQty" type='text' style="display:none" onchange="return setChangeQty(this);" onblur="$(this).hide();$(this).next().show();"  value="{{useQty}}"/>
+								<a href='#' onclick="$(this).hide();$(this).prev().show();$(this).prev().focus();$(this).prev().select();return false;">{{useQty||0}}</a>
+							</td> 
+							<td>
+								<a href='#' onclick="debugger;delRow(this);return false; ">删除</a>
+								<button name="saveBtn" class="btn" disabled="disabled"  style="visibility:hidden" onclick="return setChangedCommon(this);"><span class="glyphicon glyphicon-ok"></span></button>
+							</td> 
+						</tr>
+ </script>
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_material_user_sheet.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.zh-CN.min.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/jquery/jquery.formautofill.min.js"> </script>
+</body>
+</html>

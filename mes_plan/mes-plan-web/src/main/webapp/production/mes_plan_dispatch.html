@@ -1,0 +1,708 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <!--#include virtual="/mes-plan/include/echarts.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/mes_plan_month.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/>
+ <style>
+	#arrangeFromTab th,#arrangeBatchFromTab th{padding:4px;text-align:right;  /* background-color:#f5f5f5 !important  */}
+	#arrangeFromTab td,#arrangeBatchFromTab td{padding:4px}
+	#arrangeFromTab select,#arrangeBatchFromTab select{height:35px}
+	#bomForm th{padding:4px;text-align:right;  /* background-color:#f5f5f5 !important  */}
+	#bomForm td{padding:4px}
+	#bomForm select{height:35px}
+	#tab1 th{border-bottom:0px;background-color:#f5f5f5 !important}
+	.thcls {background-color:#f5f5f5 !important;border-top:0px ;border-bottom:0px !important}
+	ul{margin-bottom:0px !important}
+	 .technicDiv {float:left}
+	 .spanA {margin:5px}
+ </style>
+ 
+ <!-- 生产计划明细 -->
+<div class="warpper animated fadeInRight" style="overflow-x:hidden">     
+     <div class="container-fluid panel-custom panel panel-default" >
+        <div class="row">
+		       <div class="col-sm-12">
+		           <h4 class="page-header">车间调度</h4>
+		       </div>
+   	    </div> 
+   	 
+   	    <div class="panel-default" style="margin-top:-10px">
+		  <div class="panel-heading"><strong>订单调度</strong> </div>
+		  <div id="detailTab" style="margin-top:-1px">
+		  		
+		  		<script id="detailTab.tmp" type="text/html" > 
+				<input type="hidden" id='id' value='{{id}}' />
+				<input type="hidden" id='sheetId' value='{{sheetId}}' />
+				<input type="hidden" id='sheetStatus' value='{{sheetStatus}}' />
+				<input type="hidden" id='erpBillNo' value='{{erpBillNo}}' />
+				<input type="hidden" id='workshopId' value='{{mesPlanMonth.workshopId}}' />
+		    	<table class='table table-bordered table-condensed detailTab'  style="margin:0px">
+						<tr>
+						<th>单据编号</th><td>{{sheetId}}</td>
+						<th>订单编号</th><td>{{mesPlanMonth.erpBillNo}}</td>
+						<th>单据状态</th><td>{{sheetStatus|getDdwName dispatch_order_status}} </td>
+						</tr>
+						<tr>
+						<th>车间</th><td>{{mesPlanMonth.workshopId|getDdwName workshop}}</td>
+						<th>操作人</th><td >{{createUserName}} </td>
+						<th>操作日期</th><td >{{createTime}}</td>
+						</tr>
+				<tr>
+				<th>
+					订单总数量
+				</th>
+				<td>
+					{{mesPlanMonth.qty}}{{mesPlanMonth.qtyUnit}}
+				</td>
+				<th>
+					订单已分解数量
+				</th>
+				<td>
+					{{mesPlanMonth.dispatchQty}}{{mesPlanMonth.qtyUnit}}
+				</td>
+				<th>
+					本单分解数量
+				</th>
+				<td>
+					{{dispatchQtySum}}{{mesPlanMonth.qtyUnit}}
+				</td>
+				</tr>
+						<tr>
+						<th>说明</th><td colspan=5>
+								{{if !sheetStatus || sheetStatus =='0'}}
+								<span id='remarksSpan'>{{if (remarks&& remarks != 'null')}} {{remarks}} {{/if}}</span>
+								<input type='text' style="width:90%;display:none" id='remarks' name='remarks' maxlength="100" value='{{if (remarks&& remarks != 'null')}} {{remarks}} {{/if}}' onchange="return save_head(this);" onblur="$(this).hide();$(this).prev().show();"/>
+								<a href='#' onclick="$(this).prev().prev().hide();$(this).prev().show(); return false;"> 修改</a>
+								{{else}}
+								<span id='remarksSpan'>{{if (remarks&& remarks != 'null')}} {{remarks}} {{/if}}</span>
+								{{/if}}
+							</td>
+						</tr>
+				
+				</table>
+				</script>
+		  </div>
+		</div>
+		
+		<div class="panel-default" style="margin-top:10px;">
+		  <div class="panel-heading" style="padding:1px 0px;text-align:right"> 
+		  <strong class='panelTitleFloat'>车间调度明细</strong>
+		  	<a id="newRowA" class="btn btn-primary" onclick="orderDispatch('');return false;" href='/mes-plan/production/mes_plan_dispatch_new.html'><span class="glyphicon glyphicon-plus"></span>新增</a>
+		  <!-- 	<a id="newRowA" class="btn btn-success"  href='/mes-plan/production/mes_plan_dispatch_new.html'><span class="glyphicon glyphicon-plus"></span>新增</a> -->
+		  	<a id="newRowA2" class="btn btn-primary"  onclick="arrangeDispatch('');" href='#'><span class="glyphicon glyphicon-plus"></span>新增</a>
+		  	<!-- <a id="newRowA2" class="btn btn-primary"  onclick="arrangeDispatchBatch('');" href='#'><span class="glyphicon glyphicon-import"></span>批量新增</a> -->
+		  	<a id="stockQtyBtn" class="btn btn-primary" href='/mes-plan/production/mes_plan_erp_material_stock.html?erpBillNo='><span class="glyphicon glyphicon-search"></span>原料库存</a>
+		  	<a id="batchFinishBtn" class="btn btn-primary" href='#' onclick="onBatchFinish();return false;"><span class="glyphicon glyphicon-lock"></span>批量完工</a>
+ 
+		  </div>
+		  
+		  <div id="dispatchTab" style="margin-top:-1px">
+			  	<script id="dispatchTab.tmp" type="text/html" >
+					<table id='tab1' class="table  table-hover table-condensed table-bordered" style="margin-top:0px">
+					<thead>
+					<tr>
+					<th rowspan=2 style="text-align:center;width:26px"></th>
+					<th rowspan=2>
+						序号
+					</th>
+					<th rowspan=2>
+						车间订单号
+					</th>
+					<th rowspan=2>
+						状态
+					</th >
+
+					{{if mesPlanMonth.workshopId != $imports.workshop3}}
+						<th>
+							工作中心
+						</th >
+						<th colspan=3>
+							本次调度设备
+						</th >
+					{{/if}}
+					<th rowspan=2>
+						数量
+					</th >
+					<th rowspan=2>
+						完工数量
+					</th >
+					 <th rowspan=2>
+						计划日期
+					</th>
+{{if mesPlanMonth.workshopId == $imports.workshop3}}		
+					<th rowspan=2>
+						工作中心
+					</th>	   
+					<th rowspan=2>
+						子工序
+					</th>
+					<th rowspan=2>
+						班次
+					</th >
+					<th rowspan=2>
+						班别
+					</th >
+					<th rowspan=2>
+						匹数
+					</th >
+{{/if}}	
+					<th rowspan=2>
+						说明
+					</th>
+					<th rowspan=2>
+						完工说明
+					</th>
+					<th rowspan=2>
+						操作
+					</th>
+					
+					</tr>
+					<tr>
+{{if mesPlanMonth.workshopId != $imports.workshop3}}
+					<th >
+						名称
+					</th >
+					 
+					<th >
+						直接使用
+					</th >
+					<th >
+						换产品
+					</th >
+					 <th >
+						总数
+					</th >
+ 
+					
+{{/if}}
+					</tr>
+				</thead>
+                <tbody id='tabBody'>
+					{{each mesPlanDispatchDetList listValue}}
+					<tr>
+					<td><input name='checkflag' type="checkbox">
+						<input name="id" type="hidden" value="{{listValue.id}}">
+						<input name="billNo" type="hidden" value="{{listValue.billNo}}">
+						<input name="dispatchStatus" type="hidden" value="{{listValue.dispatchStatus}}">
+						<input name="shiftId" type="hidden" value="{{listValue.shiftId}}">
+						<input name="shiftStyle" type="hidden" value="{{listValue.shiftStyle}}">
+						<input name="workcenterId" type="hidden" value="{{listValue.workcenterId}}">
+					</td>
+					 <td>
+						{{$index+1}}
+					</td>
+					<td >
+						{{if mesPlanMonth.workshopId != $imports.workshop3}}
+							<a href='' onclick="orderDispatch('/mes-plan/production/mes_plan_dispatch_new.html?id={{listValue.id}}&parId={{id}}&sheetId={{sheetId}}&sheetStatus={{sheetStatus}}&erpId={{erpId}}');return false;">{{listValue.billNo}}</a>
+						{{else}}
+							<a href="#" onclick="arrangeDispatch('{{listValue.id}}');return false;">{{listValue.billNo}}</a>
+						{{/if}}
+					</td>
+					<td >
+						{{listValue.dispatchStatus|getDdwName dispatch_order_status}}
+					</td>
+{{if mesPlanMonth.workshopId != $imports.workshop3}}
+					<td >
+						{{listValue.workcenterId|getMdmName mesPlanMonth.workcenterList}}
+					</td>
+					 
+					<td >
+						{{listValue.deviceQty}}
+					</td>
+					<td >
+						{{listValue.deviceChangeQty}}
+					</td>
+					<td >
+						{{listValue.deviceQty+listValue.deviceChangeQty}}
+					</td>
+{{/if}}
+					<td >
+						{{listValue.dispatchQty}}{{mesPlanMonth.qtyUnit}}
+					</td>
+					<td>
+						{{listValue.finishQty||0}}{{mesPlanMonth.qtyUnit}}
+					</td>
+					 <td >
+					{{if mesPlanMonth.workshopId != $imports.workshop3}}
+						<ul><li>{{listValue.planBeginDate}}</li>
+							<li>{{listValue.planEndDate}}</li></ul>
+					{{else}}
+						<ul><li>{{listValue.planBeginDate+' '+listValue.shiftBeginTime}}</li>
+							<li>{{listValue.planEndDate+' '+listValue.shiftEndTime}}</li></ul>
+					{{/if}}
+					</td >
+					 
+					
+{{if mesPlanMonth.workshopId == $imports.workshop3}}
+	<td >
+						{{listValue.workcenterId|getMdmName mesPlanMonth.workcenterList}}
+					</td>
+<td >
+						{{listValue.arrangeGroup|getMdmName mesPlanMonth.subJobProcesssDdw}}
+					</td>
+<td >
+						{{listValue.shiftId|getMdmName mesPlanMonth.shiftList}}
+					</td>
+<td >
+						{{listValue.shiftStyle|getMdmName mesPlanMonth.shiftStyle}}
+					</td>
+<td >
+						{{listValue.dispatchQtyPackage}}
+					</td>
+{{/if}}
+					<td>
+						{{listValue.deviceRequire}}
+					</td>
+<td>
+						{{listValue.remarks}}
+					</td>
+					<td>
+						 <ul>
+							{{if !sheetStatus || sheetStatus =='0'}}
+							<li>
+								{{if mesPlanMonth.workshopId != $imports.workshop3}}
+									<a href='' onclick="orderDispatch('/mes-plan/production/mes_plan_dispatch_new.html?id={{listValue.id}}&parId={{id}}&sheetId={{sheetId}}&sheetStatus={{sheetStatus}}&erpId={{erpId}}');return false;">编辑</a>
+								{{else}}
+									<a href="#" onclick="arrangeDispatch('{{listValue.id}}');return false;">编辑</a>
+								{{/if}}
+							</li>
+							{{/if}}
+							<li>
+								{{if listValue.dispatchStatus < 10 }}
+									<a href="#" style="font-size:16px" onclick="on_del_row('{{listValue.id}}');return;">删除</a>
+								{{else if listValue.dispatchStatus < 98}}
+									<a href="#" style="font-size:16px" onclick="on_cancel_row('{{listValue.id}}');return;">取消</a>		
+								{{/if}}
+							</li>
+						</ul>
+					</td>
+
+					</tr>
+					 
+                 		 
+					{{/each}}
+					 
+					 </tbody>
+					<tfoot><tr>
+						<td colspan=2><strong>合计</strong></td>
+						<td style="text-align:right" colspan={{if mesPlanMonth.workshopId == $imports.workshop3}}13{{else}}12{{/if}}> 
+							<strong>共{{dispatchQtySum}}{{mesPlanMonth.qtyUnit}}</strong>(不含取消及不报工工序数量)
+						</td>
+					</tr></tfoot>
+					</table>
+				 </script>
+		  </div>
+		</div>
+		
+	  <div id='bomDiv' class="panel-default" style="margin-top:10px">
+		  <div class="panel-heading"><strong>BOM指定</strong> </div>
+		   <div id="dispatchTab2" style="margin-top:-6px">
+		   	<script id="dispatchTab2.tmp" type="text/html">
+			<table id="bomTable" class="table  table-hover table-condensed table-bordered" >
+				<thead>
+					<tr>
+					<th class="thcls" >
+						原料
+					</th>
+					 
+					<th class="thcls" >
+						厂家
+					</th>
+					<th class="thcls" >
+						批次
+					</th>
+					<th class="thcls" >
+						原纱标识(管头)
+					</th>
+					<th class="thcls" >
+						筒纱标重
+					</th>
+					<th class="thcls" >
+						操作
+					</th>
+				</tr>
+			</thead>
+<tbody id="bomTableBody">
+{{each mesPlanDispatchBomList listValue}}
+				<tr>
+					<td>
+						<input type='hidden' name='id' value='{{listValue.id}}'/>
+						<input type='hidden' name='sheetId' value='{{listValue.sheetId}}'/>
+						<input type='hidden' name='rawGoodsId' value='{{listValue.rawGoodsId}}'/>
+						<input type='hidden' name='rawGoodsName' value='{{listValue.rawGoodsName}}'/>
+						<input type='hidden' name='suplierId' value='{{listValue.suplierId}}'/>
+						<input type='hidden' name='batchNo' value='{{listValue.batchNo}}'/>
+						<input type='hidden' name='batchProp1' value='{{listValue.batchProp1}}'/>
+						<input type='hidden' name='batchProp2' value='{{listValue.batchProp2}}'/>
+						<a href='#' onclick="onBom(this);return false;">{{listValue.rawGoodsName}}</a>
+					</td>
+					 
+					<td>
+						{{listValue.suplierId}}
+					</td>
+					<td name='batchNoTd'>
+						 {{listValue.batchNo}}
+					</td>
+					<td>
+						 {{listValue.batchProp1}}
+					</td>
+					<td>
+						 {{listValue.batchProp2}}
+					</td>
+					<td>
+						{{if !sheetStatus || sheetStatus =='0'}}
+						<a href='#' onclick="onBom(this);return false;">编辑</a>
+						{{/if}}
+					</td>
+				</tr>
+{{/each}}
+</tbody>
+			</table>	
+			</script>	   
+		   </div>
+	</div> 
+   	    <div style="width: 100%;padding-top:10px;text-align:center">
+			<button id= "dispatchBtn" class="btn btn-primary" onclick="plan_dispatch_check();"><span class="glyphicon glyphicon-search"></span>下发</button>
+			<button class="btn btn-primary" onclick="plan_dispatch_close();"><span class="glyphicon glyphicon-arrow-left"></span>返回</button>
+		</div>	
+	</div>
+ </div>
+   <script id="test.tmp" type="text/html" >
+	<form id ="arrangeForm" class="form-inline">
+		<input type="hidden" id="id" name="id" value="{{id}}"/>
+		<table id="arrangeFromTab" style="width:100%">
+				<tr>
+					<th>生产订单编号</th>
+					<td>
+						<div class="form-group">
+						   {{mesPlanMonth.erpBillNo}}
+					  	</div>
+					</td>
+					<th>生产任务书编号</th>	
+					<td>
+						<div class="form-group">
+						    {{mesPlanMonth.erpProductTaskNo}}
+						 </div>
+					</td>
+				</tr>
+				<tr>
+					<th>品名</th>
+					<td>
+						
+						<div class="form-group">
+						    {{mesPlanMonth.goodsName}}
+					  	</div>
+					</td>
+					<th>工作中心</th>
+					<td>
+						<div class="form-group">
+						    <select id="workcenterId" name="workcenterId" style='width:182px' class="form-control">
+                 				<option value=""></option>
+								{{each workcenterList listValue2}}
+								<option value="{{listValue2.code}}" {{if workcenterId == listValue2.code}}selected{{/if}}>{{listValue2.name}}</option>
+								{{/each}}
+                 			 </select>
+					  	</div>
+					</td>
+				</tr>
+				<tr>
+					<th>日期</th>
+					<td>
+					
+
+<div class="form-group">
+<div class="input-group date" id="planBeginDate"  >
+ 		<input type="text" class="form-control" name="planBeginDate" value='{{planBeginDate}}' onchange="$('#planEndDate').val($(this).val())" >
+      <span class="input-group-addon">
+          <i class="glyphicon glyphicon-th"></i>
+      </span>  </div>
+  </div>
+ 							<input type="hidden" id="planEndDate"  name="planEndDate" value='{{planEndDate}}'>
+					</td>
+					<th>子工序</th>
+					<td>
+						 <div class="form-group">
+							    <select id="arrangeGroup" name="arrangeGroup" style='width:182px' class="form-control">
+									<option value=""></option>
+									{{each technicList listValue6}}
+	                 			 	<option value="{{listValue6.code}}" {{if arrangeGroup == listValue6.code}}selected{{/if}}>{{listValue6.name}}</option>
+									{{/each}}
+	                  			</select>
+						  </div>
+					</td>
+				</tr>
+				<tr>
+					<th>班次</th>
+					<td>
+						 <div class="form-group">
+						    <select id="shiftId" name="shiftId" style='width:182px' class="form-control" onchange='chgShiftId(this);'>
+                 			 	{{each shiftList listValue3}}
+								<option value="{{listValue3.code}}" {{if shiftId == listValue3.code}}selected{{/if}}>{{listValue3.name}}</option>
+								{{/each}}
+                  			</select>
+						  </div>
+					</td>
+					<th>班别</th>
+					<td>
+						 <div class="form-group">
+						    <select id="shiftStyle" name="shiftStyle" style='width:182px' class="form-control">
+                 			 	{{each shiftStyleList listValue4}}
+								<option value="{{listValue4.code}}" {{if shiftStyle == listValue4.code}}selected{{/if}}>{{listValue4.name}}</option>
+								{{/each}}
+                  			</select>
+						  </div>
+					</td>
+				</tr>
+				<tr>
+					<th>开始时间</th>
+					<td>
+						<div class="form-group">
+							<input class="Wdate form-control" style="height:34px" type="text" id="shiftBeginTime"  name="shiftBeginTime" value="{{shiftBeginTime}}" onchange="$('#arrangeForm').data('bootstrapValidator').updateStatus('shiftBeginTime', 'NOT_VALIDATED',null).validateField('shiftBeginTime');"   onclick="WdatePicker({isShowClear:false,dateFmt:'HH:mm'})"/>
+					  	</div>
+					</td>
+					<th>结束时间</th>
+					<td>
+						<div class="form-group">
+						    <input class="Wdate form-control" style="height:34px" type="text" id="shiftEndTime"  name="shiftEndTime" value="{{shiftEndTime}}" onchange="$('#arrangeForm').data('bootstrapValidator').updateStatus('shiftEndTime', 'NOT_VALIDATED',null).validateField('shiftEndTime');"   onclick="WdatePicker({isShowClear:false,dateFmt:'HH:mm'})"/>
+					  	</div>
+					</td>
+				</tr>
+				<tr>
+					
+					<th>计划匹数</th>
+					<td colspan>
+						<div class="form-group">
+						    <input type="text" class="form-control" id="dispatchQtyPackage" name="dispatchQtyPackage" value='{{dispatchQtyPackage}}' onchange="$('#dispatchQty').val((($(this).val()|| 0)*$('#arrangeUnitRate').val()).toFixed(3));$('#dispatchQtySpan').text($('#dispatchQty').val());">
+					  	</div>
+					</td>
+					<th>计划米数</th>
+					<td>
+						<div class="form-group">
+						    <span id="dispatchQtySpan">{{dispatchQty}}</span>
+					  	</div>
+					</td>
+					
+					<input type="hidden" class="form-control" id="dispatchQty" name="dispatchQty" value='{{dispatchQty}}'>
+					
+ 					<input type="hidden" class="form-control" id="arrangeUnitRate" name="arrangeUnitRate" value="36.576">
+				</tr>
+				<tr>
+					<th>班组产能</th>
+					<td>
+						<div class="form-group">
+							<input type="input" class="form-control" id="capacityInput" name="capacityInput" value='{{capacityInput}}'>{{mesPlanMonth.qtyUnit}}
+					  	</div>
+					</td>
+					<!--
+					<th>请选择落布班次</th>
+					<td><div class="form-group">
+						<select id="shiftStyle" name="shiftStyle" style='width:182px' class="form-control">
+							<option value=""></option>
+							<option value="1">昨中班+今早班</option>
+							<option value="2">昨早班+昨中班</option>
+						</select><button class="btn" style='background-color:transparent' onclick="return false;"><span class="glyphicon glyphicon-arrow-right"></span></button>
+						</div>
+					</td>-->
+				</tr>
+		</table>
+	</form></script>
+	
+<script id="bom.tmp" type="text/html" >
+	<form id ="bomForm" class="form-inline">
+		<input type="hidden" id="id" name="id" value="{{id}}"/>
+		<table style="width:100%">
+				<tr>
+					<th>品名</th>
+					<td>
+						<div class="form-group">
+						    {{rawGoodsName}}
+					  	</div>
+					</td>
+					<th>厂家</th>
+					<td>
+						<div class="form-group">
+						    {{suplierId}}
+					  	</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th>批次</th>
+					<td colspan=3>
+						<div class="form-group">
+							 <div class="form-group">
+						   		<input class="form-control" type='text' id='batchNo' name='batchNo' value='{{batchNo}}' />
+							</div>
+					  	</div>
+					</td>
+				</tr>
+				<tr>
+					<th>原纱标识(管头)</th>
+					<td>
+						<div class="form-group">
+							 <div class="form-group">
+						     <input class="form-control" type='text' id='batchProp1' name='batchProp1' value='{{batchProp1}}' />
+							</div>
+					  	</div>
+					</td>
+					<th>筒纱标重</th>
+					<td>
+						<div class="form-group">
+							 <div class="form-group">
+						     <input class="form-control" type='text' id='batchProp2' name='batchProp2' value='{{batchProp2}}' />
+							</div>
+					  	</div>
+					</td>
+				</tr>
+		</table>
+	</form></script>
+	
+	
+	 <script id="arrangeBatch.tmp" type="text/html" >
+	<form id ="arrangeBatchForm" class="form-inline">
+		<input type="hidden" id="id" name="id" value="{{id}}"/>
+		<table id="arrangeBatchFromTab" style="width:100%">
+				<tr>
+					<th>厂级订单编号</th>
+					<td>
+						<div class="form-group">
+						   {{mesPlanMonth.erpBillNo}}
+					  	</div>
+					</td>
+					<th>生产任务编号</th>	
+					<td>
+						<div class="form-group">
+						    {{mesPlanMonth.erpProductTaskNo}}
+						 </div>
+					</td>
+				</tr>
+				<tr>
+					<th>品名</th>
+					<td>
+						
+						<div class="form-group">
+						    {{mesPlanMonth.goodsName}}
+					  	</div>
+					</td>
+					<th>整理工作中心</th>
+					<td>
+						<div class="form-group">
+							<select id="workcenterId" name="workcenterId" style='width:182px' class="form-control">
+                 				<option value=""></option>
+								{{each workcenterList listValue2}}
+								{{if listValue2.code != 'W17'}} 
+								<option value="{{listValue2.code}}" {{if workcenterId == listValue2.code}}selected{{/if}}>{{listValue2.name}}</option>
+								{{/if}}
+								{{/each}}
+                 			 </select>
+					  	</div>
+					</td>
+				</tr>
+				<tr>
+					<th>日期</th>
+					<td>
+						<div class="form-group">
+						<div class="input-group date" id="planBeginDate"  >
+ 						<input type="text" class="form-control" name="planBeginDate" value='{{planBeginDate}}' onchange="$('#planEndDate').val($(this).val())" >
+      					<span class="input-group-addon">
+          				<i class="glyphicon glyphicon-th"></i>
+      					</span>  </div>
+  						</div>
+ 						<input type="hidden" id="planEndDate"  name="planEndDate" value='{{planEndDate}}'>
+					</td>
+
+					<th>打包工作中心</th>
+					<td>
+						<div class="form-group">
+							<input type='hidden' id="workcenterId2" name="workcenterId2" value='W17'>打包
+					  	</div>
+					</td>
+				</tr>
+				<tr>
+					<th>班次</th>
+					<td>
+						 <div class="form-group">
+						    <select id="shiftId" name="shiftId" style='width:182px' class="form-control">
+                 			 	{{each shiftList listValue3}}
+								<option value="{{listValue3.code}}" {{if shiftId == listValue3.code}}selected{{/if}}>{{listValue3.name}}</option>
+								{{/each}}
+                  			</select>
+						  </div>
+					</td>
+					<th>班别</th>
+					<td>
+						 <div class="form-group">
+						    <select id="shiftStyle" name="shiftStyle" style='width:182px' class="form-control">
+                 			 	{{each shiftStyleList listValue4}}
+								<option value="{{listValue4.code}}" {{if shiftStyle == listValue4.code}}selected{{/if}}>{{listValue4.name}}</option>
+								{{/each}}
+                  			</select>
+						  </div>
+					</td>
+				</tr>
+				<tr>
+					<th>开始时间</th>
+					<td>
+						<div class="form-group">
+							<input class="Wdate form-control" style="height:34px" type="text" id="shiftBeginTime"  name="shiftBeginTime" value="{{shiftBeginTime}}" onchange="$('#arrangeForm').data('bootstrapValidator').updateStatus('shiftBeginTime', 'NOT_VALIDATED',null).validateField('shiftBeginTime');"   onclick="WdatePicker({isShowClear:false,dateFmt:'HH:mm'})"/>
+					  	</div>
+					</td>
+					<th>结束时间</th>
+					<td>
+						<div class="form-group">
+						    <input class="Wdate form-control" style="height:34px" type="text" id="shiftEndTime"  name="shiftEndTime" value="{{shiftEndTime}}" onchange="$('#arrangeForm').data('bootstrapValidator').updateStatus('shiftEndTime', 'NOT_VALIDATED',null).validateField('shiftEndTime');"   onclick="WdatePicker({isShowClear:false,dateFmt:'HH:mm'})"/>
+					  	</div>
+					</td>
+				</tr>
+				<tr>
+					<th>设备产能</th>
+					<td>
+						<div class="form-group">
+							<input type="input" class="form-control" id="capacityInput" name="capacityInput" value='{{capacityInput}}'>{{mesPlanMonth.qtyUnit}}
+					  	</div>
+					</td>
+					<th>匹米转换率</th>
+					<td>
+						36.576
+						<input type="hidden" class="form-control" id="arrangeUnitRate" name="arrangeUnitRate" value="36.576">
+					</td>
+					<!--
+					<th>请选择落布班次</th>
+					<td><div class="form-group">
+						<select id="shiftStyle2" name="shiftStyle2" style='width:182px' class="form-control">
+							<option value=""></option>
+							<option value="1">昨中班+今早班</option>
+							<option value="2">昨早班+昨中班</option>
+						</select><button class="btn" style='background-color:transparent' onclick="return false;"><span class="glyphicon glyphicon-arrow-right"></span></button>
+						</div>
+					</td>-->
+					
+				</tr>
+				<tr>
+					<th>计划匹数</th>
+					<td colspan=3>
+						<div class="form-group"> 
+							{{each technicList technicRow i}}
+								<div class='technicDiv'>
+									<div style='padding-bottom:5px'>{{technicRow.name}}{{if i != (technicList.length-1)}}————>{{/if}}</div>
+									<div><input id='{{technicRow.code}}' type='text' class="form-control" style='width:60px' onchange='chgUnit(this)' >匹</div>
+									<div class='spanA'><span id='{{technicRow.code}}span'  style='width:60px;height:24px'>0</span>米</div>
+								</div>
+							{{/each}}
+						</div>
+					</td>
+				</tr>	
+		</table>
+	</form></script>
+	
+</body>
+<link rel="stylesheet" type="text/css" href="/mes-plan/static/select2/select2.min.css">
+ <script type="text/javascript" src="/mes-plan/static/select2/select2.full.min.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_dispatch.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.zh-CN.min.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/My97DatePicker/WdatePicker.js"></script> 
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            

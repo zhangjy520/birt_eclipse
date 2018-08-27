@@ -1,0 +1,361 @@
+<!--#include virtual="/mes-plan/include/header.html" -->
+<div class="container-fluid panel-custom panel panel-default animated fadeInRight" style="padding:25px;">
+<!-- 品质部质保人员主界面 -->
+  <div class="container-fluid">
+  <!-- 左侧 -->
+      <div class="col-md-8">
+      <!-- 常用功能 -->
+      <div class="container-fluid panel-custom panel panel-default">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-header">常用功能</h4>
+        </div>
+    </div>
+    <div class="row text-center">
+    <div class="row">
+      <div class="col-sm-3">
+      <span class="glyphicon glyphicon-picture" style="height:50px;width:50px"></span>
+      </div>
+      <div class="col-sm-3">
+      <span class="glyphicon glyphicon-picture" style="height:50px;width:50px"></span>
+      </div>
+      <div class="col-sm-3">
+      <span class="glyphicon glyphicon-picture"></span>
+      </div>
+      <div class="col-sm-3">
+      <span class="glyphicon glyphicon-picture"></span>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+      <h4>检查问题登记</h4>
+      </div>
+      <div class="col-sm-3">
+      <h4>质量分析</h4>
+    </div>
+      <div class="col-sm-3">
+      <h4>质检追溯</h4>
+      </div>
+      <div class="col-sm-3">
+      <h4>设备运行监控</h4>
+    </div>
+    </div>
+    </div>
+    </div>
+   
+    <div class="container-fluid panel-custom panel panel-default">
+     <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#panel-info-1" data-toggle="tab">待办事项</a></li>
+                <li><a href="#panel-info-2" data-toggle="tab">已办事项</a></li>
+            </ul>
+            <div class="tab-content" style="cursor:pointer;margin-top:30px;">
+                <div id="panel-info-1" class="tab-pane active animated fadeInRight">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>检验方案</th>
+                                <th>检验任务类型</th>
+                                <th>物料编号</th>
+                                <th>批次号</th>
+                                <th>品种</th>
+                                <th>任务提交时间</th>
+                                <th>任务到达时间</th>
+                                <th>当前步骤</th>
+                                <th>当前操作人</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-center">
+                            <tr>
+                                <td>1001</td>
+                                <td>专检</td>
+                                <td>原纱检验</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <a href="task_assignment.html">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </a>
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="panel-info-2" class="tab-pane animated fadeInRight">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>检验方案</th>
+                                <th>检验任务类型</th>
+                                <th>物料编号</th>
+                                <th>批次号</th>
+                                <th>品种</th>
+                                <th>任务提交时间</th>
+                                <th>任务到达时间</th>
+                                <th>已完成步骤</th>
+                                <th>下一步骤</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <tr>
+                                <td>1001</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <a href="inspection_information_view.html">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+      </div>
+      
+      <div class="container-fluid panel-custom panel panel-default">
+     <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#panel-info-3" data-toggle="tab">连疵跟踪</a></li>
+                <li><a href="#panel-info-4" data-toggle="tab">次布跟踪</a></li>
+            </ul>
+            <div class="tab-content" style="cursor:pointer;margin-top:30px;">
+                <div id="panel-info-3" class="tab-pane active animated fadeInRight">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>布轴编号</th>
+                                <th>品名</th>
+                                <th>机台号</th>
+                                <th>残疵名</th>
+                                <th>残疵位置</th>
+                                <th>残疵码数</th>
+                                <th>责任车间</th>
+                                <th>检查时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-center">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="panel-info-4" class="tab-pane animated fadeInRight">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>布轴编号</th>
+                                <th>品名</th>
+                                <th>机台号</th>
+                                <th>残疵名</th>
+                                <th>匹</th>
+                                <th>责任车间</th>
+                                <th>责任班组</th>
+                                <th>责任人</th>
+                                <th>检查时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <tr>
+                                <td>1001</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+      </div>
+      <div class="row">
+      <div class="col-sm-12 text-center">
+      <button class="btn btn-primary btn-xs" onclick="Up()"><span class="glyphicon glyphicon-chevron-up"></span>上一页</button>
+      </div>
+      </div>
+      
+      </div>
+      
+      <!-- 右侧 -->
+      <div class="col-md-4">
+      <!-- 个人信息 -->
+      <form class="form-horizontal">
+         <div class="row">
+		         <div class="form-group col-md-6 form-group-sm "  style="padding:0">
+	                 <label class="control-label col-md-5" style="padding:0">姓名：</label>
+	                 <div class="col-md-7">
+	                   <input type="text"  class="form-control" disabled="disabled"/>
+	                 </div>
+		        </div>
+		       
+		        <div class="form-group col-md-6 form-group-sm"  style="padding:0">
+	                 <label class="control-label col-md-5" style="padding:0">工号：</label>
+	                 <div class="col-md-7">
+	                   <input type="text"  class="form-control" disabled="disabled"/>
+	                 </div>
+		        </div>
+	     </div>
+	     <div class="row">
+		         <div class="form-group col-md-6 form-group-sm"  style="padding:0">
+	                 <label class="control-label col-md-5"  style="padding:0">车间班组：</label>
+	                 <div class="col-md-7">
+	                   <input type="text"  class="form-control" disabled="disabled"/>
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-6 form-group-sm"  style="padding:0">
+	                 <label class="control-label col-md-5" style="padding:0">工种：</label>
+	                 <div class="col-md-7">
+	                   <input type="text"  class="form-control" disabled="disabled"/>
+	                 </div>
+		        </div>
+	     </div>
+	      
+	   </form>
+	   <!-- 通知公告-->
+	   <div class="container-fluid panel-custom panel panel-default">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-header">通知公告</h4>
+        </div>
+    </div>
+     <!-- 表格 -->
+    <div class="container-fluid panel-custom panel panel-default">
+     <div class="col-sm-12">
+            <table id="table1" class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+	                  <td>1</td>
+	                  <td>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
+                 </tr>  
+                </tbody>
+            </table>
+        
+    </div>
+</div>
+    </div>
+    <!-- 质量追溯 -->
+	   <div class="container-fluid panel-custom panel panel-default">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-header">质量追溯</h4>
+        </div>
+    </div>
+    <form class="form-horizontal">
+         <div class="row">
+		         <div class="form-group col-md-11 form-group-sm " >
+	                 <label class="control-label col-md-5">产品批次号：</label>
+	                 <div class="col-md-7">
+	                   <input type="text"  class="form-control" disabled="disabled"/>
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-1 form-group-sm">
+		        <button class="btn btn-primary btn-sm"><span class="fa fa-search"></span></button>
+		        </div>
+    </div>
+     </form>
+      </div>
+      <!-- 质量and产量 -->
+	   <div class="container-fluid panel-custom panel panel-default">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-header">质量&nbsp;&nbsp;产量</h4>
+        </div>
+    </div>
+    <form class="form-horizontal">
+         <div class="row">
+		         <div class="form-group col-md-11 form-group-sm " >
+	                 <label class="control-label col-md-5">车间：</label>
+	                 <div class="col-md-7">
+	                   <input type="text"  class="form-control" disabled="disabled"/>
+	                 </div>
+		        </div>
+    </div>
+    <div class="row">
+		         <div class="form-group col-md-11 form-group-sm " >
+	                 <label class="control-label col-md-5">班组：</label>
+	                 <div class="col-md-7">
+	                   <input type="text"  class="form-control" disabled="disabled"/>
+	                 </div>
+		        </div>
+    </div>
+    <div class="row">
+		         <div class="form-group col-md-11 form-group-sm " >
+	                 <label class="control-label col-md-5">员工：</label>
+	                 <div class="col-md-7">
+	                   <input type="text"  class="form-control" disabled="disabled"/>
+	                 </div>
+		        </div>
+		        <div class="form-group col-md-1 form-group-sm">
+		        <button class="btn btn-primary btn-sm"><span class="fa fa-search"></span></button>
+		        </div>
+    </div>
+     </form>
+      </div>
+      
+  </div>
+ </div>
+ </div>
+<script type="text/javascript">
+function Up(){
+	window.location.href ="warranty.html" ;
+}
+</script>
+</body>
+</html>

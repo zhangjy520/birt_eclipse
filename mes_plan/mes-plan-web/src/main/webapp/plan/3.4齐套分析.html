@@ -1,0 +1,222 @@
+<html>
+<meta charset="utf-8"/>
+<head>
+<style type="text/css">
+.demo{width:600px; margin:60px auto 10px auto; font-size:16px}
+.table {border-collapse: collapse !important;width: 100%;max-width: 100%;margin-bottom: 20px;}
+.table td,.table th {background-color: #fff !important;}
+.table-bordered th,.table-bordered td {border: 1px solid #ddd !important;}
+.table tr td {padding: 8px;line-height: 1.42857143;vertical-align: middle;border: 1px solid #ddd;}
+.table tr:hover {background-color: #f5f5f5;}
+</style>
+<script type="text/javascript" src="js/jquery.js"></script>
+
+<script>
+$(function(){
+//上移
+var $up = $(".up")
+$up.click(function() {
+var $tr = $(this).parents("tr");
+if ($tr.index() != 1) {
+$tr.fadeOut().fadeIn();
+$tr.prev().before($tr);
+}
+});
+//下移
+var $down = $(".down");
+var len = $down.length+1;
+$down.click(function() {
+var $tr = $(this).parents("tr");
+if ($tr.index() != len - 1) {
+$tr.fadeOut().fadeIn();
+$tr.next().after($tr);
+}
+});
+//置顶
+var $top = $(".top");
+$top.click(function(){
+var $tr = $(this).parents("tr");
+$tr.fadeOut().fadeIn();
+$(".table").prepend($tr);
+$tr.css("color","#f60");
+});
+});
+</script>
+
+</head>
+<body >
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">齐套分析</legend>
+<table class="table" style ="margin:0 auto;border-spacing:10px;width:766px">
+<tr>
+<td>单号</td>
+<td>产品名称</td>
+<td>产品编码</td>
+<td>生产日期</td>
+<td>订单数量</td>
+<td>是否齐套</td>
+<td>优先级</td>
+</tr>
+
+<tr>
+<td>2016-258-01-01</td>
+<td>大提花</td>
+<td>83226</td>
+<td>2017-01-01</td>
+<td>90m</td>
+<td>齐套</td>
+<td><a href="#" class="up"><img src='img\updown.png'></img></a> <a href="#" class="down"><img src='img\updown.png' style="transform:rotate(180deg);padding-top:2px"></img></a> <a href="#" class="top">置顶</a></td>
+</tr>
+
+<tr>
+<td>2016-258-01-02</td>
+<td>小提花</td>
+<td>83223</td>
+<td>2017-01-01</td>
+<td>90m</td>
+<td></td>
+<td><a href="#" class="up"><img src='img\updown.png'></img></a> <a href="#" class="down"><img src='img\updown.png' style="transform:rotate(180deg);padding-top:2px"></img></a> <a href="#" class="top">置顶</a></td>
+</tr>
+
+<tr>
+<td>2016-258-01-03</td>
+<td>无花</td>
+<td>83220</td>
+<td>2017-01-01</td>
+<td>90m</td>
+<td></td>
+<td><a href="#" class="up"><img src='img\updown.png'></img></a> <a href="#" class="down"><img src='img\updown.png' style="transform:rotate(180deg);padding-top:2px"></img></a> <a href="#" class="top">置顶</a></td>
+</tr>
+</table>
+
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">BOM明细</legend>
+<table class='table'  style ="margin:0 auto;border-spacing:10px;width:766px">
+	<tr>
+		<td>
+			单号
+		</td>
+		<td >
+			原料
+		</td>
+		<td >
+			厂家
+		</td>
+		<td >
+			管头
+		</td>
+		<td >
+			库存数量
+		</td>
+		<td >
+			需求数量
+		</td>
+		<td >
+			缺料数量
+		</td>
+		<td >
+			齐套状态
+		</td>
+	</tr>
+	
+	<tr>
+		<td rowspan=2">
+			2016-258-01-01
+		</td>
+		<td >
+			原料1
+		</td>
+		<td >
+			厂家1
+		</td>
+		<td >
+			绿色
+		</td>
+		<td >
+			100
+		</td>
+		<td >
+			90
+		</td>
+		<td >
+			0
+		</td>
+		<td >
+			齐套
+		</td>
+	</tr><tr>	
+		 
+		<td >
+			原料2
+		</td >
+		<td >
+			厂家1
+		</td>
+		<td >
+			红色
+		</td>
+		<td >
+			200
+		</td>
+		<td >
+			100
+		</td>
+		<td >
+			0
+		</td>
+		<td >
+			齐套
+		</td>
+	</tr><tr>	
+		<td  rowspan=2>
+			2016-258-01-02
+		</td>
+		<td >
+			织轴
+		</td>
+		<td >
+			厂家1
+		</td>
+		<td >
+			红色
+		</td>
+		<td >
+			200
+		</td>
+		<td >
+			100
+		</td>
+		<td >
+			0
+		</td>
+		<td >
+			齐套
+		</td>
+	</tr><tr>	
+		 
+		<td >
+			浆料
+		</td>
+		<td >
+			
+		</td>
+		<td >
+			
+		</td>
+		<td >
+			100
+		</td>
+		<td >
+			200
+		</td>
+		<td >
+			100
+		</td>
+		<td >
+			未齐套
+		</td>
+	</tr> 
+</table>
+<legend style="width: 766px;margin: 0 auto;padding: 5px 2px;font-size: 20;text-align:right">
+	<input type='button' style="min-width:100px;height:28px" value='齐套分析'></input> <input type='button' style="min-width:100px;height:28px" value='返回'></input>
+</legend>
+</body>
+</html>

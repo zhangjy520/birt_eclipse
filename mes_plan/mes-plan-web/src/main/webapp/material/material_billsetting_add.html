@@ -1,0 +1,503 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+	<style type="text/css">
+		.bill_setting{
+			margin:20px auto;
+		}
+		.tab-content{
+			margin:15px auto;
+		}
+		table tr td,th{
+			text-align: center;
+		}
+		#tab1 a{margin-right: 10px;}
+		.selected{
+	   background-color:lightgray;
+        }
+        #filter{
+        cursor: pointer;
+        }
+	</style>
+	<div class="bill_setting_add">
+	       <!-- 单据设置添加 -->
+	  <div class="wrapper wrapper-content animated fadeInRight container-fluid panel panel-custom panel-default"  >
+				   <!-- 单据设置属性 -->
+			      <div class="row">
+			        <!-- 标题栏  -->
+			        <div class="col-sm-12">
+			            <h4 class="page-header">单据设置属性</h4>
+			        </div>
+			      </div>
+	    	      <div class="row">
+	    	        <form class="form-horizontal">
+	    	             <div class="row">
+				            <div class="col-sm-6 form-group">
+				                <label class="col-sm-4 control-label"><span style="color:red;">*</span>编号：</label>
+				                <div class="col-sm-8">
+				                   <input type="text" class="form-control" disabled="disabled" value="01"/>
+				                </div>
+				            </div>
+				            <div class="col-sm-6 form-group">
+				                <label class="col-sm-4 control-label"><span style="color:red;">*</span>单据名称：</label>
+				                <div class="col-sm-8">
+				                    <input type="text" class="form-control" disabled="disabled" value="备品备件领料单"/>
+				                </div>
+				             </div>
+				        </div>
+				         <div class="row">
+				            <div class="col-sm-6 form-group">
+				                <label class="col-sm-4 control-label"><span style="color:red;">*</span>单据类型：</label>
+				                <div class="col-sm-8">
+				                   		<select class="form-control">
+						                      <option value="W1001">生产出库</option>
+						                      <option value="W1002">其他出库</option>
+						                      <option value="W1003">生产入库</option>
+						                      <option value="W1003">调拨</option>
+						                      <option value="W1003">盘点</option>
+						                    </select>
+				                </div>
+				            </div>
+				            <div class="col-sm-6 form-group">
+				                <label class="col-sm-4 control-label">单据描述：</label>
+				                <div class="col-sm-8">
+				                    <input type="text" class="form-control" disabled="disabled" value="领用备品备件 "/>
+				                </div>
+				             </div>
+				        </div>
+				         <div class="row">
+				            <div class="col-sm-6 form-group" style="padding-right:0">
+						         <label class="col-sm-4 control-label">是否审核：</label>
+				                 <div class="col-sm-8 form-group">
+				                      <div class="col-sm-1"><input type="checkbox" /></div>
+				                      <label class="col-sm-5 control-label">审核工作流：</label>
+						              <div class="col-sm-6" style="padding-right:0">
+						                    <select class="form-control">
+						                      <option value="W1001">W1001</option>
+						                      <option value="W1002">W1002</option>
+						                      <option value="W1003">W1003</option>
+						                    </select>
+						                </div>
+				                 </div>
+				            </div>
+				            <div class="col-sm-6 form-group">
+				                <label class="col-sm-4 control-label"><span style="color:red;">*</span>权限控制：</label>
+				                <div class="col-sm-8">
+						                       <div class="input-group">
+										             <select class="form-control">
+										              <option value="">----请选择----</option>
+								                      <option value="保全">保全</option>
+								                      <option value="库管">库管</option>
+								                      <option value="生产组长">生产组长</option>
+								                    </select>
+										            <span class="input-group-addon" id="filter"><i class="glyphicon glyphicon glyphicon-filter"></i></span>
+										        </div>
+				                </div>
+				             </div>
+				        </div>
+				         <div class="row">
+				            <div class="col-sm-6 form-group">
+				                <label class="col-sm-4 control-label"><span style="color:red;">*</span>编码规则：</label>
+				                <div class="col-sm-8">
+				                    <select class="form-control">
+						                      <option value="W1001">W1001</option>
+						                      <option value="W1002">W1002</option>
+						                      <option value="W1003">W1003</option>
+						             </select>
+				                </div>
+				            </div>
+				            <div class="col-sm-6 form-group">
+				                <label class="col-sm-4 control-label"><span style="color:red;">*</span>单据设置状态：</label>
+				                <div class="col-sm-8">
+				                     <select class="form-control" disabled="disabled">
+						                      <option value="已创建">已创建</option>
+						                      <option value="已发布">已发布</option>
+						             </select>
+				                </div>
+				             </div>
+				        </div>
+	    	        </form>
+	    	      </div>
+	    	      <br/>
+	    	      <div class="row text-center">
+	    	         <button class="btn btn-primary btn-sm" onclick="fun_save1()" ><span class="glyphicon glyphicon-floppy-disk"></span>保存</button>
+	    	      </div>
+    	</div>
+	    	<!-- 单头字段定义 -->
+	    	  <div class="wrapper wrapper-content animated fadeInRight container-fluid panel panel-custom panel-default">
+	    	        <div class="row">
+				        <!-- 标题栏  -->
+				        <div class="col-sm-12">
+				            <h4 class="page-header">单头字段定义 </h4>
+				        </div>
+				    </div>
+				    
+				    <!-- 操作按钮组 -->
+				    <div class="row">
+				        <div class="col-sm-12">
+				            <div class="btn-group btn-group-sm" style="float:right;">
+				                <a class="btn btn-primary" href='javascript:void(0)' onclick="fun_addbill()"><span class="glyphicon glyphicon-plus"></span>添加</a>
+				                <a class="btn btn-primary" href='javascript:void(0)' onclick="fun_del()"><span class="fa fa-trash"></span>&nbsp;删除</a>
+				            </div>
+				        </div>
+				    </div>
+				    <!-- 表格 -->
+				    <!--  表格-->
+				     <div class="row">
+				        <div class="col-sm-12">
+				            <table id="table1" style="width:100%;"  class="table table-bordered">
+				                <thead>
+				                    <tr>
+				                        <th>字段名</th>
+				                        <th>字段标签</th>
+				                        <th>字段类型</th>
+				                        <th>字段长度</th>
+				                        <th>主键</th>
+				                        <th>可空</th>
+				                        <th>编辑</th>
+				                        <th>调用数据源</th>
+				                        <th>排序</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+				                </tbody>
+				            </table>
+				        </div>
+				      </div>
+	    	  </div>
+	    	<!-- 单行字段定义 -->
+	    	  <div class="wrapper wrapper-content animated fadeInRight container-fluid panel panel-custom panel-default" >
+			    	  <div class="row">
+						        <!-- 标题栏  -->
+						        <div class="col-sm-12">
+						            <h4 class="page-header">单行字段定义 </h4>
+						        </div>
+				      </div>
+				       <!-- 操作按钮组 -->
+				    <div class="row">
+				        <div class="col-sm-12">
+				            <div class="btn-group btn-group-sm" style="float:right;">
+				                <a class="btn btn-primary" href='javascript:void(0)' onclick="fun_addbill2()"><span class="glyphicon glyphicon-plus"></span>添加</a>
+				                <a class="btn btn-primary" href='javascript:void(0)' onclick="fun_del2()"><span class="fa fa-trash"></span>&nbsp;删除</a>
+				            </div>
+				        </div>
+				    </div>
+				    
+				      <div class="row">
+				        <div class="col-sm-12">
+				            <table id="table2"  class="table table-bordered">
+				                <thead>
+				                    <tr>
+				                        <th>字段名</th>
+				                        <th>字段标签</th>
+				                        <th>字段类型</th>
+				                        <th>字段长度</th>
+				                        <th>主键</th>
+				                        <th>可空</th>
+				                        <th>编辑</th>
+				                        <th>调用数据源</th>
+				                        <th>排序</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+				                <tr>
+				                	<td>BPBJ01</td>
+				                	<td>单号状态</td>
+				                	<td>单行文本</td>
+				                	<td>10</td>
+				                	<td><input  type="checkbox" /></td>
+				                	<td><input  type="checkbox" /></td>
+				                	<td><input  type="checkbox" /></td>
+				                	<td></td>
+				                	<td>1</td>
+				                </tr>
+				                <tr>
+				                	<td>BPBJ12</td>
+				                	<td>单号</td>
+				                	<td>枚举</td>
+				                	<td>10</td>
+				                	<td><input  type="checkbox" /></td>
+				                	<td><input  type="checkbox" /></td>
+				                	<td><input  type="checkbox" /></td>
+				                	<td></td>
+				                	<td>2</td>
+				                </tr>
+				                <tr>
+				                	<td>BPBJ13</td>
+				                	<td>单号</td>
+				                	<td>单行文本</td>
+				                	<td>10</td>
+				                	<td><input  type="checkbox" /></td>
+				                	<td><input  type="checkbox" /></td>
+				                	<td><input  type="checkbox" /></td>
+				                	<td></td>
+				                	<td>3</td>
+				                </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				      </div>
+	    	  </div>
+	    
+	    	  <!-- 操作按钮 -->
+	    	  <div class="row" style="padding-bottom: 20px;">
+		        <div class="col-sm-12 text-center">
+		            <div class="btn-group">
+		               <button class="btn btn-primary" onclick="fun_save2()" ><span class="glyphicon glyphicon-floppy-disk"></span>保存</button>
+			    	   &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" onclick="fun_publish()" ><span class="glyphicon glyphicon-ok"></span>发布</button>
+		              &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" onclick="fun_cancel()" ><span class="glyphicon glyphicon-remove"></span>取消</button>
+		            </div>
+		        </div>
+		    </div>
+	    </div>  
+	    <div class="layer_notice"  style="width:680px;height:180px;margin:15px auto;display:none; ">
+	           <div class="row">
+	    	        <form class="form-horizontal">
+	    	             <div class=" form-group">
+		    	             <label class="col-sm-3 control-label">权限控制：</label>
+		    	             <div class="col-sm-8">
+					                <select class="form-control">
+					                             <option value="">---请选择---</option>
+							                      <option value="保全">保全</option>
+							                      <option value="库管">库管</option>
+							                      <option value="生产组长">生产组长</option>
+							         </select>
+					          </div>
+				          </div>
+					      <div class=" form-group">
+			    	             <label class="col-sm-3 control-label">权限控制：</label>
+			    	             <div class="col-sm-8">
+						                <select class="form-control">
+						                             <option value="">---请选择---</option>
+								                      <option value="保全">保全</option>
+								                      <option value="库管">库管</option>
+								                      <option value="生产组长">生产组长</option>
+								         </select>
+						          </div>
+				             </div>
+				             <div class=" form-group">
+			    	             <label class="col-sm-3 control-label">权限控制：</label>
+			    	             <div class="col-sm-8">
+						                <select class="form-control">
+						                             <option value="">---请选择---</option>
+								                      <option value="保全">保全</option>
+								                      <option value="库管">库管</option>
+								                      <option value="生产组长">生产组长</option>
+								         </select>
+						          </div>
+				             </div>
+				             <div class="row text-center">
+				                 <button class="btn btn-primary" ><span class="glyphicon glyphicon-ok"></span>确定</button>
+				                 &nbsp;&nbsp;
+				                 <button class="btn btn-default" ><span class="glyphicon glyphicon-remove"></span>取消</button>
+		         
+				             </div>
+				      </form>
+				 </div>
+	    </div>
+  <script type="text/javascript">
+	var table2=null;
+	var table3=null;
+	$(function(){
+			table2= $('#table1').DataTable({
+                 "searching": false,
+                 "ordering": false,
+                 "pagingType": "full_numbers",
+                 "bLengthChange": false,
+                 "language": {
+                     "sLengthMenu": "每页显示 _MENU_ 条记录",
+                     "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                     "sInfoEmpty": "没有数据",
+                     "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+                     "sZeroRecords": "没有检索到数据",
+                     "sSearch": "查找:",
+                     "oPaginate": {
+                         "sFirst": "首页",
+                         "sPrevious": "前一页",
+                         "sNext": "后一页",
+                         "sLast": "尾页"
+                     }
+                 },
+                 "ajax":{
+                	 "url":"/mes-plan/material/data/bill_head.txt",
+                	 "error":function()
+                	 {
+                		 alert("数据加载失败");
+                	 }
+                 },
+                 "columns":[
+                	  {"data":"zdm"},
+                	  {"data":"zdbq"},
+                	  {"data":"zdlx"},
+                	  {"data":"zdcd"},
+                	  {
+				            "data": "zj",
+				            "createdCell": function (nTd, sData, oData, iRow, iCol) {
+			            	if(sData =='1')
+			            		{
+			                $(nTd).html("<input type='checkbox' name='checkList' value='" + sData + "' checked='checked' >");
+			                }
+			            	else{
+			                $(nTd).html("<input type='checkbox' name='checkList' value='" + sData + "' >");
+			            	}
+				            }
+				        },
+				        {
+				            "data": "kk",
+				            "createdCell": function (nTd, sData, oData, iRow, iCol) {
+				            if(sData =='1')
+			            	{
+				              $(nTd).html("<input type='checkbox' name='checkList' value='" + sData + "' checked='checked' >");
+				            }
+				           else{
+				             $(nTd).html("<input type='checkbox' name='checkList' value='" + sData + "' >");
+				            }
+				           }
+				        },
+				        {
+				            "data": "bj",
+				            "createdCell": function (nTd, sData, oData, iRow, iCol) {
+				          	 if(sData =='1')
+			                {
+			                $(nTd).html("<input type='checkbox' name='checkList' value='" + sData + "' checked='checked' >");
+			                }
+			            	else{
+			                $(nTd).html("<input type='checkbox' name='checkList' value='" + sData + "' >");
+			            	}
+				           }
+				        },
+                	  {"data":"sjy"},
+                	  {
+ 	            		 "data": null,
+ 	            		 "createdCell": function (nTd, sData, oData, iRow, iCol) {
+ 	            		 var startnum = this.api().page() * (this.api().page.info().length);
+ 	            		 $(nTd).html(iRow + 1 + startnum); //分页行号累加：$(nTd).html(iRow+1);
+ 	            		 }
+                	  }
+                 ]
+			 });
+			 
+			
+			table3= $('#table2').DataTable({
+                "searching": false,
+                "ordering": false,
+                "pagingType": "full_numbers",
+                "bLengthChange": false,
+                "language": {
+                    "sLengthMenu": "每页显示 _MENU_ 条记录",
+                    "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                    "sInfoEmpty": "没有数据",
+                    "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+                    "sZeroRecords": "没有检索到数据",
+                    "sSearch": "查找:",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "前一页",
+                        "sNext": "后一页",
+                        "sLast": "尾页"
+                    }
+                },
+			 });
+			
+			  //添加单行选中
+       	   $('#table1 tbody').on( 'click', 'tr', function () {
+       		          if ( $(this).hasClass('selected') ) {
+       		              $(this).removeClass('selected');
+       		          }
+       		          else {
+       		              table2.$('tr.selected').removeClass('selected');
+       		              $(this).addClass('selected');
+       		          }
+       		  } );
+       	  //添加单行选中
+       	   $('#table2 tbody').on( 'click', 'tr', function () {
+       		          if ( $(this).hasClass('selected') ) {
+       		              $(this).removeClass('selected');
+       		          }
+       		          else {
+       		              table3.$('tr.selected').removeClass('selected');
+       		              $(this).addClass('selected');
+       		          }
+       		  } );
+       	  
+       	  
+       	  $("#filter").click(function(){
+       		  layer.open({
+                  type: 1,
+                  title: '查询',
+                  area: ['770px', '280px'], //宽高
+                  content: $('.layer_notice'),
+              });
+       	  });
+       	  
+       	  
+	});
+	
+		function fun_addbill(){//点击单据头字段定义添加
+			layer.open({
+                type: 2,
+                title: '单头自段定义添加',
+                area: ['770px', '280px'], //宽高
+                content: ['material_bill_add.html', 'no'],
+                shadeClose:true
+            });
+			}
+		
+		
+		function fun_addbill2(){
+			layer.open({
+                type: 2,
+                title: '单行自段定义添加',
+                area: ['770px', '280px'], //宽高
+                content: ['material_bill_add.html', 'no']
+            });
+		}
+		function fun_del(){//点击单据头删除
+			if($('#table1 tbody tr').hasClass('selected')){
+      		     table2.row('.selected').remove().draw( false );
+      		          console.log(table2.row('.selected'));
+      		          //可以进行后台删除 然后重新加载数据
+      		}else{
+      			layer.alert("请选择一条数据！");
+      		}
+		}
+		
+		function fun_del2(){//点击单据行删除
+			if($('#table2 tbody tr').hasClass('selected')){
+	      		     table3.row('.selected').remove().draw( false );
+	      		          console.log(table3.row('.selected'));
+	      		          //可以进行后台删除 然后重新加载数据
+	      		}else{
+	      			layer.alert("请选择一条数据！");
+	      		}
+		}
+		
+		function fun_save1(){
+	         layer.alert('保存成功！')
+			}
+		
+		function fun_save2(){
+         layer.alert('单据已保存！')
+		}
+		
+		function fun_publish(){
+			layer.alert("单据已发布！");
+		}
+		
+		function fun_cancel(){
+			layer.confirm("确定取消对单据的修改？",{
+				  btn: ['是','否'] //按钮
+				},function(){
+					 layer.msg('取消成功',{
+						  time:3000
+					  });
+					  window.location.href="/mes-plan/material/material_billsetting.html";
+				},function(){
+					
+				});
+		}
+	
+		
+	
+	
+ </script>
+</body>
+</html>

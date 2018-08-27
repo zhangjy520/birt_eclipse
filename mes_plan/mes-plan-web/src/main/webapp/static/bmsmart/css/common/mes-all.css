@@ -1,0 +1,19 @@
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,button,input,textarea,th,td {margin:0;padding:0;}
+body{font:14px/24px Microsoft YaHei,Arial;color:#666}
+em{font-style:normal;}
+ul,ol {list-style:none;}
+table{border-collapse:collapse;border-spacing:0;}
+td, th,input,textarea,lable,select{vertical-align:middle;}
+blockquote:before,blockquote:after,q:before,q:after {content:"";}
+blockquote,q {quotes:"" "";}img{border:none;}li img{vertical-align:bottom;}
+div,ul,ol,dl,blockquote{_zoom:1;}
+form{margin:0;padding:0}
+.tc {text-align:center;}.tr { text-align:right;}.tl { text-align:left;}.fl{ float:left;}.fr{float:right;}
+.hr_5,.hr_10,.hr_15,.hr_20,.hr_25,.hr_30,.hr_140,.hr_40{clear:both;overflow:hidden;font-size:1px;line-height:1px;}.hr_5{height:5px;}.hr_10{ height:10px;}.hr_15{ height:15px;}.hr_20{ height:20px;}.hr_25{ height:25px;}.hr_30{ height:30px;}.clearfix{clear:both;height:1px;font-size:0;overflow:hidden;}
+.hr_40{height:40px;}
+.hr_140{height:140px;}
+a{text-decoration:none;}a:hover{text-decoration:underline;}
+a.btn01,a.btn02{float:right;display:block;margin:0 5px;height:26px;line-height:26px;font-size:14px;padding:0 10px;background-color:#f5f9fc;border:1px solid #e7ebee}
+a.btn01:hover,a.btn01_show{border-color:#65b8fa;color:#333;text-decoration:none;text-align:center;width:80px;}
+a.btn02{color:#fff;background-color:#65b8fa;border-color:#65b8fa;width:80px;text-align:center;}
+a.btn02:hover,a.btn02_show{border-color:#e7ebee;color:#333;text-decoration:none;width:80px;text-align:center;}

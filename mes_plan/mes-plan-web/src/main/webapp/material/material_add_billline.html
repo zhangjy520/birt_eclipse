@@ -1,0 +1,113 @@
+<!--#include virtual="/mes-plan/include/header.html" -->
+    <style>
+        .control-label{
+            font-size:12px;
+            padding-right:0px;
+        }
+        .col-xs-8,.col-xs-10{
+              padding:0px;  
+        }
+        .line{
+            border:1px solid #dcd9d9;
+            height:1px;
+            width:100%;
+        }
+    </style>
+    <!--添加选择框-->
+      <div class="export container-fluid"  style="width:700px;height:255px;padding:15px;">      
+                  <form class="form-horizontal" role="form" >
+                      <div class="row">
+                          <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">行号：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                          </div>
+                            <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">物料编号：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">物料名称：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                          </div>
+                            <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">型号：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                           <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">规格：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control">
+                              </div>
+                          </div>
+                            <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">物料单位：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" >
+                              </div>
+                          </div>
+                      </div>
+                        <div class="row">
+                           <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">仓库：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control">
+                              </div>
+                          </div>
+                            <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">批号：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" >
+                              </div>
+                          </div>
+                      </div>
+                       <div class="row">
+                           <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">实际数量：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control">
+                              </div>
+                          </div>
+                            <div class="form-group col-xs-6">
+                              <label class="control-label col-xs-4">备注：</label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" >
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+      </div>
+     <div class="line"></div>
+    <!--按钮组-->
+      <div class="btn_group">
+          <div class="row" style="padding:10px;">
+              <div class="col-sm-12">
+                  <div style="float:right;">
+                      <a class="btn btn-primary btn-sm" onclick="fun_add_list()" class="glyphicon glyphicon-plus">&nbsp;添加</a>&nbsp;&nbsp;
+                      <a class="btn btn-default btn-sm" class="glyphicon glyphicon-plus" onclick="parent.layer.closeAll()">&nbsp;取消</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <script type="text/javascript">
+           function fun_add_list(){
+        	   layer.alert("添加成功!",function(){
+        		 var index =  parent.layer.getFrameIndex(window.name);
+        		 parent.layer.close(index);
+        	   });
+        		
+           }
+      </script>
+</body>
+</html>

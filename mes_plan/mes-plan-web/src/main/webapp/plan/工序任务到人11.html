@@ -1,0 +1,492 @@
+<html>
+<head>
+<style type="text/css">
+.comment_bubble {
+    width: 190px;
+    height: 100px;
+    background: #d8ddeb;
+    position: relative;
+	margin: 0 auto;
+}
+  
+.comment_bubble:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid white;
+    border-bottom: 50px solid transparent;
+}  
+
+.comment_bubble:after {
+    content: "";
+    width: 0;
+    height: 0;
+	left:100%;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid #d8ddeb;
+    border-bottom: 50px solid transparent;
+	z-index:10;
+}  
+ 
+ 
+ .comment_bubble_last {
+    width: 185px;
+    height: 100px;
+    background: #d8ddeb;
+    position: relative;
+	margin: 0 auto;
+}
+  
+ 
+
+.comment_bubble_last:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid white;
+    border-bottom: 50px solid transparent;
+}  
+
+
+.comment_bubble_first {
+    width: 170px;
+    height: 100px;
+    background: #b1d2b4;
+    position: relative;
+	margin: 0 auto;
+}
+  
+.comment_bubble_first:after {
+    content: "";
+    width: 0;
+    height: 0;
+	left:100%;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid #b1d2b4;
+    border-bottom: 50px solid transparent;
+	z-index:10;
+}  
+.lable1 {text-align:center}
+
+.lable2 {margin-top:5px;margin-left:20px;float:left}
+
+#tab1 {border:1px solid #999999;border-collapse:collapse}
+.td{border:1px solid #999999 ;padding:4px;min-width:60px}
+
+.main_content{
+				width:766px;
+			   margin:20px auto;
+			}		
+</style>
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style type="text/css">
+
+		  .progress{
+			  height: 25px;
+			  background: #262626;
+			  padding: 5px;
+			  overflow: visible;
+			  border-radius: 20px;
+			  border-top: 1px solid #000;
+			  border-bottom: 1px solid #7992a8;
+			  margin-top: 45px;
+		  }
+		  .progress .progress-bar{
+			  border-radius: 20px;
+			  position: relative;
+			  animation: animate-positive 2s;
+		  }
+		  .progress .progress-value{
+			  display: block;
+			  padding: 3px 7px;
+			  font-size: 13px;
+			  color: #fff;
+			  border-radius: 4px;
+			  background: #191919;
+			  border: 1px solid #000;
+			  position: absolute;
+			  top: -40px;
+			  right: -10px;
+		  }
+		  .progress .progress-value:after{
+			  content: "";
+			  border-top: 10px solid #191919;
+			  border-left: 10px solid transparent;
+			  border-right: 10px solid transparent;
+			  position: absolute;
+			  bottom: -6px;
+			  left: 26%;
+		  }
+		  /*.progress-bar.active{
+			  animation: reverse progress-bar-stripes 0.40s linear infinite, animate-positive 2s;
+		  }*/
+		  @-webkit-keyframes animate-positive{
+			  0% { width: 0; }
+		  }
+		  @keyframes animate-positive{
+			  0% { width: 0; }
+		  }
+</style>
+
+
+
+<style>
+	.time_line_box{
+        position: relative;
+        height: 60px;
+        overflow: hidden;
+		width: 766px;
+		margin: 0 auto;
+    }
+    .time_line{
+        position: absolute;
+		z-index: 1;
+		left: 0;
+		top: 49px;
+		height: 3px;
+		background: #dfdfdf;
+		-webkit-transition: -webkit-transform 0.4s;
+		-moz-transition: -moz-transform 0.4s;
+		transition: transform 0.4s;
+		}
+    .order_item{
+        position: absolute;
+		bottom: 0;
+		z-index: 2;
+		text-align: center;
+		font-size: 13px;
+		padding-bottom: 15px;
+		color: #825FFB;
+		}
+    .order_item:after{
+        content: '';
+		position: absolute;
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%);
+		bottom: -6px;
+		height: 16px;
+		width: 16px;
+		border-radius: 50%;
+		border: 2px solid #dfdfdf;
+		background-color: #f8f8f8;
+		}
+    .selected:after{
+        background-color: #249730;
+		border-color: #249730;
+		}
+    .filling_line{
+        position: absolute;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background-color: #249730;
+		transform-origin: left center;
+		transition-property: transform;
+		transition-duration: 0.3s;
+		transition-timing-function: initial;
+		transition-delay: initial;
+		}
+    .time_tip{
+        width: 100%;
+        height: 100px;
+        line-height: 70px;
+        text-align: center;
+        color: #151BFD;
+        border-bottom: 1px solid #ddd;
+    }
+	a:hover{text-decoration:none}
+	ol{list-style-type:none}
+</style>
+</head>
+<body >
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">本次详情</legend>
+<table id='' style ="margin:0 auto;border-spacing:10px;width:766px">
+<tr>
+<td style="font-size:20px">
+	订单号
+</td>
+<td style="padding:5px">
+	 <span>2016-258</span>
+</td>
+<td style="font-size:20px">
+	加工单号
+</td>
+<td>
+	 <span>2016-258-01</span>
+</td>
+
+</tr>
+
+
+<tr>
+<td style="font-size:20px">
+	计划日期
+</td>
+<td style="padding:5px">
+	2017-07-17
+</td>
+<td style="font-size:20px">
+	 设备单号
+</td>
+<td>
+	 2016-258-01-01 
+</td>
+
+</tr>
+
+
+<tr>
+<td style="font-size:20px">
+	排程日期
+</td>
+<td style="padding:5px">
+	 2017-07-22
+</td>
+<td style="font-size:20px">
+	 落轴方式
+</td>
+<td>
+	 <span style="height:35px;font-size:20px">5米落</span>
+</td>
+
+</tr>
+
+
+<tr>
+<td style="font-size:20px">
+	设备
+</td>
+<td style="padding:5px">
+	整经001
+</td>
+<td colspan=2>
+	  <a href='2.3设备排程.html' style="font-size:16px" target='_blank'>设备排程</a> <a href='2.3设备排程.html' style="font-size:16px" target='_blank'>客户订单进度</a>
+</td>
+</tr>
+
+<tr>
+<td style="font-size:20px">
+	半成品
+</td>
+<td style="padding:5px">
+	小提花
+</td>
+<td style="font-size:20px">
+	是否新品
+</td>
+<td style="padding:5px">
+	否
+</td>
+ 
+</tr>
+<tr>
+<td style="font-size:20px">
+	换产品
+</td>
+<td style="padding:5px;">
+	大提花
+</td>
+<td style="font-size:30px;" rowspan=2>
+	数量
+</td>
+<td style="font-size:30px;" rowspan=2>
+	<span style="font-size:30px;color:#249730">70</span>m
+</td>
+</tr>
+
+<tr>
+<td style="font-size:20px">
+	设备产能
+</td>
+<td style="padding:5px; font-size:20px" >
+	 80m/天
+</td>
+
+</tr>
+
+ 
+</table>
+
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">早班</legend>
+<table style ="margin:0 auto;border-spacing:10px;width:776px">
+<tr>
+<td>
+	<div class='comment_bubble_first' >
+		  <span class='lable2'><strong>拆包工:</strong>员工1,员工2，员工3</span>
+		  <span class='lable2'>工种2</span>
+	</div>
+</td>
+<td>
+	<div class='comment_bubble'>
+		 <span class='lable2'>工种1</span>
+		 <span class='lable2'>工种2</span>
+		 <span class='lable2'>工种3</span>
+	</div>
+</td>
+<td>
+	<div class='comment_bubble'>
+		 <span class='lable2'>工种1</span>
+	</div>
+</td>
+
+<td>
+	<div class='comment_bubble_last'>
+		<span class='lable2'>工种1</span>
+	</div>
+</td>
+
+</tr>
+<tr>
+<td class="lable1">
+	 拆包
+</td>
+<td class="lable1">
+	 上筒
+</td>
+<td class="lable1">
+	 整经
+</td>
+<td class="lable1">
+	落轴
+</td>
+</tr>
+
+
+<tr>
+<td class="lable1" colspan=5 style="text-align:right;padding-top:5px;padding-right:20px">
+	  
+</td>
+</tr>
+
+</table>
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">中班</legend>
+ 
+			<table id="tab" style ="margin:0 auto;border-spacing:0px;width:766px">
+				<tr>
+					<th class='td'>设备</th>
+					<th class='td'>日期</th>
+					<th class='td'>换产品</th>
+					<th class='td'>单号</th>
+					<th class='td'>计划产出</th>
+					<th class='td'>产出</th>
+					<th class='td'>状态</th>
+					<th class='td'>设备排程</th>
+					<th class='td'>齐套快照</th>
+				</tr>
+				<tr>
+					
+					<td class='td' rowspan=5><a>验布机001</a></td>
+					<td class='td' rowspan=2><a href='3.2单号维护.html' target='_blank'>2017-07-17</a></td>
+					<td class='td' >否</td>
+					<td class='td' >2016-258-01-01 </td>
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					<td class='td' >下发</td>
+					<td class='td' >可生产</td>
+					<td class='td'><a target='_blank' href='3.4齐套分析.html'>查看</a></td>
+				</tr>
+				<tr>
+					
+					<td class='td' >否</td>
+					<td class='td' >2016-258-01-03 </td>
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					<td class='td' >下发</td>
+					<td class='td' >可生产</td>
+					<td class='td'></td>
+				</tr>
+				<tr>
+					<td class='td' ><a href='3.2单号维护.html' target='_blank'>2017-07-18</a></td>
+					<td class='td' >否</td>
+					<td class='td' >2016-258-01-02</td>
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					<td class='td' >下发</td>
+					<td class='td' >可生产</td>
+					<td class='td'></td>
+				</tr>
+				<tr>
+					<td class='td' ><a href='3.2单号维护.html' target='_blank'>2017-07-19</a></td>
+					<td class='td' >否</td>
+					<td class='td' >2016-258-01-04</td>
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+				
+					<td class='td' >下发</td>
+					<td class='td' >被占用</td>
+					<td class='td'></td>
+				</tr>
+				<tr>
+					<td class='td' ><a href='3.2单号维护.html' target='_blank'>2017-07-20</a></td>
+					<td class='td' >否</td>
+					<td class='td' >2016-258-01-05</td>
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					
+					<td class='td' >下发</td>
+					<td class='td' >被占用</td>
+					<td class='td'></td>
+				</tr>
+				<tr>
+					<td  class='td'  rowspan=4><a>待指定</a></td>
+					<td class='td' ><a href='3.2单号维护.html' target='_blank'>2017-07-17</a></td>
+					<td class='td' >是</td>
+					<td class='td' >2016-258-01-06</td>
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					
+					<td class='td' >下发</td>
+					<td class='td' >可生产</td>
+					<td class='td'></td>
+				</tr>
+				<tr>
+				
+					<td class='td' ><a href='3.2单号维护.html' target='_blank'>2017-07-18</a></td>
+					<td class='td' >否</td>
+					<td class='td' >2016-258-01-07</td>
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					<td class='td' >下发</td>
+					<td class='td' >可生产</td>
+					<td class='td'></td>
+				</tr>
+				<tr>
+				
+					<td class='td' ><a href='3.2单号维护.html' target='_blank'>2017-07-19</a></td>
+					<td class='td' >否</td>
+					<td class='td' >2016-258-01-08</td>
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					<td class='td' >下发</td>
+					<td class='td' >可生产</td>
+					<td class='td'></td>
+				</tr>
+				<tr>
+				
+					<td class='td' ><a href='3.2单号维护.html' target='_blank'>2017-07-20</a></td>
+					<td class='td' >否</td>
+					<td class='td' >2016-258-01-09</td>
+					<td class='td' >90m</td>
+					<td class='td' ></td>
+					<td class='td' >下发</td>
+					<td class='td' >可生产</td>
+					<td class='td'></td>
+				</tr>
+				 <tr>
+						<td class='td' colspan=9 style="text-align:right"><a target='_blank' href='3.1指定设备.html'>批量指定设备</a></td>
+					</tr>
+			</table>
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">日志</legend>
+</body>
+</html>

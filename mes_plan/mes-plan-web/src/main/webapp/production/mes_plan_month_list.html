@@ -1,0 +1,149 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <style type="text/css">
+			.form-group1{margin-bottom:5px};
+			/* .goods-item:after{content:".";display:block;height:0;clear:both;visibility:hidden} */
+			/* #tab_det th{background-color:#f5f5f5 !important} */
+ </style>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/datapicker/datepicker3.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+<div style="overflow:hidden;" class=" main_content warpper animated fadeInRight">
+<div class="container-fluid panel-custom panel panel-default" >
+    <!-- 生产计划管理 -->
+    <div class="row">
+        <!-- 标题栏  -->
+        <div class="col-sm-12">
+            <h4 class="page-header">生产订单管理</h4>
+        </div>
+    </div>
+    
+    <!-- 快捷查询条件 -->
+    <form id ="from_condition" class="form-horizontal" >  
+    	<table id="condition_tab" class='conditionTab'>
+    		<tr>
+    			<th>生产订单号</th><td><input name='erpBillNo' type="text" class="form-control"/></td>
+    			<th>车间</th><td><select name="workshopId" class="form-control">
+	                  <option value=""></option>
+	                  </select>
+	                  </td>
+    			<th>计划状态</th><td><select name='planStatus' class="form-control"><option value=""></option></select></td>
+    		</tr>
+    		<tr>
+    			<th>半成品/成品</th><td>
+    			 <div class="input-group">
+	                    	<input id="goodsId" name="goodsId" class="form-control"> 
+	                    	<span class="input-group-btn">
+					        <button class="btn btn-default" type="button" onclick="onClickGoods(true,1,PAGESIZE)"><span  class=" glyphicon glyphicon-zoom-in"></span></button>
+					      	</span>
+				      	 </div>
+				 </td>
+    			<th>客户编码</th>
+				    <td>
+				    <div class="input-group">
+	                    	<input id="customerId" name="customerId" class="form-control"> 
+	                    	<span class="input-group-btn">
+					        <button class="btn btn-default" type="button" onclick="onClickUser(true,1,PAGESIZE)"><span  class=" glyphicon glyphicon-zoom-in"></span></button>
+					      	</span>
+				      	 </div>
+				    </td>
+				    <th>订单类型</th><td><select name="billType" class="form-control">
+	                  <option value=""></option>
+	                  </select></td>
+    		</tr>
+    		<tr>
+    			<th>计划开始日期</th><td><div class="input-group date" id="planBeginDate1">
+	                        <input type="text"  name="planBeginDate1" class="form-control">
+	                        <span class="input-group-addon">
+	                            <i class="glyphicon glyphicon-th"></i>
+	                        </span>
+	                    </div></td>
+    			<th>计划结束日期</th><td><div class="input-group date" id="planBeginDate2">
+	                        <input type="text"  name="planBeginDate2" class="form-control">
+	                        <span class="input-group-addon">
+	                            <i class="glyphicon glyphicon-th"></i>
+	                        </span>
+	                    </div></td>
+	           <th>成品订单号</th>
+	           <td><input id='goodsErpBillNo' name='goodsErpBillNo' type="text" class="form-control"/></td>
+    		</tr>
+    	</table>
+    
+            <div  class='conditionBtn' >
+	                <button class="btn btn-primary" onclick="searchOrder(true,1,PAGESIZE);return false;"><span class="glyphicon glyphicon-search"></span>查询</button>
+	                <button class="btn" type="reset" ><span class="glyphicon glyphicon-erase"></span>清空</button>
+	            </div>
+         </form>
+    
+  
+    <div class="panel-default  panelTop">
+		  <div class="panel-heading" style="padding:10px">
+		  	<strong>生产订单列表</strong>
+		  		<!-- <a class="btn btn-primary" href='/mes-plan/production/production_plan_import.html'><span class="glyphicon glyphicon-import"></span>导入Excel计划</a> -->
+                <!-- <a class="btn btn-success" href='/mes-plan/production/mes_plan_month_add.html'><span class="glyphicon glyphicon-plus"></span>新增计划</a> -->
+           </div>
+           <div id="detailTab" style='margin-top:-6px'>
+		  <script id="detailTab.tmp" type="text/html" >
+            <table id="tab_det"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+						<th class="thcls" style="text-align:center;width:26px"></th>
+						<th class="thcls" style="width:14%">订单信息</th>
+                        <th class="thcls" style="width:24%">半成品/成品</th>
+						<th class="thcls" style="width:12%">车间</th>
+                      
+                        <th class="thcls" style="width:10%">数量</th>
+                        <th class="thcls" style="width:16%">客户信息</th>
+						<th class="thcls" style="width:6%">状态</th>
+                        <th class="thcls" style="width:10%">计划日期</th>
+                        <th class="thcls" style="width:6%">操作</th>
+                    </tr>
+                </thead>
+                <tbody id='tabBody'>
+						{{each list listValue}}
+				<tr>
+					<td><input type="checkbox" name='checkflag'>  <input name="id" type="hidden" value="{{listValue.id}}"></td>
+					<td>  
+						<ul>
+							<li><a href="/mes-plan/production/mes_plan_month.html?id={{listValue.id}}">{{listValue.erpBillNo}}</a></li>
+							<li>{{listValue.billType|getDdwName dropdownDatas.plan_order_type}}</li>
+						</ul>  
+					</td>
+                 	<td>  <ul><li>{{listValue.goodsId}}</li><li>{{listValue.goodsName}}</li></ul> </td>
+					<td>{{listValue.workshopId|getMdmName dropdownDatas.workshop}}</td>
+                 	
+                 	<td> <ul><li> 订单:{{listValue.qty}}{{listValue.qtyUnit}}</li>
+								<li>调度:{{listValue.dispatchQty||0}}{{listValue.qtyUnit}}</li>
+								<li>完工:{{listValue.finishQty||0}}{{listValue.qtyUnit}}</li></ul> </td>
+                 	
+                 	<td>  <ul><li>{{listValue.customerId}}</li><li>{{listValue.customerId|getMdmName customerList}}</li></ul> </td>
+					<td>{{listValue.planStatus|getDdwName dropdownDatas.plan_order_status}}</td>
+                 	<td>  <ul><li>{{listValue.planBeginDate}}</li><li>{{listValue.planEndDate}}</li></ul> </td>
+                 	<td>  
+						<ul>
+								<li style="height:30px"><a href="/mes-plan/production/mes_plan_month.html?id={{listValue.id}}" style="font-size:16px">详情</a></li>
+								{{if (listValue.planStatus != '98' && listValue.planStatus != '99' && listValue.planStatus != '100') }}
+								 <li style="height:30px"><a href="/mes-plan/production/mes_plan_dispatch.html?erpId={{listValue.id}}" style="font-size:16px">调度</a></li>
+								{{/if}}
+						</ul>
+					</td>
+                 </tr>
+						{{/each}}
+                </tbody>
+            </table>
+     		
+			</script>
+		</div>
+    
+     </div>
+    </div>
+   </div>
+ </body>
+
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_month_list.js"></script>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/select2/select2.min.css">
+ <script type="text/javascript" src="/mes-plan/static/select2/select2.full.min.js"></script>
+  <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.zh-CN.min.js"></script>
+   <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+</html>

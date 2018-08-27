@@ -1,0 +1,45 @@
+<!--#include virtual="/mes-plan/include/header.html" -->
+ <div class="warpper animated fadeInRight">
+  <!-- 质检操作手册-->
+  <!-- 存在问题 -->
+<div class="container-fluid panel-custom panel panel-default ">
+<!-- 提供操作规章文件的上传、下载功能 -->
+<div class="toolbar row">
+        <div class="col-sm-12">
+            <form class="form-horizontal">
+                <input id="input-1" type="file" class="file" />
+            </form>
+        </div>
+    </div>
+   
+</div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+	$('#input-1').fileinput({
+	language: 'zh', //设置语言
+    uploadUrl: "", //上传的地址,访问的接口地址
+    allowedFileExtensions: ['xls', 'xlsx'],//接收的文件后缀
+	//showCaption: false,是否显示标题
+	//showRemove: false,是否显示移除按钮
+	//showUpload: false,是否显示上传按钮
+	//showPreview : ture, 是否显示预览
+	//showCancel:false,是否显示取消按钮
+	browseClass: "btn btn-primary", //按钮样式 
+	dropZoneEnabled: false,//是否显示拖拽区域
+	//maxFileCount: 10, //表示允许同时上传的最大文件个数
+    validateInitialCount:false,
+    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+   }).on('fileerror', function(event, data, msg) {//异步上传返回错误结果处理
+	    sysAlert("只接受后缀名为xls和xlsx文件！");
+	  }).on("fileuploaded", function(event, data) {//同步上传结果
+	       
+	  }).on("filebatchuploadsuccess", function (event, data, previewId, index) {
+	   //批量同步上传成功结果处理
+   })
+})
+    
+</script>
+</body>
+</html>

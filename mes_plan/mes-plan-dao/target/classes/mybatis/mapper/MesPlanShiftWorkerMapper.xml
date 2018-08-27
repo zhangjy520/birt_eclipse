@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanShiftWorkerDao">
+    
+	<sql id="mesPlanShiftWorkerColumns">
+		a.id AS "id",
+		a.user_id AS "userId",
+		a.worktype_id AS "worktypeId",
+		a.work_status AS "workStatus",
+		a.remarks AS "remarks",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.sheet_id AS "sheetId",
+		a.user_name as "userName",
+		a.shift_style as "shiftStyle"
+	</sql>
+	<sql id="mesPlanShiftWorkerJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanShiftWorker">
+		SELECT 
+			<include refid="mesPlanShiftWorkerColumns"/>
+		FROM mes_plan_shift_worker a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanShiftWorker">
+		SELECT 
+			<include refid="mesPlanShiftWorkerColumns"/>
+		FROM mes_plan_shift_worker a
+		<where>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="worktypeId != null and worktypeId != ''">
+				AND a.worktype_id = #{worktypeId}
+			</if>
+			<if test="workStatus != null and workStatus != ''">
+				AND a.work_status = #{workStatus}
+			</if>
+		</where>
+		ORDER BY shift_style, worktype_id 	
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanShiftWorker">
+		SELECT 
+			<include refid="mesPlanShiftWorkerColumns"/>
+		FROM mes_plan_shift_worker a
+		<include refid="mesPlanShiftWorkerJoins"/>
+		<where>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="worktypeId != null and worktypeId != ''">
+				AND a.worktype_id = #{worktypeId}
+			</if>
+			<if test="workStatus != null and workStatus != ''">
+				AND a.work_status = #{workStatus}
+			</if>
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_shift_worker(
+			id,
+			user_id,
+			worktype_id,
+			work_status,
+			remarks,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			sheet_id,
+			user_name,
+			shift_style
+		) VALUES (
+			#{id},
+			#{userId},
+			#{worktypeId},
+			#{workStatus},
+			#{remarks},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{sheetId},
+			#{userName},
+			#{shiftStyle}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_shift_worker SET 	
+			user_id = #{userId},
+			worktype_id = #{worktypeId},
+			work_status = #{workStatus},
+			remarks = #{remarks},
+			update_user = #{currentUser},
+			update_time = now(),
+			sheet_id = #{sheetId},
+			user_name =  #{userName},
+			shift_style = #{shiftStyle}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_shift_worker
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_shift_worker
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanShiftWorker">
+		SELECT 
+			<include refid="mesPlanShiftWorkerColumns"/>
+		FROM  mes_plan_shift_worker a
+		<include refid="mesPlanShiftWorkerJoins"/>
+		<where>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="worktypeId != null and worktypeId != ''">
+				AND a.worktype_id = #{worktypeId}
+			</if>
+			<if test="workStatus != null and workStatus != ''">
+				AND a.work_status = #{workStatus}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

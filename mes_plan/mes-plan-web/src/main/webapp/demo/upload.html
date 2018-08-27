@@ -1,0 +1,74 @@
+<!--#include virtual="/tpd/caissainclude/head.html" -->
+<div>
+    <h1>测试upload</h1>
+    <img id="loading" alt="" src="/tpd/images/loading.gif">  
+    <form action="/tpd/test/testUpload.do" method="post" enctype="multipart/form-data">
+    	<input type="file" id="fileToUpload" name="fileToUpload">
+   		<button type="button" id="buttonUpload" onclick="return upload();">上传</button>
+   		<input class="easyui-filebox" name="file1" data-options="prompt:'Choose a file...'" style="width:200px;">
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="/tpd/jslib/jquery/ajaxfileupload.js"></script>
+    <style type="text/css">
+        div{
+            width:100%;
+        }
+    </style>
+     <script type="text/javascript">
+        $(document).ready(function(){
+        	$("#loading").hide();
+        });
+ 
+        function upload(){
+        	$("#loading").ajaxStart(function(){
+        		$(this).show();
+        	}).ajaxComplete(function(){
+        		$(this).hide();
+        	});
+            $.ajaxFileUpload({
+                url: '/tpd/test/testUpload2.do', //用于文件上传的服务器端请求地址
+                type:'post',
+                secureuri: false, //是否需要安全协议，一般设置为false
+                fileElementId: 'fileToUpload', //文件上传域的ID
+                dataType: 'json', //返回值类型 一般设置为json
+                success: function (data, status)  //服务器成功响应处理函数
+                {
+                    if (data.succ==true) {
+                        alert(data.msg);
+                    }else{
+                        alert("upload file failure!");
+                    } 
+                },
+                error: function (data, status, e)//服务器响应失败处理函数
+                {
+                    alert(e);
+                }
+            });
+            return true;
+        
+        }
+        
+        function loading (){
+        	$("#loading ").ajaxStart(function(){
+        		$(this).show();
+        	}).ajaxComplete(function(){
+        		$(this).hide();
+        	});
+        	}
+        function getFileName(){
+        	var src00 = "";  
+        	jQuery.each(jQuery("#thefile .item font"), function(i, v){  
+        	    src00 += jQuery(this).text()+",";  
+        	});  
+        	alert(src00); 
+        	}
+    </script>
+    <input type="button" value="getFileName"  onClick="getFileName();" />
+    <div id="thefile">
+<div id="1668076962587971584" class="item caissa-hot" idval="1668076962587971584"><font class="caissa-block caissa-lf" onclick="updatebulkproduct.dowBulks('1668076962587971584')">2.jpg</font><i class="caissa-hot-del"></i><div class="progress progress-striped active" style="display: none;"><div class="progress-bar" role="progressbar" style="width: 100%;"></div></div></div><div id="936920160328115505" class="item caissa-hot" idval="936920160328115505"><font class="caissa-block caissa-lf" onclick="updatebulkproduct.dowBulks('936920160328115505')">1.jpg</font><i class="caissa-hot-del"></i><div class="progress progress-striped active" style="display: none;"><div class="progress-bar" role="progressbar" style="width: 100%;"></div></div></div>
+</div>
+ <div id="thefile2">
+<div id="1668076962587971584" class="item caissa-hot" idval="1668076962587971584"><font class="caissa-block caissa-lf" onclick="updatebulkproduct.dowBulks('1668076962587971584')">2222.jpg</font><i class="caissa-hot-del"></i><div class="progress progress-striped active" style="display: none;"><div class="progress-bar" role="progressbar" style="width: 100%;"></div></div></div><div id="936920160328115505" class="item caissa-hot" idval="936920160328115505"><font class="caissa-block caissa-lf" onclick="updatebulkproduct.dowBulks('936920160328115505')">222233.jpg</font><i class="caissa-hot-del"></i><div class="progress progress-striped active" style="display: none;"><div class="progress-bar" role="progressbar" style="width: 100%;"></div></div></div>
+</div>
+</html>

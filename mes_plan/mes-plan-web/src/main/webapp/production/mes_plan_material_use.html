@@ -1,0 +1,118 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/datapicker/datepicker3.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/>
+<div class=" main_content warpper animated fadeInRight">
+<div class="container-fluid panel-custom panel panel-default" style="padding:20px;">
+    <!-- 生产计划管理 -->
+    <div class="row">
+        <!-- 标题栏  -->
+        <div class="col-sm-12">
+            <h4 class="page-header">物料领用查询</h4>
+        </div>
+    </div>
+    
+    <!-- 快捷查询条件 -->
+    <form id ="from_condition" class="form-horizontal" >
+     <!-- 搜索 -->
+       <table id='condition_tab' class='conditionTab'>
+       	<th>车间</th>
+       	<td>
+       		<select name="workshopId" class="form-control">
+          	<option value=""></option>
+          	</select>
+        </td>
+       	<th>调度日期</th>
+       	<td><div class="input-group date" id="scheduleDate">
+                    	<input type="text"  name="scheduleDate"  class="form-control">
+                    	<span class="input-group-addon">
+                        	<i class="glyphicon glyphicon-th"></i>
+                    	</span>
+                	</div> 		
+        </td>
+        <th>生产订单号</th>
+       	<td>
+       		<input name="erpBillNo" class="form-control" type='text'/>
+        </td>
+       </table>
+        <div class='conditionBtn'>
+          <button class="btn btn-primary" onclick="searchOrder(true,1,10);return false;"><span class="glyphicon glyphicon-search"></span>查询</button>
+          <button class="btn" type="reset" ><span class="glyphicon glyphicon-erase"></span>清空</button>
+      </div>
+    </form>
+    
+    <div class="panel-default panelTop">
+		  <div class="panel-heading" style="padding:10px">
+		  	<strong>原材料列表</strong>
+		  		<!-- <a class="btn btn-success" href='/mes-plan/production/production_plan_import.html'><span class="glyphicon glyphicon-import"></span>导入Excel计划</a>
+                <a class="btn btn-success" href='/mes-plan/production/production_plan_add.html'><span class="glyphicon glyphicon-plus"></span>新增计划</a> -->
+           </div>
+           <div id="detailTab">
+		  <script id="detailTab.tmp" type="text/html" >
+            <table id="tab_det" style="margin-top:-1px"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+						<th class='thcls'>车间</th>
+						<th class='thcls'>日期</th>
+						<th class='thcls'>原材料</th>
+                        <th class='thcls'>数量</th>
+						<th class='thcls'>单位</th>
+                        <th class='thcls'>生产订单号</th>
+						<!--th class='thcls'>车间调度单号</th>-->
+						<th class='thcls'>批次</th>
+						<th class='thcls'>管头</th>
+                    </tr>
+                </thead>
+                <tbody>
+					{{each list listValue}}
+					<tr>
+						<td>{{listValue.workshopId |getDdwName dropdownDatas.workshop}} </td>  
+						<td>{{listValue.scheduleDate}} </td>  
+						<td>  
+						<ul>
+							<li>
+								{{listValue.goodsName||listValue.goodsId}} 
+							</li>
+						</ul>
+						</td>
+                 		<td>
+							{{listValue.qty}} 
+					 	</td>
+						<td>
+							{{listValue.unit}} 
+					 	</td>
+                 		<td> 
+							{{listValue.erpBillNo}} 
+						</td>
+                 		<!--<td> 
+							{{listValue.billNo}} 
+						</td>-->
+						<td> 
+							{{listValue.batchNo}} 
+						</td>
+						<td> 
+							{{listValue.batchProp1}} 
+						</td>
+                	 </tr>
+					{{/each}}
+                </tbody>
+            </table>
+			</script>
+		</div>
+    
+     </div>
+    <!--  查询生成表单-->
+    <div class="row">
+        
+      </div>
+    </div>
+    </div>
+ </body>
+ 
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_material_use.js"></script>
+  <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.zh-CN.min.js"></script>
+ 
+</html>

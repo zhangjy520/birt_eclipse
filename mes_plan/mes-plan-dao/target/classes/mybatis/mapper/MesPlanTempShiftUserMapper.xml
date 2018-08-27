@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanTempShiftUserDao">
+    
+	<sql id="mesPlanTempShiftUserColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.technic_id AS "technicId",
+		a.qty AS "qty",
+		a.technic_begin_date AS "technicBeginDate",
+		a.technic_end_date AS "technicEndDate",
+		a.technic_user AS "technicUser",
+		a.remarks AS "remarks",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.technic_unit AS "technicUnit",
+		a.src_bill_no as "srcBillNo",
+		a.worktype_id as "worktypeId", 
+		a.device_sub_id as "deviceSubId",
+		a.task_status as "taskStatus",
+		a.technic_name as "technicName",
+		a.p_technic_id as "ptechnicId",
+		a.p_technic_name as "ptechnicName",
+		a.task_user as "taskUser",
+		a.task_time as "taskTime"
+	</sql>
+	<sql id="mesPlanTempShiftUserJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanTempShiftUser">
+		SELECT 
+			<include refid="mesPlanTempShiftUserColumns"/>
+		FROM mes_plan_temp_shift_user a
+		WHERE a.id = #{id}
+	</select>
+ 
+	
+	<select id="findList" resultType="MesPlanTempShiftUser">
+		SELECT 
+			<include refid="mesPlanTempShiftUserColumns"/>
+		FROM mes_plan_temp_shift_user a
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="technicId != null and technicId != ''">
+				AND a.technic_id = #{technicId}
+			</if>
+			<if test="srcBillNo != null and srcBillNo != ''">
+				AND a.src_bill_no = #{srcBillNo}
+			</if>
+			<if test="worktypeId != null and worktypeId != ''">
+				AND a.worktype_id = #{worktypeId}
+			</if>
+			<if test="deviceSubId != null and deviceSubId != ''">
+				AND a.device_sub_id = #{deviceSubId}
+			</if>
+		</where>
+		ORDER BY technic_id 	
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanTempShiftUser">
+		SELECT 
+			<include refid="mesPlanTempShiftUserColumns"/>
+		FROM mes_plan_temp_shift_user a
+		<include refid="mesPlanTempShiftUserJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_temp_shift_user(
+			id,
+			sheet_id,
+			technic_id,
+			qty,
+			technic_begin_date,
+			technic_end_date,
+			technic_user,
+			technic_unit,
+			src_bill_no,
+			worktype_id,
+			device_sub_id,
+			task_status,
+			technic_name,
+			p_technic_id,
+			<!-- p_technic_name, -->
+			create_user,
+			create_time,
+			update_user,
+			update_time
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{technicId},
+			#{qty},
+			#{technicBeginDate},
+			#{technicEndDate},
+			#{technicUser},
+			#{technicUnit},
+			#{srcBillNo},
+			#{worktypeId},
+			#{deviceSubId},
+			#{taskStatus},
+			#{technicName},
+			#{ptechnicId},
+			<!-- #{ptechnicName}, -->
+			#{currentUser},
+			now(),
+			#{currentUser},
+			now()
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_temp_shift_user SET 	
+			sheet_id = #{sheetId},
+			technic_id = #{technicId},
+			qty = #{qty},
+			technic_begin_date = #{technicBeginDate},
+			technic_end_date = #{technicEndDate},
+			technic_user = #{technicUser},
+			technic_unit = #{technicUnit},
+			worktype_id = #{worktypeId},
+			device_sub_id = #{deviceSubId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateTaskStatus">
+		UPDATE mes_plan_temp_shift_user SET 	
+			task_status = #{taskStatus},
+			task_user = #{taskUser},
+			task_time = now()
+		WHERE id = #{id}
+		<if test="taskStatus != null and taskStatus == '10'">
+			and (task_status is null or task_status='0')
+		</if>
+		<if test="taskStatus != null and taskStatus == '100'">
+			AND task_status = '10'
+		</if>
+		
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_temp_shift_user
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_temp_shift_user
+		WHERE id = #{id}
+	</update>
+	<select id="findByMap" resultType="MesPlanTempShiftUser">
+		SELECT 
+			<include refid="mesPlanTempShiftUserColumns"/>
+		FROM  mes_plan_temp_shift_user a
+		<include refid="mesPlanTempShiftUserJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="technicId != null and technicId != ''">
+				AND a.technic_id = #{technicId}
+			</if>
+			<if test="worktypeId != null and worktypeId != ''">
+				AND a.worktype_id = #{worktypeId}
+			</if>
+			<if test="deviceSubId != null and deviceSubId != ''">
+				AND a.device_sub_id = #{deviceSubId}
+			</if>
+		</where>
+	</select>
+	
+		
+	<select id="getUserTaskList" resultType="MesPlanTempShiftUser">
+		SELECT 
+			<include refid="mesPlanTempShiftUserColumns"/>
+		FROM mes_plan_temp_shift_user a join mes_plan_temp_shift_head b on a.sheet_id = b.sheet_id
+		 <where>
+		    <if test="shiftDate != null ">
+				and b.shift_date = #{shiftDate}
+			</if>
+			<if test="shiftDate1 != null ">
+				and b.shift_date &gt;= #{shiftDate1}
+			</if>
+			
+			<if test="shiftDate2 != null ">
+				and b.shift_date &lt;= #{shiftDate2}
+			</if>
+		 	
+		 	<if test="workshopId != null and workshopId != ''">
+				and b.workshop_id = #{workshopId} 
+			</if>
+			
+			<if test="workcenterId != null and workcenterId != ''">
+				and b.workcenter_id = #{workcenterId}
+			</if>
+			
+			<if test="shiftId != null and shiftId != ''">
+				and b.shift_id = #{shiftId}
+			</if>
+			
+			<if test="shiftStyle != null and shiftStyle != ''">
+				and b.shift_style = #{shiftStyle}
+			</if>
+			
+			<if test="goodsId != null and goodsId != ''">
+				and a.src_bill_no in (SELECT bill_no FROM mes_plan_temp_task_det WHERE plan_sheet_id IN (SELECT erp_bill_no FROM mes_plan_month where goods_id= #{goodsId} ))
+			</if>
+			
+			<if test="deviceId != null and deviceId != ''">
+				and a.src_bill_no in (	SELECT bill_no FROM bill_no WHERE deviceId = #{deviceId} )
+			</if>
+			
+			<if test="technicUser != null and technicUser != ''">
+				AND (
+					a.technic_user = #{technicUser} or 
+					a.technic_user like CONCAT(#{technicUser}, ',%')  or 
+					a.technic_user like CONCAT('%,', #{technicUser}) or 
+					a.technic_user like CONCAT('%,', #{technicUser},',%')
+				)
+			</if>
+			
+			<if test="ptechnicId != null and ptechnicId != ''">
+				AND a.p_technic_id = #{ptechnicId}
+			</if>
+			
+			<if test="technicId != null and technicId != ''">
+				AND a.technic_Id = #{technicId}
+			</if>
+			<if test="worktypeId != null and worktypeId != ''">
+				AND a.worktype_id = #{worktypeId}
+			</if>
+			<if test="srcBillNo != null and srcBillNo != ''">
+				AND a.src_bill_no = #{srcBillNo}
+			</if>
+			<if test="taskStatus != null and taskStatus != '' and taskStatus == 0 ">
+				AND (a.task_status = #{taskStatus} or a.task_status is Null or   a.task_status='')
+			</if>
+			<if test="taskStatus != null and taskStatus != '' and taskStatus != 0 ">
+				AND a.task_status = #{taskStatus}
+			</if>
+		 	<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			
+			 <choose>
+		        <when test="shiftStatus != null and shiftStatus != ''">
+		           AND a.src_bill_no in (select bill_no from mes_plan_temp_task_det WHERE shift_status = #{shiftStatus})
+		        </when>
+		        <otherwise>
+		            AND a.src_bill_no in (select bill_no from mes_plan_temp_task_det WHERE shift_status  IN  ('10','20','98','99','100'))
+		        </otherwise>
+		    </choose>
+     	</where>
+     	order by a.update_time desc,a.id
+	</select>
+	
+</mapper>

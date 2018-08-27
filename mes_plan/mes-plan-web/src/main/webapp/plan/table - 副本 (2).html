@@ -1,0 +1,308 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<style type="text/css">
+	    button{
+	    	margin-top:-5px;
+	    }
+	    label{
+	    	width:70px;
+	    	text-align:right;
+	    }
+	    .form-control{
+	    	width:200px !important;
+	    	margin-bottom:5px;
+	    }
+	    /* reset */
+	    :focus {
+	        outline: 0;
+	    }
+	
+	    input, textarea, select {
+	        -webkit-appearance: none;
+	    }
+	
+	    body {
+	        font-family: Tahoma, Helvetica, Arial, sans-serif;
+	        font-size: 12px;
+	    }
+	
+	    ol, ul {
+	        list-style: none;
+	    }
+	    .clearfix:before, .clearfix:after {
+	        content: "\0020";
+	        display: block;
+	        height: 0;
+	        overflow: hidden;
+	    }
+	
+	    .clearfix:after {
+	        clear: both;
+	    }
+	
+	    .clearfix {
+	        zoom: 1;
+	    }
+	    /* view-menu */
+	
+	    #ul_services {
+	        width: 895px;
+	        /*margin: 8px auto;*/
+	        margin: 8px 0px;
+	        font-size: 12px;
+	        border-top: 1px solid #cccccc;
+	        border-left: 1px solid #cccccc;
+	        border-bottom: 1px solid #cccccc;
+	    }
+	
+	    #ul_services h5{
+	        margin: 0;
+	        padding: 0;
+	        border: 0;
+	        outline: 0;
+	        font-weight: inherit;
+	        font-style: inherit;
+	        font-size: 100%;
+	        font-family: inherit;
+	        vertical-align: baseline;
+	        height: 22px;
+	    }
+	    #ul_services ul, #ul_services li {
+	        margin: 0;
+	        padding: 0;
+	    }
+	    #ul_services :focus {
+	        outline: 0;
+	    }
+	    #ul_services input {
+	        -moz-appearance: none;
+	        -webkit-appearance: none;
+	    }
+	
+	    #ul_services ul {
+	        list-style: none;
+	        position: relative;
+	    }
+	    #ul_services h5 span {
+	        display: block;
+	        float: left;
+	        border-right: 1px solid #cccccc;
+	        padding: 5px 0px;
+	        text-align: center;
+	    }
+	    #ul_services li {
+	        line-height: 2em;
+	    }
+	    #ul_services h5 span:last-child {
+	        border-right: none;
+	    }
+	    .w_90 {
+	        width: 150px;
+	    }
+	    .w_140 {
+	        width: 105px;
+	    }
+	    .w_180 {
+	        width: 140px;
+	    }
+	    .w_100 {
+	        width: 106px;
+	    }
+	    .level_1 > li, .level_2 > li {
+	        clear: both;
+	        border-top: 1px solid #cccccc;
+	    }
+	    .level_3 >ul>li{
+	        padding: 5px !important;
+	        border-top: 1px solid #cccccc;
+	        border-right: 1px solid #cccccc;
+	    }
+	
+	    .level_3 >ul :first-child {
+	        padding: 5px !important;
+	        border-top: none !important;
+	
+	    }
+	    .level_1 > li > span, .level_2 > li > span, .item_ui {
+	        padding: 5px 5px!important;
+	        display: block;
+	        float: left;
+	    }
+	
+	    .item_ui_level3{
+	        display: block;
+	        float: left;
+	    }
+	    .level_1 > li:after {
+	        position: absolute;
+	        content: " ";
+	        width: 1px;
+	        height: 100%;
+	        left:150px;
+	        top: 0;
+	        background: #cccccc;
+	    }
+		
+		 .level_2 > li:after {
+	        position: absolute;
+	        content: " ";
+	        width: 1px;
+	        height: 100%;
+	        left:150px;
+	        top: 0;
+	        background: #cccccc;
+	    }
+		
+	    .level_1 > li > span {
+	        border-left: none;
+	    }
+	    .level_2, .level_3 {
+	        float: left;
+	        border-left: 1px solid #cccccc;
+	    }
+	    .level_2 > li:first-child {
+	        border-top: none;
+	    }
+	    .item_ui {
+	        float: left;
+	        border-right: 1px solid #cccccc;
+	        margin-right: -1px!important;;
+	    }
+	    .level_2 .item_ui:last-child {
+	        float: left;
+	        border-right: none;
+	        border-left: 1px solid #cccccc;
+	        margin-right: 0;
+	    }
+	    .item_ui li {
+	        display: block;
+	        margin-right: 10px;
+	    }
+	    .item_ui li label {
+	        padding-left: 2px;
+	    }
+	   
+		
+		 
+        </style>
+</head>
+<body>
+<div id="ul_services" >
+			<h5>
+		        <span style="width: 275px">营销调度</span>
+		        <span style="width: 299.5px">车间调度</span>
+		        <span style="width: 211.5px">值班长排班</span>
+		        <span style="width: 105px ;border-right: 1px solid #cccccc">已完工数量</span>
+		    </h5>
+		    <h5 style="clear:both;border-top:1px solid #ccc">
+		        <span style="width: 150px">释放明细</span>
+		        <span style="width: 124px">数量</span>
+		        <span style="width: 150px">并行加工单</span>
+				<span style="width: 148.5px">并行加工数量</span>
+		        <span style="width: 105.5px">生产排程</span>
+				<span style="width: 105px">生产排程数量</span>
+		        <span style="width: 105px ;border-right: 1px solid #cccccc">已完工数量</span>
+		    </h5>
+		    <ul class="level_1 clearfix" >
+		        <li class="clearfix">
+		            <span class="w_90">2016-258-01</span>
+		            <span class="w_140">1200m</span>
+		            <ul class="level_2"  >
+		                <li>
+		                    <span class="w_180" >2016-258-01-01</span>
+							<span class="w_180" >600m</span>
+		                    <div class="level_3"    >
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li>2016-05-09早班</li>
+									<li>2016-05-09中班</li>
+									<li>2016-05-09晚班</li>
+		                        </ul>
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li>200m</li>
+									<li>200m</li>
+									<li>200m</li>
+		                        </ul>
+								<ul class="item_ui_level3 w_100" >
+		                            <li>200m</li>
+									<li>200m</li>
+									<li>200m</li>
+		                        </ul>
+		                    </div>
+		
+		                </li>
+						
+						<li>
+		                    <span class="w_180" >2016-258-01-02</span>
+							<span class="w_180" >600m</span>
+		                    <div class="level_3"    >
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li>2016-05-10早班</li>
+									<li>2016-05-10中班</li>
+									<li>2016-05-10晚班</li>
+		                        </ul>
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li>200m</li>
+									<li>200m</li>
+									<li>200m</li>
+		                        </ul>
+								<ul class="item_ui_level3 w_100" >
+		                            <li>200m</li>
+									<li>200m</li>
+									<li>200m</li>
+		                        </ul>
+		                    </div>
+		
+		                </li>
+		
+		            </ul>
+		        </li>
+				<li class="clearfix">
+		            <span class="w_90">2016-258-02</span>
+		            <span class="w_140">2000m<a href=''>  释放</a></span>
+		            <ul class="level_2"  >
+		                <li>
+		                    <span class="w_180" >2016-258-02-01</span>
+							<span class="w_180" >600m</span>
+		                    <div class="level_3"    >
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li><a href=''>未排程</a></li>
+		                        </ul>
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li>未排程</li>
+		                        </ul>
+								<ul class="item_ui_level3 w_100" >
+		                            <li>未排程</li>
+		                        </ul>
+		                    </div>
+		
+		                </li>
+						
+						<li>
+		                    <span class="w_180" >2016-258-02-02</span>
+							<span class="w_180" >600m</span>
+		                    <div class="level_3"    >
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li><a href=''>未排程</a></li>
+		                        </ul>
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li>未排程</li>
+		                        </ul>
+								<ul class="item_ui_level3 w_100" >
+		                            <li>未排程</li>
+		                        </ul>
+		                    </div>
+		
+		                </li>
+		
+		            </ul>
+		        </li>
+		    </ul>
+		</div>
+</body>
+</html>
+
+
+
+
+ 

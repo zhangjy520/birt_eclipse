@@ -1,0 +1,133 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <style type="text/css">
+			.form-group1{margin-bottom:5px};
+			.goods-item:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+			 
+ </style>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/>
+<div class=" main_content warpper animated fadeInRight" style="overflow-x:hidden">
+<div class="container-fluid panel-custom panel panel-default">
+    <!-- 生产计划管理 -->
+    <div class="row">
+        <!-- 标题栏  -->
+        <div class="col-sm-12">
+            <h4 class="page-header">班组排程查询</h4>
+        </div>
+    </div>
+    
+    <!-- 快捷查询条件 -->
+    <form id ="from_condition" class="form-horizontal" >
+     	<table id='condition_tab' class='conditionTab'>
+     	<tr>
+     	<th>车间</th><td><select name="workshopId" class="form-control">
+                   		<option value=""></option>
+                   </select></td>
+     	<th>工作中心</th><td><select name="workcenterId" class="form-control">
+                  <option value=""></option>
+                  </select></td>
+        <th>排程人</th><td><input name='scheduleUser' type="text" class="form-control"/></td>
+     	</tr>
+     	
+     	<tr>
+     	<th>排程日期</th><td> <!-- <input name='scheduleDate' type="date" class="form-control"/> -->
+                   <div class="input-group date" id="scheduleDate">
+                        <input type="text"  name="scheduleDate" class="form-control">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-th"></i>
+                        </span>
+                    </div></td>
+     	
+     	</tr>
+     	
+     <!-- 	<tr>
+     	<th>单据状态</th><td><select name='sheetStatus' class="form-control">
+     				<option value=""></option>
+                  <option value="0">新增</option>
+                  <option value="10">领料</option>
+                  </select></td>
+     	<th></th><td></td>
+     	</tr> -->
+     	
+     	</table>
+       
+         <div class='conditionBtn' >
+                <button class="btn btn-primary" onclick="searchOrder(true,1,PAGESIZE);return false;"><span class="glyphicon glyphicon-search"></span>查询</button>
+                <button class="btn" type="reset" ><span class="glyphicon glyphicon-erase"></span>清空</button>
+            </div>
+    </form>
+    
+    
+    <div class="panel-default panelTop">
+		  <div class="panel-heading" style="padding:0px;text-align:right">
+		  		<strong class='panelTitleFloat'>班组排程列表</strong>
+                <a class="btn btn-primary" href='/mes-plan/production/mes_plan_device_schedule.html'><span class="glyphicon glyphicon-plus"></span>新增排程</a>
+           </div>
+           <div id="detailTab">
+		  <script id="detailTab.tmp" type="text/html" >
+            <table id="tab_det" style="margin-top:-1px"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+						<th class='thcls'>排程日期</th>
+						<th class='thcls'>车间</th>
+                        <th class='thcls'>工作中心</th>
+                        <th class='thcls'>排程人</th>
+						<th class='thcls'>操作人</th>
+						<th class='thcls'>操作时间</th>
+                        <th class='thcls'>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+						{{each list listValue}}
+				<tr>
+					<td>  
+						{{listValue.scheduleDate}}
+					</td>
+                 	<td> 	
+						 {{listValue.workshopId|getMdmName workshopList}}
+					 </td>
+                 	<td>  {{listValue.workcenterId|getMdmName workcenterList}}
+					</td>
+                 	<td> 
+						{{listValue.scheduleUserName}}
+					 </td>
+					<td> 
+						{{listValue.updateUserName}}
+					 </td>
+					<td> 
+						{{listValue.updateTime}}
+					 </td>
+					 <td>  
+						<ul>
+						
+						<li>
+							{{if (listValue.sheetStatus) == '10'}}<a href="/mes-plan/production/mes_plan_material_use.html?scheduleDate={{listValue.scheduleDate}}">查看领料</a>{{/if}}
+						</li>
+						<li>
+							<a href="/mes-plan/production/mes_plan_device_schedule.html?id={{listValue.id}}">详情</a>
+						</li>
+						<li>
+							<a href='#' onclick="on_del_sheet(this,'{{listValue.id}}','{{listValue.sheetId}}')">删除</a>
+						</li>
+						</ul>  
+					</td>
+                 </tr>
+				{{/each}}
+                </tbody>
+            </table>
+
+        
+			</script>
+		</div>
+    
+     </div>
+    <!--  查询生成表单-->
+    <div class="row">
+        
+      </div>
+    </div>
+    </div>
+ </body>
+ 
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_device_schedule_list.js"></script>
+</html>

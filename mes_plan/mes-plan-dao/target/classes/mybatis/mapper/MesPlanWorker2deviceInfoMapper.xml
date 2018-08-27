@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanWorker2deviceInfoDao">
+    
+	<sql id="mesPlanWorker2deviceInfoColumns">
+		a.id AS "id",
+		a.user_id AS "userId",
+		a.device_id AS "deviceId",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks",
+		a.device_sub_id AS "deviceSubId",
+		a.user_name AS "userName",
+		a.shift_id as "shiftId",
+		a.shift_name as "shiftName",
+		a.worktype_id as "worktypeId",
+		a.worktype_name as "worktypeName"
+	</sql>
+	<sql id="mesPlanWorker2deviceInfoJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanWorker2deviceInfo">
+		SELECT 
+			<include refid="mesPlanWorker2deviceInfoColumns"/>
+		FROM mes_plan_worker2device_info a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanWorker2deviceInfo">
+		SELECT 
+			<include refid="mesPlanWorker2deviceInfoColumns"/>
+		FROM mes_plan_worker2device_info a
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND a.user_name = #{userName}
+			</if>
+			<if test="deviceId != null and deviceId != ''">
+				AND a.device_id = #{deviceId}
+			</if>
+			<if test="shiftId != null and shiftId != ''">
+				AND a.shift_id = #{shiftId}
+			</if>
+			<if test="worktypeId != null and worktypeId != ''">
+				AND a.worktype_id = #{worktypeId} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanWorker2deviceInfo">
+		SELECT 
+			<include refid="mesPlanWorker2deviceInfoColumns"/>
+		FROM mes_plan_worker2device_info a
+		<include refid="mesPlanWorker2deviceInfoJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_worker2device_info(
+			id,
+			user_id,
+			device_id,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks,
+			device_sub_id,
+			user_name,
+			shift_id,
+			shift_name,
+			worktype_id,
+			worktype_name
+		) VALUES (
+			#{id},
+			#{userId},
+			#{deviceId},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{remarks},
+			'0',
+			#{userName},
+			#{shiftId},
+			#{shiftName},
+			#{worktypeId},
+			#{worktypeName}
+		)
+	</insert>
+	
+	
+	<update id="updateByUk">
+		UPDATE mes_plan_worker2device_info SET 	
+			user_id = #{userId},
+			update_user = #{currentUser},
+			update_time = now(),
+			remarks = #{remarks},
+			device_sub_id = '0',
+			user_name = #{userName},
+			shift_name = #{shiftName},
+			worktype_name = #{worktypeName}
+		WHERE shift_id = #{shiftId} 
+		  and worktype_id = #{worktypeId}
+		  and device_id = #{deviceId}
+	</update>
+	
+	<update id="update">
+		UPDATE mes_plan_worker2device_info SET 	
+			user_id = #{userId},
+			device_id = #{deviceId},
+			update_user = #{currentUser},
+			update_time = now(),
+			remarks = #{remarks},
+			device_sub_id = #{deviceSubId},
+			user_name = #{userName},
+			shift_id = #{shiftId},
+			shift_name = #{shiftName},
+			worktype_id = #{worktypeId},
+			worktype_name = #{worktypeName}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_worker2device_info
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_worker2device_info
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanWorker2deviceInfo">
+		SELECT 
+			<include refid="mesPlanWorker2deviceInfoColumns"/>
+		FROM  mes_plan_worker2device_info a
+		<include refid="mesPlanWorker2deviceInfoJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND a.user_name = #{userName}
+			</if>
+			<if test="device_id != null and device_id != ''">
+				AND a.device_id = #{deviceId}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

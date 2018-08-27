@@ -1,0 +1,322 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <!--#include virtual="/mes-plan/include/echarts.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/mes_plan_month.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+ <style>
+
+	a:hover {text-decoration:none}
+
+ </style>
+ <!-- 生产计划明细 -->
+<div class="warpper animated fadeInRight" style="overflow-x:hidden">     
+     <div class="container-fluid panel-custom panel panel-default" >
+        <div class="row">
+		       <div class="col-sm-12">
+		           <h4 class="page-header">生产计划调度新增</h4>
+		       </div>
+   	    </div> 
+   	 <div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">按时段按设备估算产量</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">按时段按产量推算设备</a></li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+    	<form id="dispatchForm">
+    	<input type="hidden" id="id" name="id" value="1"/>
+    	
+		<table style ="margin:0 auto;border-spacing:10px;width:100%">
+			<tr>
+			<td style="font-size:20px"  >
+				计划时间
+			</td>
+			<td style="padding:5px">
+				 <input id="planBeginDate" name="planBeginDate" style="height:35px;" type='date' value='2017-07-17' class="form-control" onchange="setDeviceTotal2('#deviceQty','#deviceChangeQty','#capacityInput',this,'#planEndDate')"></input>
+			</td>
+			<td style="font-size:20px"  >
+				至
+			</td>
+			
+			<td style="padding:5px">
+				<input id="planEndDate" name="planEndDate" style="height:35px;" type='date' value='2017-07-22' class="form-control"  onchange="setDeviceTotal2('#deviceQty','#deviceChangeQty','#capacityInput','#planBeginDate',this)"></input> 
+			</td>
+			
+			
+			</tr>
+			
+			<tr>
+			<td style="font-size:20px">
+				 工作中心
+			</td>
+			<td style="padding:5px">
+				 <select id="workCenter" name="workCenter" class="form-control" value="1">
+                  <option value=""></option>
+                  <option value="1"  selected = "selected">必佳乐340</option>
+                  <option value="2">津田驹340</option>
+                  <option value="3">舒美特190</option>
+                  <option value="4">结经机（一织）</option>
+                  <option value="5">结经机（二织）</option>
+                  </select>
+                  
+			</td>
+			<td style="font-size:20px">
+				设备产能
+			</td>
+			<td style="padding-top:10px;" >
+				<div class="form-group">
+				 <input id="capacityInput" name="capacityInput" onfocus="$(this).select()" onchange="$('#capacitySpan').text(this.value);setDeviceTotal2('#deviceQty','#deviceChangeQty',this,'#planBeginDate','#planEndDate')" onblur="$(this).css('display','none');$('#capacitySpan').css('display','inline-block');" placeholder="请输入产能" style="height:35px;width:100px;display:none" type='text' value='90'></input> <span id="capacitySpan">90</span>M/天<a onclick="$('#capacityInput').css('display','inline-block');$('#capacitySpan').css('display','none');$('#capacityInput').focus();return;">修改</a>
+				 </div>
+			</td>
+			
+			</tr>
+			
+			<tr>
+			<td style="font-size:20px">
+				可用设备
+			</td>
+			<td style="padding:5px">
+				<div class="form-group">
+				 	<input id="deviceQty" onfocus="$(this).select()" onchange="setDeviceTotal2(this,'#deviceChangeQty','#capacityInput','#planBeginDate','#planEndDate')" name="deviceQty" class="form-control" style="height:35px;" type='text' value='30'></input>
+				</div>
+			</td>
+			<td  colspan=2>
+				  <a target='_blank' href='2.3设备排程.html'>计划时间段内28-30台直接可用</a>
+			</td>
+			</tr>
+			
+			<tr>
+			<td style="font-size:20px">
+				设备(换产品)
+			</td>
+			<td style="padding:5px">
+				<div class="form-group">
+				 <input id="deviceChangeQty" onfocus="$(this).select()" onchange="setDeviceTotal2('#deviceQty',this,'#capacityInput','#planBeginDate','#planEndDate')" name="deviceChangeQty"  class="form-control" style="height:35px;" type='text' value='5'></input>
+				</div>
+			</td>
+			<td  style="font-size:20px">
+				 换产品
+			</td>
+			<td>
+				<lable id="deviceChangeGoodsId" name="deviceChangeGoodsId">大提花</lable>
+			</td>
+			</tr>
+			<tr>
+			<td style="font-size:20px">
+			详细说明
+			</td>
+			<td style="padding:5px;" colspan=3>
+				 <input  id="deviceRequire" name="deviceRequire" class="form-control" style="width:95%;height:35px;" type='text' placeholder="请输入其换产品要求"></input>
+			</td>
+			</tr>
+			 
+			<tr>
+			<td style="font-size:20px;text-align:right" colspan=4>
+				本次调度设备<span id="diviceTotalSpan" style="font-size:30px;color:#249730">0</span>台，数量<input id="dispatchQty" name="dispatchQty" type="text" style="display:none;width:100px" value="0" onfocus="$(this).select()" onblur="$(this).css('display','none');$('#dispatchQtySpan').css('display','inline-block');" onchange="$('#dispatchQtySpan').text(this.value);"/><a title="点击修改" href="#" ><span id="dispatchQtySpan" style="font-size:30px;color:#249730" onclick="$(this).css('display','none');$('#dispatchQty').css('display','inline-block');$('#dispatchQty').focus();return false;" >0</span></a>m
+			</td>
+			 </tr>
+			</table>
+			</form>
+	</div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+			<table style ="margin:0 auto;border-spacing:10px;width:100%">
+			<tr>
+			<td style="font-size:30px" rowspan=2>
+				计划时间
+			</td>
+			<td style="padding:5px">
+				 <input style="height:35px;font-size:20px" type='text' value='2017-07-17'></input>
+			</td>
+			<td style="font-size:20px">
+				 工作中心
+			</td>
+			<td>
+				 <input style="height:35px;font-size:20px" type='text' value='津田驹340'></input>
+			</td>
+			
+			</tr>
+			
+			<tr>
+			
+			<td style="padding:5px">
+				<input style="height:35px;font-size:20px" type='text' value='2017-07-22'></input> 
+			</td>
+			<td style="font-size:20px">
+				 落轴方式
+			</td>
+			<td>
+				 <input style="height:35px;font-size:20px" type='text' value='5米落'></input>
+			</td>
+			
+			</tr>
+			
+			
+			<tr>
+			<td style="font-size:20px">
+				设备
+			</td>
+			<td style="padding:5px">
+				 <input style="height:35px;font-size:20px" type='text' value='30'></input>
+			</td>
+			<td  colspan=2>
+				  <a style="font-size:20px" target='_blank' href='2.3设备排程.html'>计划时间段内28-30台可用</a>
+			</td>
+			</tr>
+			
+			<tr>
+			<td style="font-size:20px">
+				设备(换产品)
+			</td>
+			<td style="padding:5px">
+				 <input style="height:35px;font-size:20px" type='text' value='5'></input>
+			</td>
+			<td  colspan=2>
+				  <a style="font-size:20px" target='_blank' href='2.3设备排程.html'>计划时间段内70台可换产品</a>
+			</td>
+			</tr>
+			<tr>
+			<td style="font-size:20px">
+				换产品
+			</td>
+			<td style="padding:5px;" colspan=3>
+				 <input style="width:95%;height:35px;font-size:20px" type='text' value='大提花，小提花'></input>
+			</td>
+			</tr>
+			
+			<tr>
+			<td style="font-size:20px">
+				设备产能
+			</td>
+			<td style="padding:5px; font-size:20px" >
+				 90m/天
+			</td>
+			</tr>
+			
+			<tr>
+			<td style="font-size:20px;text-align:right" colspan=4>
+				本次下发数量<span style="font-size:30px;color:#249730">7350</span>m
+			</td>
+			 </tr>
+			</table>
+	</div>
+  </div>
+
+</div>
+
+ 
+	 <div class="panel-default" style="margin-top:10px">
+		  <div class="panel-heading"><strong>BOM指定</strong> </div>
+		   <div id="detailTab2" style="margin-top:-5px">
+			<table class="table  table-hover table-condensed table-bordered" >
+				<tr>
+					 
+					<th class="td" >
+						原料
+					</th>
+					 
+					<th class="td" >
+						厂家
+					</th>
+					<th class="td" >
+						原纱标识
+					</th>
+					<th class="td" >
+						筒纱标重
+					</th>
+					<th class="td" >
+						管头
+					</th>
+					<th class="td" >
+						库存
+					</th>
+				</tr>
+				
+				
+				<tr>
+					 
+					<td class="td" >
+						经纱
+					</td>
+					 
+					<td class="td" >
+						石家庄厂家
+					</td>
+					<td class="td" >
+						001
+					</td>
+					<td class="td" >
+						002
+					</td>
+					<td class="td" >
+						绿色<input checked type="checkbox"></input>
+					</td>
+					<td class="td" >
+						1000
+					</td>
+				</tr>
+				<tr>
+					 
+					<td class="td" >
+						纬纱
+					</td>
+					 
+					<td class="td" >
+						石家庄厂家
+					</td>
+					<td class="td" >
+						001
+					</td>
+					<td class="td" >
+						002
+					</td>
+					<td class="td" >
+						红色<input checked type="checkbox"></input>
+					</td>
+					<td class="td" >
+						1000
+					</td>
+				</tr>
+				<tr>	
+					 
+					<td class="td" >
+						原料2
+					</td class="td" >
+				 
+					<td class="td" >
+						石家庄厂家
+					</td>
+					<td class="td" >
+						001
+					</td>
+					<td class="td" >
+						002
+					</td>
+					<td class="td" >
+						绿色<input checked type="checkbox"></input>
+					</td>
+					<td class="td" >
+						1000
+					</td>
+				</tr>
+			</table>
+			 
+			BOM说明 <textarea rows="2" style="width:95%;height:70px;margin-top:5px" placeholder="请输入BOM要求">
+							 </textarea>
+			 
+		   
+		   </div>
+	</div>
+	<div style="width: 100%;padding-top:5px;text-align:center">
+		<button class="btn btn-success" onclick="plan_dispatch_save();"><span class="glyphicon glyphicon-search"></span>确认</button>
+		<button class="btn btn-success" onclick="plan_dispatch_close();"><span class="glyphicon glyphicon-off"></span>关闭</button>
+	</div>	  
+ </div>
+ </div>
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_dispatch_new.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/jquery/jquery.formautofill.min.js"> </script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+<link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/> 
+ <style type="text/css">
+		    table tr td,th{
+				min-width:100px;
+				min-height:30px;
+			}
+			.form-group1{margin-bottom:5px};
+			.goods-item:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+			#detailTab1 th,#detailTab th{background-color:#f5f5f5 !important; border-bottom:0px}
+			
+ </style>
+<div class=" main_content warpper animated fadeInRight">
+<div class="container-fluid panel-custom panel panel-default" style="padding:20px;">
+    <!-- 生产计划管理 -->
+    <div class="row">
+        <!-- 标题栏  -->
+        <div class="col-sm-12">
+            <h4 class="page-header">批量新增整理计划</h4>
+        </div>
+    </div>
+    <form id='dispatchForm'>
+    		<input type=hidden  id='id' value='' >
+    		<input type=hidden  id='sheetId' value='' >
+ 	<table class='conditionTab'>
+ 		<tr>
+ 			<th>日期</th>
+ 			<td><div class="form-group">
+ 				<input id='shiftDate' name='shiftDate' type='text' class="Wdate form-control" style="height:34px" onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd'})" onchange='changeDate(this);'/>
+ 				</div>
+ 			</td>
+ 			<th>计划对象</th>
+ 			<td><div class="form-group"><select id='planObject' name='planObject' class="form-control" onchange="on_chg_planObject(this)">
+ 				<option value=""></option>
+ 			</select></div></td>
+ 			<th>子工序</th>
+ 			<td><div class="form-group"><select id='technicId' name='technicId' class="select2 form-control">
+ 			</select></div></td>
+ 		</tr>
+ 		<tr>
+ 			<th>
+ 				总数量
+ 			</th>
+ 			<td><span id="totalQty" class="control-label"></span><span id="qtyUnit" class="control-label"></span></td>
+ 			<th></th>
+ 			<td> <a id='loadBtn'  class="btn btn-primary" href='#' onclick="loadData();return false;"><span class="glyphicon glyphicon-import"></span>加载</a></td>
+ 		</tr>
+ 	</table>
+ 	</form>
+    <div class="panel-default">
+		  <div class="panel-heading" style="padding: 0px 10px 0px 0px;height:32px">
+		  		 <strong class='panelTitleFloat'>请选择班次及数量</strong>
+		  		 <span style='float:right'>
+		  		 	<!-- <span id='filterSpan1'>
+			  		 	<input type="radio" name="optionsRadios" id="unscheduleRadio1" value="option1"  checked onclick='onFilterTrigger("","#searchInput")'>显示全部
+			   			<input type="radio" name="optionsRadios" id="unscheduleRadio2" value="option2"  onclick='onFilterTrigger("设备","#searchInput")'>显示设备
+			   			<input type="radio" name="optionsRadios" id="unscheduleRadio3" value="option3"  onclick='onFilterTrigger("工作组","#searchInput")'>显示工作组
+				  		<input type='text' id='searchInput' style="height:32px;width:140px;" placeholder="请输入搜索" onchange='onFilter(this,"#tabChgGoodsBody")'/>
+		  			</span> -->
+		  			<a id="folderA" href="#" onclick="$('#detailTab1').toggle(100,changeFolderFun);return false;"><span id="folderBtn" style='padding-top:5px;' class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+		  		 </span>
+		  		 
+           </div>
+          <div id="detailTab1">
+		  <script id="detailTab1.tmp" type="text/html" >
+            <table style="margin-top:-1px"  class="table  table-hover table-condensed table-bordered">
+                <thead id="tabHead">
+                    <tr>
+                        <th rowspan=2 style='vertical-align:middle'>来源生产订单号</th>
+						<th rowspan=2 style='vertical-align:middle'>整理生产订单号</th>
+						<th rowspan=2 style='vertical-align:middle'>品种编码</th>
+						<th rowspan=2 style='vertical-align:middle'>品种名称</th>
+						<th rowspan=2 style='vertical-align:middle'>结存数量</th>
+						<th rowspan=2 style='vertical-align:middle'>单位</th>
+						<th rowspan=2 style='vertical-align:middle'>工作中心</th>
+						<th>班次1数量</th>
+						<th>班次2数量</th>
+						<th rowspan=2 style='vertical-align:middle'>生成单号1</th>
+						<th rowspan=2 style='vertical-align:middle'>生成单号2</th>
+						<th rowspan=2 style='vertical-align:middle'>操作</th>
+                    </tr>
+					 <tr>
+						<th style='text-align:left'>
+							<select name='shiftId1' style='width:100px;border-radius:4px'><option value=""></option>
+							{{each dropdownDatas.shiftList listValue2}}
+							<option value="{{listValue2.code}}">{{listValue2.name}}</option>
+							{{/each}}	</select>
+							<select name='shiftStyle1' style='width:140px;border-radius:4px'>
+								<option value=""></option>
+								{{each dropdownDatas.shiftStyleList listValue3}}
+								<option value="{{listValue3.code}}">{{listValue3.name}}</option>
+								{{/each}}
+							</select>
+						</th>
+						<th style='text-align:left;border-radius:4px'>
+							<select name='shiftId2' style='width:100px;border-radius:4px'><option value=""></option>
+							{{each dropdownDatas.shiftList listValue2}}
+							<option value="{{listValue2.code}}">{{listValue2.name}}</option>
+							{{/each}}	</select>
+							<select name='shiftStyle2' style='width:140px;border-radius:4px'><option value=""></option>
+								{{each dropdownDatas.shiftStyleList listValue3}}
+								<option value="{{listValue3.code}}">{{listValue3.name}}</option>
+								{{/each}}
+							</select>
+						</th>
+					</tr>
+                </thead>
+                <tbody id="tabBody">
+				{{each mesPlanArrangeDetList listValue i}}
+						<tr>
+							<td>
+								<input type='hidden' name='detId' value='{{listValue.id}}'>
+								<input type='hidden' name='goodsId' value='{{listValue.goodsId}}'>
+								<input type='hidden' name='workcenterId' value='{{listValue.workcenterId}}'>
+								<input type='hidden' name='shiftStatus' value='{{listValue.shiftStatus}}'>
+								<span name="erpBillNo">{{listValue.erpBillNo}}</span>
+					 		</td>
+							<td>
+							{{if (listValue.shiftStatus||0) != 0}}
+								{{listValue.arrangeErpBillNo}}
+								<input type='hidden' name='arrangeErpBillNo' value='{{listValue.arrangeErpBillNo}}'/>
+							{{else}}
+								{{if planObject != '40'}}
+									<ul>
+									<li><input type='text' name='arrangeErpBillNo' value='{{listValue.arrangeErpBillNo}}' onchange='hideRowA(this);'></li>
+									<li><a href='#' onclick="clickA=this;searchErpOrder(false,1,PAGESIZE,'workshopId=C14&bomGoodsId={{listValue.goodsId}}',false)">选择</a></li>
+									</ul>
+								{{else}}
+								 	{{listValue.arrangeErpBillNo||listValue.erpBillNo}}<input type='hidden' name='arrangeErpBillNo' value='{{listValue.arrangeErpBillNo||listValue.erpBillNo}}'>
+								{{/if}}
+							{{/if}}	
+							</td>
+							<td>
+								{{listValue.goodsId}}
+					 		</td>
+							<td>
+								<span name="goodsName">{{listValue.goodsId|getMdmName goodsList}}</span>
+					 		</td>
+							<td>
+								<a href='#' onclick="on_show_det(this);return false;"><span name="leftQty">{{listValue.leftQty}}</span></a>
+					 		</td>
+							<td>
+								<span name="qtyUnit">{{listValue.qtyUnit}}</span>
+					 		</td>
+							<td>
+								{{listValue.workcenterId}}
+					 		</td>
+
+							<td>
+								<input type='text' name='qty1' style='width:80%' value='{{listValue.qty1}}' onchange='hideRowA(this);on_change_qty1(this)' {{if (listValue.shiftStatus||0) >0}}disabled{{/if}}/>
+							</td>
+							<td>
+								<input type='text' name='qty2' style='width:80%' value='{{listValue.qty2}}' onchange='hideRowA(this);' {{if (listValue.shiftStatus||0) > 0}}disabled{{/if}}/>
+					 		</td>
+							<td><a href='#' onclick='onOpenPlan("{{listValue.planSheetId1}}") ;return false;'>{{listValue.planSheetId1}}</a></td>
+							<td><a href='#' onclick='onOpenPlan("{{listValue.planSheetId2}}") ;return false;'>{{listValue.planSheetId2}}</a></td>
+							<td>
+								{{if (listValue.shiftStatus||0) == 0 && listValue.id}}<a name='checkDetA' href='#' onclick="on_chk_det('{{listValue.id}}')">下发</a>{{/if}}
+							</td>
+						</tr>
+					
+				{{/each}}
+                </tbody>
+            </table>
+		<div style="text-align:center;padding-top:10px;padding-bottom:5px">
+	        <a  id='confirmBtn'  class="btn btn-primary" href='#' onclick="fun_chg_goods_confirm();return;"><span class="glyphicon glyphicon-import"></span>保存</a>
+			<a class="btn btn-primary" href='/mes-plan/production/mes_plan_arrange_sheet_list.html'><span class="glyphicon glyphicon-arrow-left"></span>返回</a>
+	      </div>
+			</script>
+		</div>
+    </div>
+    
+    </div>
+    </div>
+    
+    <script id="detailTab.tmp" type="text/html" >
+		<div id='popupDiv2' class="panel-default" style="margin:5px">
+            <table id="tab_det"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+						<th class="thcls" >交易记录日期</th>
+                        <th class="thcls" >物料</th>
+                        <th class="thcls" >物料单位</th>
+						<th class="thcls" >仓库</th>
+                        <th class="thcls" >库位</th>
+						<th class="thcls" >序列号</th>
+						<th class="thcls" >轴号</th>
+						<th class="thcls" >布轴生产订单</th>
+						<th class="thcls" >数量</th>
+						<th class="thcls" >班别</th>
+						<th class="thcls" >班次</th>
+                    </tr>
+                </thead>
+                <tbody id='tabBody'>
+						{{each list listValue}}
+				<tr>
+					<td>{{listValue.date}}</td>
+                 	<td>
+						<ul>
+						<li>{{listValue.materialCode}}</li>
+						<li>{{listValue.materialName}}</li>
+						</ul>
+					</td>
+                 	<td>{{listValue.materialUnitName}}</td>
+					<td>{{listValue.storehouseName}}</td>
+					<td>{{listValue.locationName}}</td>
+					<td>{{listValue.serialNumber}}</td>
+					<td>{{listValue.shaftNumber}}</td>
+                 	<td>{{listValue.productOrder}}</td>
+                 	<td>{{listValue.amount}}</td>
+                 	<td>{{listValue.workTeam|getMdmName shiftStyleList}}</td>
+                 	<td>{{listValue.workClass|getMdmName shiftList}}</td>
+                 </tr>
+						{{/each}}
+                </tbody>
+            </table>
+<nav style='text-align:right' aria-label="Page navigation">
+<ul class="pagination">
+<li><span style="color:#6d6e70">显示第 {{startRow}} 项至 {{endRow}} 项结果,共 {{total}} 项</span></li>
+<li><span style="padding-top:5px;padding-bottom:4.5px;color:#6d6e70">			每页<select type="text" value=5 style="width:60px;text-align:center" onchange="searchOrder(false,1,$(this).val(),'{{qryParam}}',true); return;">					
+<option value="10" {{if(pageSize==10)}}selected {{/if}}>10</option>					
+<option value="25" {{if(pageSize==25)}}selected {{/if}}>25</option>					
+<option value="50" {{if(pageSize==50)}}selected {{/if}}>50</option>					
+<option value="100" {{if(pageSize==100)}}selected {{/if}}>100</option>				
+</select>条数据</span></li>	
+<li {{if !hasPreviousPage}} class='disabled'{{/if}}><a href='#' onclick="if(!$(this).parent().hasClass('disabled')) searchOrder(false,1,{{pageSize}},'{{qryParam}}',true); return;">	<span  aria-hidden="true">首页</span></a>	</li>	
+<li {{if !hasPreviousPage}} class='disabled'{{/if}}> <a href='#' onclick="if(!$(this).parent().hasClass('disabled')) searchOrder(false,{{prePage}},{{pageSize}},'{{qryParam}}',true); return;"> <span  aria-hidden="true">上页</span></a></li><% for(var i = firstPage; i <= lastPage && i!=0; i++){ %><li {{if pageNum == i}} class='active' {{/if}}>
+ <a href='#' onclick="searchOrder(false,<%= i %>,{{pageSize}},'{{qryParam}}',true); return;"> <span><%= i %></span></a></li><% }  %>
+	<li {{if !hasNextPage}} class='disabled' {{/if}}> <a href='#' onclick="debugger ;if(!$(this).parent().hasClass('disabled')) searchOrder(false,{{nextPage}},{{pageSize}},'{{qryParam}}',true); return;"> <span  aria-hidden="true">下页</span></a></li>	<li {{if !hasNextPage}} class='disabled' {{/if}}> 		
+	<a href="#" aria-label="Next" onclick="if(!$(this).parent().hasClass('disabled')) searchOrder(false,{{pages}},{{pageSize}},'{{qryParam}}',true); return;">   	<span  aria-hidden="true">尾页</span> 		</a>	</li>
+</ul></nav>
+     	</div>	
+			</script>
+			
+			<script id="detailTabPackage.tmp" type="text/html" >
+		<div id='popupDiv2' class="panel-default" style="margin:5px">
+            <table id="tab_det"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+						<th class="thcls" >完工日期</th>
+                        <th class="thcls" >物料</th>
+                        <th class="thcls" >物料单位</th>
+						<th class="thcls" >序列号</th>
+						<th class="thcls" >轴号</th>
+						<th class="thcls" >生产订单</th>
+						<th class="thcls" >数量</th>
+						<th class="thcls" >班别</th>
+						<th class="thcls" >班次</th>
+						<th class="thcls" >员工编号</th>
+                        <th class="thcls" >员工姓名</th>
+                    </tr>
+                </thead>
+                <tbody id='tabBody'>
+						{{each list listValue}}
+				<tr>
+					<td>{{listValue.combineTime}}</td>
+                 	<td>
+						<ul>
+						<li>{{listValue.goodsId}}</li>
+						<li>{{listValue.goodsName}}</li>
+						</ul>
+					</td>
+                 	<td>{{listValue.qtyUnit}}</td>
+					<td>{{listValue.segmentNumber}}</td>
+					<td>{{listValue.segementParent}}</td>
+                 	<td>{{listValue.erpBillNo}}</td>
+                 	<td>{{listValue.segmentLength}}</td>
+                 	<td>{{listValue.combineWorkerNo}}</td>
+                 	<td>{{listValue.combineWorker}}</td>
+					<td></td>
+                 	<td></td>
+                 </tr>
+						{{/each}}
+                </tbody>
+            </table>
+<nav style='text-align:right' aria-label="Page navigation">
+<ul class="pagination">
+<li><span style="color:#6d6e70">显示第 {{startRow}} 项至 {{endRow}} 项结果,共 {{total}} 项</span></li>
+<li><span style="padding-top:5px;padding-bottom:4.5px;color:#6d6e70">			每页<select type="text" value=5 style="width:60px;text-align:center" onchange="searchOrder3(false,1,$(this).val(),'{{qryParam}}',true); return;">					
+<option value="10" {{if(pageSize==10)}}selected {{/if}}>10</option>					
+<option value="25" {{if(pageSize==25)}}selected {{/if}}>25</option>					
+<option value="50" {{if(pageSize==50)}}selected {{/if}}>50</option>					
+<option value="100" {{if(pageSize==100)}}selected {{/if}}>100</option>				
+</select>条数据</span></li>	
+<li {{if !hasPreviousPage}} class='disabled'{{/if}}><a href='#' onclick="if(!$(this).parent().hasClass('disabled')) searchOrder3(false,1,{{pageSize}},'{{qryParam}}',true); return;">	<span  aria-hidden="true">首页</span></a>	</li>	
+<li {{if !hasPreviousPage}} class='disabled'{{/if}}> <a href='#' onclick="if(!$(this).parent().hasClass('disabled')) searchOrder3(false,{{prePage}},{{pageSize}},'{{qryParam}}',true); return;"> <span  aria-hidden="true">上页</span></a></li><% for(var i = firstPage; i <= lastPage && i!=0; i++){ %><li {{if pageNum == i}} class='active' {{/if}}>
+ <a href='#' onclick="searchOrder3(false,<%= i %>,{{pageSize}},'{{qryParam}}',true); return;"> <span><%= i %></span></a></li><% }  %>
+	<li {{if !hasNextPage}} class='disabled' {{/if}}> <a href='#' onclick="debugger ;if(!$(this).parent().hasClass('disabled')) searchOrder3(false,{{nextPage}},{{pageSize}},'{{qryParam}}',true); return;"> <span  aria-hidden="true">下页</span></a></li>	<li {{if !hasNextPage}} class='disabled' {{/if}}> 		
+	<a href="#" aria-label="Next" onclick="if(!$(this).parent().hasClass('disabled')) searchOrder3(false,{{pages}},{{pageSize}},'{{qryParam}}',true); return;">   	<span  aria-hidden="true">尾页</span> 		</a>	</li>
+</ul></nav>
+     	</div>	
+			</script>
+			
+			<script id="detailErpTab2.tmp" type="text/html" >
+	<form id ="from_condition" class="form-horizontal"  style="margin:5px">  
+		<input name='workshopId' type="hidden" value='C14'  />
+		<input name='bomGoodsId' type="hidden" value='{{bomGoodsId}}'  />
+		<input name='planStatusList' type="hidden" value='10,20,30'  />
+    	<table id="condition_tab" class='conditionTab'>
+    		<tr>
+    			<th>生产订单号</th><td><input name='erpBillNo' type="text" class="form-control"/></td>
+    			<th>物料编码</th><td>{{bomGoodsId}}</td>
+    			<th>计划状态</th>
+				<td>
+					<select name='planStatus' class="form-control">
+						<option value=""></option>
+						{{each plan_order_status listValue}}
+							<option value="{{listValue.id}}">{{listValue.text}}</option>
+					  	{{/each}}
+					</select>
+				</td>
+    		</tr>
+    		<tr>
+    			<th>半成品/成品</th><td>
+    			 <div class="input-group">
+	                    	<input id="goodsId" name="goodsId" class="form-control"> 
+	                    	<span class="input-group-btn">
+					        <button class="btn btn-default" type="button" onclick="onClickGoods(true,1,PAGESIZE)"><span  class=" glyphicon glyphicon-zoom-in"></span></button>
+					      	</span>
+				      	 </div>
+				 </td>
+    			<th>客户编码</th>
+				    <td>
+				    <div class="input-group">
+	                    	<input id="customerId" name="customerId" class="form-control"> 
+	                    	<span class="input-group-btn">
+					        <button class="btn btn-default" type="button" onclick="onClickUser(true,1,PAGESIZE)"><span  class=" glyphicon glyphicon-zoom-in"></span></button>
+					      	</span>
+				      	 </div>
+				    </td>
+				    <th>订单类型</th><td><select name="billType" class="form-control">
+	                  <option value=""></option>
+						{{each plan_order_type listValue}}
+							<option value="{{listValue.id}}">{{listValue.text}}</option>
+					  	{{/each}}
+	                  </select></td>
+    		</tr>
+    		<tr>
+    			<th>计划开始日期(>=)</th><td><div class="input-group date" id="planBeginDate1">
+	                        <input type="text"  name="planBeginDate1" class="form-control">
+	                        <span class="input-group-addon">
+	                            <i class="glyphicon glyphicon-th"></i>
+	                        </span>
+	                    </div></td>
+    			<th>计划结束日期(<)</th><td><div class="input-group date" id="planBeginDate2">
+	                        <input type="text"  name="planBeginDate2" class="form-control">
+	                        <span class="input-group-addon">
+	                            <i class="glyphicon glyphicon-th"></i>
+	                        </span>
+	                    </div></td>
+    		</tr>
+    	</table>
+    
+            <div  class='conditionBtn' >
+	                <button class="btn btn-primary" onclick="searchErpOrder(true,1,PAGESIZE,'',true);return false;"><span class="glyphicon glyphicon-search"></span>查询</button>
+	                <button class="btn" type="reset" ><span class="glyphicon glyphicon-erase"></span>清空</button>
+	            </div>
+         </form>
+	
+	</script>
+    <script id="detailErpTab.tmp" type="text/html" >
+		
+		<div id='popupDiv2' class="panel-default" style="margin:5px">
+            <table id="tab_det"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+						<th class="thcls" style="text-align:center;width:26px !important"></th>
+						<th class="thcls" >订单信息</th>
+                        <th class="thcls" >半成品/成品</th>
+						<th class="thcls" >车间</th>
+                        <th class="thcls" >数量</th>
+                        <th class="thcls" >客户信息</th>
+                        <th class="thcls" >计划日期</th>
+                    </tr>
+                </thead>
+                <tbody id='tabBody'>
+						{{each list listValue}}
+				<tr>
+					<td><input type="checkbox" name='checkflag' onchange="onClickCheckBox(this)">  <input name="id" type="hidden" value="{{listValue.id}}">
+							<input name="erpBillNo" type="hidden" value="{{listValue.erpBillNo}}">
+					</td>
+					<td>  
+						<ul>
+							<li><a href="/mes-plan/production/mes_plan_month.html?id={{listValue.id}}">{{listValue.erpBillNo}}</a></li>
+							<li>{{listValue.billType|getDdwName dropdownDatas.plan_order_type}}</li>
+							<li>{{listValue.planStatus|getDdwName dropdownDatas.plan_order_status}}</li>
+						</ul>  
+					</td>
+                 	<td>  <ul><li>{{listValue.goodsId}}</li><li>{{listValue.goodsName}}</li></ul> </td>
+					<td>{{listValue.workshopId|getMdmName dropdownDatas.workshopList}}</td>
+                 	
+                 	<td> <ul><li>{{listValue.qty}}{{listValue.qtyUnit}}</li>
+								</ul> </td>
+                 	
+                 	<td>  <ul><li>{{listValue.customerId}}</li><li>{{listValue.customerId|getMdmName customerList}}</li></ul> </td>
+                 	<td>  <ul><li>{{listValue.planBeginDate}}</li><li>{{listValue.planEndDate}}</li></ul> </td>
+                 </tr>
+						{{/each}}
+                </tbody>
+            </table>
+<nav style='text-align:right' aria-label="Page navigation">
+<ul class="pagination">
+<li><span style="color:#6d6e70">显示第 {{startRow}} 项至 {{endRow}} 项结果,共 {{total}} 项</span></li>
+<li><span style="padding-top:5px;padding-bottom:4.5px;color:#6d6e70">			每页<select type="text" value=5 style="width:60px;text-align:center" onchange="searchErpOrder(false,1,$(this).val(),'{{qryParam}}',true); return;">					
+<option value="10" {{if(pageSize==10)}}selected {{/if}}>10</option>					
+<option value="25" {{if(pageSize==25)}}selected {{/if}}>25</option>					
+<option value="50" {{if(pageSize==50)}}selected {{/if}}>50</option>					
+<option value="100" {{if(pageSize==100)}}selected {{/if}}>100</option>				
+</select>条数据</span></li>	
+<li {{if !hasPreviousPage}} class='disabled'{{/if}}><a href='#' onclick="if(!$(this).parent().hasClass('disabled')) searchErpOrder(false,1,{{pageSize}},'{{qryParam}}',true); return;">	<span  aria-hidden="true">首页</span></a>	</li>	
+<li {{if !hasPreviousPage}} class='disabled'{{/if}}> <a href='#' onclick="if(!$(this).parent().hasClass('disabled')) searchErpOrder(false,{{prePage}},{{pageSize}},'{{qryParam}}',true); return;"> <span  aria-hidden="true">上页</span></a></li><% for(var i = firstPage; i <= lastPage && i!=0; i++){ %><li {{if pageNum == i}} class='active' {{/if}}>
+ <a href='#' onclick="searchErpOrder(false,<%= i %>,{{pageSize}},'{{qryParam}}',true); return;"> <span><%= i %></span></a></li><% }  %>
+	<li {{if !hasNextPage}} class='disabled' {{/if}}> <a href='#' onclick="debugger ;if(!$(this).parent().hasClass('disabled')) searchErpOrder(false,{{nextPage}},{{pageSize}},'{{qryParam}}',true); return;"> <span  aria-hidden="true">下页</span></a></li>	<li {{if !hasNextPage}} class='disabled' {{/if}}> 		
+	<a href="#" aria-label="Next" onclick="if(!$(this).parent().hasClass('disabled')) searchErpOrder(false,{{pages}},{{pageSize}},'{{qryParam}}',true); return;">   	<span  aria-hidden="true">尾页</span> 		</a>	</li>
+</ul></nav>
+     	</div>	
+			</script>
+			
+ </body>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/select2/select2.min.css">
+ <script type="text/javascript" src="/mes-plan/static/select2/select2.full.min.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_arrange_sheet.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/jquery/jquery.cookie.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/jquery/jquery.formautofill.min.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/My97DatePicker/WdatePicker.js"></script> 
+</html>

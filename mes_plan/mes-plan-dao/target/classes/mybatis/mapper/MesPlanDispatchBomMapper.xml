@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanDispatchBomDao">
+    
+	<sql id="mesPlanDispatchBomColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.erp_bill_no AS "erpBillNo",
+		a.batch_no AS "batchNo",
+		a.create_time AS "createTime",
+		a.create_user AS "createUser",
+		a.update_time AS "updateTime",
+		a.update_user AS "updateUser",
+		a.remarks AS "remarks",
+		a.batch_prop1 AS "batchProp1",
+		a.batch_prop2 AS "batchProp2",
+		a.batch_prop3 AS "batchProp3",
+		a.raw_goods_id AS "rawGoodsId"
+	</sql>
+	<sql id="mesPlanDispatchBomJoins">
+		LEFT JOIN mes_plan_bom b ON a.erp_bill_no = b.erp_bill_no	and a.raw_goods_id = b.raw_goods_id
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanDispatchBom">
+		SELECT 
+			<include refid="mesPlanDispatchBomColumns"/>
+			,b.raw_goods_name as "rawGoodsName"
+			,b.suplier_id as "suplierId"
+			,b.raw_goods_type as "rawGoodsType"
+			,b.unit_qty as "unitQty"
+			,b.unit as "unit"
+			,b.unit_code as "unitCode"
+		FROM mes_plan_dispatch_bom a
+		<include refid="mesPlanDispatchBomJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanDispatchBom">
+		SELECT 
+			<include refid="mesPlanDispatchBomColumns"/>
+			,b.raw_goods_name as "rawGoodsName"
+			,b.suplier_id as "suplierId"
+			,b.raw_goods_type as "rawGoodsType"
+			,b.unit_qty as "unitQty"
+			,b.unit as "unit"
+		FROM mes_plan_dispatch_bom a
+		<include refid="mesPlanDispatchBomJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="batchNo != null and batchNo != ''">
+				AND a.batch_no = #{batchNo}
+			</if>
+			<if test="rawGoodsId != null and rawGoodsId != ''">
+				AND a.raw_goods_id = #{rawGoodsId}
+			</if>
+			<if test="billNo != null and billNo != ''">
+				AND a.sheet_id in (select sheet_id from mes_plan_dispatch_det where bill_no= #{billNo})
+			</if>
+		</where>
+			
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanDispatchBom">
+		SELECT 
+			<include refid="mesPlanDispatchBomColumns"/>
+		FROM mes_plan_dispatch_bom a
+		<include refid="mesPlanDispatchBomJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_dispatch_bom(
+			id,
+			sheet_id,
+			erp_bill_no,
+			batch_no,
+			create_time,
+			create_user,
+			update_time,
+			update_user,
+			remarks,
+			batch_prop1,
+			batch_prop2,
+			batch_prop3,
+			raw_goods_id
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{erpBillNo},
+			#{batchNo},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{currentUser},
+			#{remarks},
+			#{batchProp1},
+			#{batchProp2},
+			#{batchProp3},
+			#{rawGoodsId}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_dispatch_bom SET 	
+			sheet_id = #{sheetId},
+			erp_bill_no = #{erpBillNo},
+			batch_no = #{batchNo},
+			update_time = now(),
+			update_user = #{currentUser},
+			remarks = #{remarks},
+			batch_prop1 = #{batchProp1},
+			batch_prop2 = #{batchProp2},
+			batch_prop3 = #{batchProp3},
+			raw_goods_id = #{rawGoodsId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_dispatch_bom
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_dispatch_bom
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanDispatchBom">
+		SELECT 
+			<include refid="mesPlanDispatchBomColumns"/>
+		FROM  mes_plan_dispatch_bom a
+		<include refid="mesPlanDispatchBomJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="batchNo != null and batchNo != ''">
+				AND a.batch_no = #{batchNo}
+			</if>
+			<if test="rawGoodsId != null and rawGoodsId != ''">
+				AND a.raw_goods_id = #{rawGoodsId}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

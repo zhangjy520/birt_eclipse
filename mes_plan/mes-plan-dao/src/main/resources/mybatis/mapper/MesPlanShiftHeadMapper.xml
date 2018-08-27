@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanShiftHeadDao">
+    
+	<sql id="mesPlanShiftHeadColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.workshop_id AS "workshopId",
+		a.shift_id AS "shiftId",
+		a.shift_date AS "shiftDate",
+		a.shift_user AS "shiftUser",
+		a.shift_user_name AS "shiftUserName",
+		a.remarks AS "remarks",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.shift_qty_sum AS "shiftQtySum",
+		a.finish_qty_sum AS "finishQtySum",
+		a.sheet_status as "sheetStatus",
+		a.shift_style as "shiftStyle",
+		a.workcenter_id as "workcenterId",
+		a.create_user_name as "createUserName",
+		a.update_user_name as "updateUserName"
+	</sql>
+	<sql id="mesPlanShiftHeadJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanShiftHead">
+		SELECT 
+			<include refid="mesPlanShiftHeadColumns"/>
+		FROM mes_plan_shift_head a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getHeadBySheetId" resultType="MesPlanShiftHead">
+		SELECT 
+			<include refid="mesPlanShiftHeadColumns"/>
+		FROM mes_plan_shift_head a
+		WHERE a.sheet_id = #{sheetId}
+	</select>
+	
+	<select id="getHeadByUk" resultType="MesPlanShiftHead">
+		SELECT 
+			<include refid="mesPlanShiftHeadColumns"/>
+		FROM mes_plan_shift_head a
+		Where a.shift_id = #{shiftId}
+ 			AND a.shift_date = #{shiftDate}
+ 			AND a.workshop_id = #{workshopId}
+ 			AND a.shift_Id = #{shiftId}
+ 			<!-- <if test="shiftStyle != null and shiftStyle != ''">
+				and a.shift_style = #{shiftStyle}
+			</if> -->
+			AND a.workcenter_id = #{workcenterId}
+	</select>
+	
+	<select id="findList" resultType="MesPlanShiftHead">
+		SELECT 
+			<include refid="mesPlanShiftHeadColumns"/>
+		FROM mes_plan_shift_head a
+		<where>
+			
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_id = #{workshopId}
+			</if>
+			<if test="shiftId != null and shiftId != ''">
+				AND a.shift_id = #{shiftId}
+			</if>
+			<if test="shiftDate != null">
+				AND a.shift_date = #{shiftDate}
+			</if>
+			<if test="sheetStatus != null and sheetStatus != ''">
+				AND a.sheet_status = #{sheetStatus}
+			</if>
+			<if test="shiftStyle != null and shiftStyle != ''">
+				AND a.shift_style = #{shiftStyle}
+			</if>
+			<if test="workcenterId != null and workcenterId != ''">
+				AND a.workcenter_Id = #{workcenterId}
+			</if>
+			<if test="shiftUserName != null and shiftUserName != ''">
+				AND a.shift_user_name = #{shiftUserName}
+			</if>
+			<if test="technicUser != null and technicUser != ''">
+				AND a.sheet_id in (SELECT sheet_id FROM mes_plan_shift_user WHERE technic_user = #{technicUser})
+			</if>
+			<if test="shiftIdList != null ">
+				and a.shift_Id in 
+				<foreach collection="shiftIdList" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+        		</foreach>  
+			</if>    
+			
+		</where>
+			order by 	a.update_time desc
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanShiftHead">
+		SELECT 
+			<include refid="mesPlanShiftHeadColumns"/>
+		FROM mes_plan_shift_head a
+		<include refid="mesPlanShiftHeadJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_shift_head(
+			id,
+			sheet_id,
+			workshop_id,
+			shift_id,
+			shift_date,
+			shift_user,
+			shift_user_name,
+			shift_qty_sum,
+			finish_qty_sum,
+			sheet_status,
+			shift_style,
+			workcenter_id,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			create_user_name,
+			update_user_name
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{workshopId},
+			#{shiftId},
+			#{shiftDate},
+			#{shiftUser},
+			#{shiftUserName},
+			#{shiftQtySum},
+			#{finishQtySum},
+			#{sheetStatus},
+			#{shiftStyle},
+			#{workcenterId},
+			#{currentUser},
+			now(),
+			#{currentUser},
+			now(),
+			#{currentUserName},
+			#{currentUserName}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_shift_head SET 	
+			sheet_id = #{sheetId},
+			workshop_id = #{workshopId},
+			shift_id = #{shiftId},
+			shift_date = #{shiftDate},
+			shift_user = #{shiftUser},
+			shift_user_name = #{shiftUserName},
+			shift_qty_sum = #{shiftQtySum},
+			finish_qty_sum = #{finishQtySum},
+			sheet_status = #{sheetStatus},
+			shift_style = #{shiftStyle},
+			workcenter_id = #{workcenterId},
+			update_user = #{currentUser},
+			update_user_name = #{currentUserName},
+			update_time = now()
+		WHERE id = #{id}
+	</update>
+	
+	
+	<update id="updateSheetStatus">
+		UPDATE mes_plan_shift_head SET 	
+			sheet_status = #{sheetStatus}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<update id="delete">
+		DELETE FROM mes_plan_shift_head
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_shift_head
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanShiftHead">
+		SELECT 
+			<include refid="mesPlanShiftHeadColumns"/>
+		FROM  mes_plan_shift_head a
+		<include refid="mesPlanShiftHeadJoins"/>
+		<where>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_id = #{workshopId}
+			</if>
+			<if test="shiftId != null and shiftId != ''">
+				AND a.shift_id = #{shiftId}
+			</if>
+			<if test="shiftDate != null and shiftDate != ''">
+				AND a.shift_date = #{shiftDate}
+			</if>
+			<if test="sheetStatus != null and sheetStatus != ''">
+				AND a.sheet_status = #{sheetStatus}
+			</if>
+			<if test="shiftStyle != null and shiftStyle != ''">
+				AND a.shift_style = #{shiftStyle}
+			</if>
+		</where>
+	</select>
+
+	
+</mapper>

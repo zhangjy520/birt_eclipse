@@ -1,0 +1,103 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/datapicker/datepicker3.css"/>
+ <style type="text/css">
+ 			#condition_tab {width:100%}
+			#condition_tab th{width:15%;text-align:right;padding-right:20px}
+			#condition_tab td{width:35%;padding:2px}
+			.form-group1{margin-bottom:5px};
+			.goods-item:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+			#tab_det th{background-color:#f5f5f5 !important;border-bottom:0px !important}
+			li {text-align:left}
+ </style>
+<div class=" main_content warpper animated fadeInRight">
+<div class="container-fluid panel-custom panel panel-default" style="padding:20px;">
+    <!-- 生产计划管理 -->
+    <div class="row">
+        <!-- 标题栏  -->
+        <div class="col-sm-12">
+            <h4 class="page-header">ERP原材料库存查询</h4>
+        </div>
+    </div>
+    
+    <!-- 快捷查询条件 -->
+    <form id ="from_condition" class="form-horizontal" >
+     <!-- 搜索 -->
+       <table id='condition_tab' style="width:100%">
+       	<th>半成品</th>
+       	<td><input id='goodsId' name="goodsId" type='text' class="form-control" readonly/></td>
+       	<th>
+       	  订单号
+       	</th>
+       	<td>
+       		<input id='erpBillNo' name="erpBillNo" type='text' class="form-control" readonly/>
+       	</td>
+       </table>
+    </form>
+    
+    <div class="panel-default">
+		  <div class="panel-heading" style="margin-top:10px">
+		  		<strong>原材料库存</strong>
+		  		<!-- <a class="btn btn-success" href='/mes-plan/production/production_plan_import.html'><span class="glyphicon glyphicon-import"></span>导入Excel计划</a>
+                <a class="btn btn-success" href='/mes-plan/production/production_plan_add.html'><span class="glyphicon glyphicon-plus"></span>新增计划</a> -->
+           </div>
+           <div id="detailTab">
+		  <script id="detailTab.tmp" type="text/html" >
+            <table id="tab_det" style="margin-top:-1px"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+						<th>原材料编码</th>
+						<th>原材料名称</th>
+						<th>仓库</th>
+						<th>仓库名称</th>
+						<th>库位</th>
+						<th>批次号</th>
+						<th>序列号</th>
+                        <th>在途数量</th>
+						<th>现有数量</th>
+                        <th>预留数量</th>
+                    </tr>
+                </thead>
+                <tbody>
+					{{each list as listValue}}
+					<tr>
+						<td>{{listValue.matrialCode}}</td>  
+						<td>{{listValue.matrialName}}</td>  
+						<td>{{listValue.locationGroup}}</td>  
+						<td>{{listValue.locaitonGroupDesc}}</td>  
+						<td>  
+							{{listValue.locationCode|getMdmName dropdownDatas.stockLocationList}}
+						</td>
+						<td>{{listValue.batchNo}}</td>
+						<td>{{listValue.serialNo}}</td>
+                 		<td>
+							{{listValue.qtyInTransit}}{{listValue.unitMeasName}}
+					 	</td>
+						<td>
+							{{listValue.qtyOnHand}}{{listValue.unitMeasName}}
+					 	</td>
+                 		<td> 
+							{{listValue.qtyReserved}}{{listValue.unitMeasName}}
+						</td>
+                	 </tr>
+					{{/each}}
+                </tbody>
+            </table>
+			</script>
+		</div>
+    
+     </div>
+     <div style="text-align:center;padding:5px">
+    <a id="rtnBtn" class="btn btn-primary" href='#' onclick="window.history.go(-1);return false;"><span class="glyphicon glyphicon-arrow-left"></span>返回</a>
+    </div>
+    </div>
+    </div>
+ </body>
+ 
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_erp_material_stock.js"></script>
+  <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.zh-CN.min.js"></script>
+ 
+</html>

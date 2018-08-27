@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanTechnicWorktypeDao">
+    
+	<sql id="mesPlanTechnicWorktypeColumns">
+		a.id AS "id",
+		a.technic_id AS "technicId",
+		a.work_type_id AS "workTypeId",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks"
+	</sql>
+	<sql id="mesPlanTechnicWorktypeJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanTechnicWorktype">
+		SELECT 
+			<include refid="mesPlanTechnicWorktypeColumns"/>
+		FROM mes_plan_technic_worktype a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanTechnicWorktype">
+		SELECT 
+			<include refid="mesPlanTechnicWorktypeColumns"/>
+		FROM mes_plan_technic_worktype a
+		<where>
+			
+		</where>
+			
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanTechnicWorktype">
+		SELECT 
+			<include refid="mesPlanTechnicWorktypeColumns"/>
+		FROM mes_plan_technic_worktype a
+		<include refid="mesPlanTechnicWorktypeJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_technic_worktype(
+			id,
+			technic_id,
+			work_type_id,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks
+		) VALUES (
+			#{id},
+			#{technicId},
+			#{workTypeId},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_technic_worktype SET 	
+			technic_id = #{technicId},
+			work_type_id = #{workTypeId},
+			update_user = #{currentUser},
+			update_time = now(),
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_technic_worktype
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_technic_worktype
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanTechnicWorktype">
+		SELECT 
+			<include refid="mesPlanTechnicWorktypeColumns"/>
+		FROM  mes_plan_technic_worktype a
+		<include refid="mesPlanTechnicWorktypeJoins"/>
+		<where>
+			
+		</where>
+		
+	</select>
+</mapper>

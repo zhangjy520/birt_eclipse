@@ -1,0 +1,638 @@
+<html>
+<meta charset="utf-8"/>
+<head>
+<style type="text/css">
+.comment_bubble {
+    width: 140px;
+    height: 100px;
+    background: #d8ddeb;
+    position: relative;
+	margin: 0 auto;
+}
+  
+.comment_bubble:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid white;
+    border-bottom: 50px solid transparent;
+}  
+
+.comment_bubble:after {
+    content: "";
+    width: 0;
+    height: 0;
+	left:100%;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid #d8ddeb;
+    border-bottom: 50px solid transparent;
+	z-index:10;
+}  
+ 
+ 
+ .comment_bubble_last {
+    width: 165px;
+    height: 100px;
+    background: #d8ddeb;
+    position: relative;
+	margin: 0 auto;
+}
+  
+ 
+
+.comment_bubble_last:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid white;
+    border-bottom: 50px solid transparent;
+}  
+
+
+.comment_bubble_first {
+    width: 140px;
+    height: 100px;
+    background: #b1d2b4;
+    position: relative;
+	margin: 0 auto;
+}
+  
+.comment_bubble_first:after {
+    content: "";
+    width: 0;
+    height: 0;
+	left:100%;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid #b1d2b4;
+    border-bottom: 50px solid transparent;
+	z-index:10;
+}  
+.lable1 {text-align:center}
+
+.lable2 {margin-top:5px;margin-left:50px;float:left}
+
+#tab1 {border:1px solid #999999;border-collapse:collapse}
+.td{border:1px solid #999999 ;padding:4px;}
+</style>
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style type="text/css">
+
+		  .progress{
+			  height: 25px;
+			  background: #262626;
+			  padding: 5px;
+			  overflow: visible;
+			  border-radius: 20px;
+			  border-top: 1px solid #000;
+			  border-bottom: 1px solid #7992a8;
+			  margin-top: 45px;
+		  }
+		  .progress .progress-bar{
+			  border-radius: 20px;
+			  position: relative;
+			  animation: animate-positive 2s;
+		  }
+		  .progress .progress-value{
+			  display: block;
+			  padding: 3px 7px;
+			  font-size: 13px;
+			  color: #fff;
+			  border-radius: 4px;
+			  background: #191919;
+			  border: 1px solid #000;
+			  position: absolute;
+			  top: -40px;
+			  right: -10px;
+		  }
+		  .progress .progress-value:after{
+			  content: "";
+			  border-top: 10px solid #191919;
+			  border-left: 10px solid transparent;
+			  border-right: 10px solid transparent;
+			  position: absolute;
+			  bottom: -6px;
+			  left: 26%;
+		  }
+		  /*.progress-bar.active{
+			  animation: reverse progress-bar-stripes 0.40s linear infinite, animate-positive 2s;
+		  }*/
+		  @-webkit-keyframes animate-positive{
+			  0% { width: 0; }
+		  }
+		  @keyframes animate-positive{
+			  0% { width: 0; }
+		  }
+</style>
+
+
+
+<style>
+	.time_line_box{
+        position: relative;
+        height: 60px;
+        overflow: hidden;
+		width: 766px;
+		margin: 0 auto;
+    }
+    .time_line{
+        position: absolute;
+		z-index: 1;
+		left: 0;
+		top: 49px;
+		height: 3px;
+		background: #dfdfdf;
+		-webkit-transition: -webkit-transform 0.4s;
+		-moz-transition: -moz-transform 0.4s;
+		transition: transform 0.4s;
+		}
+    .order_item{
+        position: absolute;
+		bottom: 0;
+		z-index: 2;
+		text-align: center;
+		font-size: 13px;
+		padding-bottom: 15px;
+		color: #825FFB;
+		}
+    .order_item:after{
+        content: '';
+		position: absolute;
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%);
+		bottom: -6px;
+		height: 16px;
+		width: 16px;
+		border-radius: 50%;
+		border: 2px solid #dfdfdf;
+		background-color: #f8f8f8;
+		}
+    .selected:after{
+        background-color: #249730;
+		border-color: #249730;
+		}
+    .filling_line{
+        position: absolute;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background-color: #249730;
+		transform-origin: left center;
+		transition-property: transform;
+		transition-duration: 0.3s;
+		transition-timing-function: initial;
+		transition-delay: initial;
+		}
+    .time_tip{
+        width: 100%;
+        height: 100px;
+        line-height: 70px;
+        text-align: center;
+        color: #151BFD;
+        border-bottom: 1px solid #ddd;
+    }
+	a:hover{text-decoration:none}
+	ol{list-style-type:none}
+</style>
+
+
+
+<style type="text/css">
+
+/* CSS Document */
+*{margin:0;padding:0;font-size:12px;}
+input,button,select,textarea{outline:none;}
+ul,li,dl,ol{list-style:none;}
+a{color:#666; text-decoration:none;}
+
+.box{ width:766px; margin:0 auto;}
+.bcon{ width:766px; border:1px solid #eee;}
+.bcon h1{ border-bottom:1px solid #eee; padding:0 10px;}
+.bcon h1 b{ font:bold 14px/40px '宋体'; border-top:2px solid #3492D1; padding:0 8px; margin-top:-1px; display:inline-block;}
+
+.list_lh{ height:300px; overflow:hidden;}
+.list_lh li{ padding:10px;}
+.list_lh li.lieven{ background:#F0F2F3;}
+.list_lh li p{ height:24px; line-height:24px;margin:0px}
+.list_lh li p a{ float:left;}
+.list_lh li p em{ width:80px; font:normal 12px/24px Arial; color:#FF3300; float:right; display:inline-block;}
+.list_lh li p span{ color:#999; float:right;}
+.list_lh li p a.btn_lh{ background:#28BD19; height:17px; line-height:17px; color:#fff; padding:0 5px; margin-top:4px; display:inline-block; float:right;}
+.btn_lh:hover{ color:#fff; text-decoration:none;}
+
+.btm p{text-align:center;}
+
+
+</style>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.list_lh li:even').addClass('lieven');
+})
+
+$(function(){
+	$("div.list_lh").myScroll({
+		speed:80, //数值越大，速度越慢
+		rowHeight:68 //li的高度
+	});
+});
+
+
+
+// JavaScript Document
+(function($){
+	$.fn.myScroll = function(options){
+	//默认配置
+	var defaults = {
+		speed:40,  //滚动速度,值越大速度越慢
+		rowHeight:24 //每行的高度
+	};
+	
+	var opts = $.extend({}, defaults, options),intId = [];
+	
+	function marquee(obj, step){
+	
+		obj.find("ul").animate({
+			marginTop: '-=1'
+		},0,function(){
+				var s = Math.abs(parseInt($(this).css("margin-top")));
+				if(s >= step){
+					$(this).find("li").slice(0, 1).appendTo($(this));
+					$(this).css("margin-top", 0);
+				}
+			});
+		}
+		
+		this.each(function(i){
+			var sh = opts["rowHeight"],speed = opts["speed"],_this = $(this);
+			intId[i] = setInterval(function(){
+				if(_this.find("ul").height()<=_this.height()){
+					clearInterval(intId[i]);
+				}else{
+					marquee(_this, sh);
+				}
+			}, speed);
+
+			_this.hover(function(){
+				clearInterval(intId[i]);
+			},function(){
+				intId[i] = setInterval(function(){
+					if(_this.find("ul").height()<=_this.height()){
+						clearInterval(intId[i]);
+					}else{
+						marquee(_this, sh);
+					}
+				}, speed);
+			});
+		
+		});
+
+	}
+
+})(jQuery);
+
+</script>
+
+</head>
+<body >
+<legend style="width: 770px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">生产计划</legend>
+<table id="tab1"  style ="margin:0 auto;border-spacing:0px;width:770px">
+<tr>
+<td class="td" style="width:20px">编号</td><td class="td">2016-258 </td><td class="td">合同号</td><td class="td">LXPCZ-2016-076 </td><td class="td">日期</td><td class="td">2016.7.7</td>
+</tr>
+<tr>
+<td class="td">品种</td><td class="td" colspan=3>CVC32*32 130*70 63"2/1碳黑网1.0*1.0(新品)</td><td class="td">数量条款</td><td class="td">3万米</td>
+</tr>
+
+<tr>
+<td class="td">交款日期</td><td class="td">7月28日交清</td><td class="td">状态</td><td class="td">开始</td><td class="td">车间</td><td class="td">生产车间</td>
+</tr>
+<tr>
+</table>
+
+<br>
+
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">订单下发明细</legend>
+
+<table style ="margin:0 auto;border-spacing:0px;width:770px;text-align:center">
+<tr>
+<th colspan=2 style="text-align:center">
+	总数量
+</th>
+<th colspan=2 style="text-align:center">
+	已分解数量
+</th>
+<th colspan=2 style="text-align:center">
+	本次分解数量
+</th>
+</tr>
+<tr>
+<td style="padding:10px;font-size:30px" colspan=2>
+	30000m
+</td>
+<td style="font-size:30px" colspan=2>
+	20000m
+</td>
+<td style="font-size:30px" colspan=2>
+	<span style="font-size:30px;color:#249730">7350</span>m
+</td>
+</tr>
+
+<tr>
+<td colspan=2>
+日均分配 600m
+</td>
+<td colspan=2>
+日均完成率 1%
+</td>
+<td colspan=2>
+计划进度 正常
+</td>
+</tr>
+<tr>
+<td colspan=2>
+设备总数量 <a target='_blank' href='2.3设备排程.html'>200台</a>
+</td>
+<td colspan=2>
+本产品	<a  target='_blank' href='2.3设备排程.html'>30台</a>
+</td>
+<td colspan=2>
+其它产品 <a  target='_blank' href='2.3设备排程.html'>70台</a>(105空闲)
+</td>
+</tr>
+<tr>
+<td colspan=6 style="text-align:right">
+ <a target='_blank' href='2.1库存查询.html'>库存查询</a> <a  target='_blank' href='2.2分解.html'>我要分解</a>
+</td>
+</tr>
+</table>
+
+
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">本次详细</legend>
+<table id='tab1' style ="margin:0 auto;border-spacing:10px;width:766px">
+<tr>
+<td class="td" >
+	序号
+</td>
+<td class="td" >
+	分解单号
+</td>
+<td class="td" >
+	状态
+</td class="td" >
+<td class="td" >
+	工作中心
+</td class="td" >
+<td class="td" >
+	设备台数
+</td class="td" >
+<td class="td" >
+	换产品
+</td class="td" >
+<td class="td" >
+	数量
+</td class="td" >
+ <td class="td" >
+	开始时间
+</td>
+<td class="td" >
+	结束时间
+</td>
+<td class="td" >
+	落轴方式
+</td>
+</tr>
+ <tr>
+ <td class="td" >
+	1
+</td>
+<td class="td" >
+	2016-258-01
+</td>
+<td class="td" >
+	释放
+</td>
+<td class="td" >
+	织一
+</td>
+<td class="td" >
+	35
+</td>
+<td class="td" >
+	5
+</td>
+<td class="td" >
+	3000m
+</td>
+ <td class="td" >
+	2017-07-17
+</td class="td" >
+<td class="td" >
+	2017-07-23
+</td>
+<td class="td" >
+3m落
+</td>
+</tr>
+
+
+ <tr>
+ <td class="td" >
+	2
+</td>
+<td class="td" >
+	2016-258-02
+</td>
+<td class="td" >
+	释放
+</td>
+<td class="td" >
+	织一
+</td>
+<td class="td" >
+	35
+</td>
+<td class="td" >
+	5
+</td>
+<td class="td" >
+	3000m
+</td>
+ <td class="td" >
+	2017-07-24
+</td>
+<td class="td" >
+	2017-07-30
+</td>
+<td class="td" >
+3m落
+</td>
+</tr>
+</table>
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">BOM明细</legend>
+<table style ="margin:0 auto;border-spacing:10px;width:766px">
+	<tr>
+		<td class="td" rowspan=3 style="width:20%">
+			2016-258-01
+		</td>
+		<td class="td" >
+			原料1
+		</td>
+		<td class="td" >
+			厂家1
+		</td>
+		<td class="td" >
+			石家庄厂家
+		</td>
+		<td class="td" >
+			管头1
+		</td>
+		<td class="td" >
+			绿色
+		</td>
+	</tr><tr>	
+		 
+		<td class="td" >
+			原料2
+		</td class="td" >
+		<td class="td" >
+			厂家2
+		</td>
+		<td class="td" >
+			石家庄厂家
+		</td>
+		<td class="td" >
+			管头2
+		</td>
+		<td class="td" >
+			绿色
+		</td>
+	</tr><tr>	
+		 
+		<td class="td" >
+			原料3
+		</td>
+		<td class="td" >
+			厂家3
+		</td>
+		<td class="td" >
+			石家庄厂家
+		</td>
+		<td class="td" >
+			管头3
+		</td>
+		<td class="td" >
+			绿色
+		</td>
+	</tr><tr>	
+		<td class="td"  rowspan=3>
+			2016-258-02
+		</td>
+		<td class="td" >
+			原料1
+		</td>
+		<td class="td" >
+			厂家1
+		</td>
+		<td class="td" >
+			石家庄厂家
+		</td>
+		<td class="td" >
+			管头1
+		</td>
+		<td class="td" >
+			绿色
+		</td>
+	</tr><tr>	
+		 
+		<td class="td" >
+			原料2
+		</td>
+		<td class="td" >
+			厂家2
+		</td>
+		<td class="td" >
+			厂家2
+		</td>
+		<td class="td" >
+			管头2
+		</td>
+		<td class="td" >
+			绿色
+		</td>
+	</tr><tr>	
+		 
+		<td class="td" >
+			原料3
+		</td>
+		<td class="td" >
+			厂家3
+		</td>
+		<td class="td" >
+			厂家3值
+		</td>
+		<td class="td" >
+			管头3
+		</td>
+		<td class="td" >
+			绿色
+		</td>
+	</tr>
+</table>
+<br>
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">日志</legend>
+<div class="box">
+	<div class="bcon">
+		<div class="list_lh">
+			<ul>
+				<li>
+					<p>马调<a href="#" target="_blank" class="btn_lh">复制</a><span style='width:200px'>2017-07-18 17:28:05</span></p>
+					<p><a href="#" target="_blank" class="a_blue">单号2016-258-01数量从600m减少500m，机台减少从40修改成为35</a></p>
+				</li>
+				<li>
+					<p>马调<a href="#" target="_blank" class="btn_lh">复制</a><span style='width:200px'>2017-07-18 17:28:05</span></p>
+					<p><a href="#" target="_blank" class="a_blue">单号2016-258-02数量从600m修改到500m</a></p>
+				</li>
+				<li>
+					<p>马调<a href="#" target="_blank" class="btn_lh">复制</a><span style='width:200px'>2017-07-18 17:28:05</span></p>
+					<p><a href="#" target="_blank" class="a_blue">单号2016-258-01数量从600m减少500m，机台减少从40修改成为35</a></p>
+				</li>
+				<li>
+					<p>马调<a href="#" target="_blank" class="btn_lh">复制</a><span style='width:200px'>2017-07-18 17:28:05</span></p>
+					<p><a href="#" target="_blank" class="a_blue">单号2016-258-02数量从600m修改到500m</a></p>
+				</li>
+				<li>
+					<p>马调<a href="#" target="_blank" class="btn_lh">复制</a><span style='width:200px'>2017-07-18 17:28:05</span></p>
+					<p><a href="#" target="_blank" class="a_blue">单号2016-258-01数量从600m减少500m，机台减少从40修改成为35</a></p>
+				</li>
+				<li>
+					<p>马调<a href="#" target="_blank" class="btn_lh">复制</a><span style='width:200px'>2017-07-18 17:28:05</span></p>
+					<p><a href="#" target="_blank" class="a_blue">单号2016-258-02数量从600m修改到500m</a></p>
+				</li>
+				<li>
+					<p>马调<a href="#" target="_blank" class="btn_lh">复制</a><span style='width:200px'>2017-07-18 17:28:05</span></p>
+					<p><a href="#" target="_blank" class="a_blue">单号2016-258-01数量从600m减少500m，机台减少从40修改成为35</a></p>
+				</li>
+				<li>
+					<p>马调<a href="#" target="_blank" class="btn_lh">复制</a><span style='width:200px'>2017-07-18 17:28:05</span></p>
+					<p><a href="#" target="_blank" class="a_blue">单号2016-258-02数量从600m修改到500m</a></p>
+				</li>
+			</ul>
+		</div>
+		<!-- 代码结束 -->
+	</div>
+</div>
+
+</body>
+</html>

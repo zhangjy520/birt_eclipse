@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanArrangeDetDao">
+    
+	<sql id="mesPlanArrangeDetColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.erp_bill_no AS "erpBillNo",
+		a.goods_id AS "goodsId",
+		a.left_qty AS "leftQty",
+		a.qty_unit AS "qtyUnit",
+		a.workcenter_id AS "workcenterId",
+		a.shift_id1 AS "shiftId1",
+		a.shift_style1 AS "shiftStyle1",
+		a.shift_id2 AS "shiftId2",
+		a.shift_style2 AS "shiftStyle2",
+		a.qty1 AS "qty1",
+		a.qty2 AS "qty2",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks",
+		a.shift_status AS "shiftStatus",
+		a.plan_sheet_id1 as "planSheetId1",
+		a.plan_sheet_id2 as "planSheetId2",
+		a.arrange_erp_bill_no as "arrangeErpBillNo"
+	</sql>
+	<sql id="mesPlanArrangeDetJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanArrangeDet">
+		SELECT 
+			<include refid="mesPlanArrangeDetColumns"/>
+		FROM mes_plan_arrange_det a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanArrangeDet">
+		SELECT 
+			<include refid="mesPlanArrangeDetColumns"/>
+		FROM mes_plan_arrange_det a
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goods_id = #{goodsId}
+			</if>
+			<if test="canDeleteStatus != null and canDeleteStatus != '0' and canDeleteStatus != ''">
+				AND (a.shift_status is not null and a.shift_status != '0')
+			</if>
+		</where>
+			
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanArrangeDet">
+		SELECT 
+			<include refid="mesPlanArrangeDetColumns"/>
+		FROM mes_plan_arrange_det a
+		<include refid="mesPlanArrangeDetJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_arrange_det(
+			id,
+			sheet_id,
+			erp_bill_no,
+			goods_id,
+			left_qty,
+			qty_unit,
+			workcenter_id,
+			shift_id1,
+			shift_style1,
+			shift_id2,
+			shift_style2,
+			qty1,
+			qty2,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks,
+			shift_status,
+			plan_sheet_id1,
+			plan_sheet_id2,
+			arrange_erp_bill_no
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{erpBillNo},
+			#{goodsId},
+			#{leftQty},
+			#{qtyUnit},
+			#{workcenterId},
+			#{shiftId1},
+			#{shiftStyle1},
+			#{shiftId2},
+			#{shiftStyle2},
+			#{qty1},
+			#{qty2},
+			#{createUser},
+			#{createTime},
+			#{updateUser},
+			#{updateTime},
+			#{remarks},
+			#{shiftStatus},
+			#{planSheetId1},
+			#{planSheetId2},
+			#{arrangeErpBillNo}
+		)
+	</insert>
+	
+	<update id="updateSheetStatus2SheetId">
+		UPDATE mes_plan_arrange_det SET 	
+			shift_status = #{shiftStatus},
+			plan_sheet_id1 = #{planSheetId1},
+			plan_sheet_id2= #{planSheetId2}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<update id="update">
+		UPDATE mes_plan_arrange_det SET 	
+			sheet_id = #{sheetId},
+			erp_bill_no = #{erpBillNo},
+			goods_id = #{goodsId},
+			left_qty = #{leftQty},
+			qty_unit = #{qtyUnit},
+			workcenter_id = #{workcenterId},
+			shift_id1 = #{shiftId1},
+			shift_style1 = #{shiftStyle1},
+			shift_id2 = #{shiftId2},
+			shift_style2 = #{shiftStyle2},
+			qty1 = #{qty1},
+			qty2 = #{qty2},
+			create_user = #{createUser},
+			create_time = #{createTime},
+			update_user = #{updateUser},
+			update_time = #{updateTime},
+			remarks = #{remarks},
+			arrange_erp_bill_no = #{arrangeErpBillNo}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<update id="delete">
+		DELETE FROM mes_plan_arrange_det
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_arrange_det
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteBySheetId">
+		DELETE FROM mes_plan_arrange_det
+		WHERE sheet_id = #{sheetId}
+	</delete>
+	
+	<select id="findByMap" resultType="MesPlanArrangeDet">
+		SELECT 
+			<include refid="mesPlanArrangeDetColumns"/>
+		FROM  mes_plan_arrange_det a
+		<include refid="mesPlanArrangeDetJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goods_id = #{goodsId}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

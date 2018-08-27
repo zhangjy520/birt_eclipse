@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanDeviceDayDao">
+    
+	<sql id="mesPlanDeviceDayColumns">
+		a.id AS "id",
+		a.workcenter_id AS "workcenterId",
+		a.device_id AS "deviceId",
+		a.goods_id AS "goodsId",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.work_date AS "workDate",
+		a.schedule_Status as "scheduleStatus",
+		a.is_chg_goods AS "isChgGoods"
+	</sql>
+	<sql id="mesPlanDeviceDayJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanDeviceDay">
+		SELECT 
+			<include refid="mesPlanDeviceDayColumns"/>
+		FROM mes_plan_device_day a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanDeviceDay">
+		SELECT 
+			<include refid="mesPlanDeviceDayColumns"/>
+		FROM mes_plan_device_day a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="workcenterId != null and workcenterId != ''">
+				AND a.workcenter_id = #{workcenterId}
+			</if>
+			<if test="deviceId != null and deviceId != ''">
+				AND a.device_id = #{deviceId}
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goods_id = #{goodsId}
+			</if>
+			<if test="workDate != null ">
+				AND a.work_date = #{workDate}
+			</if>
+			<if test="workDate1 != null ">
+				AND a.work_date &gt;= #{workDate1}
+			</if>
+			<if test="workDate2 != null">
+				AND a.work_date &lt;= #{workDate2}
+			</if>
+			<if test="scheduleStatus != null and scheduleStatus != ''">
+				AND a.schedule_Status = #{scheduleStatus}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanDeviceDay">
+		SELECT 
+			<include refid="mesPlanDeviceDayColumns"/>
+		FROM mes_plan_device_day a
+		<include refid="mesPlanDeviceDayJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getDeviceAvailMaxDate" resultType="MesPlanDeviceDay">
+		SELECT 
+			<include refid="mesPlanDeviceDayColumns"/>
+		FROM mes_plan_device_day a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND a.workcenter_id = #{workcenterId}
+			AND a.device_id = #{deviceId}
+			AND a.work_date &gt; #{workDate}
+		</where>
+		order by work_date limit 1
+	</select>
+	
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_device_day(
+			id,
+			workcenter_id,
+			device_id,
+			goods_id,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks,
+			del_flag,
+			work_date,
+			schedule_Status,
+			is_chg_goods
+		) VALUES (
+			#{id},
+			#{workcenterId},
+			#{deviceId},
+			#{goodsId},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{remarks},
+			#{delFlag},
+			#{workDate},
+			#{scheduleStatus},
+			#{isChgGoods}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_device_day SET 	
+			workcenter_id = #{workcenterId},
+			device_id = #{deviceId},
+			goods_id = #{goodsId},
+			update_user = #{currentUser},
+			update_time = now(),
+			remarks = #{remarks},
+			work_date = #{workDate},
+			schedule_Status = #{scheduleStatus},
+			is_chg_goods = #{isChgGoods}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from  mes_plan_device_day  
+		WHERE id = #{id}
+	</delete>
+	<delete id="deleteById">
+		delete from mes_plan_device_day 
+		WHERE id = #{id}
+	</delete>
+	
+	
+	<delete id="deleteByUk">
+		delete from  mes_plan_device_day  
+		WHERE  work_date = #{workDate}
+		and workcenter_id = #{workcenterId}
+		and device_id = #{deviceId}
+		and schedule_Status = '0' ;
+	</delete>
+	
+	
+	<delete id="deleteByFinish">
+		delete from  mes_plan_device_day  
+		WHERE  work_date &gt;= #{workDate1}
+		and work_date &lt;= #{workDate2}
+		and device_id = #{deviceId}
+		<if test="goodsId != null and goodsId != ''">
+			and goods_id = #{goodsId}
+		</if>
+	</delete>
+	
+	
+	<select id="findByMap" resultType="MesPlanDeviceDay">
+		SELECT 
+			<include refid="mesPlanDeviceDayColumns"/>
+		FROM  mes_plan_device_day a
+		<include refid="mesPlanDeviceDayJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="workcenterId != null and workcenterId != ''">
+				AND a.workcenter_id = #{workcenterId}
+			</if>
+			<if test="deviceId != null and deviceId != ''">
+				AND a.device_id = #{deviceId}
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goods_id = #{goodsId}
+			</if>
+			<if test="scheduleStatus != null and scheduleStatus != ''">
+				AND a.schedule_Status = #{scheduleStatus}
+			</if>
+			<if test="workDate != null and workDate != ''">
+				AND a.work_date = #{workDate}
+			</if>
+			<if test="workDate1 != null and workDate1 != ''">
+				AND a.work_date &gt;= #{workDate1}
+			</if>
+			<if test="workDate2 != null and workDate2 != ''">
+				AND a.work_date &lt;= #{workDate2}
+			</if>
+		</where>
+	</select>
+	<update id="updateGoodsByUk">
+		UPDATE mes_plan_device_day SET 
+			goods_id = #{goodsId},
+			is_chg_goods = #{isChgGoods},
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE work_date = #{workDate}
+		and workcenter_id = #{workcenterId}
+		and device_id = #{deviceId}
+		and del_flag = #{DEL_FLAG_NORMAL}
+		and schedule_Status = '0';
+	</update>
+	
+	
+	<update id="updateScheduleStatusByUk">
+		UPDATE mes_plan_device_day SET 
+			schedule_Status = #{scheduleStatus},
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE work_date = #{workDate}
+		and workcenter_id = #{workcenterId}
+		and device_id = #{deviceId}
+		and del_flag = #{DEL_FLAG_NORMAL}
+		and schedule_Status &lt; '98' ;
+	</update>
+	
+	<update id="updateScheduleStatusById">
+		UPDATE mes_plan_device_day SET 
+			schedule_Status = #{scheduleStatus},
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE id = #{id}
+		and del_flag = #{DEL_FLAG_NORMAL}
+		and schedule_Status &lt; '98' ;
+	</update>
+	
+	<select id="getByUk" resultType="MesPlanDeviceDay">
+		SELECT 
+			<include refid="mesPlanDeviceDayColumns"/>
+		FROM mes_plan_device_day a
+		WHERE  work_date = #{workDate}
+		and workcenter_id = #{workcenterId}
+		and device_id = #{deviceId}
+		and del_flag = #{DEL_FLAG_NORMAL}
+	</select>
+	
+</mapper>

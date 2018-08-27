@@ -1,0 +1,167 @@
+<html>
+<meta charset="utf-8"/>
+<head>
+<style type="text/css">
+.comment_bubble {
+    width: 140px;
+    height: 100px;
+    background: #d8ddeb;
+    position: relative;
+	margin: 0 auto;
+}
+  
+.comment_bubble:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid white;
+    border-bottom: 50px solid transparent;
+}  
+
+.comment_bubble:after {
+    content: "";
+    width: 0;
+    height: 0;
+	left:100%;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid #d8ddeb;
+    border-bottom: 50px solid transparent;
+	z-index:10;
+}  
+ 
+ 
+ .comment_bubble_last {
+    width: 165px;
+    height: 100px;
+    background: #d8ddeb;
+    position: relative;
+	margin: 0 auto;
+}
+  
+ 
+
+.comment_bubble_last:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid white;
+    border-bottom: 50px solid transparent;
+}  
+
+
+.comment_bubble_first {
+    width: 140px;
+    height: 100px;
+    background: #b1d2b4;
+    position: relative;
+	margin: 0 auto;
+}
+  
+.comment_bubble_first:after {
+    content: "";
+    width: 0;
+    height: 0;
+	left:100%;
+    position: absolute;
+    border-top: 50px solid transparent;
+    border-left: 25px solid #b1d2b4;
+    border-bottom: 50px solid transparent;
+	z-index:10;
+}  
+.lable1 {text-align:center}
+
+.lable2 {margin-top:5px;margin-left:50px;float:left}
+
+#tab1 {border:1px solid #999999;border-collapse:collapse}
+.td{border:1px solid #999999 ;padding:4px;}
+</style>
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body >
+<legend style="width: 770px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">原材料库存查询</legend>
+<table style ="margin:0 auto;border-spacing:0px;width:770px">
+<tr>
+<td>物料编号</td>
+<td ><input type='text' value='2016-258'></input> </td>
+<td ><input type='button' value='查询'></input></td>
+</tr>
+</table>
+<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">BOM库存明细</legend>
+<table style ="margin:0 auto;border-spacing:10px;width:766px">
+
+	<tr>
+		 
+		<th class="td" >
+			原料
+		</th>
+		 
+		<th class="td" >
+			厂家
+		</th>
+		<th class="td" >
+			管头
+		</th>
+		<th class="td" >
+			库存
+		</th>
+	</tr>
+	
+	
+	<tr>
+		 
+		<td class="td" >
+			原料1
+		</td>
+		 
+		<td class="td" >
+			石家庄厂家
+		</td>
+		<td class="td" >
+			绿色
+		</td>
+		<td class="td" >
+			1000
+		</td>
+	</tr><tr>	
+		 
+		<td class="td" >
+			原料2
+		</td class="td" >
+	 
+		<td class="td" >
+			石家庄厂家
+		</td>
+		<td class="td" >
+			绿色
+		</td>
+		<td class="td" >
+			1000
+		</td>
+	</tr><tr>	
+		 
+		<td class="td" >
+			原料3
+		</td>
+		 
+		<td class="td" >
+			石家庄厂家
+		</td>
+		<td class="td" >
+			绿色
+		</td>
+		<td class="td" >
+			1000
+		</td>
+	</tr>
+</table>
+
+<br>
+</body>
+</html>

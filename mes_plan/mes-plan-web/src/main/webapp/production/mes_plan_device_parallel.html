@@ -1,0 +1,352 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <!--#include virtual="/mes-plan/include/echarts.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/mes_plan_month.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/>
+ <style type="text/css">
+			.form-group1{margin-bottom:5px};
+			/* .goods-item:after{content:".";display:block;height:0;clear:both;visibility:hidden} */
+			/* #tab_det th{background-color:#f5f5f5 !important} */
+			#detailTab{margin-top:-5px} 
+			#condition_tab {width:100%}
+			#condition_tab th{width:15%;text-align:right;padding-right:20px}
+			#condition_tab td{width:35%;padding:2px}
+			.thcls {background-color:#f5f5f5 !important;border-top:0px ;border-bottom:0px !important}
+ </style>
+ 
+ <!-- 生产计划明细 -->
+<div class="warpper animated fadeInRight" style="overflow-x:hidden">     
+     <div class="container-fluid panel-custom panel panel-default" >
+        <div class="row">
+		       <div class="col-sm-12">
+		           <h4 class="page-header">调度单指定设备并行加工</h4>
+		       </div>
+   	    </div> 
+   	 
+   	    <div class="panel-default" style="margin-top:-10px">
+		  <div class="panel-heading"><strong>车间订单</strong><a href="#" onclick="$('#detailTab').toggle(100,changeFolderFun);return false;"><span id="folderBtn" style="float:right" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></div>
+		  <div id="detailTab" style="margin-top:-6px">
+		  		<script id="detailTab.tmp" type="text/html" > 
+		    	<table class ="table table-bordered table-condensed detailTab">
+					<tr>
+					<th>
+						订单号
+					</th>
+					<td>
+						<input id="id" type="hidden" value="{{mesPlanDispatchDet.id}}">
+						<input id="workshopId" type="hidden" value="{{mesPlanMonth.workshopId}}">
+						<input id="workcenterId" type="hidden" value="{{mesPlanDispatchDet.workcenterId}}">
+
+						 <span id='erpBillNoSpan'>{{mesPlanDispatchHead.erpBillNo}}</span>
+					</td>
+					<th>
+						车间订单号
+					</th>
+					<td>
+						 <span>{{mesPlanDispatchDet.billNo}}</span>
+					</td>
+					
+					</tr>
+					
+					<tr>
+					<th rowspan=2>
+						计划时间
+					</th>
+					<td style="padding:5px">
+						 <span>{{mesPlanDispatchDet.planBeginDate}} {{mesPlanDispatchDet.shiftBeginTime}}</span>
+					</td>
+					<th>
+						 工作中心
+					</th>
+					<td>
+						 <span>{{mesPlanDispatchDet.workcenterId|getMdmName workcenterList}}</span>
+					</td>
+					</tr>
+					<tr>
+					<td>
+						<span>{{mesPlanDispatchDet.planEndDate}} {{mesPlanDispatchDet.shiftEndTime}}</span> 
+					</td>
+
+					<th>
+						 <!--{{if mesPlanMonth.workshopId != $imports.workshop3}}落轴方式{{/if}}-->
+					</th>
+					<td>
+						<!--{{if mesPlanMonth.workshopId != $imports.workshop3}} <span>5米落</span>{{/if}}-->
+					</td>
+
+					</tr>
+{{if mesPlanMonth.workshopId != $imports.workshop3}}
+					 
+					
+					<tr>
+					<th>
+						设备
+					</th>
+					<td>
+						 <span>{{mesPlanDispatchDet.deviceQty}}台</span>
+					</td>
+					 <th>
+						设备(换产品)
+					</th>
+					<td>
+						 <span>{{mesPlanDispatchDet.deviceChangeQty}}台</span>
+					</td>
+					</tr>
+					
+{{else}}
+
+					<tr>
+					<th>
+						班次
+					</th>
+					<td>
+						 <span>{{mesPlanDispatchDet.shiftId|getMdmName shiftList}}</span>
+					</td>
+					<th>
+						班别
+					</th>
+					<td>
+						 <span>{{mesPlanDispatchDet.shiftStyle|getMdmName shiftStyle}}</span>
+					</td>
+					</tr>
+{{/if}}
+<tr>
+						<th>本单总数量</th>
+						<td><span id='dispatchQtySpan'>{{mesPlanDispatchDet.dispatchQty}}</span>{{mesPlanMonth.qtyUnit}}{{if mesPlanMonth.workshopId == $imports.workshop3}}({{mesPlanDispatchDet.dispatchQtyPackage}}匹){{/if}}</td>
+					 	<th>本单已计划</th>
+						<td>{{mesPlanDispatchDet.workCenterQty}}{{mesPlanMonth.qtyUnit}}</td>
+					</tr>
+					<tr>
+					<th>
+						半成品
+					</th>
+					<td>
+						{{mesPlanMonth.goodsName}}
+					</td>
+					<th>
+						{{if mesPlanMonth.workshopId != $imports.workshop3}}换产品{{else}}子工序{{/if}}
+					</th>
+					<td>
+						{{if mesPlanMonth.workshopId != $imports.workshop3}} 
+							<span>{{mesPlanDispatchDet.deviceChangeGoodsId|getMdmName goodsList}}</span>
+						{{else}}
+							{{mesPlanDispatchDet.arrangeGroup|getMdmName subJobProcesssDdw}}
+						{{/if}}
+					</td>
+					</tr>
+					<tr>
+					<th>
+						设备产能
+					</th>
+					<td>
+						 {{mesPlanDispatchDet.capacityInput}}{{mesPlanMonth.qtyUnit}}/天
+					</td>
+					<th>
+						 
+					</th>
+					<td>
+					 	
+					</td>
+					</tr>
+					{{if mesPlanMonth.workshopId == $imports.workshop3}} 
+					<tr>
+						<th>
+							关联工序
+						</th>
+						<td colspan=3 >
+						 {{each mesPlanDispatchDetList listValue i}}
+
+						
+							{{if listValue.billNo != mesPlanDispatchDet.billNo}}<a href='/mes-plan/production/mes_plan_device_parallel.html?id={{listValue.id}}' title='单号:{{listValue.billNo}},已计划:{{listValue.workCenterQty}}{{mesPlanMonth.qtyUnit}}' >{{/if}}{{listValue.arrangeGroup|getMdmName subJobProcesssDdw}}{{if listValue.billNo != mesPlanDispatchDet.billNo}}</a>{{/if}}{{if i != (mesPlanDispatchDetList.length-1)}} ————>{{/if}}
+								
+						 {{/each}}
+						</td>
+					</tr>
+					{{/if}}
+					</table>
+				</script>
+		  </div>
+		  <div id="qty_div">
+		  <script id="qty_div.tmp" type="text/html" > 
+			 <!--<table style ="margin-top:10px;border-spacing:0px;width:100%;text-align:center">
+				<tr>
+				<th colspan=2 style="text-align:center">
+					车间调度
+				</th>
+				<th colspan=2 style="text-align:center">
+					车间已调度
+				</th>
+				<th colspan=2 style="text-align:center">
+					剩余调度
+				</th>
+				</tr>
+				<tr>
+				<td style="padding:10px;font-size:30px" colspan=2>
+					{{mesPlanDispatchDet.dispatchQty}}m
+				</td>
+				<td style="font-size:30px" colspan=2>
+					<span style="font-size:30px;color:#249730">{{mesPlanDispatchDet.workCenterQty}}</span>m
+				</td>
+				<td style="font-size:30px" colspan=2>
+					{{(mesPlanDispatchDet.dispatchQty-mesPlanDispatchDet.workCenterQty).toFixed(2)}}m
+				</td>
+				</tr>
+				
+				<tr>
+				<td colspan=2>
+				日均分配 600m
+				</td>
+				<td colspan=2>
+				日均完成率 1%
+				</td>
+				<td colspan=2>
+				计划进度 正常
+				</td>
+				</tr>
+				<tr>
+				<td colspan=2>
+				设备总/换产品<a target='_blank' href='2.3设备排程.html'>200/34台</a>
+				</td>
+				<td colspan=2>
+				已调度/换产品	<a  target='_blank' href='2.3设备排程.html'>170/20台</a>
+				</td>
+				<td colspan=2>
+				其它产品 <a  target='_blank' href='2.3设备排程.html'>70台</a>(105空闲)
+				</td>
+				</tr>
+				</table>-->
+				</script>
+			</div>
+		</div>
+		
+		<div class="panel-default" style="margin-top:10px">
+		  <div class="panel-heading" style="padding:0px;text-align:right"><strong class='panelTitleFloat'>班组订单列表</strong> 
+		  	<a id="newBtn" class="btn btn-primary" href='/mes-plan/production/mes_plan_device_parallel_new.html?parId=&erpBillNo=' onclick="orderParallel(this,'','0');return false;"><span class="glyphicon glyphicon-plus"></span>新增</a>
+		  	<a id="batchBtn"  class="btn btn-primary" href='/mes-plan/production/mes_plan_device_batch.html?parId='><span class="glyphicon glyphicon-plus"></span>批量新增</a>
+		  	<a id="newBtn2" class="btn btn-primary" href='/mes-plan/production/mes_plan_device_parallel_new2.html?parId=&erpBillNo=' onclick="orderParallel(this,'','0');return false;"><span class="glyphicon glyphicon-plus"></span>新增</a>
+		  	<a id="batchBtn2"  class="btn btn-primary" href='/mes-plan/production/mes_plan_device_batch2.html?parId='><span class="glyphicon glyphicon-plus"></span>批量新增</a>
+		  	<a id="QtyAnaBtn" class="btn btn-primary" onclick="qtyAna();return false;" href='/mes-plan/production/mes_plan_erp_suit_analyse.html'><span class="glyphicon glyphicon-search"></span>齐套分析</a>
+		  	<a id="batchCheckBtn" class="btn btn-primary" href='#' onclick="onCheckBatch();return false;"><span class="glyphicon glyphicon-import"></span>批量下发</a>
+		  	<a id="batchFinishBtn" class="btn btn-primary" href='#' onclick="onBatchFinish();return false;"><span class="glyphicon glyphicon-lock"></span>批量完工</a>
+		  	<input type='text'  style="height:30px;width:140px;margin-right:1px" placeholder="请输入搜索" onchange='onFilter(this,"#tabBody")'/>
+		  	<!-- <a id="batchTechnicBtn" class="btn btn-success" href='#' onclick="onBatchTechnic();return false;"><span class="glyphicon glyphicon-import"></span>指定工艺路线</a> -->
+		  </div>
+		  <div id="device_div" style="margin-top:-1px"> 
+		  	<script id="device_div.tmp" type="text/html" > 
+			  <table id="tab" style="margin:0px" class="table table-bordered table-condensed">
+<thead id="tabth">
+					<tr>
+						<th style="text-align:center;width:26px" class='thcls'>
+							<input name="checkflag" type="checkbox" onclick="return onSelectAll(this)">
+						</th>
+						<th class='thcls'>班组订单号</th>
+						<th class='thcls'>机台/工作组信息</th>
+{{if mesPlanMonth.workshopId != $imports.workshop3}}<th class='thcls'>计划日期</th>
+						<th class='thcls'>换产品</th>
+						<!--<th class='thcls'>跳过的工序</th>-->
+{{/if}}
+						<th class='thcls'>计划产出</th>
+						<th class='thcls'>已完工</th>
+						<th class='thcls'>状态</th>
+						<th class='thcls'>设备排程</th>
+						<th class='thcls'>要求</th>
+						<th class='thcls'>完工说明</th>
+						<th class='thcls'>操作</th>
+					</tr>
+</thead>
+ <tbody id="tabBody">
+					{{each mesPlanDeviceList listValue}}
+					<tr>
+						<td><input type="checkbox" name='checkflag'>  
+							<input name="id" type="hidden" value="{{listValue.id}}">
+							<input name="billNo" type="hidden" value="{{listValue.billNo}}">
+							<input name="dispatchStatus" type="hidden" value="{{listValue.dispatchStatus}}">
+						</td>
+						<td>{{listValue.billNo}}</td>
+						<td>
+							<ul>
+								<li>{{listValue.deviceId}}</li>
+								<li>{{listValue.deviceName}}</li>
+							</ul>
+						</td>
+						
+					{{if mesPlanMonth.workshopId != $imports.workshop3}}
+						<td>
+						<ul style="list-style:none; ">
+							<li style="list-style:none; ">{{listValue.planBeginDate}}</li>
+							<li style="list-style:none; ">{{listValue.planEndDate}}</li>
+						</ul>
+						</td>
+						<td>
+							{{if listValue.isChgGoods == "0"}}
+							否
+							{{else}}
+							是
+							{{/if}}
+						</td>
+						<!--<td>{{listValue.noTechnic}}</td>-->
+					{{/if}}				
+						<td>{{listValue.workCenterQty}}{{mesPlanMonth.qtyUnit}}<input name='workCenterQty' type='hidden' value='{{listValue.workCenterQty}}' /></td>
+						<td>{{listValue.finishQty}}{{mesPlanMonth.qtyUnit}}</td>
+						<td>
+							{{listValue.dispatchStatus|getDdwName ddw_schedule_status}}
+						</td>
+						<td>可生产</td>
+						<td>{{listValue.deviceRequire}}</td>
+						<td>{{listValue.remarks}}</td>
+						<td>
+							<ul>
+								<!--<li><a target='_blank' href='/mes-plan/plan/3.4齐套分析.html'>查看快照</a></li>-->
+								<li><a href='#' onclick=orderParallel(this,'/mes-plan/production/mes_plan_device_parallel_new{{if mesPlanMonth.workshopId == $imports.workshop3}}2{{/if}}.html?parId={{mesPlanDispatchDet.id}}&erpBillNo={{mesPlanMonth.erpBillNo}}&id={{listValue.id}}','{{listValue.dispatchStatus}}')>{{if listValue.dispatchStatus == "0"}}修改{{else}}查看{{/if}}</a></li>
+								{{if listValue.dispatchStatus == "0"}}
+									<li><a href='#' onclick="on_chk_row('{{mesPlanDispatchDet.id}}','{{listValue.id}}','{{mesPlanDispatchDet.workcenterId}}','{{mesPlanMonth.workshopId}}');return false;">下发</a></li>
+									<li><a href='#' onclick="on_del_row('{{mesPlanDispatchDet.id}}','{{listValue.id}}','{{mesPlanDispatchDet.workcenterId}}','{{mesPlanMonth.goodsId}}','{{mesPlanDispatchDet.billNo}}');return false;">删除</a></li>
+								{{else if listValue.dispatchStatus == "10"}}
+									<li><a href='#' onclick="on_cancel_row('{{mesPlanDispatchDet.id}}','{{listValue.id}}','{{mesPlanDispatchDet.workcenterId}}','{{mesPlanMonth.goodsId}}','{{mesPlanMonth.workshopId}}');return false;">取消下发</a></li>
+								{{else if listValue.dispatchStatus == "20"}}
+									<li><a href='#' onclick="alert('暂未实现!');return false;">异常终止</a></li>
+					
+								{{/if}}
+							</ul>
+						</td>
+					</tr>
+					 
+					{{/each}}
+</tbody>
+<tfoot><tr>
+						<td colspan=2><strong>合计</strong></td>
+						<td style="text-align:right" colspan={{if mesPlanMonth.workshopId == $imports.workshop3}}8{{else}}11{{/if}}> 
+							<strong>共{{mesPlanDispatchDet.workCenterQty}}{{mesPlanMonth.qtyUnit}}</strong>
+						</td>
+					</tr></tfoot>
+
+				</table>
+			</script>
+			</div>
+		</div>
+		
+		<!-- <div class="panel panel-default" style="border:0px ;padding-top:10px;clear:both">
+		  <div class="panel-heading"><strong>日志</strong> </div>
+         	
+		  </div> -->
+		  
+		  
+		
+		  	<script id="technic_div.tmp" type="text/html" > 
+  				<div id="technic_div" style="margin:10px"> 
+					{{each $data listValue}}
+						{{listValue.technicName}}&nbsp;&nbsp;
+						{{each listValue.subTechnicList listValue2}}
+							<input type='checkbox' name='{{listValue2.process.parentProcess}}' value='{{listValue2.process.processCode}} {{listValue2.process.processName}}'/>{{listValue2.process.processName}}&nbsp;
+						{{/each}}
+						<br>
+					{{/each}}
+				</div>
+			</script>
+		 
+	</div>
+ </div>
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_device_parallel.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/jquery/jquery.cookie.js"> </script>
+</body>
+</html>

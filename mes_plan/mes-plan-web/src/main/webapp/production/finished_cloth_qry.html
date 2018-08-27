@@ -1,0 +1,127 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+  <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/>
+ <style type="text/css">
+			.form-group1{margin-bottom:5px};
+			/* .goods-item:after{content:".";display:block;height:0;clear:both;visibility:hidden} */
+			/* #tab_det th{background-color:#f5f5f5 !important} */
+			#detailTab{margin-top:-6px} 
+			
+			
+ </style>
+<div style="overflow:hidden;" class=" main_content warpper animated fadeInRight">
+<div class="container-fluid panel-custom panel panel-default" >
+    <!-- 生产计划管理 -->
+    <div class="row">
+        <!-- 标题栏  -->
+        <div class="col-sm-12">
+            <h4 class="page-header">落布信息查询</h4>
+        </div>
+    </div>
+    <!-- 快捷查询条件 -->
+    <form id ="from_condition" class="form-horizontal" >  
+    	<table id="condition_tab" class='conditionTab'>
+    		<tr>
+    			<th>生产任务书编号</th><td><input name='weavingAssignment' type="text" class="form-control"/></td>
+    			<th>状态</th><td>
+    			<select id='status' name='status' class="form-control">
+    			<option value=""></option>
+    			</select></td>
+    			<th>布轴编号</th><td>
+    			 	<input id="shaftCode" name="shaftCode" class="form-control"> 
+				 </td>
+    		</tr>
+    		
+    		<tr>
+    			<th>开始生产时间</th><td> 
+    			<input class="Wdate form-control" id='startTime' name='startTime' style="height:34px" type="text" onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+    			</td>
+    			<th>结束生产时间</th><td>
+    			<input class="Wdate form-control" id='endTime' name='endTime' style="height:34px" type="text" onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+    			</td>
+    			 <th>序列号</th><td>
+   			 		<input id="serialNo" name="serialNo" class="form-control">
+			 	</td>
+    		</tr>
+    		<tr>
+			 <th>车间</th><td>
+				<select id='workShop' name="workShop" class="form-control">
+	                  <option value=""></option>
+				</select>
+			 </td>
+				 
+    		</tr>
+    	</table>
+    
+            <div class='conditionBtn' >
+	                <button class="btn btn-primary" onclick="searchOrder(true,1,PAGESIZE);return false;"><span class="glyphicon glyphicon-search"></span>查询</button>
+	                <button class="btn" type="reset" ><span class="glyphicon glyphicon-erase"></span>清空</button>
+	            </div>
+         </form>
+   
+  
+    <div class="panel-default panelTop">
+		  <div class="panel-heading" style="padding:10px">
+		  		<strong>落布信息列表</strong>
+		  		<!-- <a class="btn btn-primary" href='/mes-plan/production/production_plan_import.html'><span class="glyphicon glyphicon-import"></span>导入Excel计划</a> -->
+                <!-- <a class="btn btn-primary" href='/mes-plan/production/mes_plan_month_add.html'><span class="glyphicon glyphicon-plus"></span>新增计划</a> -->
+           </div>
+           <div id="detailTab" style="margin-top:-6px">
+		  <script id="detailTab.tmp" type="text/html" >
+            <table id="tab_det"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>         
+						<th class="thcls">序号</th>
+                        <th class="thcls">织布车间</th>
+						<th class="thcls">落布班次</th>
+                        <th class="thcls">布轴编号</th>
+						<th class="thcls">序列号</th>
+                        <th class="thcls">品名</th>
+                        <th class="thcls">生产任务书编号</th>
+                        <th class="thcls">落布时间</th>
+                        <th class="thcls">长度</th>
+						<th class="thcls">单位</th>
+						<th class="thcls">付出时间</th>
+						<th class="thcls">整理车间小组</th>
+						<th class="thcls">对应验布机编号</th>
+						<th class="thcls">状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+						{{each list listValue i}}
+				<tr>
+					<td>  
+						{{i+1}}
+					</td>
+                 	<td>{{listValue.workshop|getDdwName dropdownDatas.workshopList}}</td>
+					<td>{{listValue.workClass|getMdmName dropdownDatas.shiftIdList}}</td>
+                 	<td>{{listValue.shaftCode}}</td>
+					<td>{{listValue.serialNo}}</td>
+                 	<td>{{listValue.variety}}</td>
+                 	<td>{{listValue.weavingAssignment}}</td>
+                 	<td>{{listValue.downTime}}</td>
+                 	<td>{{listValue.number}}</td>
+					<td>{{listValue.unitName}}</td>
+					<td>{{listValue.outTime}}</td>
+					<td>{{listValue.weavingGroup}}</td>
+					<td>{{listValue.checkMachineCode}}</td>
+					<td>{{listValue.status|getDdwName dropdownDatas.cloth_status}}</td>
+                 </tr>
+						{{/each}}
+                </tbody>
+            </table>
+     		
+			</script>
+		</div>
+    
+     </div>
+    </div>
+   
+  </div>
+ </body>
+
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/finished_cloth_qry.js"></script>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/select2/select2.min.css">
+ <script type="text/javascript" src="/mes-plan/static/select2/select2.full.min.js"></script>
+<script type="text/javascript" src="/mes-plan/static/My97DatePicker/WdatePicker.js"></script> 
+</html>

@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "work_id":"B0001",
+      "bill_name": "备品备件领料单",
+      "bill_type": "其他出库",
+      "bill_desc": "领用备品备件",
+      "desp": "一织车间",
+      "create_person": "张三",
+      "date": "2017/5/3",
+      "setting_state":"已提交",
+       "operate":"M001"
+    },
+    {
+       "work_id":"M0001",
+      "bill_name": "库存调拨单",
+      "bill_type": "调拨",
+      "bill_desc": "将物料进行位置的转移",
+      "desp": "准备车间",
+      "create_person": "李四",
+      "date": "2017/5/4",
+      "setting_state":"已创建",
+       "operate":"M001"
+    },
+     {
+       "work_id":"K0001",
+      "bill_name": "备品备件领料单",
+      "bill_type": "生产入库",
+      "bill_desc": "半成品、成品完工入库",
+      "desp": "二织车间",
+      "create_person": "王五",
+      "date": "2017/07/12",
+      "setting_state":"已创建",
+      "operate":"M001"
+    }
+  ]
+}

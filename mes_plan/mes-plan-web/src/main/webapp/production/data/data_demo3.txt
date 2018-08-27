@@ -1,0 +1,76 @@
+{
+  "data": [
+    {
+      "id": "01",
+      "order_id": "112123",
+      "pro_id": "0001",
+      "pro_name": "经轴",
+       "pro_num":"20",
+       "plan_type":"计划",
+       "plan_s_time":"2017/06/08",
+       "plan_e_time":"2017/06/09",
+       "plan_workshop":"生产车间",
+       "pro_order":"生产工序1"
+       "work_zx":"工作中心1",
+       "yuansha1":"蓝翔",
+       "yuansha1_c":"蓝翔厂",
+       "yuansha1_bs":"标识1",
+       "yuansha1_bz":"标重1",
+       "yuansha2":"蓝翔",
+       "yuansha2_c":"蓝翔厂",
+       "yuansha2_bs":"标识2",
+       "yuansha2_bz":"标重1",
+       "lz_type":"方式1",
+       "change_pro":"产品1",
+       "change_num":"12"
+    },
+    {
+       "id": "02",
+      "order_id": "112123",
+      "pro_id": "0001",
+      "pro_name": "经轴",
+       "pro_num":"200000米",
+       "plan_type":"计划",
+       "plan_s_time":"2017/06/08",
+       "plan_e_time":"2017/06/09",
+       "plan_workshop":"生产车间",
+       "pro_order":"生产工序1"
+       "work_zx":"工作中心1",
+       "yuansha1":"蓝翔",
+       "yuansha1_c":"蓝翔厂",
+       "yuansha1_bs":"标识1",
+       "yuansha1_bz":"标重1",
+       "yuansha2":"蓝翔",
+       "yuansha2_c":"蓝翔厂",
+       "yuansha2_bs":"标识2",
+       "yuansha2_bz":"标重1",
+       "lz_type":"方式1",
+       "change_pro":"产品1",
+       "change_num":"12"
+    },
+    {
+       "id": "03",
+      "order_id": "112123",
+      "pro_id": "0001",
+      "pro_name": "经轴",
+       "pro_num":"200000米",
+       "plan_type":"计划",
+       "plan_s_time":"2017/06/08",
+       "plan_e_time":"2017/06/09",
+       "plan_workshop":"生产车间",
+       "pro_order":"生产工序1"
+       "work_zx":"工作中心1",
+       "yuansha1":"蓝翔",
+       "yuansha1_c":"蓝翔厂",
+       "yuansha1_bs":"标识1",
+       "yuansha1_bz":"标重1",
+       "yuansha2":"蓝翔",
+       "yuansha2_c":"蓝翔厂",
+       "yuansha2_bs":"标识2",
+       "yuansha2_bz":"标重1",
+       "lz_type":"方式1",
+       "change_pro":"产品1",
+       "change_num":"12"
+    }
+  ]
+}

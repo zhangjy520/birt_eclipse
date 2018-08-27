@@ -1,0 +1,86 @@
+<html>
+<head>
+</head>
+<body>
+<style>
+/*横向时间轴*/
+.time-horizontal {
+    list-style-type: none;
+    border-top: 1px solid #707070;
+    max-width: 800px;
+    padding: 0px;
+    margin: 0px;
+}
+ 
+.time-horizontal li {
+    float: left;
+    position: relative;
+    text-align: center;
+    width: 20%;
+    padding-top: 10px;
+}
+ 
+.time-horizontal li b:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 47%;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #4c4c4c;
+    border-radius: 8px;
+    background: #4c4c4c;
+}
+/*纵向时间轴*/
+.time-vertical {
+    list-style-type: none;
+    border-left: 1px solid #707070;
+    padding: 0px;
+    height: 400px;
+}
+ 
+.time-vertical li {
+    height: 100px;
+    position: relative;
+}
+ 
+.time-vertical li a {
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #000;
+}
+ 
+.time-vertical li b:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: -12px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #98FB98;
+    border-radius: 10px;
+    background: #98FB98;
+}
+ 
+.time-vertical li span {
+    position: absolute;
+    color: #fff;
+    top: 18px;
+    left: -6px;
+}
+
+</style>
+
+<div style="margin-top:50px" class="container">
+    <ul class="time-horizontal">
+        <li><b></b>计划</li>
+        <li><b></b>下达</li>
+        <li><b></b>开始</li>
+        <li><b></b>完成</li>
+		<li><b></b>结束</li>
+    </ul>
+</div>
+</body>
+</html>

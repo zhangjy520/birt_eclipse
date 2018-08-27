@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanTechnicDao">
+    
+	<sql id="mesPlanTechnicColumns">
+		a.erp_bill_no AS "erpBillNo",
+		a.technic_id AS "technicId",
+		a.technic_name AS "technicName",
+		a.technic_index AS "technicIndex",
+		a.technic_desc AS "technicDesc",
+		a.workcenter_id AS "workcenterId",
+		a.worktype_id AS "worktypeId",
+		a.worktype_std_time AS "worktypeStdTime",
+		a.worktype_user_time AS "worktypeUserTime",
+		a.id AS "id",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks"
+	</sql>
+	<sql id="mesPlanTechnicJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanTechnic">
+		SELECT 
+			<include refid="mesPlanTechnicColumns"/>
+		FROM mes_plan_technic a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanTechnic">
+		SELECT 
+			<include refid="mesPlanTechnicColumns"/>
+		FROM mes_plan_technic a
+		<where>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="technicId != null and technicId != ''">
+				AND a.technic_id = #{technicId}
+			</if>
+		</where>
+			order by technic_index
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanTechnic">
+		SELECT 
+			<include refid="mesPlanTechnicColumns"/>
+		FROM mes_plan_technic a
+		<include refid="mesPlanTechnicJoins"/>
+		<where>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="technicId != null and technicId != ''">
+				AND a.technic_id = #{technicId}
+			</if>
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_technic(
+			erp_bill_no,
+			technic_id,
+			technic_name,
+			technic_index,
+			technic_desc,
+			workcenter_id,
+			worktype_id,
+			worktype_std_time,
+			worktype_user_time,
+			id,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks
+		) VALUES (
+			#{erpBillNo},
+			#{technicId},
+			#{technicName},
+			#{technicIndex},
+			#{technicDesc},
+			#{workcenterId},
+			#{worktypeId},
+			#{worktypeStdTime},
+			#{worktypeUserTime},
+			#{id},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_technic SET 	
+			erp_bill_no = #{erpBillNo},
+			technic_id = #{technicId},
+			technic_name = #{technicName},
+			technic_index = #{technicIndex},
+			technic_desc = #{technicDesc},
+			workcenter_id = #{workcenterId},
+			worktype_id = #{worktypeId},
+			worktype_std_time = #{worktypeStdTime},
+			worktype_user_time = #{worktypeUserTime},
+			update_user = #{currentUser},
+			update_time = now(),
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_technic
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_technic
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanTechnic">
+		SELECT 
+			<include refid="mesPlanTechnicColumns"/>
+		FROM  mes_plan_technic a
+		<include refid="mesPlanTechnicJoins"/>
+		<where>
+			
+		</where>
+		
+	</select>
+</mapper>

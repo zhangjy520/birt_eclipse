@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanTempTaskDao">
+    
+	<sql id="mesPlanTempTaskColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.plan_begin_date AS "planBeginDate",
+		a.plan_end_date AS "planEndDate",
+		a.workshop_id AS "workshopId",
+		a.task_user AS "taskUser",
+		a.rel_plan AS "relPlan",
+		a.plan_sheet_id AS "planSheetId",
+		a.task_desc AS "taskDesc",
+		a.task_type AS "taskType",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks",
+		a.task_status AS "taskStatus",
+		a.attach_id AS "attachId",
+		a.task_starter as "taskStarter",
+		a.task_finish_desc as "taskFinishDesc",
+		a.workcenter_id as "workcenterId",
+		a.p_technic_id as "ptechnicId",
+		a.p_technic_name as "ptechnicName"
+	</sql>
+	<sql id="mesPlanTempTaskJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanTempTask">
+		SELECT 
+			<include refid="mesPlanTempTaskColumns"/>
+		FROM mes_plan_temp_task a
+		WHERE a.id = #{id}
+	</select>
+	
+	
+	<select id="getBySheetId" resultType="MesPlanTempTask">
+		SELECT 
+			<include refid="mesPlanTempTaskColumns"/>
+		FROM mes_plan_temp_task a
+		WHERE a.sheet_id = #{sheetId}
+	</select>
+	
+	
+	<select id="findList" resultType="MesPlanTempTask">
+		SELECT 
+			<include refid="mesPlanTempTaskColumns"/>
+		FROM mes_plan_temp_task a
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="planBeginDate1 != null">
+				AND a.plan_begin_date &gt;= #{planBeginDate1}
+			</if>
+			<if test="planBeginDate2 != null">
+				AND a.plan_begin_date &lt;=  #{planBeginDate2}
+			</if>
+			<if test="planEndDate1 != null">
+				AND a.plan_end_date  &gt;= #{planEndDate1}
+			</if>
+			<if test="planEndDate2 != null">
+				AND a.plan_end_date  &lt;= #{planEndDate2}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_id = #{workshopId}
+			</if>
+			<if test="taskStarter != null and taskStarter != ''">
+				AND a.task_starter = #{taskStarter}
+			</if>
+			<if test="taskUser != null and taskUser != ''">
+				AND a.task_user = #{taskUser}
+			</if>
+			<if test="relPlan != null and relPlan != ''">
+				AND a.rel_plan = #{relPlan}
+			</if>
+			<if test="planSheetId != null and planSheetId != ''">
+				AND a.plan_sheet_id = #{planSheetId}
+			</if>
+			<if test="taskStatus != null and taskStatus != ''">
+				AND a.task_status = #{taskStatus}
+			</if>
+			<if test="planSheetId != null and planSheetId != ''">
+				AND a.plan_sheet_id = #{planSheetId}
+			</if>
+			<if test="taskType != null and taskType != ''">
+				AND a.task_type = #{taskType}
+			</if>
+			<if test="workcenterId != null and workcenterId != ''">
+				AND a.workcenter_id = #{workcenterId}
+			</if>
+			<if test="ptechnicId != null and ptechnicId != ''">
+				AND a.p_technic_id = #{ptechnicId}
+			</if>
+			
+		</where>
+		order by update_time desc 	
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanTempTask">
+		SELECT 
+			<include refid="mesPlanTempTaskColumns"/>
+		FROM mes_plan_temp_task a
+		<include refid="mesPlanTempTaskJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_temp_task(
+			id,
+			sheet_id,
+			plan_begin_date,
+			plan_end_date,
+			workshop_id,
+			task_user,
+			rel_plan,
+			plan_sheet_id,
+			task_desc,
+			task_type,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks,
+			task_status,
+			attach_id,
+			task_starter,
+			workcenter_id,
+			p_technic_id,
+			p_technic_name
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{planBeginDate},
+			#{planEndDate},
+			#{workshopId},
+			#{taskUser},
+			#{relPlan},
+			#{planSheetId},
+			#{taskDesc},
+			#{taskType},
+			#{currentUser},
+			now(),
+			#{currentUser},
+			now(),
+			#{remarks},
+			#{taskStatus},
+			#{attachId},
+			#{taskStarter},
+			#{workcenterId},
+			#{ptechnicId},
+			#{ptechnicName}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_temp_task SET 	
+			sheet_id = #{sheetId},
+			plan_begin_date = #{planBeginDate},
+			plan_end_date = #{planEndDate},
+			workshop_id = #{workshopId},
+			task_user = #{taskUser},
+			rel_plan = #{relPlan},
+			plan_sheet_id = #{planSheetId},
+			task_desc = #{taskDesc},
+			task_type = #{taskType},
+			update_user = #{currentUser},
+			update_time = now(),
+			remarks = #{remarks},
+			task_status = #{taskStatus},
+			attach_id = #{attachId},
+			task_starter = #{taskStarter},
+			workcenter_id = #{workcenterId},
+			p_technic_id = #{ptechnicId},
+			p_technic_name = #{ptechnicName}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_temp_task
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_temp_task
+		WHERE id = #{id}
+
+	</update>
+	
+	<update id="updateCheckTaskStatus">
+		update mes_plan_temp_task
+			set 
+			task_status = #{taskStatus},
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE id = #{id}
+		and (task_status ='0' or task_status is null OR task_status='')
+	</update>
+	
+	<update id="updateCancelTaskStatus">
+		update mes_plan_temp_task
+			set 
+			task_status = #{taskStatus},
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE id = #{id}
+		and task_status ='1'
+	</update>
+	
+	<update id="updateUseTaskStatus">
+		update mes_plan_temp_task
+			set 
+			task_status = '10',
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE id = #{id}
+		and task_status ='1'
+	</update> 
+	
+	
+	<update id="updateFinishTaskStatus">
+		update mes_plan_temp_task
+			set 
+			task_status = '100',
+			task_finish_desc = #{taskFinishDesc},
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE id = #{id}
+		and task_status ='10'
+	</update> 
+	
+	
+	<select id="findByMap" resultType="MesPlanTempTask">
+		SELECT 
+			<include refid="mesPlanTempTaskColumns"/>
+		FROM  mes_plan_temp_task a
+		<include refid="mesPlanTempTaskJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="planBeginDate != null and planBeginDate != ''">
+				AND a.plan_begin_date = #{planBeginDate}
+			</if>
+			<if test="planEndDate != null and planEndDate != ''">
+				AND a.plan_end_date = #{planEndDate}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.workshop_id = #{workshopId}
+			</if>
+			<if test="taskUser != null and taskUser != ''">
+				AND a.task_user = #{taskUser}
+			</if>
+			<if test="relPlan != null and relPlan != ''">
+				AND a.rel_plan = #{relPlan}
+			</if>
+			<if test="planSheetId != null and planSheetId != ''">
+				AND a.plan_sheet_id = #{planSheetId}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

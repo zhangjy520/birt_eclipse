@@ -1,0 +1,147 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/plan.css"/>
+ <style type="text/css">
+	.form-group1{margin-bottom:5px}
+	.goods-item:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+	#tab_det th{background-color:#f5f5f5 !important;border-bottom:0px}
+ </style>
+<div class=" main_content warpper animated fadeInRight" style="overflow-x:hidden">
+<div class="container-fluid panel-custom panel panel-default">
+    <!-- 生产计划管理 -->
+    <div class="row">
+        <!-- 标题栏  -->
+        <div class="col-sm-12">
+            <h4 class="page-header">生产排班查询</h4>
+        </div>
+    </div>
+    
+    <!-- 快捷查询条件 -->
+    <form id ="from_condition" class="form-horizontal" >
+    <table id='condition_tab' class='conditionTab'>
+	    <tr>
+	    	<th>工作车间</th><td><select name="workshopId" class="form-control">
+                   		<option value=""></option>
+                   </select></td>
+	    	<th>工作中心</th><td><select name="workcenterId" class="form-control">
+                  <option value=""></option>
+                  </select>
+                  </td>
+             <th>班次</th><td> 
+	    			<select name='shiftId' class="form-control">
+                  <option value=""></option>
+                  </select>
+                  </td>     
+	    </tr>
+	    <tr>
+	    	<th>排程日期</th><td><div class="input-group date" id="shiftDate">
+                        <input type="text"  name="shiftDate" class="form-control">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-th"></i>
+                        </span>
+                    </div></td>
+	    	<th>排程人</th><td> <input name='shiftUserName' type="text" class="form-control"/>
+                  </td>   
+             <th>任务接收人</th>
+             <td>
+             	<div class="input-group">
+						<input id="technicUser" name="technicUser" class="form-control" type='text' readonly> 
+		                 <span class="input-group-btn">
+				        <button class="btn btn-default" type="button" onclick="onClickUser(true,1,PAGESIZE)"><span  class=" glyphicon glyphicon-zoom-in"></span></button>
+				      	</span>
+				 </div>
+             </td>        
+	    </tr>
+    </table>
+         <div class='conditionBtn' >
+                <button class="btn btn-primary" onclick="searchOrder(true,1,PAGESIZE);return false;"><span class="glyphicon glyphicon-search"></span>查询</button>
+                <button class="btn" type="reset" ><span class="glyphicon glyphicon-erase"></span>清空</button>
+          </div>
+    </form>
+    
+    
+    <div class="panel-default panelTop">
+		  <div class="panel-heading" style="padding:0px;text-align:right">
+		 	 <strong class='panelTitleFloat'>排班列表</strong>
+                <a class="btn btn-primary" href='/mes-plan/production/mes_plan_scene_shift.html'><span class="glyphicon glyphicon-plus"></span>新增排班</a>
+           </div>
+           <div id="detailTab">
+		  <script id="detailTab.tmp" type="text/html" >
+            <table id="tab_det" style="margin-top:-1px"  class="table  table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+						<th>车间</th>
+						<th>工作中心</th>
+						<th>排班日期</th>
+						<th>单号</th>
+                        <th>班次</th>
+                        <th>排班人</th>
+						<th>操作人</th>
+						<th>操作时间</th>
+                      	<!--<th>班次数量</th>
+						<th>完工数量</th>
+						<th>状态</th>-->
+						<th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+						{{each list listValue}}
+				<tr>
+					<td>{{listValue.workshopId|getDdwName dropdownDatas.workshop}} </td>
+					<td>{{listValue.workcenterId|getDdwName dropdownDatas.workcenterList}} </td>
+					<td>  
+						<ul>
+						<li>
+							{{listValue.shiftDate}}
+						</li>
+						</ul>  
+					</td>
+                 	<td>{{listValue.sheetId}}</td>
+                 	<td>{{listValue.shiftId|getDdwName dropdownDatas.shiftList}}</td>
+                 	<td> 
+						{{listValue.shiftUserName}}
+					 </td>
+					 
+					<td> 
+						{{listValue.updateUserName}}
+					 </td>
+					<td> 
+						{{listValue.updateTime}}
+					 </td>
+					<!--<td> 
+						{{listValue.shiftQtySum}}
+					 </td>
+					<td> 
+						{{listValue.finisQtySum}}
+					 </td>
+					<td> 
+						{{if !listValue.sheetStatus || listValue.sheetStatus == '0'}}
+							新增
+						{{else}}
+							下发
+						{{/if}}
+					 </td>-->
+					<td>
+						<ul>
+							<li><a href="/mes-plan/production/mes_plan_scene_shift.html?id={{listValue.id}}">详情</a></li>
+						</ul>
+
+					</td>
+                 </tr>
+				{{/each}}
+                </tbody>
+            </table>
+			</script>
+		</div>
+    
+     </div>
+    <!--  查询生成表单-->
+    <div class="row">
+        
+      </div>
+    </div>
+    </div>
+ </body>
+ 
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_scene_shift_list.js"></script>
+</html>

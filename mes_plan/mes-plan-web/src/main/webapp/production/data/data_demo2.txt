@@ -1,0 +1,61 @@
+{
+  "data": [
+    {
+      "id": "01",
+      "ht_id": "LXPCZ-2017-048",
+      "order_id": "112123",
+      "pro_id": "0001",
+      "pro_name": "经轴",
+      "extn": "0001",
+       "pro_num":"200000米",
+       "chejian":"准备车间",
+       "plan_state":"计划",
+       "order_type":"销售订单",
+       "plan_s_time":"2017/06/08",
+       "plan_e_time":"2017/06/09",
+       "true_s_time":"2017/06/10",
+       "true_e_time":"2017/06/11",
+       "end_num":"6",
+       "bz_tk":"条款1",
+       "bs":"标识1"
+    },
+    {
+      "id": "02",
+       "ht_id": "LXPCZ-2017-048",
+      "order_id": "112123",
+      "pro_id": "0001",
+      "pro_name": "经轴",
+      "extn": "0001",
+       "pro_num":"200000米",
+       "chejian":"准备车间",
+       "plan_state":"计划",
+       "order_type":"销售订单",
+       "plan_s_time":"2017/06/08",
+       "plan_e_time":"2017/06/09",
+       "true_s_time":"2017/06/10",
+       "true_e_time":"2017/06/11",
+       "end_num":"6",
+       "bz_tk":"条款1",
+       "bs":"标识1"
+    },
+    {
+      "id": "03",
+       "ht_id": "LXPCZ-2017-048",
+      "order_id": "112123",
+      "pro_id": "0001",
+      "pro_name": "经轴",
+      "extn": "0001",
+       "pro_num":"200000米",
+       "chejian":"准备车间",
+       "plan_state":"计划",
+       "order_type":"销售订单",
+       "plan_s_time":"2017/06/08",
+       "plan_e_time":"2017/06/09",
+       "true_s_time":"2017/06/10",
+       "true_e_time":"2017/06/11",
+       "end_num":"6",
+       "bz_tk":"条款1",
+       "bs":"标识1"
+    }
+  ]
+}

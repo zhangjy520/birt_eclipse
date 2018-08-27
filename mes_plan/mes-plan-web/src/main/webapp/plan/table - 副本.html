@@ -1,0 +1,229 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<style type="text/css">
+	    button{
+	    	margin-top:-5px;
+	    }
+	    label{
+	    	width:70px;
+	    	text-align:right;
+	    }
+	    .form-control{
+	    	width:200px !important;
+	    	margin-bottom:5px;
+	    }
+	    /* reset */
+	    :focus {
+	        outline: 0;
+	    }
+	
+	    input, textarea, select {
+	        -webkit-appearance: none;
+	    }
+	
+	    body {
+	        font-family: Tahoma, Helvetica, Arial, sans-serif;
+	        font-size: 12px;
+	    }
+	
+	    ol, ul {
+	        list-style: none;
+	    }
+	    .clearfix:before, .clearfix:after {
+	        content: "\0020";
+	        display: block;
+	        height: 0;
+	        overflow: hidden;
+	    }
+	
+	    .clearfix:after {
+	        clear: both;
+	    }
+	
+	    .clearfix {
+	        zoom: 1;
+	    }
+	    /* view-menu */
+	
+	    #ul_services {
+	        width: 775px;
+	        /*margin: 8px auto;*/
+	        margin: 8px 0px;
+	        font-size: 12px;
+	        border-top: 1px solid #cccccc;
+	        border-left: 1px solid #cccccc;
+	        border-bottom: 1px solid #cccccc;
+	    }
+	
+	    #ul_services h5{
+	        margin: 0;
+	        padding: 0;
+	        border: 0;
+	        outline: 0;
+	        font-weight: inherit;
+	        font-style: inherit;
+	        font-size: 100%;
+	        font-family: inherit;
+	        vertical-align: baseline;
+	        height: 22px;
+	    }
+	    #ul_services ul, #ul_services li {
+	        margin: 0;
+	        padding: 0;
+	    }
+	    #ul_services :focus {
+	        outline: 0;
+	    }
+	    #ul_services input {
+	        -moz-appearance: none;
+	        -webkit-appearance: none;
+	    }
+	
+	    #ul_services ul {
+	        list-style: none;
+	        position: relative;
+	    }
+	    #ul_services h5 span {
+	        display: block;
+	        float: left;
+	        border-right: 1px solid #cccccc;
+	        padding: 5px 0px;
+	        text-align: center;
+	    }
+	    #ul_services li {
+	        line-height: 2em;
+	    }
+	    #ul_services h5 span:last-child {
+	        border-right: none;
+	    }
+	    .w_90 {
+	        width: 150px;
+	    }
+	    .w_140 {
+	        width: 220px;
+	    }
+	    .w_180 {
+	        width: 190px;
+	    }
+	    .w_100 {
+	        width: 106px;
+	    }
+	    .level_1 > li, .level_2 > li {
+	        clear: both;
+	        border-top: 1px solid #cccccc;
+	    }
+	    .level_3 >ul>li{
+	        padding: 5px !important;
+	        border-top: 1px solid #cccccc;
+	        border-right: 1px solid #cccccc;
+	    }
+	
+	    .level_3 >ul :first-child {
+	        padding: 5px !important;
+	        border-top: none !important;
+	
+	    }
+	
+	
+	
+	
+	    .level_1 > li > span, .level_2 > li > span, .item_ui {
+	        padding: 5px 5px!important;
+	        display: block;
+	        float: left;
+	    }
+	
+	    .item_ui_level3{
+	        display: block;
+	        float: left;
+	    }
+	    .level_1 > li:after {
+	        position: absolute;
+	        content: " ";
+	        width: 1px;
+	        height: 100%;
+	        left:150px;
+	        top: 0;
+	        background: #cccccc;
+	    }
+	    .level_1 > li > span {
+	        border-left: none;
+	    }
+	    .level_2, .level_3 {
+	        float: left;
+	        border-left: 1px solid #cccccc;
+	    }
+	    .level_2 > li:first-child {
+	        border-top: none;
+	    }
+	    .item_ui {
+	        float: left;
+	        border-right: 1px solid #cccccc;
+	        margin-right: -1px!important;;
+	    }
+	    .level_2 .item_ui:last-child {
+	        float: left;
+	        border-right: none;
+	        border-left: 1px solid #cccccc;
+	        margin-right: 0;
+	    }
+	    .item_ui li {
+	        display: block;
+	        margin-right: 10px;
+	    }
+	    .item_ui li label {
+	        padding-left: 2px;
+	    }
+	    .mini-tabs-bodys {
+	        border:none!important;
+	    }
+	    .mini-panel-body {
+	        height:116px!important;
+	    }
+	    .mini-splitter-pane {
+	        overflow: auto;
+	    }
+        </style>
+</head>
+<body>
+<div id="ul_services" >
+		    <h5>
+		        <span style="width: 151px">品牌</span>
+		        <span style="width: 220px">说明</span>
+		        <span style="width: 191px">门店</span>
+		        <span style="width: 106px">销售额范围</span>
+		        <span style="width: 106px ;border-right: 1px solid #cccccc">佣率</span>
+		    </h5>
+		    <ul class="level_1 clearfix" >
+		        <li class="clearfix" ng-repeat="a in items" ng-if="a.name != items[$index-1].name" >
+		            <span class="w_90">{{ a.name }}</span>
+		            <span class="w_140">{{a.value}}</span>
+		            <ul class="level_2"  >
+		                <li ng-repeat="b in items" ng-if="(a.name==b.name ) && (b.shopname != items[$index-1].shopname  || b.name != items[$index-1].name)">
+		                    <span class="w_180" >  {{ b.shopname }}</span>
+		
+		
+		                    <div class="level_3"    >
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li ng-repeat="c in items" ng-if="a.name==c.name && b.shopname == c.shopname ">{{ c.raterange }}</li>
+		                        </ul>
+		                        <ul class="item_ui_level3 w_100" >
+		                            <li ng-repeat="c in items" ng-if="a.name==c.name && b.shopname == c.shopname ">{{ c.rate }}<a href='' role="button" data-toggle="modal" data-target="#myModal" ng-click="updateRow($index)">修改</a></li>
+		                        </ul>
+		                    </div>
+		
+		                </li>
+		
+		            </ul>
+		        </li>
+		
+		    </ul>
+		</div>
+</body>
+</html>
+
+
+
+
+ 

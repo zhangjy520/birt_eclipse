@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanMaterialUseDetDao">
+    
+	<sql id="mesPlanMaterialUseDetColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.goods_Id AS "goodsId",
+		a.use_qty AS "useQty",
+		a.remarks AS "remarks",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.schedule_date AS "scheduleDate"
+	</sql>
+	<sql id="mesPlanMaterialUseDetJoins">
+		
+		LEFT JOIN  mes_plan_material_use_head c 
+		ON c.sheet_id = a.sheet_id
+		LEFT JOIN  mes_plan_material_use b 
+		ON a.goods_id = b.goods_id
+		AND c.workshop_id =b.workshop_id
+		AND a.schedule_Date = b.schedule_Date 
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanMaterialUseDet">
+		SELECT 
+			<include refid="mesPlanMaterialUseDetColumns"/>
+		FROM mes_plan_material_use_det a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanMaterialUseDet">
+		SELECT 
+			<include refid="mesPlanMaterialUseDetColumns"/>
+		FROM mes_plan_material_use_det a
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goodsId = #{goodsId}
+			</if>
+			<if test="scheduleDate != null and scheduleDate != ''">
+				AND a.schedule_date = #{scheduleDate}
+			</if>
+		</where>
+			
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanMaterialUseDet">
+		SELECT 
+			<include refid="mesPlanMaterialUseDetColumns"/>
+			<!-- ,b.qty- IFNULL(b.use_qty,0) AS "leftQty" -->
+			 ,b.qty AS "leftQty" 
+		FROM mes_plan_material_use_det a
+		<include refid="mesPlanMaterialUseDetJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goodsId = #{goodsId}
+			</if>
+			<if test="scheduleDate != null and scheduleDate != ''">
+				AND a.schedule_date = #{scheduleDate}
+			</if>
+		</where>		
+		<choose>
+			<when test="1==2">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_material_use_det(
+			id,
+			sheet_id,
+			goods_Id,
+			use_qty,
+			remarks,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			schedule_date
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{goodsId},
+			#{useQty},
+			#{remarks},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{scheduleDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_material_use_det SET 	
+			sheet_id = #{sheetId},
+			goods_Id = #{goodsId},
+			use_qty = #{useQty},
+			remarks = #{remarks},
+			update_user = #{currentUser},
+			update_time = now(),
+			schedule_date = #{scheduleDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_material_use_det
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_material_use_det
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanMaterialUseDet">
+		SELECT 
+			<include refid="mesPlanMaterialUseDetColumns"/>
+		FROM  mes_plan_material_use_det a
+		<include refid="mesPlanMaterialUseDetJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goods_Id = #{goodsId}
+			</if>
+			<if test="scheduleDate != null and scheduleDate != ''">
+				AND a.schedule_date = #{scheduleDate}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

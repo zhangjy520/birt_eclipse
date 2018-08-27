@@ -1,0 +1,277 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <!--#include virtual="/mes-plan/include/echarts.html" -->
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/mes-plan/css/mes_plan_month.css"/>
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+ <link rel="stylesheet" type="text/css" href="/mes-plan/static/datapicker/datepicker3.css"/>
+ <style>
+	#dispatchForm th{text-align:right;padding-right:20px;padding-bottom:5px;vertical-align:middle}
+	#dispatchForm th{width:15%;text-align:right;padding-right:20px}
+	#dispatchForm td{width:35%;padding:2px}
+	a:hover {text-decoration:none}
+ 	.thcls {background-color:#f5f5f5 !important;border-top:0px ;border-bottom:0px !important}
+ </style>
+ <!-- 生产计划明细 -->
+<div class="warpper animated fadeInRight" style="overflow-x:hidden">     
+     <div class="container-fluid panel-custom panel panel-default" >
+       <!--  <div class="row">
+		       <div class="col-sm-12">
+		           <h4 class="page-header">生产计划调度新增</h4>
+		       </div>
+   	    </div> -->
+    	<form id="dispatchForm">
+    	<input type="hidden" id="id" name="id" value=""/>
+    	
+		<table style ="width:100%">
+			<!-- <tr>
+			<td></td>
+			<td style="font-size:18px"><label>
+					onchange="alert($(this).prop('checked')+'1')"
+				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked >
+				   	按设备计算调度数量
+				  </label>
+			</td>
+			<td></td>
+			<td style="font-size:18px" >
+				  <label>
+				    <input type="radio" name="optionsRadios" id="optionsRadios2" value="0">
+				   	手工输入调度数量
+				  </label>
+			</td>
+			</tr> -->
+			
+			<tr>
+			<th>
+				计划时间
+			</th>
+			<td >
+				<div class="form-group">
+				<!--  <input id="planBeginDate" name="planBeginDate" style="height:35px;" type='date' class="form-control" onchange="setDeviceTotal2('#deviceQty','#deviceChangeQty','#capacityInput',this,'#planEndDate')"></input> -->
+					<div class="input-group date" id="planBeginDate">
+                        <input type="text"  name="planBeginDate" class="form-control">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-th"></i>
+                        </span>
+                    </div>
+				</div>
+			</td>
+			<th   >
+				至
+			</th>
+			
+			<td >
+				<div class="form-group">
+					<!-- <input id="planEndDate" name="planEndDate" style="height:35px;" type='date'class="form-control"  onchange="setDeviceTotal2('#deviceQty','#deviceChangeQty','#capacityInput','#planBeginDate',this)"></input> -->
+					<div class="input-group date" id="planEndDate">
+                        <input type="text"  name="planEndDate" class="form-control">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-th"></i>
+                        </span>
+                    </div>
+				</div> 
+			</td>
+			
+			
+			</tr>
+			
+			<tr>
+			<th>
+				 工作中心
+			</th>
+			<td >
+			<div class="form-group">
+				 <select id="workcenterId" name="workcenterId" class="form-control">
+                  <option value=""></option>
+                  </select>
+             </div>     
+			</td>
+			<th>
+				设备产能
+			</th>
+			<td style="padding-top:10px;" >
+				<div class="form-group">
+				 <input id="capacityInput" name="capacityInput" onfocus="$(this).select()" onchange="$('#capacitySpan').text(this.value);setDeviceTotal2('#deviceQty','#deviceChangeQty',this,'#planBeginDate','#planEndDate')" onblur="$(this).css('display','none');$('#capacitySpan').css('display','inline-block');" placeholder="请输入产能" style="height:35px;width:100px;display:none" type='text' value='90'></input> 
+				 <span id="capacitySpan">90</span><span id="unitSpan"></span>/天<a onclick="if(sheetStatus>=10) return;$('#capacityInput').show();$('#capacitySpan').hide();$('#capacityInput').focus();return;">修改</a>
+				 </div>
+			</td>
+			
+			</tr>
+			
+			<tr>
+			<th>
+				直接可用设备台数
+			</th>
+			<td >
+				<div class="form-group">
+				 	<input id="deviceQty" onfocus="$(this).select()" onchange="setDeviceTotal2(this,'#deviceChangeQty','#capacityInput','#planBeginDate','#planEndDate')" name="deviceQty" class="form-control" style="height:35px;" type='text'></input>
+				</div>
+			</td>
+			 <th>
+				换产品设备台数
+			</th>
+			<td >
+				<div class="form-group">
+				 <input id="deviceChangeQty" onfocus="$(this).select()" onchange="setDeviceTotal2('#deviceQty',this,'#capacityInput','#planBeginDate','#planEndDate')" name="deviceChangeQty"  class="form-control" style="height:35px;" type='text'></input>
+				</div>
+			</td>
+			</tr>
+			<tr>
+				<th>
+					 换产品编码
+				</th>
+				<td>
+					<div class="form-group">
+					<div class="input-group">
+	                   	<input id="deviceChangeGoodsId" name="deviceChangeGoodsId" class="form-control" onchange='chg_goods(this);'> 
+	                   	<span class="input-group-btn">
+				        <button class="btn btn-default" type="button" onclick="onClickGoods(true,1,PAGESIZE)"><span  class=" glyphicon glyphicon-zoom-in"></span></button>
+				      	</span>
+			      	 </div>
+			      	 </div>
+				</td>
+				<th>
+					 换产品名称
+				</th>
+				<td >
+				<div class="form-group">
+				 <input id='deviceChangeGoodsName' name='deviceChangeGoodsName' readonly type='text' class="form-control"></input>
+				</div>
+			</td>
+				
+			</tr>
+			<tr>
+			<th>
+			详细说明
+			</th>
+			<td colspan=3>
+				<div class="form-group">
+				 <input  id="deviceRequire" name="deviceRequire" class="form-control" style="width:100%;height:35px;" type='text' placeholder="请输入其换产品要求"></input>
+				 </div>
+			</td>
+			</tr>
+			 
+			<tr>
+			<td style="font-size:20px;text-align:right" colspan=4>
+				本次调度设备<span id="diviceTotalSpan" style="font-size:30px;color:#249730">0</span>台，数量<input id="dispatchQty" name="dispatchQty" type="text" style="display:none;width:100px" value="0" onfocus="$(this).select()" onblur="$(this).css('display','none');$('#dispatchQtySpan').css('display','inline-block');" onchange="$('#dispatchQtySpan').text(this.value);"/><a title="点击修改" href="#" ><span id="dispatchQtySpan" style="font-size:30px;color:#249730" onclick="if(sheetStatus>=10) return;$(this).css('display','none');$('#dispatchQty').css('display','inline-block');$('#dispatchQty').focus();return false;" >0</span></a><span id="unitSpan2"></span>
+			</td>
+			 </tr>
+			</table>
+			</form>
+</div>
+
+ 
+	 <!-- <div class="panel-default" style="margin-top:10px">
+		  <div class="panel-heading"><strong>BOM指定</strong> </div>
+		   <div id="detailTab2" style="margin-top:-5px">
+			<table class="table  table-hover table-condensed table-bordered" >
+				<tr>
+					 
+					<th class="td" >
+						原料
+					</th>
+					 
+					<th class="td" >
+						厂家
+					</th>
+					<th class="td" >
+						原纱标识
+					</th>
+					<th class="td" >
+						筒纱标重
+					</th>
+					<th class="td" >
+						管头
+					</th>
+					<th class="td" >
+						库存
+					</th>
+				</tr>
+				
+				
+				<tr>
+					 
+					<td class="td" >
+						经纱
+					</td>
+					 
+					<td class="td" >
+						石家庄厂家
+					</td>
+					<td class="td" >
+						001
+					</td>
+					<td class="td" >
+						002
+					</td>
+					<td class="td" >
+						绿色<input checked type="checkbox"></input>
+					</td>
+					<td class="td" >
+						1000
+					</td>
+				</tr>
+				<tr>
+					 
+					<td class="td" >
+						纬纱
+					</td>
+					 
+					<td class="td" >
+						石家庄厂家
+					</td>
+					<td class="td" >
+						001
+					</td>
+					<td class="td" >
+						002
+					</td>
+					<td class="td" >
+						红色<input checked type="checkbox"></input>
+					</td>
+					<td class="td" >
+						1000
+					</td>
+				</tr>
+				<tr>	
+					 
+					<td class="td" >
+						原料2
+					</td >
+				 
+					<td class="td" >
+						石家庄厂家
+					</td>
+					<td class="td" >
+						001
+					</td>
+					<td class="td" >
+						002
+					</td>
+					<td class="td" >
+						绿色<input checked type="checkbox"></input>
+					</td>
+					<td class="td" >
+						1000
+					</td>
+				</tr>
+			</table>
+			 
+			BOM说明 <textarea rows="2" style="width:95%;height:70px;margin-top:5px" placeholder="请输入BOM要求">
+							 </textarea>
+			 
+		   
+		   </div>
+	</div> -->
+	<!-- <div style="width: 100%;padding-top:5px;text-align:center">
+		<button id="confirmBtn" class="btn btn-success" onclick="plan_dispatch_save();return false;"><span class="glyphicon glyphicon-search"></span>确认</button>
+		<button class="btn btn-success" onclick="plan_dispatch_close();return false;"><span class="glyphicon glyphicon-arrow-left"></span>返回</button>
+	</div>	   -->
+ </div>
+ </div>
+ <script type="text/javascript" src="/mes-plan/static/art-template/template-web.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/mes-plan/js/mes_plan_dispatch_new.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/bootstrap/js/bootstrapValidator.min.js"> </script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/datapicker/bootstrap-datepicker.zh-CN.min.js"></script>
+ <script type="text/javascript" src="/mes-plan/static/jquery/jquery.formautofill.min.js"> </script>
+</body>
+</html>

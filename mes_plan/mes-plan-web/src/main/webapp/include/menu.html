@@ -1,0 +1,50 @@
+
+ <script type="text/javascript">
+		$(document).ready(function() {
+			$(".accordion-heading a").click(function(){
+				$('.accordion-toggle i').removeClass('icon-chevron-down');
+				$('.accordion-toggle i').addClass('icon-chevron-right');
+				if(!$($(this).attr('href')).hasClass('in')){
+					$(this).children('i').removeClass('icon-chevron-right');
+					$(this).children('i').addClass('icon-chevron-down');
+				}
+			});
+			$(".accordion-body a").click(function(){
+				$("#menu-${param.parentId} li").removeClass("active");
+				$("#menu-${param.parentId} li i").removeClass("icon-white");
+				$(this).parent().addClass("active");
+				$(this).children("i").addClass("icon-white");
+				//loading('正在执行，请稍等...');
+			});
+			//$(".accordion-body a:first i").click();
+			//$(".accordion-body li:first li:first a:first i").click();
+		});
+	</script>
+ <div >
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="/mes-plan/production/index.html"  target="mainFrame">Production</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Equipment</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="/mes-plan/quality/index.html"  target="mainFrame">Quality</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Energy</a></li>
+          </ul>
+           <ul class="nav nav-sidebar">
+            <li><a href="">Analysis</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Exceptions</a></li>
+          </ul>
+           <ul class="nav nav-sidebar">
+            <li><a href="/mes-plan/material/index.html" target="mainFrame">Material</a></li>
+          </ul>
+        </div>
+      </div>
+ </div>

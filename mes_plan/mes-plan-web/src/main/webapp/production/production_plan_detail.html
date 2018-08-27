@@ -1,0 +1,277 @@
+ <!--#include virtual="/mes-plan/include/header.html" -->
+ <!--#include virtual="/mes-plan/include/production.html" -->
+ <!--#include virtual="/mes-plan/include/echarts.html" -->
+ <!-- 生产计划明细 -->
+<style type="text/css">
+			/*响应ipad*/
+			 @media only screen and (max-width: 1024px) {
+			 	.main_content{
+			 		width:770px;
+			 		margin:0 auto;
+		        }
+		          .col-sm-4{
+		        	width:50%;
+		        }
+		    }
+		</style>
+<div class="main_content warpper animated fadeInRight">     
+     <div class="container-fluid panel-custom panel panel-default" style="padding:10px;">
+         <!--标题  -->
+          <div class="row">
+		       <div class="col-sm-12">
+		           <h4 class="page-header">生产计划明细</h4>
+		       </div>
+   	    </div>
+          <!-- 基础信息 -->
+          <div class="row">
+			        <div class="col-sm-12">
+				           <div class="panel panel-default">
+			                     <div class="panel-heading">
+				                        <div class="ibox-tools">
+					                        <a data-toggle="collapse" data-parent="#accordion"
+					                           href="#div_jcxx" class="collapse-link">
+					                            <span>基础信息</span>
+					                        </a>
+					                    </div>
+			                      </div>
+			                  </div>
+			        </div>
+                    <div id="div_jcxx" class="panel-collapse collapse in">
+		                   <div class="panel-body col-sm-12">
+	                           <table id="tab1">
+										<tr>
+										    <td>编号</td><td>2016-258 </td><td>合同号</td><td >LXPCZ-2016-076 </td><td>日期</td><td>2016.7.7</td>
+										</tr>
+										<tr>
+										   <td>品种</td><td colspan=3>CVC32*32 130*70 63"2/1碳黑网1.0*1.0</td><td>数量条款</td><td>3万米</td>
+										</tr>
+								
+										<tr>
+										    <td>交款日期</td><td>7月28日交清</td><td>成品类别</td><td>服装</td><td>客户编码</td><td>湖州蓝翔</td>
+										</tr>
+										<tr>
+										   <td rowspan=2>唛头/标识</td><td colspan=5>品名：2/1斜纹</td>
+										</tr>
+								
+										<tr>
+										    <td colspan=5>CVC63" 32*32 130*70   1.0*1.0碳黑网</td>
+										</tr>
+								
+										<tr>
+										    <td>包装条款</td><td  colspan=5>内销包，内包为塑料袋，版样、产品成包单（一式两份）和产品说明书由客户提供。定码占90%，不定码占10%。</td>
+										</tr>
+										<tr>
+										    <td>质量要求</td><td  colspan=5>静电丝间距1.0*1.0cm/根，经纬向导电丝用201-236CVC碳黑材料，经向百米耗用：16.428公斤，经向导电丝百米耗用：0.404公斤，53根经纱+1根导电丝，导电丝用149根；纬纱百米耗用8.679公斤，导电丝百米耗用0.435公斤,26根纬纱+1根导电丝。经纬交织。</td>
+										</tr>
+										<tr>
+											<td>生产副经理</td>
+											<td colspan=2></td>
+											<td>营销部部长</td>
+											<td colspan=2></td>
+										</tr>
+										<tr>
+											<td>总调度</td>
+											<td colspan=2></td>
+											<td>经办人</td>
+											<td colspan=2></td>
+										</tr>
+		 				    </table>
+		                   </div>
+		             </div>
+            </div>
+            <!-- 订单完工状态 -->
+          <div class="row">
+			        <div class="col-sm-12">
+			            <div class="panel panel-default">
+			                <div class="panel-heading">
+			                    <div class="ibox-tools">
+			                        <a data-toggle="collapse" data-parent="#accordion"
+			                           href="#div_gylx" class="collapse-link">
+			                            <span>订单状态 </span>
+			                        </a>
+			                    </div>
+			                </div>
+			                <div id="div_gylx" class="panel-collapse collapse in">
+			                    <div class="panel-body col-sm-11">
+			                    	<!--线图-->
+			                    <div class="row">
+			                    	 <div class="time_line_box">
+														<div class="col-sm-12 time_line">
+															<ol>
+																<li>
+																	<a class="order_item selected" style="left:10%;">计划</a>
+																</li>
+																<li>
+																	<a class="order_item selected" style="left:25%;">下达</a>
+																</li>
+																<li>
+																	<a class="order_item selected" style="left:45%;">开始</a>
+																</li>
+																<li>
+																	<a class="order_item" style="left:65%;">完工</a>
+																</li>
+																<li>
+																	<a class="order_item" style="left:85%;">结束</a>
+																</li>
+															</ol>
+															<span class="filling_line" style="transform: scaleX(0.63);"></span>
+														 </div>
+			                    </div>
+			                    <div>
+			                    	<!--动图-->
+		                    	<div class="row">
+		                    		<div  class="col-sm-12">
+		                    		<table>
+									  <tr>
+										<td  class="l_label"><strong>完工数量</strong></td>
+										<td>
+											<div class="progress">
+													<div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 85%;">
+													</div>
+											</div> 
+										</td>
+									  </tr>
+									  <tr>
+									    <td class="l_label"><strong>计划进度</strong></td>
+										<td>
+										<div class="progress">
+												<div class="progress-bar progress-bar-danger progress-bar-striped active" style="width: 65%;">
+												</div>
+										</div> 
+										</td>
+									   </tr>
+									   <tr>
+										<td colspan=2 style="text-align:right"><a target="_blank"href="/mes-plan/production/production_detail_table.html">查看明细</a>  <a href="#">任务调度/释放</a></td>
+									   </tr>	
+									</table>
+		                    	</div>
+                             </div>
+    					 </div>
+			           </div>
+			           </div>
+			           </div>
+			          </div>
+			       </div>
+		  </div>
+
+          <!-- 成品/半成品工艺路线  -->
+           <div class="row">
+			        <div class="col-sm-12">
+			            <div class="panel panel-default">
+			                <div class="panel-heading">
+			                    <div class="ibox-tools">
+			                        <a data-toggle="collapse" data-parent="#accordion"
+			                           href="#div_luxian" class="collapse-link">
+			                            <span>成品/半成品工艺路 </span>
+			                        </a>
+			                    </div>
+			                </div>
+			                <div id="div_luxian" class="panel-collapse collapse in">
+			                    <div class="panel-body">
+			                        <div class="row col-md-12">
+			                           <table style ="margin:0 auto;border-spacing:10px;width:768px">
+										<tr>
+											<td>
+												<div class='comment_bubble_first' >
+													  <span class='lable2'>换轴工</span>
+													  <span class='lable2'>验布工</span>
+												</div>
+											</td>
+											<td>
+												<div class='comment_bubble'>
+													 <span class='lable2'>帮运工</span>
+													 <span class='lable2'>质检</span>
+													 <span class='lable2'>分段工</span>
+												</div>
+											</td>
+											<td>
+												<div class='comment_bubble'>
+													 <span class='lable2'>拼件工</span>
+												</div>
+											</td>
+											<td>
+												<div class='comment_bubble'>
+													<span class='lable2'>质检工</span>
+												</div>
+											</td>
+											
+											<td>
+												<div class='comment_bubble_last'>
+													<span class='lable2'>打包工</span>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="lable1">
+												 验布
+											</td>
+											<td class="lable1">
+												 分等分段
+											</td>
+											<td class="lable1">
+												 拼件
+											</td>
+											<td class="lable1">
+												 成品检测
+											</td>
+											<td class="lable1">
+												打包 
+											</td>
+										</tr>
+										<tr>
+											<td class="lable1" colspan=5 style="text-align:right;padding-top:5px;padding-right:20px">
+												 <a>切换到设备</a>
+											</td>
+										</tr>
+									</table>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			        </div>
+            
+            
+            
+              <!-- 原料/半成品  -->
+                <div class="row">
+			        <div class="col-sm-12">
+			            <div class="panel panel-default">
+			                <div class="panel-heading">
+			                    <div class="ibox-tools">
+			                        <a data-toggle="collapse" data-parent="#accordion"
+			                           href="#div_tubiao" class="collapse-link">
+			                            <span> 原料/半成品</span>
+			                        </a>
+			                    </div>
+			                </div>
+			                <div id="div_tubiao" class="panel-collapse collapse in">
+			                    <div class="panel-body echart">
+			                        <div class="row col-sm-12">
+			                            <div class="col-sm-4">
+			                                  <div id="cost" style="height:220px;"></div>
+			                            </div>
+			                            <div class="col-sm-4">
+			                                   <div id="weight" style="height:220px;"></div>
+			                            </div>
+			                            <div class="col-sm-4">
+			                                  <div id="volume" style="height:220px;"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+	</div>
+</div>
+ <script type="text/javascript" src="/mes-plan/static/production/chartcontent.js"></script> 
+ <script type="text/javascript">
+       $(function(){
+    	    //初始化加载--当页面加载时进行ajax异步请求
+			 loadInitInfo();
+       });
+ </script>
+	</body>
+</html>
+

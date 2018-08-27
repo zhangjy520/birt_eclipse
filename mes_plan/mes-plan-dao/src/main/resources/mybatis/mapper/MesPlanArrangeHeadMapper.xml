@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanArrangeHeadDao">
+    
+	<sql id="mesPlanArrangeHeadColumns">
+		a.id AS "id",
+		a.sheet_id AS "sheetId",
+		a.shift_date AS "shiftDate",
+		a.technic_id AS "technicId",
+		a.plan_object AS "planObject",
+		a.total_qty AS "totalQty",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks",
+		a.qty_unit AS "qtyUnit"
+	</sql>
+	<sql id="mesPlanArrangeHeadJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanArrangeHead">
+		SELECT 
+			<include refid="mesPlanArrangeHeadColumns"/>
+		FROM mes_plan_arrange_head a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getHeadBySheetId" resultType="MesPlanArrangeHead">
+		SELECT 
+			<include refid="mesPlanArrangeHeadColumns"/>
+		FROM mes_plan_arrange_head a
+		WHERE a.sheet_id = #{sheetId}
+	</select>
+	
+	<select id="getHeadByUk" resultType="MesPlanArrangeHead">
+		SELECT 
+			<include refid="mesPlanArrangeHeadColumns"/>
+		FROM mes_plan_arrange_head a
+		WHERE a.shift_date = #{shiftDate}
+		and a.technic_id = #{technicId}
+		and a.plan_object = #{planObject}
+	</select>
+	
+	<select id="findList" resultType="MesPlanArrangeHead">
+		SELECT 
+			<include refid="mesPlanArrangeHeadColumns"/>
+		FROM mes_plan_arrange_head a
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="shiftDate != null">
+				AND a.shift_date = #{shiftDate}
+			</if>
+			<if test="technicId != null and technicId != ''">
+				AND a.technic_id = #{technicId}
+			</if>
+			<if test="planObject != null and planObject != ''">
+				AND a.plan_object = #{planObject}
+			</if>
+		</where>
+			order by updateTime desc
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanArrangeHead">
+		SELECT 
+			<include refid="mesPlanArrangeHeadColumns"/>
+		FROM mes_plan_arrange_head a
+		<include refid="mesPlanArrangeHeadJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_arrange_head(
+			id,
+			sheet_id,
+			shift_date,
+			technic_id,
+			plan_object,
+			total_qty,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks,
+			qty_unit
+		) VALUES (
+			#{id},
+			#{sheetId},
+			#{shiftDate},
+			#{technicId},
+			#{planObject},
+			#{totalQty},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			#{updateTime},
+			#{remarks},
+			#{qtyUnit}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_arrange_head SET 	
+			sheet_id = #{sheetId},
+			shift_date = #{shiftDate},
+			technic_id = #{technicId},
+			plan_object = #{planObject},
+			total_qty = #{totalQty},
+			update_user = #{currentUser},
+			update_time = #{updateTime},
+			remarks = #{remarks},
+			qty_unit = #{qtyUnit}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_arrange_head
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_arrange_head
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanArrangeHead">
+		SELECT 
+			<include refid="mesPlanArrangeHeadColumns"/>
+		FROM  mes_plan_arrange_head a
+		<include refid="mesPlanArrangeHeadJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			<if test="shiftDate != null and shiftDate != ''">
+				AND a.shift_date = #{shiftDate}
+			</if>
+			<if test="technicId != null and technicId != ''">
+				AND a.technic_id = #{technicId}
+			</if>
+			<if test="planObject != null and planObject != ''">
+				AND a.plan_object = #{planObject}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

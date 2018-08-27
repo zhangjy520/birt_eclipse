@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>设备排程</title>
+		<style type="text/css">
+			.main_content{
+				width:766px;
+			   margin:20px auto;
+			}
+			.row{
+				padding:0px 20px;
+			}
+			#tab tr td{
+             		height:50px;
+             	}
+         	#tab input{
+         		height: 20px;
+         		width:120px;
+         		text-indent: 5px;
+         	}
+			 #tab1 {
+			 	border:1px solid #999999;
+			 	border-collapse:collapse;
+			    border-spacing:0px;
+			    width:766px;
+			 }
+             #tab1  tr  td,th{
+             	border:1px solid #999999 ;
+             	height:35px;
+             	}
+             	
+		</style>
+	</head>
+	<body>
+		<div class="main_content">
+			<legend style="width: 766px;margin: 0 auto;background-color: #249730;padding: 5px 2px;font-size: 20;">设备排程</legend>
+			<div class="row">
+					<table id="tab">
+						<tr>
+							<td style="width:30px;"></td>
+							<td>成品/半成品:</td>
+							<td><input type="text" value="大提花" /></td>
+							<td style="width:30px;"></td>
+							<td>日期:</td>
+							<td><input type="text" value="2016-01-01" />到</td>
+							<td><input type="text" value="2016-01-05" /></td>
+							<td style="width:30px;"></td>
+							<td><button type="submit">查询</button></td>
+						</tr>
+					</table>
+			   </div>
+			<div>
+				<table id="tab1" >
+					<tr>
+						<th>成品/半成品</th>
+						<th>工序</th>
+						<th>设备</th>
+						<th>2016-01-01</th>
+						<th>2016-01-02</th>
+						<th>2016-01-03</th>
+						<th>2016-01-04</th>
+						<th>2016-01-05</th>
+					</tr>
+					<tr>
+						<td rowspan=5>大提花</td>
+						<td rowspan=3>验布</td>
+						<td>验布机1</td>
+						<td>已排程</td>
+						<td></td>
+						<td>已排程</td>
+						<td>已排程</td>
+						<td>已排程</td>
+					</tr>
+					<tr>
+						
+						<td>验布机2</td>
+						<td></td>
+						<td>已排程</td>
+						<td></td>
+						<td></td>
+						<td>已排程</td>
+					</tr>
+					<tr>
+						
+						<td>验布机3</td>
+						<td>已排程</td>
+						<td></td>
+						<td></td>
+						<td>已排程</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan=2>拼件</td>
+						<td>拼件机a</td>
+						<td></td>
+						<td>已排程</td>
+						<td></td>
+						<td></td>
+						<td>已排程</td>
+					</tr>
+					<tr>
+						
+						<td>拼件机b</td>
+						<td>已排程</td>
+						<td></td>
+						<td></td>
+						<td>已排程</td>
+						<td></td>
+					</tr>
+					
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

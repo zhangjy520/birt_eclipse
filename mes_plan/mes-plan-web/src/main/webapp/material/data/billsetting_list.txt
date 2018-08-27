@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "id":"01",
+      "bill_name": "备品备件领料单",
+      "bill_type": "其他出库",
+      "bill_desc": "领用备品备件",
+      "check": "1",
+      "check_liu": "W001",
+      "controll": "保全",
+       "bm_rule":"M001",
+       "setting_state":"已创建"
+    },
+    {
+      "id":"02",
+      "bill_name": "库存调拨单",
+      "bill_type": "调拨",
+      "bill_desc": "将物料进行位置的转移",
+      "check": "1",
+      "check_liu": "W002",
+      "controll": "库管",
+       "bm_rule":"M002",
+       "setting_state":"已发布"
+    },
+     {
+      "id":"03",
+      "bill_name": "备品备件领料单",
+      "bill_type": "生产入库",
+      "bill_desc": "半成品、成品完工入库",
+      "check": "0",
+      "check_liu": "W001",
+      "controll": "生产组长",
+       "bm_rule":"M003",
+       "setting_state":"已发布"
+    }
+  ]
+}

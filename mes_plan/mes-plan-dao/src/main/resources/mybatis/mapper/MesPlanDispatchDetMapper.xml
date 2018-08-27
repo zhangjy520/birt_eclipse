@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanDispatchDetDao">
+    
+	<sql id="mesPlanDispatchDetColumns">
+		a.id AS "id",
+		a.device_qty AS "deviceQty",
+		a.device_change_qty AS "deviceChangeQty",
+		a.dispatch_qty AS "dispatchQty",
+		a.workcenter_id AS "workcenterId",
+		a.dispatch_status AS "dispatchStatus",
+		a.plan_begin_date AS "planBeginDate",
+		a.plan_end_date AS "planEndDate",
+		a.src_bill_no AS "srcBillNo",
+		a.create_User AS "createUser",
+		a.create_time AS "createTime",
+		a.update_User AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.device_change_goods_id AS "deviceChangeGoodsId",
+		a.device_require AS "deviceRequire",
+		a.sheet_id AS "sheetId",
+		a.bill_no as "billNo",
+		a.work_center_qty as "workCenterQty",
+		a.finish_qty as "finishQty",
+		a.technic_line_id AS "technicLineId",
+		a.capacity_input as "capacityInput",
+		a.arrange_group as "arrangeGroup",
+		a.shift_id as "shiftId",
+		a.shift_style as "shiftStyle",
+		a.arrange_unit_rate as "arrangeUnitRate",
+		a.shift_begin_time as "shiftBeginTime",
+		a.shift_end_time as "shiftEndTime",
+		a.dispatch_qty_package as "dispatchQtyPackage",
+		a.create_user_name as "createUserName",
+		a.update_user_name as "updateUserName"
+	</sql>
+	<sql id="mesPlanDispatchDetJoins">
+		LEFT JOIN mes_plan_dispatch_head b ON a.sheet_id= b.sheet_id
+		LEFT JOIN mes_plan_month c ON c.erp_bill_no = b.erp_bill_no
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanDispatchDet">
+		SELECT 
+			<include refid="mesPlanDispatchDetColumns"/>
+		FROM mes_plan_dispatch_det a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getByBillNo" resultType="MesPlanDispatchDet">
+		SELECT 
+			<include refid="mesPlanDispatchDetColumns"/>
+		FROM mes_plan_dispatch_det a
+		WHERE a.bill_No = #{billNo}
+	</select>
+	
+	
+	<select id="getMaxBillNo" resultType="String">
+		SELECT 
+			max(bill_No) as "BillNo"
+		FROM mes_plan_dispatch_det a
+		WHERE a.bill_No like  CONCAT(#{srcBillNo}, ',%')
+	</select>
+	
+	
+	<select id="findList" resultType="MesPlanDispatchDet">
+		SELECT 
+			<include refid="mesPlanDispatchDetColumns"/>
+		FROM mes_plan_dispatch_det a 
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			
+			<if test="billNo != null and billNo != ''">
+				AND a.bill_NO = #{billNo}
+			</if>
+			
+			<if test="dispatchStatus2 != null and dispatchStatus2 != ''">
+				AND a.dispatch_status   &lt;&gt; #{dispatchStatus2}
+			</if>
+			
+			<if test="dispatchStatus != null and dispatchStatus != ''">
+				AND a.dispatch_status = #{dispatchStatus}
+			</if>
+			
+			<if test="workcenterId != null and workcenterId != ''">
+				AND a.workcenter_id = #{workcenterId}
+			</if>
+			
+			<if test="planBeginDate1 != null ">
+				AND a.plan_begin_date &gt;= #{planBeginDate1}
+			</if>
+			
+			<if test="planBeginDate2 != null ">
+				AND a.plan_begin_date &lt; DATE_ADD(#{planBeginDate2}, INTERVAL 1 DAY)
+			</if>
+			
+			<if test="goodsId != null and goodsId != ''">
+				AND a.sheet_id in (	SELECT sheet_id  FROM mes_plan_dispatch_head WHERE erp_bill_no IN (
+									SELECT erp_bill_no FROM mes_plan_month WHERE goods_id=#{goodsId}
+									))
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.sheet_id in (	SELECT sheet_id  FROM mes_plan_dispatch_head WHERE erp_bill_no = #{erpBillNo})
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND a.sheet_id in (	SELECT sheet_id  FROM mes_plan_dispatch_head WHERE erp_bill_no IN (
+									SELECT erp_bill_no FROM mes_plan_month WHERE  workshop_id = #{workshopId}
+									))
+			</if>
+			
+			<if test="unfinished != null and unfinished != ''">
+				AND a.dispatch_status &lt; 98
+			</if>
+			
+			
+		</where>
+			ORDER BY a.arrange_group,a.update_time DESC
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanDispatchDet">
+		SELECT 
+			<include refid="mesPlanDispatchDetColumns"/>
+			,
+			b.erp_bill_no as "erpBillNo",
+			c.workshop_id as "workshopId",
+			c.goods_id as "goodsId",
+			c.goods_name as "goodsName",
+			c.qty_unit as "qtyUnit"
+		FROM mes_plan_dispatch_det a
+		<include refid="mesPlanDispatchDetJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sheetId != null and sheetId != ''">
+				AND a.sheet_id = #{sheetId}
+			</if>
+			
+			<if test="billNo != null and billNo != ''">
+				AND a.bill_NO = #{billNo}
+			</if>
+			
+			<if test="dispatchStatus2 != null and dispatchStatus2 != ''">
+				AND a.dispatch_status   &lt;&gt; #{dispatchStatus2}
+			</if>
+			
+			<if test="dispatchStatus != null and dispatchStatus != ''">
+				AND a.dispatch_status = #{dispatchStatus}
+			</if>
+			
+			<if test="workcenterId != null and workcenterId != ''">
+				AND a.workcenter_id = #{workcenterId}
+			</if>
+			
+			<if test="planBeginDate1 != null ">
+				AND a.plan_begin_date &gt;= #{planBeginDate1}
+			</if>
+			
+			<if test="planBeginDate2 != null ">
+				AND a.plan_begin_date &lt; DATE_ADD(#{planBeginDate2}, INTERVAL 1 DAY)
+			</if>
+			
+			<if test="goodsId != null and goodsId != ''">
+				AND c.goods_id=#{goodsId}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND b.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="workshopId != null and workshopId != ''">
+				AND c.workshop_id = #{workshopId}
+			</if>
+		</where>		
+		ORDER BY a.update_time DESC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_dispatch_det(
+			id,
+			device_qty,
+			device_change_qty,
+			dispatch_qty,
+			workcenter_id,
+			dispatch_status,
+			plan_begin_date,
+			plan_end_date,
+			src_bill_no,
+			create_User,
+			create_time,
+			update_User,
+			update_time,
+			remarks,
+			del_flag,
+			device_change_goods_id,
+			device_require,
+			sheet_id,
+			bill_no ,
+			work_center_qty,
+			finish_qty,
+			technic_line_id,
+			capacity_input,
+			arrange_group,
+			shift_id,
+			shift_style,
+			arrange_unit_rate,
+			shift_begin_time,
+			shift_end_time,
+			dispatch_qty_package,
+			create_user_name,
+			update_user_name
+		) VALUES (
+			#{id},
+			#{deviceQty},
+			#{deviceChangeQty},
+			#{dispatchQty},
+			#{workcenterId},
+			#{dispatchStatus},
+			#{planBeginDate},
+			#{planEndDate},
+			#{srcBillNo},
+			#{currentUser},
+			NOW(),
+			#{currentUser},
+			now(),
+			#{remarks},
+			#{delFlag},
+			#{deviceChangeGoodsId},
+			#{deviceRequire},
+			#{sheetId},
+			#{billNo},
+			#{workCenterQty},
+			#{finishQty},
+			#{technicLineId},
+			#{capacityInput},
+			#{arrangeGroup},
+			#{shiftId},
+			#{shiftStyle},
+			#{arrangeUnitRate},
+			#{shiftBeginTime},
+			#{shiftEndTime},
+			#{dispatchQtyPackage},
+			#{currentUserName},
+			#{currentUserName}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_dispatch_det SET 	
+			device_qty = #{deviceQty},
+			device_change_qty = #{deviceChangeQty},
+			dispatch_qty = #{dispatchQty},
+			workcenter_id = #{workcenterId},
+			dispatch_status = #{dispatchStatus},
+			plan_begin_date = #{planBeginDate},
+			plan_end_date = #{planEndDate},
+			src_bill_no = #{srcBillNo},
+			update_User = #{currentUser},
+			update_User_name = #{currentUserName},
+			update_time = NOW(),
+			remarks = #{remarks},
+			device_change_goods_id = #{deviceChangeGoodsId},
+			device_require = #{deviceRequire},
+			sheet_id = #{sheetId},
+			bill_no =#{billNo},
+			work_center_qty = #{workCenterQty},
+			finish_qty = #{finishQty},
+			technic_line_id = #{technicLineId},
+			capacity_input = #{capacityInput},
+			arrange_group = #{arrangeGroup},
+			shift_id = #{shiftId},
+			shift_style = #{shiftStyle},
+			arrange_unit_rate = #{arrangeUnitRate},
+			shift_begin_time = #{shiftBeginTime},
+			shift_end_time = #{shiftEndTime},
+			dispatch_qty_package  = #{dispatchQtyPackage}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateDispatchStatusById">
+		UPDATE mes_plan_dispatch_det SET 	
+			dispatch_status = #{dispatchStatus},
+			<if test="remarks != null and remarks !=''">
+			remarks = #{remarks},
+			</if>
+			update_User = #{currentUser},
+			update_User_name = #{currentUserName},
+			update_time = NOW()
+		WHERE id = #{id}
+		and dispatch_status &lt;&gt; "98"
+		and dispatch_status &lt;&gt; "99"
+		and dispatch_status &lt;&gt; "100"
+	</update>
+	
+	<update id="updateDispatchStatusBySheetId">
+		UPDATE mes_plan_dispatch_det SET 	
+			dispatch_status = #{dispatchStatus},
+			update_User = #{currentUser},
+			update_User_name = #{currentUserName},
+			update_time = NOW()
+		WHERE sheet_Id = #{sheetId}
+		and dispatch_status &lt;&gt; "98"
+		and dispatch_status &lt;&gt; "99"
+		and dispatch_status &lt;&gt; "100"
+	</update>
+	
+	
+	
+	<delete id="delete">
+		delete from mes_plan_dispatch_det 
+		WHERE id = #{id}
+	</delete>
+	<delete id="deleteById">
+		delete from mes_plan_dispatch_det  
+		WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteBySheetId">
+		delete from  mes_plan_dispatch_det where sheet_id= #{sheetId};
+	</delete>
+	<select id="findByMap" resultType="MesPlanDispatchDet">
+		SELECT 
+			<include refid="mesPlanDispatchDetColumns"/>
+		FROM  mes_plan_dispatch_det a
+		<include refid="mesPlanDispatchDetJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+	</select>
+	
+	<select id="findSheetQtyTotal" resultType="Double">
+		SELECT 
+			IFNULL(ROUND(SUM(dispatch_qty),2),0) "dispatch_qty" 
+		FROM  mes_plan_dispatch_det a
+		
+		<where>
+			a.del_flag = 0
+			and a.sheet_id = #{sheetId}
+			and a.dispatch_status &lt;&gt; "99"
+			<!-- 整理车间不计算数量 -->
+			and (a.arrange_group IS NULL OR a.arrange_group='JP18' OR a.arrange_group='JP17')
+		</where>
+	</select>
+	
+	<update id="updateWorkCenterQty">
+		UPDATE mes_plan_dispatch_det 
+			SET work_center_qty = #{workCenterQty}
+			<where>
+			del_flag = #{DEL_FLAG_NORMAL}
+			 and  bill_no =#{billNo}
+			</where>
+	</update>
+	
+<!-- 	<update id="updateFinishQty">
+		UPDATE mes_plan_dispatch_det 
+			SET finish_qty = IFNULL(finish_qty,0) + #{finishQty}
+		<where>
+			del_flag = #{DEL_FLAG_NORMAL}
+			 and  bill_no = #{billNo}
+		</where>
+	</update>	  -->
+	
+	<update id="updateFinishQtyByBillNo">
+		UPDATE mes_plan_dispatch_det 
+			SET finish_qty = IFNULL(finish_qty,0) + #{finishQty}
+		<where>
+			del_flag = #{DEL_FLAG_NORMAL}
+		   and  bill_no = #{billNo}
+		   and (dispatch_status IS NULL or (dispatch_status != '98' and dispatch_status != '99' and dispatch_status != '100'))
+		</where>
+	</update>	
+	
+</mapper>

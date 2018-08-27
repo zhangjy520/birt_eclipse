@@ -1,0 +1,38 @@
+body{background-color:#fff;font-family:Microsoft YaHei;}
+#header{background-color:#2e8eda;height:45px;position:fixed;top:0px;width:100%;z-index:6}
+#header .nav{width:1100px;margin:0 auto;line-height:45px;font-size:12px;color:#fff;}
+#header a.logo{float:left;}
+#header .topsearchbox{background:url(/images/searchbg.gif) no-repeat;height:35px;width:306px;float:right;margin:6px 10px 0 30px;padding:0 5px;}
+#header .topsearchbox .inputtxt{float:left;width:195px;font-size:14px;line-height:32px;height:32px;border:0px;background:none;}
+#header .topsearchbox .inputbtn{cursor:pointer;float:left;width:37px;height:32px;border:0px;background:none;outline:none;}
+#header .nav span{font-size:16px;}
+#main{width:1100px;margin:0 auto;}
+.headheight{height:85px;}
+.msgbox{border:1px solid #d9d9d9;background-color:#fff;position:absolute;width:230px;top:40px;z-index:10;display:none;left:50%;margin:0 0 0 227px}
+
+.topmenu{background-color:#fff;padding:10px 0 0;height:45px;border-bottom:1px solid #eef4fc;position:fixed;top:60px;width:100%;z-index:2;width:1100px;left:50%;margin:0 0 0 -550px;}
+.topmenu a{display:block;float:left;margin:0 8px;height:45px;color:#999}
+.topmenu a span{display:block;height:42px;line-height:42px;font-size:20px;border-bottom:3px solid #fff;}
+.topmenu a:hover{color:#999;text-decoration:none;}
+.topmenu a:hover span{border-color:#999;}
+.topmenu a.show{color:#2e8eda;}
+.topmenu a.show span{border-color:#2e8eda;}
+.rightmenu{width:36px;background-color:#f1f1f1;border-left:1px solid #e5e5e5;position:fixed;top:0px;right:0px;height:100%;z-index:5;}
+.rightmenulink{width:36px;float:left;padding:70px 0 0;height:100%;}
+.rightmenu01{width:72px;}
+.rightmenushow{width:236px;}
+.rightmenubox{background-color:#f7f7f7;height:100%;float:left;width:200px;padding:70px 0 0}
+.rightmenulink a{display:block;height:36px;width:36px;margin:0 0 5px;overflow:hidden}
+.rightmenulink a:hover{}
+.rightmenulink span.line{border-bottom:1px solid #e5e5e5;height:5px;margin:0 0 5px;display:block;}
+a.top{position:fixed;bottom:10px;right:0px;display:block;background:url(/images/top.gif) center 5px no-repeat;height:36px;width:36px;z-index:5;border-top:1px solid #e5e5e5}
+a.top:hover{background-position:center -50px;}
+
+.rightmenu a.bg01{background:url(/images/icons.gif) center 5px no-repeat;}
+.rightmenu a.bg01:hover{background-position:center -51px;}
+.rightmenu a.bg02{background:url(/images/icons01.gif) center 10px no-repeat;}
+.rightmenu a.bg02:hover{background-position:center -54px;}
+.rightmenu a.bg03{background:url(/images/icons02.gif) center 3px no-repeat;}
+.rightmenu a.bg03:hover{background-position:center -47px;}
+.rightmenu a.bg04{background:url(/images/icons03.gif) center 7px no-repeat;}
+.rightmenu a.bg04:hover{background-position:center -52px;}

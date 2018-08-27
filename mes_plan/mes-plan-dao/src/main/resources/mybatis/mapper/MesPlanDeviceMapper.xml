@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanDeviceDao">
+    
+	<sql id="mesPlanDeviceColumns">
+		a.id AS "id",
+		a.dispatch_status AS "dispatchStatus",
+		a.plan_begin_date AS "planBeginDate",
+		a.plan_end_date AS "planEndDate",
+		a.src_bill_no AS "srcBillNo",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.device_require AS "deviceRequire",
+		a.bill_no AS "billNo",
+		a.work_center_qty AS "workCenterQty",
+		a.finish_qty AS "finishQty",
+		a.device_id AS "deviceId",
+		a.schedule_status AS "scheduleStatus",
+		a.erp_bill_no AS "erpBillNo",
+		a.real_begin_date AS "realBeginDate",
+		a.real_end_date AS "realEndDate",
+		a.is_chg_goods AS "isChgGoods",
+		a.material_use_status as "materialUseStatus",
+		a.no_technic as "noTechnic",
+		a.device_name as "deviceName"
+	</sql>
+	<sql id="mesPlanDeviceJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanDevice">
+		SELECT 
+			<include refid="mesPlanDeviceColumns"/>
+		FROM mes_plan_device a
+		WHERE a.id = #{id}
+	</select>
+	
+	
+	<select id="getByUk" resultType="MesPlanDevice">
+		SELECT 
+			<include refid="mesPlanDeviceColumns"/>
+		FROM mes_plan_device a
+		WHERE a.bill_no =  #{billNo} and 
+		a.del_flag = 0
+	</select>	
+	
+	
+	<select id="getMaxBillNo" resultType="String">
+		SELECT 
+			max(bill_No) as "BillNo"
+		FROM mes_plan_device a
+		WHERE a.bill_No like  CONCAT(#{srcBillNo}, '%')
+	</select>
+	
+	<select id="findList" resultType="MesPlanDevice">
+		SELECT 
+			<include refid="mesPlanDeviceColumns"/>
+		FROM mes_plan_device a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="dispatchStatus != null and dispatchStatus != ''">
+				AND a.dispatch_status = #{dispatchStatus}
+			</if>
+			<if test="planBeginDate != null and planBeginDate != ''">
+				AND a.plan_begin_date = #{planBeginDate}
+			</if>
+			<if test="planEndDate != null and planEndDate != ''">
+				AND a.plan_end_date = #{planEndDate}
+			</if>
+			<if test="srcBillNo != null and srcBillNo != ''">
+				AND a.src_bill_no = #{srcBillNo}
+			</if>
+			<if test="deviceId != null and deviceId != ''">
+				AND a.device_id = #{deviceId}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="billNo != null and billNo != ''">
+				AND a.bill_no = #{billNo}
+			</if>
+			<if test="unfinished != null and unfinished != ''">
+				AND a.dispatch_status &lt; 98
+			</if>
+		</where>
+		 order by deviceId,update_time
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanDevice">
+		SELECT 
+			<include refid="mesPlanDeviceColumns"/>
+		FROM mes_plan_device a
+		<include refid="mesPlanDeviceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="dispatchStatus != null and dispatchStatus != ''">
+				AND a.dispatch_status = #{dispatchStatus}
+			</if>
+			<if test="planBeginDate != null and planBeginDate != ''">
+				AND a.plan_begin_date = #{planBeginDate}
+			</if>
+			<if test="planEndDate != null and planEndDate != ''">
+				AND a.plan_end_date = #{planEndDate}
+			</if>
+			<if test="srcBillNo != null and srcBillNo != ''">
+				AND a.src_bill_no = #{srcBillNo}
+			</if>
+			<if test="deviceId != null and deviceId != ''">
+				AND a.device_id = #{deviceId}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_device(
+			id,
+			dispatch_status,
+			plan_begin_date,
+			plan_end_date,
+			src_bill_no,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks,
+			del_flag,
+			device_require,
+			bill_no,
+			work_center_qty,
+			finish_qty,
+			device_id,
+			schedule_status,
+			erp_bill_no,
+			real_begin_date,
+			real_end_date,
+			is_chg_goods,
+			device_name
+		) VALUES (
+			#{id},
+			#{dispatchStatus},
+			#{planBeginDate},
+			#{planEndDate},
+			#{srcBillNo},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{remarks},
+			#{delFlag},
+			#{deviceRequire},
+			#{billNo},
+			#{workCenterQty},
+			#{finishQty},
+			#{deviceId},
+			#{scheduleStatus},
+			#{erpBillNo},
+			#{realBeginDate},
+			#{realEndDate},
+			#{isChgGoods},
+			#{deviceName}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_device SET 	
+			dispatch_status = #{dispatchStatus},
+			plan_begin_date = #{planBeginDate},
+			plan_end_date = #{planEndDate},
+			src_bill_no = #{srcBillNo},
+			update_user = #{currentUser},
+			update_time = now(),
+			remarks = #{remarks},
+			device_require = #{deviceRequire},
+			bill_no = #{billNo},
+			work_center_qty = #{workCenterQty},
+			finish_qty = #{finishQty},
+			device_id = #{deviceId},
+			schedule_status = #{scheduleStatus},
+			erp_bill_no = #{erpBillNo},
+			real_begin_date = #{realBeginDate},
+			real_end_date = #{realEndDate},
+			is_chg_goods = #{isChgGoods},
+			device_name = #{deviceName}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<update id="updateScheduleStatus">
+		UPDATE mes_plan_device SET 	
+			schedule_status = #{scheduleStatus},
+			<if test="realBeginDate != null">
+			real_begin_date = #{realBeginDate},
+			</if>
+			<if test="realEndDate != null">
+			real_end_date = #{realEndDate},
+			</if>
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE del_flag = #{DEL_FLAG_NORMAL}
+		and id = #{id}
+		and (schedule_status is null or schedule_status &lt; 98)
+	</update>
+	
+	
+	<update id="updateMaterialUseStatus">
+		UPDATE mes_plan_device SET 	
+			material_use_status = #{materialUseStatus},
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE del_flag = #{DEL_FLAG_NORMAL}
+		and id = #{id}
+	</update>
+	
+	
+	<update id="updateDispatchStatus">
+		UPDATE mes_plan_device SET 	
+			dispatch_status = #{dispatchStatus},
+			<if test="remarks != null and remarks !=''">
+			remarks = #{remarks},
+			</if>
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE del_flag = #{DEL_FLAG_NORMAL}
+		and id = #{id}
+		and (dispatch_status is null or dispatch_status &lt; 98)
+	</update>
+	
+	<update id="updateNoTechnic">
+		UPDATE mes_plan_device SET 	
+			no_technic = #{noTechnic},
+			update_user = #{currentUser},
+			update_time = now()
+		WHERE del_flag = #{DEL_FLAG_NORMAL}
+		and id = #{id}
+		and (dispatch_status is null or dispatch_status &lt; 98)
+	</update>
+	
+	<update id="delete">
+		UPDATE mes_plan_device SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		delete from mes_plan_device 
+		WHERE id = #{id}
+	</delete>
+	<select id="findByMap" resultType="MesPlanDevice">
+		SELECT 
+			<include refid="mesPlanDeviceColumns"/>
+		FROM  mes_plan_device a
+		<include refid="mesPlanDeviceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="dispatchStatus != null and dispatchStatus != ''">
+				AND a.dispatch_status = #{dispatchStatus}
+			</if>
+			<if test="planBeginDate != null and planBeginDate != ''">
+				AND a.plan_begin_date = #{planBeginDate}
+			</if>
+			<if test="planEndDate != null and planEndDate != ''">
+				AND a.plan_end_date = #{planEndDate}
+			</if>
+			<if test="srcBillNo != null and srcBillNo != ''">
+				AND a.src_bill_no = #{srcBillNo}
+			</if>
+			<if test="deviceId != null and deviceId != ''">
+				AND a.device_id = #{deviceId}
+			</if>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+		</where>
+		
+	</select>
+	
+	<select id="findSchedualDeviceList" resultType="MesPlanDevice">
+		SELECT 
+			<include refid="mesPlanDeviceColumns"/>
+		FROM mes_plan_device a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and a.schedule_status != '0'
+			and a.real_begin_date &lt;= #{scheduleDate,jdbcType=DATE}
+			and a.real_end_date &gt; DATE_ADD(#{scheduleDate,jdbcType=DATE}, INTERVAL -1 DAY)
+			<if test="scheduleStatus != null and scheduleStatus != ''">
+				AND a.schedule_status = #{scheduleStatus,jdbcType=DATE}
+			</if>
+			AND erp_bill_no  IN (SELECT erp_bill_no FROM mes_plan_month WHERE workshop_id = #{workshopId}) 
+			<if test="workcenterId != null and workcenterId != ''">
+			AND src_bill_no IN (SELECT bill_no FROM mes_plan_dispatch_det WHERE workcenter_id = #{workcenterId})
+			</if>
+			<if test="#{workshopId}.equals(#{WORKSHOP_ARRANGE})">
+				AND a.src_bill_no IN (SELECT bill_no FROM mes_plan_dispatch_det WHERE shift_id = #{shiftId} and shift_style= #{shiftStyle}
+				) 
+			</if>
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findUnschedualDeviceList" resultType="MesPlanDevice">
+		SELECT 
+			<include refid="mesPlanDeviceColumns"/>
+		FROM mes_plan_device a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND a.dispatch_status in ('10','20')
+			and (a.schedule_status is null or schedule_status = "0" )
+			AND a.erp_bill_no  IN (SELECT erp_bill_no FROM mes_plan_month WHERE workshop_id = #{workshopId} )
+			<if test="#{workshopId}.equals(#{WORKSHOP_ARRANGE})">
+				AND a.src_bill_no IN (SELECT bill_no FROM mes_plan_dispatch_det WHERE shift_id = #{shiftId} and shift_style= #{shiftStyle}
+				) 
+			</if>
+			<if test="workcenterId != null and workcenterId != ''">
+			AND a.src_bill_no IN (SELECT bill_no FROM mes_plan_dispatch_det WHERE workcenter_id = #{workcenterId})
+			</if>
+			<if test="unFinished != null and unFinished != ''">
+			AND a.plan_end_date &lt; #{scheduleDate}
+			</if>
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<update id="updateFinishQtyByBillNo">
+		UPDATE mes_plan_device SET 	
+			finish_qty = finish_qty+#{finishQty}
+		WHERE del_flag = #{DEL_FLAG_NORMAL}
+		and bill_no = #{billNo}
+		and (dispatch_status IS NULL or (dispatch_status != '98' and dispatch_status != '99' and dispatch_status != '100'))
+	</update>
+</mapper>

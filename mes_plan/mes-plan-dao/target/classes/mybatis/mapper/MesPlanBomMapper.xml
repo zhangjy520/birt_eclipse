@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmsmart.mes.plan.dao.MesPlanBomDao">
+    
+	<sql id="mesPlanBomColumns">
+		a.erp_bill_no AS "erpBillNo",
+		a.raw_goods_id AS "rawGoodsId",
+		a.raw_goods_name AS "rawGoodsName",
+		a.suplier_id AS "suplierId",
+		a.spec AS "spec",
+		a.unit_qty AS "unitQty",
+		a.order_qty AS "orderQty",
+		a.unit AS "unit",
+		a.unit_code as "unitCode",
+		a.id AS "id",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime",
+		a.update_user AS "updateUser",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks",
+		a.raw_goods_type AS "rawGoodsType",
+		a.batch_no as "batchNo",
+		a.batchProp1 as "batchProp1",
+		a.batchProp2 as "batchProp2"
+	</sql>
+	<sql id="mesPlanBomJoins">
+	</sql>
+    
+	
+	<select id="get" resultType="MesPlanBom">
+		SELECT 
+			<include refid="mesPlanBomColumns"/>
+		FROM mes_plan_bom a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MesPlanBom">
+		SELECT 
+			<include refid="mesPlanBomColumns"/>
+		FROM mes_plan_bom a
+		<where>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="rawGoodsId != null and rawGoodsId != ''">
+				AND a.raw_goods_id = #{rawGoodsId}
+			</if>
+		</where>
+			ORDER BY update_time
+	</select>
+	
+	<select id="findAllList" resultType="MesPlanBom">
+		SELECT 
+			<include refid="mesPlanBomColumns"/>
+		FROM mes_plan_bom a
+		<include refid="mesPlanBomJoins"/>
+		<where>
+			<if test="erpBillNo != null and erpBillNo != ''">
+				AND a.erp_bill_no = #{erpBillNo}
+			</if>
+			<if test="rawGoodsId != null and rawGoodsId != ''">
+				AND a.raw_goods_id = #{rawGoodsId}
+			</if>
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mes_plan_bom(
+			erp_bill_no,
+			raw_goods_id,
+			raw_goods_name,
+			suplier_id,
+			spec,
+			unit_qty,
+			order_qty,
+			unit,
+			id,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			remarks
+		) VALUES (
+			#{erpBillNo},
+			#{rawGoodsId},
+			#{rawGoodsName},
+			#{suplierId},
+			#{spec},
+			#{unitQty},
+			#{orderQty},
+			#{unit},
+			#{id},
+			#{currentUser},
+			#{createTime},
+			#{currentUser},
+			now(),
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mes_plan_bom SET 	
+			erp_bill_no = #{erpBillNo},
+			raw_goods_id = #{rawGoodsId},
+			raw_goods_name = #{rawGoodsName},
+			suplier_id = #{suplierId},
+			spec = #{spec},
+			unit_qty = #{unitQty},
+			order_qty = #{orderQty},
+			unit = #{unit},
+			update_user = #{currentUser},
+			update_time = now(),
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mes_plan_bom
+		WHERE id = #{id}
+	</update>
+	<update id="deleteById">
+		DELETE FROM mes_plan_bom
+		WHERE id = #{id}
+
+	</update>
+	<select id="findByMap" resultType="MesPlanBom">
+		SELECT 
+			<include refid="mesPlanBomColumns"/>
+		FROM  mes_plan_bom a
+		<include refid="mesPlanBomJoins"/>
+		<where>
+			
+		</where>
+		
+	</select>
+</mapper>
