@@ -3,6 +3,7 @@
 	<name>mesDemo-web</name>
 	<comment></comment>
 	<projects>
+		<project>mes-plan-common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

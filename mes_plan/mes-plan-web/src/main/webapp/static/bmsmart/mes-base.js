@@ -720,8 +720,7 @@ $(document).ready(function() {
 	
 	
 	
-	template.defaults.imports.getMdmName = function(valueIn,list) {
-		debugger
+	template.defaults.imports.getMdmName = function(valueIn,list) { 
 		var rtn;
 		$.each(list,function(n,loopValue) {   
 	            if (loopValue.code== valueIn)   {
@@ -858,8 +857,7 @@ function onClickPopup(isFirQry,pageNo,pageSize,lastPara,isOpened,colsList,method
  		param = lastPara;
  	}
  	Mes.loadJson2("/plan/dubbo/getQueryPage/"+pageNo+"/"+pageSize+"/index.do",param,"{}",		
- 		function(result){
- 			debugger
+ 		function(result){ 
  			result.data = JSON.parse(result.data);
  			result.data.qryParam = param;
  			//result.data.dropdownDatas =  dropdownDatas;

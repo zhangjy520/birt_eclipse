@@ -38,6 +38,7 @@ function customReady() {
     		function(result){
 	    		$.when(Mes.getJsonDeferred2("/plan/dubbo/getMdmList/index.do","mdmType=CUSTOM_INFO&codeList="+getCommaStr(result.data.list,"customerId"))
 	    		).done(function(data1){
+	    			debugger;
 	    			result.data.qryParam = param;
 	    			result.data.dropdownDatas =  dropdownDatas;
 	    			//result.data.goodsList = Mes.getJsonSync2("/plan/dubbo/getMdmList/index.do","mdmType=MATRIAL_INFO&codeList="+getCommaStr(result.data.list,"goodsId"));
