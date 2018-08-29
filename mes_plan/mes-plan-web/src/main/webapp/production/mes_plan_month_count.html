@@ -1,0 +1,431 @@
+
+<!--#include virtual="/mes-plan/include/header.html" -->
+<style type="text/css">
+* {
+	box-sizing: unset;
+}
+
+.form-group1 {
+	margin-bottom: 5px
+}
+
+table thead tr {
+	background: #f5f5f5;
+}
+
+#orderDetail {
+	text-algin: left;
+	padding: 15px;
+}
+
+.form-control {
+	padding: 0;
+}
+.fixed-table-body{
+	overflow-y: hidden !important;
+}
+</style>
+<link rel="stylesheet" type="text/css"
+	href="/mes-plan/static/mes-plan/css/plan.css" />
+<link rel="stylesheet" type="text/css"
+	href="/mes-plan/static/datapicker/datepicker3.css" />
+<link rel="stylesheet" type="text/css"
+	href="/mes-plan/static/bootstrap/css/bootstrapValidator.css">
+<div style="overflow: hidden;"
+	class=" main_content warpper animated fadeInRight">
+	<div class="container-fluid panel-custom panel panel-default">
+		<!-- 生产计划管理 -->
+		<div class="row">
+			<!-- 标题栏  -->
+			<div class="col-sm-12">
+				<h4 class="page-header">生产订单管理</h4>
+			</div>
+		</div>
+
+		<!-- 快捷查询条件 -->
+		<form id="from_condition" class="form-horizontal">
+			<table id="condition_tab" class='conditionTab'>
+				<tr>
+					<th>生产订单号</th>
+					<td><input name='erpBillNo' type="text" class="form-control" /></td>
+					<th>车间</th>
+					<td><select name="workshopId" class="form-control">
+							<option value=""></option>
+					</select></td>
+					<th>计划状态</th>
+					<td><select name='planStatus' class="form-control"><option
+								value=""></option></select></td>
+				</tr>
+				<tr>
+					<th>订单类型</th>
+					<td><select name="billType" class="form-control">
+							<option value=""></option>
+					</select></td>
+				</tr>
+			</table>
+
+			<div class='conditionBtn'>
+				<button class="btn btn-primary"
+					onclick="search(true,1,PAGESIZE);return false;">
+					<span class="glyphicon glyphicon-search"></span>查询
+				</button>
+				<button class="btn" type="reset">
+					<span class="glyphicon glyphicon-erase"></span>清空
+				</button>
+			</div>
+		</form>
+
+		<div class="panel-default  panelTop">
+			<div class="panel-heading" style="padding: 10px">
+				<strong>订单统计</strong>
+			</div>
+			<div style="min-height: 70px" id="orderDetail"></div>
+
+		</div>
+		<div class="panel-default  panelTop">
+			<div class="panel-heading" style="padding: 10px">
+				<strong>生产订单列表</strong>
+			</div>
+			</br>
+			<div style='margin-top: -24px'>
+				<table id="table"></table>
+			</div>
+
+		</div>
+	</div>
+</div>
+</body>
+
+<link rel="stylesheet" type="text/css"
+	href="/mes-plan/static/select2/select2.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/mes-plan/static/bootstrap-table/bootstrap-table.min.css">
+<script src="/mes-plan/static/jquery/jquery-1.11.1.js"></script>
+<script src="/mes-plan/static/bmsmart/mes-base.js"></script>
+<script src="/mes-plan/static/art-template/template-web.js"></script>
+<script src="/mes-plan/static/select2/select2.full.min.js"></script>
+<script src="/mes-plan/static/datapicker/bootstrap-datepicker.js"></script>
+<script
+	src="/mes-plan/static/datapicker/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="/mes-plan/static/bootstrap-table/bootstrap-table.min.js"></script>
+<script
+	src="/mes-plan/static/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+<script src="/mes-plan/static/editable/bootstrap-table-editable.min.js"></script>
+<script src="/mes-plan/static/percent/js/index.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/mes-plan/static/percent/css/style.css">
+
+<script type="text/javascript">
+	$(function() {
+		initQueryParam();
+		initDetail();
+		initTable();
+	})
+
+	function initQueryParam() {
+		var urlPara = "types=plan_order_type,plan_order_status";
+		$.when(
+				Mes.getJsonDeferred("/plan/common/getdicts/index.do", urlPara),
+				Mes.getJsonDeferred2("/plan/dubbo/getMdmListByParent/index.do",
+						"mdmType=ORG&parentCode=C00")).done(
+				function(data1, data2) {
+					dropdownDatas = data1;
+					dropdownDatas.workshop = data2;//changeCode2Name();
+					ddwAddOptionCodeName($("[name='workshopId']"),
+							dropdownDatas.workshop);
+					ddwAddOption($("[name='planStatus']"),
+							dropdownDatas.plan_order_status);
+					ddwAddOption($("[name='billType']"),
+							dropdownDatas.plan_order_type);
+
+				});
+	}
+	function initDetail() {
+		$
+				.ajax({
+					type : "get",
+					url : "/mes-plan/plan/mesPlanMonth/getMesPlanMonthDetail/index.do",
+					success : function(json) {
+						var bill_type = json.data.bill_type;
+						var plan_status = json.data.plan_status;
+						var html = '<span style="font-size:20px;">成品订单 <span id="okOrder" style="color:red">'
+								+ json.data.contract_id.length
+								+ '</span> 单（其中，';
+
+						for (var i = 0; i < bill_type.length; i++) {
+							for ( var key in bill_type[i]) {
+								html += key
+										+ '  '
+										+ bill_type[i][key]
+										+ '  单 <span style="color:red"> | </span>';
+							}
+						}
+						html += '）</span><br><br><span style="padding-left:15px">';
+
+						for (var i = 0; i < plan_status.length; i++) {
+							for ( var key in plan_status[i]) {
+								html += key
+										+ '  '
+										+ plan_status[i][key]
+										+ '  单 <span style="color:red"> | </span> ';
+							}
+						}
+						html += '</span>';
+
+						$("#orderDetail").html(html);
+					},
+					error : function(data) {
+						$("#detail").html(JSON.stringify(json));
+					}
+				})
+	}
+
+	var bootstrapTable;
+	function initTable() {
+		bootstrapTable = $('#table')
+				.bootstrapTable(
+						{
+							url : '/mes-plan/plan/mesPlanMonth/queryMesPlanMonthListByCrities/index.do', //请求后台的URL（*）
+							method : 'post', //请求方式（*）
+							contentType : "application/x-www-form-urlencoded",
+							striped : false, //是否显示行间隔色
+							cache : false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+							pagination : true, //是否显示分页（*）
+							sortable : false, //是否启用排序
+							sortOrder : "asc", //排序方式
+							queryParams : function(params) {
+								var temp = {
+									limit : params.limit, //页面大小
+									offset : params.offset, //页码 
+								};
+								return temp;
+							},//传递参数（*）
+							sidePagination : "server", //分页方式：client客户端分页，server服务端分页（*）
+							pageNumber : 1, //初始化加载第一页，默认第一页
+							pageSize : 10, //每页的记录行数（*）
+							pageList : [ 10, 25, 50, 100, 'All' ], //可供选择的每页的行数（*）
+							search : false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大 
+							showColumns : false, //是否显示所有的列
+							showRefresh : false, //是否显示刷新按钮
+							showFooter : false,
+							clickToSelect : false, //是否启用点击选中行
+							//height: 500,      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+							uniqueId : "id", //每一行的唯一标识，一般为主键列
+							showToggle : false, //是否显示详细视图和列表视图的切换按钮
+							cardView : false, //是否显示详细视图
+							detailView : false, //是否显示父子表
+							responseHandler : function(res) {
+								if (res.total > 0) {
+									return {
+										"rows" : res.rows,
+										"total" : res.total
+									}
+								} else {
+									return {
+										"rows" : [],
+										"total" : 0
+									}
+								}
+							},
+							onLoadSuccess : function(data) {
+								var data = $('#table').bootstrapTable(
+										'getData', true);
+								//合并单元格
+								mergeCells(data, "contractId", 1, $('#table'));
+
+								percentInit();
+							},
+							columns : [
+									{
+										title : '成品订单号',
+										field : 'contractId',
+										align : 'center',
+										valign : 'middle'
+									},
+									{
+										title : '生产订单号',
+										field : 'erpBillNo',
+										align : 'center',
+										valign : 'middle'
+									},
+									{
+										title : '半成品/成品名称',
+										field : 'goodsName',
+										align : 'center',
+										valign : 'middle',
+										formatter : function(value, row, index) {
+											var goodsName = (row.goodsName == null ? ""
+													: row.goodsName);
+											return '产品编号:' + row.goodsId
+													+ '<br>产品名称:' + goodsName;
+										}
+									},
+									{
+										title : '车间',
+										field : 'workshopId',
+										align : 'center',
+										valign : 'middle'
+									},
+									{
+										title : '订单类型',
+										field : 'billType',
+										align : 'center',
+										valign : 'middle'
+									},
+									{
+										title : '数量',
+										field : 'qty',
+										align : 'center',
+										valign : 'middle',
+										formatter : function(value, row, index) {
+											var qty = (row.qty == null ? "0"
+													: row.qty);
+											var dispatchQty = (row.dispatchQty == null ? "0"
+													: row.dispatchQty);
+											var finishQty = (row.finishQty == null ? "0"
+													: row.finishQty);
+											return '总量:' + qty + '米<br>调度:'
+													+ dispatchQty + '米<br>完工:'
+													+ finishQty + '米';
+										}
+									},
+									{
+										title : '计划日期',
+										field : 'planBeginDate',
+										align : 'center',
+										valign : 'middle',
+										formatter : function(value, row, index) {
+
+											var planBeginDate = (row.planBeginDate == null ? "0"
+													: row.planBeginDate);
+											var planEndDate = (row.planEndDate == null ? "0"
+													: row.planEndDate);
+											return '开始日期 :' + planBeginDate
+													+ '<br>结束日期:' + planEndDate;
+										}
+									},
+									{
+										title : '计划状态',
+										field : 'planStatus',
+										align : 'center',
+										valign : 'middle',
+										formatter : function(value, row, index) {
+											var color, percent;
+
+											if (value == "未开始") {
+												percent = 10;
+												color = "";
+											} else if (value == "下达") {
+												percent = 20;
+												color = "color2";
+											} else if (value == "开始") {
+												percent = 30;
+												color = "color4";
+											} else if (value == "异常完工") {
+												percent = 98;
+												color = "color3";
+											} else if (value == "完工") {
+												percent = 100;
+												color = "";
+											} else {
+												percent = 0;
+												color = "color3";
+											}
+											var html = '<div class="progressbar" title = "'+value+'" data-perc="'+percent+'"><div class="bar '+color+'"><span></span></div><div class="label"><span></span></div></div>'
+											return html;
+										}
+									} ]
+						});
+
+	}
+
+	function percentInit() {
+		$('.progressbar')
+				.each(
+						function() {
+							var t = $(this);
+							var dataperc = t.attr('data-perc'), barperc = Math
+									.round(dataperc * 2), dataTitle = t
+									.attr('title');
+							t.find('.bar').animate({
+								width : barperc
+							}, dataperc * 25);
+							t.find('.label').append('<div class="perc"></div>');
+
+							function perc() {
+								var length = t.find('.bar').css('width'), perc = Math
+										.round(parseInt(length) / 2), labelpos = (parseInt(length) - 2);
+								t.find('.label').css('left', labelpos);
+								t.find('.perc').text(
+										dataTitle + ': ' + perc + '%');
+							}
+							perc();
+							setInterval(perc, 0);
+						});
+	}
+
+	/**
+	 * 合并单元格
+	 * @param data  原始数据（在服务端完成排序）
+	 * @param fieldName 合并属性名称
+	 * @param colspan   合并列
+	 * @param target    目标表格对象
+	 */
+	function mergeCells(data, fieldName, colspan, target) {
+		//声明一个map计算相同属性值在data对象出现的次数和
+		var sortMap = {};
+		for (var i = 0; i < data.length; i++) {
+			for ( var prop in data[i]) {
+				if (prop == fieldName) {
+					var key = data[i][prop]
+					if (sortMap.hasOwnProperty(key)) {
+						sortMap[key] = sortMap[key] * 1 + 1;
+					} else {
+						sortMap[key] = 1;
+					}
+					break;
+				}
+			}
+		}
+		for ( var prop in sortMap) {
+			//console.log(prop, sortMap[prop])
+		}
+		var index = 0;
+		for ( var prop in sortMap) {
+			var count = sortMap[prop] * 1;
+			$(target).bootstrapTable('mergeCells', {
+				index : index,
+				field : fieldName,
+				colspan : colspan,
+				rowspan : count
+			});
+			index += count;
+		}
+	}
+
+	function search() {
+		$('#table')
+				.bootstrapTable(
+						'refresh',
+						{
+							url : '/mes-plan/plan/mesPlanMonth/queryMesPlanMonthListByCrities/index.do',
+							query : {
+								erpBillNo : $("input[name='erpBillNo']").val(),
+								workshopId : $(
+										'select[name="workshopId"] option:selected')
+										.val(),
+								planStatus : $(
+										'select[name="planStatus"] option:selected')
+										.val(),
+								billType : $(
+										'select[name="billType"] option:selected')
+										.val()
+							}
+						});
+	}
+
+	function customReady() {
+
+	}
+</script>
+</html>
