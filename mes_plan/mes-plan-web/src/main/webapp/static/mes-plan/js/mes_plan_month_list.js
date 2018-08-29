@@ -3,7 +3,7 @@ function customReady() {
 		var urlPara = "types=plan_order_type,plan_order_status";
 		$.when(Mes.getJsonDeferred("/plan/common/getdicts/index.do",urlPara),
 				Mes.getJsonDeferred2("/plan/dubbo/getMdmListByParent/index.do","mdmType=ORG&parentCode=C00") 
-		).done(function(data1,data2){
+		).done(function(data1,data2){ 
 			dropdownDatas = data1 ;
 			dropdownDatas.workshop = data2;//changeCode2Name();
 			ddwAddOptionCodeName($("[name='workshopId']"),dropdownDatas.workshop);

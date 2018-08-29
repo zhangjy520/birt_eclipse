@@ -4,14 +4,16 @@
 	<sql id="mesPlanMonthColumns">
 		a.id AS "id",
 		a.erp_bill_no AS "erpBillNo",
-		a.plan_status AS "planStatus",
+		a.plan_status AS
+		"planStatus",
 		a.goods_id AS "goodsId",
 		a.goods_cat AS "goodsCat",
 		a.customer_id AS "customerId",
 		a.plan_begin_date AS "planBeginDate",
 		a.plan_end_date AS "planEndDate",
 		a.bill_type AS "billType",
-		a.qty AS "qty",
+		a.qty AS
+		"qty",
 		a.dispatch_qty as "dispatchQty",
 		a.finish_Qty AS "finishQty",
 		a.workshop_id AS "workshopId",
@@ -22,60 +24,71 @@
 		a.update_User AS "updateUser",
 		a.update_time AS "updateTime",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag",
+		a.del_flag AS
+		"delFlag",
 		a.qty_unit AS "qtyUnit",
 		a.qty_unit_code as "qtyUnitCode",
 		a.goods_name as "goodsName",
 		a.goods_erp_bill_no as "goodsErpBillNo"
 	</sql>
 	<sql id="mesPlanMonthJoins">
-		LEFT JOIN mes_plan_assignment b ON a.erp_bill_no = b.erp_bill_no
+		LEFT JOIN mes_plan_assignment b ON a.erp_bill_no =
+		b.erp_bill_no
 	</sql>
-    
-	
+
+
 	<select id="get" resultType="com.bmsmart.mes.plan.domain.po.MesPlanMonth">
-		SELECT 
-			<include refid="mesPlanMonthColumns"/>
-			,b.task_bill_no as "erpProductTaskNo"
-			,b.package_terms AS "packageRequire"
-			,b.quality_require AS "qualityRequire"
-			,b.mark as "mark"
-			,b.deliver_terms as "deliverTerms"
-			,b.task_bill_no as "taskBillNo"
-	
-		FROM mes_plan_month a 
-			<include refid="mesPlanMonthJoins"/>
+		SELECT
+		<include refid="mesPlanMonthColumns" />
+		,b.task_bill_no as "erpProductTaskNo"
+		,b.package_terms AS
+		"packageRequire"
+		,b.quality_require AS "qualityRequire"
+		,b.mark as
+		"mark"
+		,b.deliver_terms as "deliverTerms"
+		,b.task_bill_no as
+		"taskBillNo"
+
+		FROM mes_plan_month a
+		<include refid="mesPlanMonthJoins" />
 		WHERE a.id = #{id}
 	</select>
-	
-	
+
+
 	<select id="getByUk" resultType="com.bmsmart.mes.plan.domain.po.MesPlanMonth">
-		SELECT 
-			<include refid="mesPlanMonthColumns"/>
-			,b.task_bill_no as "erpProductTaskNo"
-			,b.package_terms AS "packageRequire"
-			,b.quality_require AS "qualityRequire"
-			,b.mark as "mark"
-			,b.deliver_terms as "deliverTerms"
-			,b.task_bill_no as "taskBillNo"
-	
-		FROM mes_plan_month a 
-			<include refid="mesPlanMonthJoins"/>
+		SELECT
+		<include refid="mesPlanMonthColumns" />
+		,b.task_bill_no as "erpProductTaskNo"
+		,b.package_terms AS
+		"packageRequire"
+		,b.quality_require AS "qualityRequire"
+		,b.mark as
+		"mark"
+		,b.deliver_terms as "deliverTerms"
+		,b.task_bill_no as
+		"taskBillNo"
+
+		FROM mes_plan_month a
+		<include refid="mesPlanMonthJoins" />
 		WHERE a.erp_bill_no = #{erpBillNo}
 	</select>
-	
-	
+
+
 	<select id="findList" resultType="com.bmsmart.mes.plan.domain.po.MesPlanMonth">
-		SELECT 
-			<include refid="mesPlanMonthColumns"/>
-			,b.task_bill_no  as "erpProductTaskNo"
-			,b.package_terms AS "packageRequire"
-			,b.quality_require AS "qualityRequire"
-			,b.mark as "mark"
-			,b.deliver_terms as "deliverTerms"
-			,b.task_bill_no as "taskBillNo"
+		SELECT
+		<include refid="mesPlanMonthColumns" />
+		,b.task_bill_no as "erpProductTaskNo"
+		,b.package_terms AS
+		"packageRequire"
+		,b.quality_require AS "qualityRequire"
+		,b.mark as
+		"mark"
+		,b.deliver_terms as "deliverTerms"
+		,b.task_bill_no as
+		"taskBillNo"
 		FROM mes_plan_month a
-			<include refid="mesPlanMonthJoins"/>
+		<include refid="mesPlanMonthJoins" />
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 			<if test="erpBillNo != null and erpBillNo != ''">
@@ -96,27 +109,29 @@
 			<if test="contractId != null and contractId != ''">
 				AND a.contract_id = #{contractId}
 			</if>
-			
+
 			<if test="billType != null and billType != ''">
 				AND a.bill_Type = #{billType}
 			</if>
-			
+
 			<if test="planEndDate1 != null">
 				AND a.plan_end_date &gt;= #{planEndDate1}
 			</if>
-			
+
 			<if test="planEndDate2 != null">
-				AND a.plan_end_date &lt; date_add(#{planEndDate2}, interval 1 day)
+				AND a.plan_end_date &lt; date_add(#{planEndDate2},
+				interval 1 day)
 			</if>
-			
+
 			<if test="planBeginDate1 != null">
 				AND a.plan_begin_date &gt;= #{planBeginDate1}
 			</if>
-			
+
 			<if test="planBeginDate2 != null">
-				AND a.plan_begin_date &lt; date_add(#{planBeginDate2}, interval 1 day)
+				AND a.plan_begin_date &lt; date_add(#{planBeginDate2},
+				interval 1 day)
 			</if>
-			
+
 			<if test="erpProductTaskNo != null and erpProductTaskNo != ''">
 				AND b.task_bill_no = #{erpProductTaskNo}
 			</if>
@@ -124,28 +139,33 @@
 				AND a.goods_erp_bill_no = #{goodsErpBillNo}
 			</if>
 			<if test="bomGoodsId != null and bomGoodsId != ''">
-				AND a.erp_bill_no IN (SELECT erp_bill_no FROM mes_plan_bom WHERE raw_goods_id = #{bomGoodsId})
+				AND a.erp_bill_no IN (SELECT erp_bill_no FROM
+				mes_plan_bom WHERE raw_goods_id = #{bomGoodsId})
 			</if>
-			
+
 			<if test="planStatusList != null ">
-				and a.plan_status in 
-				<foreach collection="planStatusList" index="index" item="item" open="(" separator="," close=")">
-                #{item}       
-        		</foreach>  
-			</if> 
+				and a.plan_status in
+				<foreach collection="planStatusList" index="index" item="item"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
 		</where>
-				ORDER BY a.plan_end_date desc,a.update_time DESC
+		ORDER BY a.plan_end_date desc,a.update_time DESC
 	</select>
-	
-	
-	
+
+
+
 	<select id="getErpProductTaskList" resultType="com.bmsmart.mes.plan.domain.po.MesPlanMonth">
-		SELECT 
-			distinct 
-				b.task_bill_no  as "erpProductTaskNo",
-				a.goods_id as "goodsId",
-				a.goods_name as "goodsName"
-		FROM mes_plan_month a LEFT JOIN mes_plan_assignment b ON a.erp_bill_no = b.erp_bill_no
+		SELECT
+		distinct
+		b.task_bill_no as "erpProductTaskNo",
+		a.goods_id as
+		"goodsId",
+		a.goods_name as "goodsName"
+		FROM mes_plan_month a LEFT JOIN
+		mes_plan_assignment b
+		ON a.erp_bill_no = b.erp_bill_no
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 			and b.task_bill_no is not null
@@ -164,56 +184,62 @@
 			<if test="customerId != null and customerId != ''">
 				AND a.customer_Id = #{customerId}
 			</if>
-			
+
 			<if test="billType != null and billType != ''">
 				AND a.bill_Type = #{billType}
 			</if>
-			
+
 			<if test="planEndDate1 != null">
 				AND a.plan_end_date &gt;= #{planEndDate1}
 			</if>
-			
+
 			<if test="planEndDate2 != null">
-				AND a.plan_end_date &lt; date_add(#{planEndDate2}, interval 1 day)
+				AND a.plan_end_date &lt; date_add(#{planEndDate2},
+				interval 1 day)
 			</if>
-			
+
 			<if test="planBeginDate1 != null">
 				AND a.plan_begin_date &gt;= #{planBeginDate1}
 			</if>
-			
+
 			<if test="planBeginDate2 != null">
-				AND a.plan_begin_date &lt; date_add(#{planBeginDate2}, interval 1 day)
+				AND a.plan_begin_date &lt; date_add(#{planBeginDate2},
+				interval 1 day)
 			</if>
-			
+
 			<if test="erpProductTaskNo != null and erpProductTaskNo != ''">
 				AND b.task_bill_no = #{erpProductTaskNo}
 			</if>
-			
+
 			<if test="billTypeList != null ">
-				and a.bill_type in 
-				<foreach collection="billTypeList" index="index" item="item" open="(" separator="," close=")">
-                #{item}       
-        		</foreach>  
-			</if>         
+				and a.bill_type in
+				<foreach collection="billTypeList" index="index" item="item"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
 		</where>
-				ORDER BY a.update_time DESC
+		ORDER BY a.update_time DESC
 	</select>
-	
-	
+
+
 	<select id="findAllList" resultType="com.bmsmart.mes.plan.domain.po.MesPlanMonth">
-		SELECT 
-			<include refid="mesPlanMonthColumns"/>
-			,b.task_bill_no  as "erpProductTaskNo"
-			,b.package_terms AS "packageRequire"
-			,b.quality_require AS "qualityRequire"
-			,b.mark as "mark"
-			,b.deliver_terms as "deliverTerms"
-			,b.task_bill_no as "taskBillNo"
+		SELECT
+		<include refid="mesPlanMonthColumns" />
+		,b.task_bill_no as "erpProductTaskNo"
+		,b.package_terms AS
+		"packageRequire"
+		,b.quality_require AS "qualityRequire"
+		,b.mark as
+		"mark"
+		,b.deliver_terms as "deliverTerms"
+		,b.task_bill_no as
+		"taskBillNo"
 		FROM mes_plan_month a
-		<include refid="mesPlanMonthJoins"/>
+		<include refid="mesPlanMonthJoins" />
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-		</where>		
+		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
 				ORDER BY ${page.orderBy}
@@ -223,132 +249,232 @@
 			</otherwise>
 		</choose>
 	</select>
-	
+
 	<insert id="insert">
 		INSERT INTO mes_plan_month(
-			id,
-			erp_bill_no,
-			plan_status,
-			goods_id,
-			goods_cat,
-			customer_id,
-			plan_begin_date,
-			plan_end_date,
-			bill_type,
-			qty,
-			workshop_id,
-			contract_id,
-			src_erp_bill_no,
-			create_User,
-			create_time,
-			update_User,
-			update_time,
-			remarks,
-			del_flag
-		) VALUES (
-			#{id},
-			#{erpBillNo},
-			#{planStatus},
-			#{goodsId},
-			#{goodsCat},
-			#{customerId},
-			#{planBeginDate},
-			#{planEndDate},
-			#{billType},
-			#{qty},
-			#{workshopId},
-			#{contractId},
-			#{srcErpBillNo},
-			#{currentUser},
-			now(),
-			#{currentUser},
-			now(),
-			#{remarks},
-			#{delFlag}
+		id,
+		erp_bill_no,
+		plan_status,
+		goods_id,
+		goods_cat,
+		customer_id,
+		plan_begin_date,
+		plan_end_date,
+		bill_type,
+		qty,
+		workshop_id,
+		contract_id,
+		src_erp_bill_no,
+		create_User,
+		create_time,
+		update_User,
+		update_time,
+		remarks,
+		del_flag
+		)
+		VALUES (
+		#{id},
+		#{erpBillNo},
+		#{planStatus},
+		#{goodsId},
+		#{goodsCat},
+		#{customerId},
+		#{planBeginDate},
+		#{planEndDate},
+		#{billType},
+		#{qty},
+		#{workshopId},
+		#{contractId},
+		#{srcErpBillNo},
+		#{currentUser},
+		now(),
+		#{currentUser},
+		now(),
+		#{remarks},
+		#{delFlag}
 		)
 	</insert>
-	
+
 	<update id="update">
-		UPDATE mes_plan_month SET 	
-			erp_bill_no = #{erpBillNo},
-			plan_status = #{planStatus},
-			goods_id = #{goodsId},
-			goods_cat = #{goodsCat},
-			customer_id = #{customerId},
-			plan_begin_date = #{planBeginDate},
-			plan_end_date = #{planEndDate},
-			bill_type = #{billType},
-			qty = #{qty},
-			workshop_id = #{workshopId},
-			contract_id = #{contractId},
-			src_erp_bill_no = #{srcErpBillNo},
-			update_User = #{currentUser},
-			update_time = now(),
-			remarks = #{remarks}
-		WHERE id = #{id}
+		UPDATE mes_plan_month SET
+		erp_bill_no = #{erpBillNo},
+		plan_status = #{planStatus},
+		goods_id = #{goodsId},
+		goods_cat =
+		#{goodsCat},
+		customer_id = #{customerId},
+		plan_begin_date =
+		#{planBeginDate},
+		plan_end_date = #{planEndDate},
+		bill_type =
+		#{billType},
+		qty = #{qty},
+		workshop_id = #{workshopId},
+		contract_id =
+		#{contractId},
+		src_erp_bill_no = #{srcErpBillNo},
+		update_User =
+		#{currentUser},
+		update_time = now(),
+		remarks = #{remarks}
+		WHERE id =
+		#{id}
 	</update>
-	
-	
+
+
 	<update id="updateSheetStatusById">
-		UPDATE mes_plan_month SET 	
-			plan_status = #{planStatus},
-			remarks= #{remarks},
-			update_User = #{currentUser},
-			update_time = now()
+		UPDATE mes_plan_month SET
+		plan_status = #{planStatus},
+		remarks= #{remarks},
+		update_User = #{currentUser},
+		update_time = now()
 		WHERE id = #{id}
 		and plan_status &lt;&gt; "98"
-		and plan_status &lt;&gt; "99"
+		and plan_status
+		&lt;&gt;
+		"99"
 		and plan_status &lt;&gt; "100"
 	</update>
-	
+
 	<update id="updateSheetStatusByErpBillNo">
-		UPDATE mes_plan_month SET 	
-			plan_status = #{planStatus},
-			update_User = #{currentUser},
-			update_time = now()
-		WHERE erp_bill_no = #{erpBillNo}
+		UPDATE mes_plan_month SET
+		plan_status = #{planStatus},
+		update_User = #{currentUser},
+		update_time = now()
+		WHERE erp_bill_no =
+		#{erpBillNo}
 		and plan_status &lt;&gt; "98"
 		and plan_status &lt;&gt; "99"
 		and plan_status &lt;&gt; "100"
 	</update>
-	
-	
-	
+
+
+
 	<update id="delete">
-		UPDATE mes_plan_month SET 
-			del_flag = #{DEL_FLAG_DELETE}
+		UPDATE mes_plan_month SET
+		del_flag =
+		#{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
 	<update id="deleteById">
-		delete from  mes_plan_month  
+		delete from mes_plan_month
 		WHERE id = #{id}
 
 	</update>
 	<select id="findByMap" resultType="com.bmsmart.mes.plan.domain.po.MesPlanMonth">
-		SELECT 
-			<include refid="mesPlanMonthColumns"/>
-		FROM  mes_plan_month a
-		<include refid="mesPlanMonthJoins"/>
+		SELECT
+		<include refid="mesPlanMonthColumns" />
+		FROM mes_plan_month a
+		<include refid="mesPlanMonthJoins" />
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 		</where>
-		
+
 	</select>
-	
+
 	<update id="updateDispatchQty">
-		UPDATE mes_plan_month SET 
-			dispatch_qty = #{dispatchQty}
+		UPDATE mes_plan_month SET
+		dispatch_qty =
+		#{dispatchQty}
 		WHERE erp_Bill_No = #{erpBillNo}
-		and del_flag = #{DEL_FLAG_NORMAL}
+		and del_flag =
+		#{DEL_FLAG_NORMAL}
 	</update>
-	
-	
+
+
 	<update id="updateFinishQtyByBillNo">
-		UPDATE mes_plan_month SET 
-			finish_qty = IFNULL(finish_qty,0) + #{finishQty}
+		UPDATE mes_plan_month SET
+		finish_qty =
+		IFNULL(finish_qty,0) + #{finishQty}
 		WHERE erp_Bill_No = #{erpBillNo}
 		and del_flag = #{DEL_FLAG_NORMAL}
-		and (plan_status is null or (plan_status != '98' and plan_status != '99' and plan_status != '100' ))
+		and (plan_status is null or
+		(plan_status != '98' and plan_status != '99' and plan_status != '100'
+		))
 	</update>
-	
+
+
+	<select id="getMesPlanMonthListByCrities" resultType="com.bmsmart.mes.plan.domain.po.MesPlanMonth">
+		SELECT
+		<include refid="mesPlanMonthColumns" />
+		from mes_plan_month a
+		where a.del_flag = 0
+		<if test="erpBillNo != null and erpBillNo != ''">
+			AND a.erp_bill_no like concat('%','#{erpBillNo}','%')
+		</if>
+		<if test="planStatus != null and planStatus != ''">
+			AND a.plan_status = #{planStatus}
+		</if>
+		<if test="goodsId != null and goodsId != ''">
+			AND a.goods_Id = #{goodsId}
+		</if>
+		<if test="workshopId != null and workshopId != ''">
+			AND a.workshop_id = #{workshopId}
+		</if>
+		<if test="customerId != null and customerId != ''">
+			AND a.customer_Id = #{customerId}
+		</if>
+
+		<if test="billType != null and billType != ''">
+			AND a.bill_Type = #{billType}
+		</if>
+
+		<if test="planEndDate1 != null">
+			AND a.plan_end_date &gt;= #{planEndDate1}
+		</if>
+
+		<if test="planEndDate2 != null">
+			AND a.plan_end_date &lt; date_add(#{planEndDate2},
+			interval 1 day)
+		</if>
+
+		<if test="planBeginDate1 != null">
+			AND a.plan_begin_date &gt;= #{planBeginDate1}
+		</if>
+
+		<if test="planBeginDate2 != null">
+			AND a.plan_begin_date &lt; date_add(#{planBeginDate2},
+			interval 1 day)
+		</if>
+
+		<if test="erpProductTaskNo != null and erpProductTaskNo != ''">
+			AND b.task_bill_no = #{erpProductTaskNo}
+		</if>
+		<if test="billTypeList != null ">
+			and a.bill_type in
+			<foreach collection="billTypeList" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		ORDER BY a.contract_id DESC
+	</select>
+
+	<select id="getMesPlanMonthDetail" resultType="java.util.Map">
+		SELECT
+		<if test="type == 'plan_status'">
+			plan_status,
+		</if>
+		<if test="type == 'bill_type'">
+			bill_type,
+		</if>
+		<if test="type == 'contract_id'">
+			contract_id,
+		</if>
+		COUNT(*) num
+		FROM
+		mes_plan_month
+		where del_flag = 0
+		GROUP BY
+		<if test="type == 'plan_status'">
+			plan_status
+		</if>
+		<if test="type == 'bill_type'">
+			bill_type
+		</if>
+		<if test="type == 'contract_id'">
+			contract_id
+		</if>
+	</select>
+
 </mapper>

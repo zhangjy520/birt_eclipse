@@ -1,3 +1,6 @@
 report/.svn/*
 mes_plan/.svn/*
 ~*
+*.class
+*.impl
+*.settin*
